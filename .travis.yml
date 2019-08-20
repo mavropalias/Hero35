@@ -3,7 +3,7 @@ node_js:
   - "10.0"
 install:
   - npm i -g npm
-  - npm i -g firebase-tools tslint
+  - npm i -g firebase-tools tslint typescript
   - cd functions
   - npm ci
   - cd ..
