@@ -3,9 +3,8 @@ node_js:
   - "10.0"
 install:
   - npm i -g npm
-  - npm i -g firebase-tools tslint typescript
-  - cd functions
-  - npm ci
+  - npm i -g firebase-tools
+  - cd functions && npm ci
 script:
   - firebase deploy --only hosting,functions --token "$FIREBASE_TOKEN"
 branches:
