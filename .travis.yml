@@ -2,9 +2,10 @@ language: node_js
 node_js:
   - "10.0"
 install:
-  - npm install -g firebase-tools
+  - npm i -g npm
+  - npm i -g firebase-tools tslint
   - cd functions
-  - npm install
+  - npm ci
   - cd ..
 script:
   -
@@ -12,3 +13,7 @@ deploy:
   provider: firebase
   token:
     secure: "FFnQA0y+JD0m4zkVk9YxElOqrCLPWWfUnfCZf1otvQI8ol+2mU6YoNh6TJ1lPwh60HfhSTQtTaRZAt6Odqx08ilageQVL6oAfuz5z5EpEsZBTWr3XJuCALpFKkk3xTh6JmWqfxbyD2FNokEcXStAWJRSSLjH0XbcmJQ2NK209/GIs2t7sB9Dgn3xA7+qtiXQA4eiOnedArnnQkQoqgoSLNnr9cICD3X9tAl+86g3Jn82I2emPl1RwjTUT22a8t+QXHaGRR6Oqs+kW5P/6uoeD2SAmAPOXPnbH8HAQIMszWOd1r4Y2AlO9BF3d2lyTNP4XCTznx5dPn9GmTRoOyQvN4lK+lxWia3M+QWFNJbgzRekH3iuXo/TU2IyxLeKA0HZ3jBQ5KbZF3td/71EdiXGFMZxjTkxozmphVjXGAjfvDyHDTkFUrjIVluWAFg91pfUj8Eda8N9ZCtrphu5Z5mzuy0tn+yUdzPnXc0piYmxzhgZltJsYzNujriq8v5UxZmdzQnqNUXckISC45lCadqpvVsFtGnMQCn1Sa2cA7nWZ9XoTtu7k501KrJhLOzIoa5DJbItRnJZKGpOyoCc/+yoStoeo42FM+USVOVlDtN87m2MqXbuCxafLjcVp0kuZtZIZWGhlq9PdwY5ql6H+ThQw+on0dyt+//fgY4vB7owWdE="
+# keep the npm cache around to speed up installs
+cache:
+  directories:
+    - "$HOME/.npm"
