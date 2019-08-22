@@ -6,11 +6,11 @@
     "install": "npm run build-all",
     "next": "npm run build-firebase && cd \"app\" && npm install",
     "preserve": "npm run build-all",
-    "serve": "firebase serve",
+    "serve": "NODE_ENV=production firebase serve",
     "predeploy": "npm run build-all",
     "deploy": "firebase deploy",
     "build-all": "npm run build-next && npm run build-firebase",
-    "build-next": "cd \"app\" && npm install && npm build",
+    "build-next": "cd \"app\" && npm install && npm run build",
     "build-firebase": "cd \"functions\" && npm install"
   }
 }

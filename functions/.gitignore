@@ -1,8 +1,2 @@
-## Compiled JavaScript files
-**/*.js
-**/*.js.map
-
-## Other
-typings/
 node_modules/
 next
