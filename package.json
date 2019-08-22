@@ -4,13 +4,13 @@
   "repository": "https://github.com/mavropalias/heroes.git",
   "scripts": {
     "install": "npm run build-all",
-    "next": "npm run build-firebase && cd \"app\" && npm install",
+    "next": "npm run build-firebase && cd \"app\" && npm ci",
     "preserve": "npm run build-all",
     "serve": "NODE_ENV=production firebase serve",
     "predeploy": "npm run build-all",
     "deploy": "firebase deploy",
-    "build-all": "npm run build-next && npm run build-firebase",
-    "build-next": "cd \"app\" && npm install && npm run build",
-    "build-firebase": "cd \"functions\" && npm install"
+    "build-all": "npm run build-firebase && npm run build-next",
+    "build-next": "cd \"app\" && npm ci && npm run build",
+    "build-firebase": "cd \"functions\" && npm ci"
   }
 }
