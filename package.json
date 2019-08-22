@@ -1,0 +1,16 @@
+{
+  "name": "heroes",
+  "description": "Official repo of https://hero35.com",
+  "repository": "https://github.com/mavropalias/heroes.git",
+  "scripts": {
+    "install": "npm run build-all",
+    "next": "npm run build-firebase && cd \"app\" && npm install",
+    "preserve": "npm run build-all",
+    "serve": "firebase serve",
+    "predeploy": "npm run build-all",
+    "deploy": "firebase deploy",
+    "build-all": "npm run build-next && npm run build-firebase",
+    "build-next": "cd \"app\" && npm install && npm build",
+    "build-firebase": "cd \"functions\" && npm install"
+  }
+}

@@ -2,7 +2,7 @@
 **/*.js
 **/*.js.map
 
-# Typescript v1 declaration files
+## Other
 typings/
-
 node_modules/
+next
