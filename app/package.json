@@ -1,0 +1,18 @@
+{
+  "name": "heroes-app",
+  "version": "1.0.0",
+  "dependencies": {
+    "next": "^9.0.4",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^12.7.2",
+    "@types/react": "^16.9.2",
+    "typescript": "^3.5.3"
+  },
+  "scripts": {
+    "dev": "next",
+    "build": "next build"
+  }
+}
