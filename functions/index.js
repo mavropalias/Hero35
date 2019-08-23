@@ -10,5 +10,6 @@ const handle = app.getRequestHandler();
 
 exports.next = functions.https.onRequest(async (req, res) => {
   await app.prepare();
+  res.setHeader("Cache-control", "public, max-age=300, s-maxage=600");
   handle(req, res);
 });
