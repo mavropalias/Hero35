@@ -4,7 +4,6 @@ node_js:
 install:
   - npm i -g npm
   - npm i -g firebase-tools
-  - npm run build-all
 script:
   - firebase deploy -m "$TRAVIS_COMMIT" --only hosting,functions --token "$FIREBASE_TOKEN"
 branches:

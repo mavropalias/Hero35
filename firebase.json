@@ -1,15 +1,16 @@
 {
   "functions": {
-    "source": "functions"
+    "source": "dist/functions",
+    "predeploy": "npm run build-funcs && npm run build-app && npm run copy-deps"
   },
   "hosting": {
-    "public": "public",
+    "public": "dist/public",
     "rewrites": [
       {
         "source": "**/**",
         "function": "next"
       }
     ],
-    "ignore": ["firebase.json", "**/node_modules/**"]
+    "predeploy": "npm run build-public"
   }
 }

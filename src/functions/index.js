@@ -1,7 +1,5 @@
-"use strict";
-
-const functions = require("firebase-functions");
-const next = require("next");
+import * as functions from "firebase-functions";
+import next from "next";
 
 const dev = process.env.NODE_ENV !== "production";
 // @ts-ignore
