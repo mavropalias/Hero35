@@ -7,11 +7,12 @@ import { EventEdition, Talk } from "../schema";
 
 dotenv.config();
 const config = {
-  apiKey: process.env.API_KEY,
-  authDomain: process.env.AUTH_DOMAIN,
-  databaseURL: process.env.DATABASE_URL,
-  projectId: process.env.PROJECT_ID,
-  storageBucket: process.env.STORAGE_BUCKET
+  apiKey: process.env.API_KEY || "AIzaSyCDkhN8TpWw5-5Ukn4cfPXI8ufjAxelcDA",
+  authDomain: process.env.AUTH_DOMAIN || "heroes-9c313.firebaseapp.com",
+  databaseURL:
+    process.env.DATABASE_URL || "https://heroes-9c313.firebaseio.com",
+  projectId: process.env.PROJECT_ID || "heroes-9c313",
+  storageBucket: process.env.STORAGE_BUCKET || "heroes-9c313.appspot.com"
 };
 
 class Database {
