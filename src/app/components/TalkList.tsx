@@ -24,6 +24,9 @@ import { Talk } from "../schema";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    list: {
+      width: "100%"
+    },
     chip: {
       margin: theme.spacing(0.3, 0, 0.3, 1)
     },
@@ -58,8 +61,10 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const TalkList = ({ talks }: { talks: Talk[] }) => {
+  const classes = useStyles({});
+
   return (
-    <List>
+    <List className={classes.list}>
       {talks.map(talk => (
         <TalkListItem key={talk.id} talk={talk} />
       ))}
@@ -95,27 +100,29 @@ const TalkListItem = ({ talk }: { talk: Talk }) => {
   };
 
   return (
-    <ListItem key={talk.id} button>
-      <ListItemIcon>{talkTypeIcon(talk.type)}</ListItemIcon>
-      <ListItemText
-        primary={talk.title}
-        secondary={
-          <>
-            {`${talk.times.totalMins} mins - ${talk.speaker}`}
-            {talk.tags.map(tag => (
-              <Chip
-                color="default"
-                variant="outlined"
-                size="small"
-                key={tag}
-                label={`#${tag}`}
-                className={classes.chip}
-              ></Chip>
-            ))}
-          </>
-        }
-      />
-    </ListItem>
+    <NextLink href={`/event/${talk.eventId}/${talk.editionId}/${talk.id}`}>
+      <ListItem button>
+        <ListItemIcon>{talkTypeIcon(talk.type)}</ListItemIcon>
+        <ListItemText
+          primary={talk.title}
+          secondary={
+            <>
+              {`${talk.times.totalMins} mins - ${talk.speaker}`}
+              {talk.tags.map(tag => (
+                <Chip
+                  color="default"
+                  variant="outlined"
+                  size="small"
+                  key={tag}
+                  label={`#${tag}`}
+                  className={classes.chip}
+                ></Chip>
+              ))}
+            </>
+          }
+        />
+      </ListItem>
+    </NextLink>
   );
 };
 

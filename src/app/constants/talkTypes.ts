@@ -3,39 +3,48 @@ import { TalkType } from "../schema";
 const TALK_TYPES: TalkType[] = [
   {
     id: "1",
-    title: "Keynote"
+    title: "Keynote",
+    titlePlural: "Keynotes"
   },
   {
     id: "2",
-    title: "Talk"
+    title: "Talk",
+    titlePlural: "Talks"
   },
   {
     id: "3",
-    title: "Lightning talk"
+    title: "Lightning talk",
+    titlePlural: "Lightning talks"
   },
   {
     id: "4",
-    title: "Panel"
+    title: "Panel discussion",
+    titlePlural: "Panel discussions"
   },
   {
     id: "5",
-    title: "Q&A"
+    title: "Q&A session",
+    titlePlural: "Q&A sessions"
   },
   {
     id: "6",
-    title: "Sponsor"
+    title: "Sponsor talk",
+    titlePlural: "Sponsor talks"
   },
   {
     id: "7",
-    title: "Workshop"
+    title: "Workshop",
+    titlePlural: "Workshops"
   },
   {
     id: "8",
-    title: "Interview"
+    title: "Interview",
+    titlePlural: "Interviews"
   },
   {
     id: "9",
-    title: "Highlights"
+    title: "Highlights",
+    titlePlural: "Highlights"
   }
 ];
 

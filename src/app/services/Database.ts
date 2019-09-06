@@ -70,6 +70,22 @@ class Database {
   //   return editions;
   // };
 
+  getTalk = async (
+    eventId: string,
+    editionId: string,
+    talkId: string
+  ): Promise<Talk> => {
+    const docRef = await this.db
+      .collection("events")
+      .doc(eventId)
+      .collection("editions")
+      .doc(editionId)
+      .collection("talks")
+      .doc(talkId);
+    const docSnap = await docRef.get();
+    return (docSnap.data() as unknown) as Talk;
+  };
+
   getEdition = async (
     eventId: string,
     editionId: string

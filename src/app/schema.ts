@@ -48,6 +48,7 @@ export type Talk = {
 export type TalkType = {
   id: string;
   title: string;
+  titlePlural: string;
 };
 
 export type Category = {

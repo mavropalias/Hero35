@@ -2,12 +2,20 @@ import { useState, useEffect } from "react";
 import { createStyles, makeStyles, Theme, Tabs, Tab } from "@material-ui/core";
 import { EventEdition, Talk } from "../schema";
 import TalkList from "./TalkList";
+import TalkAccordion from "./TalkAccordion";
 
-const useStyles = makeStyles((theme: Theme) => createStyles({}));
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    talkAccordion: {
+      marginTop: theme.spacing(2)
+    }
+  })
+);
 
 const EditionTalks = ({ edition }: { edition?: EventEdition }) => {
   const [selectedDay, setSelectedDay] = useState(edition.startDate);
   const [moreContent, setMoreContent] = useState(false);
+  const classes = useStyles({});
 
   useEffect(() => {
     edition.talks.forEach(talk => {
@@ -33,6 +41,14 @@ const EditionTalks = ({ edition }: { edition?: EventEdition }) => {
     return dates;
   };
 
+  const filteredTalks = () => {
+    return edition.talks.filter(talk => {
+      if (selectedDay !== "99")
+        return talk.date == selectedDay && ["1", "2"].includes(talk.type);
+      else return !["1", "2"].includes(talk.type);
+    });
+  };
+
   const handleChange = (_: React.ChangeEvent<{}>, newValue: string) => {
     setSelectedDay(newValue);
   };
@@ -52,13 +68,14 @@ const EditionTalks = ({ edition }: { edition?: EventEdition }) => {
         ))}
         {moreContent && <Tab label="More content" value="99" />}
       </Tabs>
-      <TalkList
-        talks={edition.talks.filter(talk => {
-          if (selectedDay !== "99")
-            return talk.date == selectedDay && ["1", "2"].includes(talk.type);
-          else return !["1", "2"].includes(talk.type);
-        })}
-      />
+      {selectedDay !== "99" ? (
+        <TalkList talks={filteredTalks()} />
+      ) : (
+        <TalkAccordion
+          className={classes.talkAccordion}
+          talks={filteredTalks()}
+        />
+      )}
     </>
   );
 };

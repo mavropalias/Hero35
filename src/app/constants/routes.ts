@@ -6,6 +6,7 @@ const ACCOUNT = `/account/`;
 const EDIT_EVENT = `/edit-event/`;
 const PASSWORD_FORGET = `/pw-forget/`;
 const EDITION = `/event/:eventid/:editionid`;
+const TALK = `/event/:eventid/:editionid/:talk`;
 const EVENT = `/event/:id`;
 const EVENTS = `/events/:sort?`;
 const EVENTS_HOME = `/events/new`;
@@ -19,6 +20,7 @@ export default {
   EDIT_EVENT,
   PASSWORD_FORGET,
   EDITION,
+  TALK,
   EVENT,
   EVENTS_HOME,
   EVENTS

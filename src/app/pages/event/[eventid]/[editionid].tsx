@@ -40,11 +40,8 @@ interface Props {
   edition: EventEdition;
 }
 
-const EditionDetails: NextPage<Props, Props> = ({ edition }) => {
+const EditionDetails: NextPage<Props> = ({ edition }) => {
   const classes = useStyles({});
-  const router = useRouter();
-  const { eventid, editionid } = router.query;
-
   const shortDate = (date: string) => {
     const startDate = new Date(date);
     var options = {
@@ -132,8 +129,8 @@ const EditionHighlights = ({ edition }: { edition: EventEdition }) => {
 };
 
 interface QueryProps {
-  eventid?: string;
-  editionid?: string;
+  eventid: string;
+  editionid: string;
 }
 EditionDetails.getInitialProps = async (ctx: NextPageContext) => {
   const { eventid, editionid } = (ctx.query as unknown) as QueryProps;
