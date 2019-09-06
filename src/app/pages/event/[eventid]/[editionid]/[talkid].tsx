@@ -69,7 +69,7 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
         <Typography variant="subtitle2" color="textSecondary" paragraph>
           {shortDate(talk.date)}
         </Typography>
-        <Box marginBottom>
+        <Box>
           {talk.tags.map(tag => (
             <Chip
               color="default"
@@ -80,7 +80,9 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
             />
           ))}
         </Box>
-        <Typography variant="body1">{talk.description}</Typography>
+        <Typography variant="body1" paragraph>
+          {talk.description}
+        </Typography>
       </Container>
     </Layout>
   );
