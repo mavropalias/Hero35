@@ -17,6 +17,11 @@ const theme = createMuiTheme({
       style: {
         textAlign: "left"
       }
+    },
+    MuiTab: {
+      style: {
+        minWidth: "135px"
+      }
     }
   }
 });
