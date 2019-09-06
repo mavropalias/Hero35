@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme: Theme) =>
     chip: {
       marginRight: theme.spacing(1),
       marginBottom: theme.spacing(1)
+    },
+    externalLinkIcon: {
+      fontSize: theme.typography.fontSize
     }
   })
 );
@@ -58,7 +61,7 @@ const EditionDetails: NextPage<Props, Props> = ({ edition }) => {
         <Grid container spacing={4}>
           <Grid item xs={12} md={6}>
             <Grid container spacing={4}>
-              <Grid item>
+              <Grid item xs={12}>
                 <img
                   className={classes.logo}
                   src={`${process.env.STORAGE_PATH}${encodeURIComponent(
@@ -69,21 +72,22 @@ const EditionDetails: NextPage<Props, Props> = ({ edition }) => {
                 <Typography variant="h1">
                   {edition.eventTitle} {edition.title}
                 </Typography>
+                <Link
+                  href={`/event/${edition.eventId}`}
+                  target="_blank"
+                  variant="subtitle1"
+                >
+                  View all {edition.eventTitle} events
+                </Link>
                 <Typography variant="subtitle1">
                   {edition.state || edition.city}, {edition.country}
                 </Typography>
-                <Typography variant="subtitle2">
+                <Typography variant="subtitle2" color="textSecondary">
                   {shortDate(edition.startDate)}&ndash;
                   {shortDate(edition.endDate)}
                 </Typography>
-                <Link href={edition.website} target="_blank" variant="button">
-                  Official website <LinkIcon />
-                </Link>
-              </Grid>
-              <Grid item>
                 <Typography variant="subtitle2" gutterBottom>
                   {(edition.durationMinutes / 60).toFixed(0)} hours of content
-                  in:
                 </Typography>
                 {edition.categories.map(cat => (
                   <Chip
@@ -95,8 +99,14 @@ const EditionDetails: NextPage<Props, Props> = ({ edition }) => {
                   />
                 ))}
               </Grid>
-              <Grid item>
+              <Grid item xs={12}>
                 <Typography variant="body1">{edition.description}</Typography>
+                <p>
+                  <Link href={edition.website} target="_blank" variant="body2">
+                    Official website{" "}
+                    <LinkIcon className={classes.externalLinkIcon} />
+                  </Link>
+                </p>
               </Grid>
             </Grid>
           </Grid>
