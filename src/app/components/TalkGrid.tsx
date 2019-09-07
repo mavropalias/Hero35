@@ -65,30 +65,34 @@ const Talks: NextPage<Props> = ({ talks }) => {
                   />
                 }
               />
-              <CardActionArea className={classes.cardActionArea}>
-                <CardMedia
-                  className={classes.media}
-                  image={`https://i.ytimg.com/vi/${talk.id}/sddefault.jpg`}
-                />
-                <CardContent>
-                  <Typography variant="h6" component="h2">
-                    {talk.title}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >
-                    {talk.speaker},{" "}
-                    {talk.times && (
-                      <>
-                        {talk.times.h > 0 && <>{talk.times.h}h </>}
-                        {talk.times.m} minutes
-                      </>
-                    )}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
+              <NextLink
+                href={`/event/${talk.eventId}/${talk.editionId}/${talk.id}`}
+              >
+                <CardActionArea className={classes.cardActionArea}>
+                  <CardMedia
+                    className={classes.media}
+                    image={`https://i.ytimg.com/vi/${talk.id}/sddefault.jpg`}
+                  />
+                  <CardContent>
+                    <Typography variant="h6" component="h2">
+                      {talk.title}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      component="p"
+                    >
+                      {talk.speaker},{" "}
+                      {talk.times && (
+                        <>
+                          {talk.times.h > 0 && <>{talk.times.h}h </>}
+                          {talk.times.m} minutes
+                        </>
+                      )}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </NextLink>
             </Card>
           </Grid>
         ))}
