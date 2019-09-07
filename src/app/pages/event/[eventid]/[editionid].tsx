@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { default as NextLink } from "next/link";
 import Layout from "../../../components/Layout";
 import EditionTalks from "../../../components/EditionTalks";
 import {
@@ -69,13 +70,11 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
                 <Typography variant="h1">
                   {edition.eventTitle} {edition.title}
                 </Typography>
-                <Link
-                  href={`/event/${edition.eventId}`}
-                  target="_blank"
-                  variant="subtitle1"
-                >
-                  View all {edition.eventTitle} events
-                </Link>
+                <NextLink passHref href={`/event/${edition.eventId}`}>
+                  <Link variant="subtitle1">
+                    View all {edition.eventTitle} events
+                  </Link>
+                </NextLink>
                 <Typography variant="subtitle1">
                   {edition.state || edition.city}, {edition.country}
                 </Typography>
