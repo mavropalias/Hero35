@@ -1,6 +1,6 @@
 import Layout from "../components/Layout";
 import TalkGrid from "../components/TalkGrid";
-import Editions from "../components/Editions";
+import EditionGrid from "../components/EditionGrid";
 import { makeStyles, createStyles, Theme, Box } from "@material-ui/core";
 import { Talk, EventEdition } from "../schema";
 import Database from "../services/Database";
@@ -28,7 +28,7 @@ const Home: NextPage<Props> = ({ talks, editions }) => {
   return (
     <Layout>
       <Box className={classes.feedContainer}>
-        <Editions editions={editions} className={classes.feedItem} />
+        <EditionGrid editions={editions} className={classes.feedItem} />
         <TalkGrid talks={talks} />
       </Box>
     </Layout>

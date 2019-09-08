@@ -3,7 +3,7 @@ import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
 import dotenv from "dotenv";
-import { EventEdition, Talk } from "../schema";
+import { Event, EventEdition, Talk } from "../schema";
 
 dotenv.config();
 const config = {
@@ -49,26 +49,26 @@ class Database {
 
   // Content API ---------------------------------------------------------------
 
-  // getEvent = async (eventId: string): Promise<Event> => {
-  //   const docRef = await this.db.collection("events").doc(eventId);
-  //   const docSnap = await docRef.get();
-  //   let event: Event = (docSnap.data() as unknown) as Event;
-  //   if (event) {
-  //     event.editions = await this.getEventEditions(docRef);
-  //   }
-  //   return event;
-  // };
+  getEvent = async (eventId: string): Promise<Event> => {
+    const docRef = await this.db.collection("events").doc(eventId);
+    const docSnap = await docRef.get();
+    let event: Event = (docSnap.data() as unknown) as Event;
+    if (event) {
+      event.editions = await this.getEventEditions(docRef);
+    }
+    return event;
+  };
 
-  // getEventEditions = async (
-  //   eventReference: firebase.firestore.DocumentReference
-  // ): Promise<EventEdition[]> => {
-  //   const querySnapshot = await eventReference.collection("editions").get();
-  //   let editions: EventEdition[] = [];
-  //   querySnapshot.forEach(doc => {
-  //     editions.push((doc.data() as unknown) as EventEdition);
-  //   });
-  //   return editions;
-  // };
+  getEventEditions = async (
+    eventReference: firebase.firestore.DocumentReference
+  ): Promise<EventEdition[]> => {
+    const querySnapshot = await eventReference.collection("editions").get();
+    let editions: EventEdition[] = [];
+    querySnapshot.forEach(doc => {
+      editions.push((doc.data() as unknown) as EventEdition);
+    });
+    return editions;
+  };
 
   getTalk = async (
     eventId: string,

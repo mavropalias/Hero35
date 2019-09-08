@@ -30,7 +30,7 @@ interface Props {
   className?: string;
 }
 
-const Editions: NextPage<Props> = ({ editions, className }) => {
+const EditionGrid: NextPage<Props> = ({ editions, className }) => {
   const classes = useStyles({});
 
   const editionDateStart = (edition: EventEdition) => {
@@ -98,4 +98,4 @@ const Editions: NextPage<Props> = ({ editions, className }) => {
   );
 };
 
-export default Editions;
+export default EditionGrid;
