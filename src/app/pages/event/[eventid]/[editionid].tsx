@@ -107,7 +107,13 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
             </Grid>
           </Grid>
           <Grid item xs={12} md={6}>
-            <EditionTalks edition={edition} />
+            {edition.talks.length > 0 ? (
+              <EditionTalks edition={edition} />
+            ) : (
+              <Typography variant="caption" color="textSecondary">
+                No talks have been added to this event, yet.
+              </Typography>
+            )}
           </Grid>
         </Grid>
       </Container>
