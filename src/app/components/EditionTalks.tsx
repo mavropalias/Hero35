@@ -23,7 +23,6 @@ const EditionTalks = ({ edition }: { edition?: EventEdition }) => {
         setMoreContent(true);
         return;
       }
-      setMoreContent(false);
     });
   });
 
