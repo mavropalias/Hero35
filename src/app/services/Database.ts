@@ -97,24 +97,7 @@ class Database {
       .doc(editionId);
     const docSnap = await docRef.get();
     let edition: EventEdition = (docSnap.data() as unknown) as EventEdition;
-    if (edition) {
-      edition.talks = await this.getEditionTalks(docRef);
-    }
     return edition;
-  };
-
-  getEditionTalks = async (
-    eventReference: firebase.firestore.DocumentReference
-  ): Promise<Talk[]> => {
-    const querySnapshot = await eventReference
-      .collection("talks")
-      .orderBy("order", "asc")
-      .get();
-    let talks: Talk[] = [];
-    querySnapshot.forEach(doc => {
-      talks.push((doc.data() as unknown) as Talk);
-    });
-    return talks;
   };
 
   getRecentEditions = async (): Promise<EventEdition[]> => {
