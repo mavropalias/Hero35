@@ -82,9 +82,11 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
                   {shortDate(edition.startDate)}&ndash;
                   {shortDate(edition.endDate)}
                 </Typography>
-                <Typography variant="subtitle2" gutterBottom>
-                  {(edition.durationMinutes / 60).toFixed(0)} hours of content
-                </Typography>
+                {edition.durationMinutes > 0 && (
+                  <Typography variant="subtitle2" gutterBottom>
+                    {(edition.durationMinutes / 60).toFixed(0)} hours of content
+                  </Typography>
+                )}
                 {edition.categories.map(cat => (
                   <Chip
                     color="default"
@@ -107,7 +109,7 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
             </Grid>
           </Grid>
           <Grid item xs={12} md={6}>
-            {edition.talks.length > 0 ? (
+            {edition.talks && edition.talks.length > 0 ? (
               <EditionTalks edition={edition} />
             ) : (
               <Typography variant="caption" color="textSecondary">
