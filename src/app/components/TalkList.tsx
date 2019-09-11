@@ -6,7 +6,9 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListItemIcon
+  ListItemIcon,
+  Typography,
+  Box
 } from "@material-ui/core";
 import {
   Highlight as HighlightsIcon,
@@ -63,6 +65,24 @@ const useStyles = makeStyles((theme: Theme) =>
 const TalkList = ({ talks }: { talks: Talk[] }) => {
   const classes = useStyles({});
 
+  if (talks.length === 0) {
+    return (
+      <Box m={3}>
+        <Typography variant="body1" color="textSecondary" paragraph>
+          No talks are available for this day.
+        </Typography>
+        <Typography variant="body1" color="textSecondary" paragraph>
+          This probably means that there were only workshops and other types of
+          events this day.
+        </Typography>
+        <Typography variant="body1" color="textSecondary" paragraph>
+          All non-talk content is available in the{" "}
+          <strong>'more content'</strong> tab.
+        </Typography>
+      </Box>
+    );
+  }
+
   return (
     <List className={classes.list}>
       {talks.map(talk => (
@@ -107,7 +127,7 @@ const TalkListItem = ({ talk }: { talk: Talk }) => {
           primary={talk.title}
           secondary={
             <>
-              {`${talk.times.totalMins} mins - ${talk.speaker}`}
+              {`${talk.times && talk.times.totalMins} mins - ${talk.speaker}`}
               {talk.tags.map(tag => (
                 <Chip
                   color="default"
