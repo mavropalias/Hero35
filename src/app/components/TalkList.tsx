@@ -120,8 +120,11 @@ const TalkListItem = ({ talk }: { talk: TalkPreview }) => {
   };
 
   return (
-    <NextLink href={`/event/${talk.eventId}/${talk.editionId}/${talk.id}`}>
-      <ListItem button>
+    <NextLink
+      href={`/event/${talk.eventId}/${talk.editionId}/${talk.id}`}
+      passHref
+    >
+      <ListItem button component="a">
         <ListItemIcon>{talkTypeIcon(talk.type)}</ListItemIcon>
         <ListItemText
           primary={talk.title}
