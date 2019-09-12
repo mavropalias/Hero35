@@ -54,7 +54,7 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
   return (
     <Layout>
       <Container className={classes.container}>
-        <TalkVideo videoid={talk.id} />
+        {/* <TalkVideo videoid={talk.id} /> */}
         <Typography variant="h5" component="h1">
           {talk.title}
         </Typography>
