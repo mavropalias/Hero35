@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     list: {
       width: "100%"
+    },
+    chip: {
+      margin: theme.spacing(0.3, 0, 0.3, 1)
     }
   })
 );
@@ -72,7 +75,11 @@ const EditionList = ({
       component="nav"
     >
       {editions.map(edition => (
-        <NextLink href={`/event/${edition.eventId}/${edition.id}`} passHref>
+        <NextLink
+          href={`/event/${edition.eventId}/${edition.id}`}
+          passHref
+          key={edition.id}
+        >
           <ListItem button component="a" key={edition.id}>
             <ListItemAvatar>
               <Avatar
@@ -85,16 +92,40 @@ const EditionList = ({
             <ListItemText
               primary={`${edition.eventTitle} ${edition.title}`}
               secondary={
-                edition.durationMinutes ? (
-                  <>
-                    {(edition.durationMinutes / 60).toFixed(1)} hours of content
-                  </>
-                ) : (
-                  <>
-                    {editionDateStart(edition)} at {edition.city},{" "}
-                    {edition.country}
-                  </>
-                )
+                <>
+                  {edition.durationMinutes ? (
+                    <>
+                      {(edition.durationMinutes / 60).toFixed(1)} hours of
+                      content
+                    </>
+                  ) : (
+                    <>
+                      {editionDateStart(edition)} at {edition.city},{" "}
+                      {edition.country}
+                    </>
+                  )}
+                  {edition.topTags && (
+                    <>
+                      {edition.topTags.map((tag, index) => (
+                        <Chip
+                          color="default"
+                          variant="outlined"
+                          size="small"
+                          key={index}
+                          label={`#${tag}`}
+                          className={classes.chip}
+                        ></Chip>
+                      ))}
+                      <Chip
+                        color="default"
+                        variant="outlined"
+                        size="small"
+                        label="…"
+                        className={classes.chip}
+                      ></Chip>
+                    </>
+                  )}
+                </>
               }
             />
           </ListItem>

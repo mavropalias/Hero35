@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     externalLinkIcon: {
       fontSize: theme.typography.fontSize
+    },
+    description: {
+      whiteSpace: "pre-line"
     }
   })
 );
@@ -93,9 +96,23 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
                     className={classes.chip}
                   />
                 ))}
+                {edition.tags &&
+                  edition.tags.map((tag, index) => (
+                    <Chip
+                      color="default"
+                      variant="outlined"
+                      key={index}
+                      label={`#${tag.label} ${
+                        tag.count > 1 ? "(" + tag.count + ")" : ""
+                      }`}
+                      className={classes.chip}
+                    />
+                  ))}
               </Grid>
               <Grid item xs={12}>
-                <Typography variant="body1">{edition.description}</Typography>
+                <Typography variant="body1" className={classes.description}>
+                  {edition.description}
+                </Typography>
                 <p>
                   <Link href={edition.website} target="_blank" variant="body2">
                     Official website{" "}
