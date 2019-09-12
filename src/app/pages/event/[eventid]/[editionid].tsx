@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { default as NextLink } from "next/link";
 import Layout from "../../../components/Layout";
 import EditionTalks from "../../../components/EditionTalks";
@@ -6,7 +5,6 @@ import {
   makeStyles,
   createStyles,
   Theme,
-  Box,
   Typography,
   Link,
   Chip,
@@ -14,10 +12,9 @@ import {
   Grid
 } from "@material-ui/core";
 import { OpenInNew as LinkIcon } from "@material-ui/icons";
-import { Talk, EventEdition } from "../../../schema";
+import { EventEdition } from "../../../schema";
 import Database from "../../../services/Database";
 import { NextPage, NextPageContext } from "next";
-import TalkList from "../../../components/TalkList";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,13 +40,13 @@ interface Props {
 
 const EditionDetails: NextPage<Props> = ({ edition }) => {
   const classes = useStyles({});
+
   const shortDate = (date: string) => {
     const startDate = new Date(date);
     var options = {
       month: "short",
       day: "numeric"
     };
-
     return startDate.toLocaleDateString(undefined, options);
   };
 

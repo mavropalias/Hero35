@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { createStyles, makeStyles, Theme, Tabs, Tab } from "@material-ui/core";
-import { EventEdition, Talk } from "../schema";
+import { EventEdition } from "../schema";
 import TalkList from "./TalkList";
 import TalkAccordion from "./TalkAccordion";
 

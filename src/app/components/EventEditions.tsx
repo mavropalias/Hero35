@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
-import { createStyles, makeStyles, Theme, Tabs, Tab } from "@material-ui/core";
-import { Event, EventEdition, Talk } from "../schema";
+import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import { Event } from "../schema";
 import EditionList from "./EditionList";
 
 const useStyles = makeStyles((theme: Theme) =>

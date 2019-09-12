@@ -1,12 +1,9 @@
-import { useRouter } from "next/router";
-import { default as NextLink } from "next/link";
 import Layout from "../../components/Layout";
 import EventEditions from "../../components/EventEditions";
 import {
   makeStyles,
   createStyles,
   Theme,
-  Box,
   Typography,
   Link,
   Chip,
@@ -14,7 +11,7 @@ import {
   Grid
 } from "@material-ui/core";
 import { OpenInNew as LinkIcon } from "@material-ui/icons";
-import { Event, Talk, EventEdition } from "../../schema";
+import { Event } from "../../schema";
 import Database from "../../services/Database";
 import { NextPage, NextPageContext } from "next";
 
