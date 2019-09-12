@@ -73,12 +73,7 @@ const EditionList = ({
     >
       {editions.map(edition => (
         <NextLink href={`/event/${edition.eventId}/${edition.id}`} passHref>
-          <ListItem
-            button
-            component="a"
-            key={edition.id}
-            alignItems="flex-start"
-          >
+          <ListItem button component="a" key={edition.id}>
             <ListItemAvatar>
               <Avatar
                 alt={`${edition.eventTitle} ${edition.title} logo`}
