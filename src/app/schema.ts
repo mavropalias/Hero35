@@ -21,9 +21,26 @@ export type EventEdition = {
   id?: string;
   startDate: string;
   state?: string;
-  talks?: Talk[];
+  talks?: TalkPreview[];
   title: string;
   website?: string;
+};
+
+export type TalkPreview = {
+  categories: Category[];
+  date: string;
+  description?: string;
+  editionId?: string;
+  eventId?: string;
+  id: string;
+  logo?: string;
+  order?: number;
+  slug?: string;
+  speaker: string;
+  tags?: string[];
+  times?: Times;
+  title: string;
+  type: string;
 };
 
 export type Talk = {
