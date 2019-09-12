@@ -4,6 +4,8 @@ export type Event = {
   editions?: EventEdition[];
   id?: string;
   logo?: string;
+  tags?: Tag[];
+  topTags?: string[];
   title: string;
   website: string;
 };
@@ -21,9 +23,16 @@ export type EventEdition = {
   id?: string;
   startDate: string;
   state?: string;
+  tags?: Tag[];
+  topTags?: string[];
   talks?: TalkPreview[];
   title: string;
   website?: string;
+};
+
+export type Tag = {
+  label: string;
+  count: number;
 };
 
 export type TalkPreview = {
