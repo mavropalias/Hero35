@@ -9,7 +9,7 @@ import {
   ExpansionPanelDetails
 } from "@material-ui/core";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
-import { Talk } from "../schema";
+import { TalkPreview } from "../schema";
 import TALK_TYPES from "../constants/talkTypes";
 import TalkList from "./TalkList";
 
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-  talks: Talk[];
+  talks: TalkPreview[];
   className?: string;
 }
 

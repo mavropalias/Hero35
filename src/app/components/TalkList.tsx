@@ -22,7 +22,7 @@ import {
   School as WorkshopIcon
 } from "@material-ui/icons";
 import { default as NextLink } from "next/link";
-import { Talk } from "../schema";
+import { TalkPreview } from "../schema";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const TalkList = ({ talks }: { talks: Talk[] }) => {
+const TalkList = ({ talks }: { talks: TalkPreview[] }) => {
   const classes = useStyles({});
 
   if (talks.length === 0) {
@@ -92,7 +92,7 @@ const TalkList = ({ talks }: { talks: Talk[] }) => {
   );
 };
 
-const TalkListItem = ({ talk }: { talk: Talk }) => {
+const TalkListItem = ({ talk }: { talk: TalkPreview }) => {
   const classes = useStyles({});
 
   const talkTypeIcon = (type: string) => {
