@@ -8,6 +8,7 @@ const handle = app.getRequestHandler();
 
 exports.next = functions.https.onRequest(async (req, res) => {
   await app.prepare();
-  res.setHeader("Cache-control", "public, max-age=3600, s-maxage=3600");
+  // Cache for 12 hours
+  res.setHeader("Cache-control", "public, max-age=43200, s-maxage=43200");
   handle(req, res);
 });
