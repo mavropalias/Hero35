@@ -13,6 +13,13 @@ module.exports = {
       };
     }
 
+    // Fixes npm packages that depend on `grpc` module
+    if (process.env.NODE_ENV !== "development") {
+      config.externals = {
+        grpc: "grpc"
+      };
+    }
+
     return config;
   }
 };
