@@ -1,7 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
-import "firebase/storage";
 import dotenv from "dotenv";
 import { Event, EventEdition, Talk } from "../schema";
 
