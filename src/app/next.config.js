@@ -1,5 +1,4 @@
 module.exports = {
-  target: "serverless",
   poweredByHeader: false,
   distDir: "../../dist/functions/next",
   env: {
