@@ -32,7 +32,7 @@
   },
   "scripts": {
     "dev": "npm run clean && next \"src/app\"",
-    "preserve": "npm run build-public && npm run build-funcs && npm run build-app && npm run copy-deps && npm run install-deps",
+    "preserve": "npm run clean && npm run build-public  && npm run build-app && npm run copy-deps && npm run install-deps && npm run build-funcs",
     "serve": "NODE_ENV=production node_modules/.bin/firebase serve --only functions,hosting",
     "deploy": "node_modules/.bin/firebase deploy",
     "clean": "rimraf \"dist/functions\" && rimraf \"dist/public\"",
