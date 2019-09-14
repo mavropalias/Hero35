@@ -123,6 +123,7 @@ const TalkListItem = ({ talk }: { talk: TalkPreview }) => {
     <NextLink
       href={`/event/${talk.eventId}/${talk.editionId}/${talk.id}`}
       passHref
+      prefetch={false}
     >
       <ListItem button component="a">
         <ListItemIcon>{talkTypeIcon(talk.type)}</ListItemIcon>

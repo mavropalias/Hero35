@@ -78,6 +78,7 @@ const EditionList = ({
         <NextLink
           href={`/event/${edition.eventId}/${edition.id}`}
           passHref
+          prefetch={false}
           key={edition.id}
         >
           <ListItem button component="a" key={edition.id}>
