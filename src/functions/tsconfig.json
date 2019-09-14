@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "lib": ["es2017"],
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "outDir": "../../dist/functions",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": false,
+    "target": "es2017"
+  },
+  "exclude": ["node_modules"],
+  "include": ["index.ts"],
+  "compileOnSave": true
+}
