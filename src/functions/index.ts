@@ -2,13 +2,22 @@ import * as functions from "firebase-functions";
 import next from "next";
 
 const dev = process.env.NODE_ENV !== "production";
-// @ts-ignore
 const app = next({ dev, conf: { distDir: "next" } });
 const handle = app.getRequestHandler();
 
-exports.next = functions.https.onRequest(async (req, res) => {
+const ssr = functions.https.onRequest(async (req, res) => {
+  console.log("SERVING_URL: " + req.url);
+  // Cache for 12 hours on the client and 3 days on the server
+  res.setHeader(
+    "Cache-control",
+    `public, max-age=${12 * 60 * 60}, s-maxage=${3 * 24 * 60 * 60}`
+  );
   await app.prepare();
-  // Cache for 12 hours
-  res.setHeader("Cache-control", "public, max-age=43200, s-maxage=43200");
-  handle(req, res);
+  return handle(req, res);
 });
+
+const heroes = {
+  ssr
+};
+
+export { heroes };

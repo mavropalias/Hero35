@@ -8,7 +8,7 @@
     "rewrites": [
       {
         "source": "**/**",
-        "function": "next"
+        "function": "heroes-ssr"
       }
     ],
     "predeploy": "npm run build-public"
