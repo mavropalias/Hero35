@@ -12,6 +12,7 @@ const ssr = functions.https.onRequest(async (req, res) => {
     "Cache-control",
     `public, max-age=${12 * 60 * 60}, s-maxage=${3 * 24 * 60 * 60}`
   );
+  res.set("Vary", "Accept");
   await app.prepare();
   return handle(req, res);
 });
