@@ -3,7 +3,7 @@
   "description": "Official repo of https://hero35.com",
   "repository": "https://github.com/mavropalias/heroes.git",
   "engines": {
-    "node": "10"
+    "node": "8"
   },
   "dependencies": {
     "@material-ui/core": "^4.4.2",
@@ -34,12 +34,12 @@
   "scripts": {
     "dev": "npm run clean && next \"src/app\"",
     "preserve": "npm run clean && npm run build-public && npm run build-funcs && npm run build-app && npm run copy-deps && npm run install-deps",
-    "serve": "NODE_ENV=production node_modules/.bin/firebase serve --only functions,hosting",
+    "serve": "NODE_ENV=production node_modules/.bin/firebase serve",
     "deploy": "node_modules/.bin/firebase deploy",
     "clean": "rimraf \"dist/functions\" && rimraf \"dist/public\"",
     "build-public": "cpx \"src/public/**/*.*\" \"dist/public\" -C",
+    "build-app": "next build \"src/app\"",
     "build-funcs": "./node_modules/.bin/tsc --project src/functions",
-    "build-app": "NODE_ENV=production next build \"src/app\"",
     "copy-deps": "cpx \"*{package.json,package-lock.json}\" \"dist/functions\"",
     "install-deps": "cd \"dist/functions\" && npm ci"
   }

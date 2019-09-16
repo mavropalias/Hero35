@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
     "lib": ["es2017"],
     "module": "commonjs",
-    "noImplicitReturns": true,
     "outDir": "../../dist/functions",
-    "skipLibCheck": true,
+    "resolveJsonModule": true,
     "sourceMap": true,
-    "strict": false,
+    "strict": true,
     "target": "es2017"
   },
-  "exclude": ["node_modules"],
-  "include": ["index.ts"],
   "compileOnSave": true
 }
