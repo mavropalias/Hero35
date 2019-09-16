@@ -4,6 +4,10 @@ import Head from "next/head";
 import { ThemeProvider } from "@material-ui/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "../appTheme";
+import * as ga from "../services/GA";
+import Router from "next/router";
+
+Router.events.on("routeChangeComplete", url => ga.pageview(url));
 
 export default class MyApp extends App {
   componentDidMount() {
