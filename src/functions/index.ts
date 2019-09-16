@@ -1,12 +1,10 @@
 import * as functions from "firebase-functions";
 import next from "next";
 
-const dev = process.env.NODE_ENV !== "production";
-const app = next({ dev, conf: { distDir: "next" } });
+const app = next({ dev: false, conf: { distDir: "next" } });
 const handle = app.getRequestHandler();
 
 const ssr = functions.https.onRequest(async (req, res) => {
-  console.log("SERVING_URL: " + req.url);
   // Cache for 12 hours on the client and 3 days on the server
   res.setHeader(
     "Cache-control",
