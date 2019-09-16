@@ -1,7 +1,7 @@
 import * as functions from "firebase-functions";
 import next from "next";
 
-const app = next({ dev: false, conf: { distDir: "next" } });
+const app = next({ dev: false, conf: { distDir: "dist/functions/next" } });
 const handle = app.getRequestHandler();
 
 const ssr = functions.https.onRequest(async (req, res) => {
