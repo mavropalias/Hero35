@@ -8,8 +8,9 @@
     "module": "commonjs",
     "outDir": "../../dist/functions",
     "resolveJsonModule": true,
+    "skipLibCheck": true,
     "sourceMap": true,
-    "strict": true,
+    "strict": false,
     "target": "es2017"
   },
   "compileOnSave": true
