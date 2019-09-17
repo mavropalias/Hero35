@@ -9,10 +9,10 @@ import {
   Link,
   Chip,
   Container,
+  Avatar,
   Grid
 } from "@material-ui/core";
-import { OpenInNew as LinkIcon } from "@material-ui/icons";
-import { Talk, EventEdition } from "../../../../schema";
+import { Talk } from "../../../../schema";
 import Database from "../../../../services/Database";
 import { NextPage, NextPageContext } from "next";
 
@@ -21,15 +21,9 @@ const useStyles = makeStyles((theme: Theme) =>
     container: {
       marginTop: theme.spacing(2)
     },
-    logo: {
-      maxWidth: "50%"
-    },
     chip: {
       marginRight: theme.spacing(1),
       marginBottom: theme.spacing(1)
-    },
-    externalLinkIcon: {
-      fontSize: theme.typography.fontSize
     }
   })
 );
@@ -54,32 +48,53 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
   return (
     <Layout>
       <Container className={classes.container}>
-        {/* <TalkVideo videoid={talk.id} /> */}
-        <Typography variant="h5" component="h1">
-          {talk.title}
-        </Typography>
-        <Typography variant="subtitle1" gutterBottom>
-          {talk.speaker}
-        </Typography>
-        <NextLink passHref href={`/event/${talk.eventId}/${talk.editionId}`}>
-          <Link variant="subtitle2">
-            {talk.eventTitle} {talk.editionTitle}
-          </Link>
-        </NextLink>
-        <Typography variant="subtitle2" color="textSecondary" paragraph>
-          {shortDate(talk.date)}
-        </Typography>
-        <Box>
-          {talk.tags.map(tag => (
-            <Chip
-              color="default"
-              variant="outlined"
-              key={tag}
-              label={`#${tag}`}
-              className={classes.chip}
-            />
-          ))}
+        <Box marginBottom={2}>
+          <Grid container spacing={1}>
+            <Grid item sm={12}>
+              <Typography variant="h5" component="h1">
+                {talk.title}
+              </Typography>
+              <Box display="flex" alignItems="center">
+                <Typography variant="subtitle1">{talk.speaker}</Typography>
+                <Typography variant="subtitle1" color="textSecondary">
+                  &nbsp;-&nbsp;{talk.times.totalMins} mins&nbsp;-&nbsp;
+                  {shortDate(talk.date)}
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item sm={12}>
+              <NextLink
+                passHref
+                href={`/event/${talk.eventId}/${talk.editionId}`}
+              >
+                <Chip
+                  avatar={
+                    <Avatar
+                      component="span"
+                      alt={`${talk.eventTitle} ${talk.editionTitle} logo`}
+                      src={`${process.env.STORAGE_PATH}${encodeURIComponent(
+                        talk.logo
+                      )}?alt=media`}
+                    />
+                  }
+                  component="a"
+                  label={`${talk.eventTitle} ${talk.editionTitle}`}
+                  className={classes.chip}
+                />
+              </NextLink>
+              {talk.tags.map(tag => (
+                <Chip
+                  color="default"
+                  variant="outlined"
+                  key={tag}
+                  label={`#${tag}`}
+                  className={classes.chip}
+                />
+              ))}
+            </Grid>
+          </Grid>
         </Box>
+        <TalkVideo videoid={talk.id} />
         <Typography variant="body1" paragraph>
           {talk.description}
         </Typography>
@@ -97,7 +112,7 @@ const TalkVideo = ({ videoid }: { videoid: string }) => {
                     allow="encrypted-media"
                   />`;
 
-  return <div dangerouslySetInnerHTML={{ __html: iframe }} />;
+  return <Box marginBottom={2} dangerouslySetInnerHTML={{ __html: iframe }} />;
 };
 
 interface QueryProps {

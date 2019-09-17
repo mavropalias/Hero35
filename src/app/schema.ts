@@ -53,20 +53,20 @@ export type TalkPreview = {
 };
 
 export type Talk = {
-  categories?: Category[];
-  date?: string;
-  description?: string;
-  editionId?: string;
-  editionTitle?: string;
-  eventId?: string;
-  eventTitle?: string;
-  id?: string;
-  logo?: string;
-  order?: number;
-  slug?: string;
-  speaker?: string;
-  tags?: string[];
-  times?: Times;
+  categories: Category[];
+  date: string;
+  description: string;
+  editionId: string;
+  editionTitle: string;
+  eventId: string;
+  eventTitle: string;
+  id: string;
+  logo: string;
+  order: number;
+  slug: string;
+  speaker: string;
+  tags: string[];
+  times: Times;
   title: string;
   type: string;
 };
