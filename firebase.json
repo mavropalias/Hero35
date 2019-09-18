@@ -13,6 +13,10 @@
     "public": "dist/public",
     "rewrites": [
       {
+        "source": "/api/event",
+        "function": "heroes-event"
+      },
+      {
         "source": "**/**",
         "function": "heroes-ssr"
       }
