@@ -1,17 +1,14 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
-import dotenv from "dotenv";
 import { Event, EventEdition, Talk } from "../schema";
 
-dotenv.config();
 const config = {
   apiKey: process.env.API_KEY || "AIzaSyCDkhN8TpWw5-5Ukn4cfPXI8ufjAxelcDA",
-  authDomain: process.env.AUTH_DOMAIN || "heroes-9c313.firebaseapp.com",
-  databaseURL:
-    process.env.DATABASE_URL || "https://heroes-9c313.firebaseio.com",
-  projectId: process.env.PROJECT_ID || "heroes-9c313",
-  storageBucket: process.env.STORAGE_BUCKET || "heroes-9c313.appspot.com"
+  authDomain: "heroes-9c313.firebaseapp.com",
+  databaseURL: "https://heroes-9c313.firebaseio.com",
+  projectId: "heroes-9c313",
+  storageBucket: "heroes-9c313.appspot.com"
 };
 
 class Database {
