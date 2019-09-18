@@ -2,6 +2,7 @@ import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import next from "next";
 
+// Cache for 12 hours on the client and 7 days on the server
 const CACHE_CONTROL = `public, max-age=${12 * 60 * 60}, s-maxage=${7 *
   24 *
   60 *
@@ -20,7 +21,6 @@ const app = next({
 });
 const handle = app.getRequestHandler();
 const ssr = functions.https.onRequest(async (req, res) => {
-  // Cache for 12 hours on the client and 7 days on the server
   res.setHeader("Cache-control", CACHE_CONTROL);
   await app.prepare();
   return handle(req, res);
