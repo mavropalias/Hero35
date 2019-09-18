@@ -55,7 +55,7 @@ const Navigation = () => {
 const MenuLink = ({ href, children }) => {
   const classes = useStyles({});
   return (
-    <NextLink href={href} passHref>
+    <NextLink href={href} as={href} passHref>
       <Link variant="button" className={classes.menuLink}>
         {children}
       </Link>

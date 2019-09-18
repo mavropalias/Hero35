@@ -70,7 +70,11 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
                 <Typography variant="h1">
                   {edition.eventTitle} {edition.title}
                 </Typography>
-                <NextLink passHref href={`/event/${edition.eventId}`}>
+                <NextLink
+                  href="/event/[eventid]"
+                  as={`/event/${edition.eventId}`}
+                  passHref
+                >
                   <Link variant="subtitle1">
                     View all {edition.eventTitle} events
                   </Link>

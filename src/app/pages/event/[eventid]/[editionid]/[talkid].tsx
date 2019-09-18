@@ -65,7 +65,8 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
             <Grid item sm={12}>
               <NextLink
                 passHref
-                href={`/event/${talk.eventId}/${talk.editionId}`}
+                href={`/event/[eventid]/[editionid]`}
+                as={`/event/${talk.eventId}/${talk.editionId}`}
               >
                 <Chip
                   avatar={

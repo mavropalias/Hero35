@@ -8,7 +8,9 @@ import {
   ListItemText,
   ListItemIcon,
   Typography,
-  Box
+  Box,
+  ListItemAvatar,
+  Avatar
 } from "@material-ui/core";
 import {
   Highlight as HighlightsIcon,
@@ -23,6 +25,7 @@ import {
 } from "@material-ui/icons";
 import { default as NextLink } from "next/link";
 import { TalkPreview } from "../schema";
+import TALK_TYPES from "../constants/talkTypes";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -95,43 +98,27 @@ const TalkList = ({ talks }: { talks: TalkPreview[] }) => {
 const TalkListItem = ({ talk }: { talk: TalkPreview }) => {
   const classes = useStyles({});
 
-  const talkTypeIcon = (type: string) => {
-    switch (type) {
-      case "1": // Keynote
-        return <KeynoteIcon className={classes.keynoteIcon} />;
-      case "3": // Lightning talk
-        return <LightningTalkIcon className={classes.lightningTalkIcon} />;
-      case "4": // Panel
-        return <PanelIcon className={classes.panelIcon} />;
-      case "5": // Q&A
-        return <QAIcon className={classes.qaIcon} />;
-      case "6": // Sponsor
-        return <SponsorIcon className={classes.sponsorIcon} />;
-      case "7": // Workshop
-        return <WorkshopIcon className={classes.workshopIcon} />;
-      case "8": // Interview
-        return <InterviewIcon className={classes.interviewIcon} />;
-      case "9": // Highlights
-        return <HighlightsIcon className={classes.highlightsIcon} />;
-      default:
-        // Talk
-        return <TalkIcon className={classes.talkIcon} />;
-    }
-  };
+  const typeTitle = (id: string) =>
+    TALK_TYPES.filter(type => type.id === id)[0].title.toLowerCase();
 
   return (
     <NextLink
-      href={`/event/${talk.eventId}/${talk.editionId}/${talk.id}`}
+      href={`/event/[eventid]/[editionid]/[talkid]`}
+      as={`/event/${talk.eventId}/${talk.editionId}/${talk.id}`}
       passHref
-      prefetch={false}
     >
       <ListItem button component="a">
-        <ListItemIcon>{talkTypeIcon(talk.type)}</ListItemIcon>
+        <ListItemAvatar>
+          <Avatar
+            alt={`${talk.title} ${typeTitle(talk.type)}, by ${talk.speaker}`}
+            src={`https://i.ytimg.com/vi/${talk.id}/default.jpg`}
+          />
+        </ListItemAvatar>
         <ListItemText
           primary={talk.title}
           secondary={
             <>
-              {`${talk.times && talk.times.totalMins} mins - ${talk.speaker}`}
+              {`${talk.speaker} - ${talk.times && talk.times.totalMins} mins`}
               {talk.tags.map(tag => (
                 <Chip
                   color="default"

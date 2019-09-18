@@ -47,7 +47,8 @@ const Talks: NextPage<Props> = ({ talks }) => {
               <CardHeader
                 title={
                   <NextLink
-                    href={`/event/${talk.eventId}/${talk.editionId}`}
+                    href={`/event/[eventid]/[editionid]`}
+                    as={`/event/${talk.eventId}/${talk.editionId}`}
                     passHref
                   >
                     <Link variant="body1">
@@ -66,32 +67,35 @@ const Talks: NextPage<Props> = ({ talks }) => {
                 }
               />
               <NextLink
-                href={`/event/${talk.eventId}/${talk.editionId}/${talk.id}`}
+                href={`/event/[eventid]/[editionid]/[talkid]`}
+                as={`/event/${talk.eventId}/${talk.editionId}/${talk.id}`}
               >
-                <CardActionArea className={classes.cardActionArea}>
-                  <CardMedia
-                    className={classes.media}
-                    image={`https://i.ytimg.com/vi/${talk.id}/sddefault.jpg`}
-                  />
-                  <CardContent>
-                    <Typography variant="h6" component="h2">
-                      {talk.title}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="p"
-                    >
-                      {talk.speaker},{" "}
-                      {talk.times && (
-                        <>
-                          {talk.times.h > 0 && <>{talk.times.h}h </>}
-                          {talk.times.m} minutes
-                        </>
-                      )}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
+                <a>
+                  <CardActionArea className={classes.cardActionArea}>
+                    <CardMedia
+                      className={classes.media}
+                      image={`https://i.ytimg.com/vi/${talk.id}/sddefault.jpg`}
+                    />
+                    <CardContent>
+                      <Typography variant="h6" component="h2">
+                        {talk.title}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        {talk.speaker},{" "}
+                        {talk.times && (
+                          <>
+                            {talk.times.h > 0 && <>{talk.times.h}h </>}
+                            {talk.times.m} minutes
+                          </>
+                        )}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </a>
               </NextLink>
             </Card>
           </Grid>

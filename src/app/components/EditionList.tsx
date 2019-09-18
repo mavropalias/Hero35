@@ -76,14 +76,15 @@ const EditionList = ({
     >
       {editions.map(edition => (
         <NextLink
-          href={`/event/${edition.eventId}/${edition.id}`}
+          href={`/event/[eventid]/[editionid]`}
+          as={`/event/${edition.eventId}/${edition.id}`}
           passHref
-          prefetch={false}
           key={edition.id}
         >
           <ListItem button component="a" key={edition.id}>
             <ListItemAvatar>
               <Avatar
+                component="span"
                 alt={`${edition.eventTitle} ${edition.title} logo`}
                 src={`${process.env.STORAGE_PATH}${encodeURIComponent(
                   edition.logo

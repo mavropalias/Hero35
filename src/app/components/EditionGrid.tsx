@@ -57,28 +57,32 @@ const EditionGrid: NextPage<Props> = ({ editions, className }) => {
             sm={6}
             md={4}
           >
-            <NextLink href={`/event/${edition.eventId}/${edition.id}`}>
-              <Card className={classes.card} raised={false}>
-                <CardActionArea>
-                  <CardMedia
-                    className={classes.media}
-                    image={`${process.env.STORAGE_PATH}${encodeURIComponent(
-                      edition.logo
-                    )}?alt=media`}
-                  />
-                  <CardContent>
-                    <Typography variant="h5" component="h2">
-                      {edition.eventTitle} {edition.title}
-                    </Typography>
-                    <Typography variant="subtitle1" color="textSecondary">
-                      {(edition.durationMinutes / 60).toFixed(0)} hours of
-                      videos
-                    </Typography>
-                    <Typography variant="caption" color="textSecondary">
-                      {editionDateStart(edition)} at{" "}
-                      {edition.state || edition.city}, {edition.country}
-                    </Typography>
-                    {/* {edition.categories.map(cat => (
+            <NextLink
+              href={`/event/[eventid]/[editionid]`}
+              as={`/event/${edition.eventId}/${edition.id}`}
+            >
+              <a>
+                <Card className={classes.card} raised={false}>
+                  <CardActionArea>
+                    <CardMedia
+                      className={classes.media}
+                      image={`${process.env.STORAGE_PATH}${encodeURIComponent(
+                        edition.logo
+                      )}?alt=media`}
+                    />
+                    <CardContent>
+                      <Typography variant="h5" component="h2">
+                        {edition.eventTitle} {edition.title}
+                      </Typography>
+                      <Typography variant="subtitle1" color="textSecondary">
+                        {(edition.durationMinutes / 60).toFixed(0)} hours of
+                        videos
+                      </Typography>
+                      <Typography variant="caption" color="textSecondary">
+                        {editionDateStart(edition)} at{" "}
+                        {edition.state || edition.city}, {edition.country}
+                      </Typography>
+                      {/* {edition.categories.map(cat => (
                       <Chip
                         key={cat.id}
                         size="small"
@@ -87,9 +91,10 @@ const EditionGrid: NextPage<Props> = ({ editions, className }) => {
                         className={classes.tag}
                       />
                     ))} */}
-                  </CardContent>
-                </CardActionArea>
-              </Card>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </a>
             </NextLink>
           </Grid>
         ))}
