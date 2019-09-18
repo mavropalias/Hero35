@@ -17,6 +17,22 @@
         "function": "heroes-event"
       },
       {
+        "source": "/api/edition",
+        "function": "heroes-edition"
+      },
+      {
+        "source": "/api/recentEditions",
+        "function": "heroes-recentEditions"
+      },
+      {
+        "source": "/api/talk",
+        "function": "heroes-talk"
+      },
+      {
+        "source": "/api/recentTalks",
+        "function": "heroes-recentTalks"
+      },
+      {
         "source": "**/**",
         "function": "heroes-ssr"
       }

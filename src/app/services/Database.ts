@@ -2,6 +2,9 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import { Event, EventEdition, Talk } from "../schema";
+import fetch from "isomorphic-unfetch";
+
+const API = "https://hero35.com/api/";
 
 const config = {
   apiKey: process.env.API_KEY || "AIzaSyCDkhN8TpWw5-5Ukn4cfPXI8ufjAxelcDA",
@@ -46,24 +49,23 @@ class Database {
   // Content API ---------------------------------------------------------------
 
   getEvent = async (eventId: string): Promise<Event> => {
-    const docRef = await this.db.collection("events").doc(eventId);
-    const docSnap = await docRef.get();
-    let event: Event = (docSnap.data() as unknown) as Event;
-    if (event) {
-      event.editions = await this.getEventEditions(docRef);
-    }
-    return event;
+    const res = await fetch(`${API}event?id=${eventId}`);
+    return ((await res.json()) as unknown) as Event;
   };
 
-  getEventEditions = async (
-    eventReference: firebase.firestore.DocumentReference
-  ): Promise<EventEdition[]> => {
-    const querySnapshot = await eventReference.collection("editions").get();
-    let editions: EventEdition[] = [];
-    querySnapshot.forEach(doc => {
-      editions.push((doc.data() as unknown) as EventEdition);
-    });
-    return editions;
+  getEdition = async (
+    eventId: string,
+    editionId: string
+  ): Promise<EventEdition> => {
+    const res = await fetch(
+      `${API}edition?eventId=${eventId}&editionId=${editionId}`
+    );
+    return ((await res.json()) as unknown) as EventEdition;
+  };
+
+  getRecentEditions = async (): Promise<EventEdition[]> => {
+    const res = await fetch(`${API}recentEditions`);
+    return ((await res.json()) as unknown) as EventEdition[];
   };
 
   getTalk = async (
@@ -71,61 +73,15 @@ class Database {
     editionId: string,
     talkId: string
   ): Promise<Talk> => {
-    const docRef = await this.db
-      .collection("events")
-      .doc(eventId)
-      .collection("editions")
-      .doc(editionId)
-      .collection("talks")
-      .doc(talkId);
-    const docSnap = await docRef.get();
-    return (docSnap.data() as unknown) as Talk;
+    const res = await fetch(
+      `${API}talk?eventId=${eventId}&editionId=${editionId}&talkId=${talkId}`
+    );
+    return ((await res.json()) as unknown) as Talk;
   };
 
-  getEdition = async (
-    eventId: string,
-    editionId: string
-  ): Promise<EventEdition> => {
-    const docRef = await this.db
-      .collection("events")
-      .doc(eventId)
-      .collection("editions")
-      .doc(editionId);
-    const docSnap = await docRef.get();
-    let edition: EventEdition = (docSnap.data() as unknown) as EventEdition;
-    return edition;
-  };
-
-  getRecentEditions = async (): Promise<EventEdition[]> => {
-    const querySnapshot = await this.db
-      .collectionGroup("editions")
-      .where("status", "==", "published")
-      .orderBy("endDate", "desc")
-      .limit(6)
-      .get();
-
-    let editions: EventEdition[] = [];
-    querySnapshot.forEach(doc => {
-      editions.push((doc.data() as unknown) as EventEdition);
-    });
-    return editions;
-    // return (querySnapshot.docs as unknown) as EventEdition[];
-  };
-
-  getTalks = async (): Promise<Talk[]> => {
-    const querySnapshot = await this.db
-      .collectionGroup("talks")
-      .where("type", "==", "2")
-      .orderBy("date", "desc")
-      .orderBy("order", "desc")
-      .limit(6)
-      .get();
-    let talks: Talk[] = [];
-    querySnapshot.forEach(doc => {
-      talks.push((doc.data() as unknown) as Talk);
-    });
-    return talks;
-    // return (querySnapshot.docs as unknown) as Talk[];
+  getRecentTalks = async (): Promise<Talk[]> => {
+    const res = await fetch(`${API}recentTalks`);
+    return ((await res.json()) as unknown) as Talk[];
   };
 }
 
