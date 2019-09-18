@@ -36,7 +36,7 @@
     "serve": "NODE_ENV=production node_modules/.bin/firebase serve",
     "deploy": "node_modules/.bin/firebase deploy",
     "clean": "rimraf \"dist/functions\" && rimraf \"dist/public\"",
-    "build-public": "cpx \"src/public/**/*.*\" \"dist/public\" -C",
+    "build-public": "cpx \"src/app/static/**/*.*\" \"dist/public/static\" -C",
     "build-app": "next build \"src/app\"",
     "build-funcs": "./node_modules/.bin/tsc --project src/functions",
     "copy-deps": "cpx \"*{package.json,package-lock.json}\" \"dist/functions\"",
