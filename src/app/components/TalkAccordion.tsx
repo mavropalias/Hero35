@@ -57,7 +57,6 @@ const TalkAccordion = ({ talks, className }: Props) => {
     event: React.ChangeEvent<{}>,
     isExpanded: boolean
   ) => {
-    console.log(isExpanded, panel);
     setExpanded(isExpanded ? panel : false);
   };
 
