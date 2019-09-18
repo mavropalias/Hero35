@@ -22,7 +22,8 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(2)
     },
     logo: {
-      maxWidth: "50%"
+      maxWidth: "50%",
+      height: theme.typography.fontSize * 4
     },
     chip: {
       marginRight: theme.spacing(1),
@@ -141,6 +142,7 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
   );
 };
 
+// TODO implement this
 const EditionHighlights = ({ edition }: { edition: EventEdition }) => {
   const iframe = `<iframe
                     width="100%"

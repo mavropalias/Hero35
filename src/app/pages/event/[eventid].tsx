@@ -21,7 +21,8 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(2)
     },
     logo: {
-      maxWidth: "50%"
+      maxWidth: "50%",
+      height: theme.typography.fontSize * 4
     },
     chip: {
       marginRight: theme.spacing(1),
