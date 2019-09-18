@@ -104,17 +104,29 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
   );
 };
 
-const TalkVideo = ({ videoid }: { videoid: string }) => {
-  const iframe = `<iframe
-                    width="100%"
-                    height="600"
-                    src="https://www.youtube-nocookie.com/embed/${videoid}"
-                    frameborder="0"
-                    allow="encrypted-media"
-                  />`;
-
-  return <Box marginBottom={2} dangerouslySetInnerHTML={{ __html: iframe }} />;
-};
+const TalkVideo = ({ videoid }: { videoid: string }) => (
+  <Box
+    marginBottom={2}
+    style={{
+      position: "relative",
+      paddingBottom: "56.25%" /* maintain 16:9 aspect ratio */,
+      paddingTop: 25,
+      height: 0
+    }}
+  >
+    <iframe
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%"
+      }}
+      src={`https://www.youtube-nocookie.com/embed/${videoid}`}
+      frameBorder="0"
+    />
+  </Box>
+);
 
 interface QueryProps {
   eventid: string;
