@@ -111,6 +111,7 @@ const EditionList = ({
                       {edition.topTags.map((tag, index) => (
                         <Chip
                           color="default"
+                          component="span"
                           variant="outlined"
                           size="small"
                           key={index}
@@ -120,6 +121,7 @@ const EditionList = ({
                       ))}
                       <Chip
                         color="default"
+                        component="span"
                         variant="outlined"
                         size="small"
                         label="…"
