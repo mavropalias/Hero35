@@ -1,7 +1,30 @@
-import React from "react";
+import algoliasearch from "algoliasearch/lite";
+import { InstantSearch, Configure } from "react-instantsearch-dom";
+import {
+  connectSearchBox,
+  connectInfiniteHits
+} from "react-instantsearch/connectors";
+import React, { useState } from "react";
 import { fade } from "@material-ui/core/styles/colorManipulator";
-import { InputBase, createStyles, Theme, makeStyles } from "@material-ui/core";
+import {
+  InputBase,
+  createStyles,
+  Theme,
+  makeStyles,
+  Button,
+  Paper,
+  Typography,
+  Box,
+  ClickAwayListener
+} from "@material-ui/core";
 import { Search as SearchIcon } from "@material-ui/icons";
+import { TalkPreview } from "../schema";
+import TalkList from "./TalkList";
+
+const searchClient = algoliasearch(
+  "B9STNN0U9I",
+  "ee9b0c6e71cc5f9e80605e9a8bbb711c"
+);
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,20 +64,69 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up("md")]: {
         width: 200
       }
+    },
+    searchResults: {
+      position: "absolute",
+      left: 0,
+      width: "100%",
+      margin: theme.spacing(0.5, 0, 0, 0),
+      [theme.breakpoints.up("sm")]: {
+        left: "initial",
+        margin: theme.spacing(0.5, 0, 0, 3),
+        width: "460px"
+      },
+      [theme.breakpoints.up("md")]: {
+        width: "800px"
+      }
     }
   })
 );
 
 const SearchInput: React.FC<React.HTMLAttributes<HTMLDivElement>> = props => {
-  const classes = useStyles({});
+  const [searching, setSearching] = useState();
+  const [focused, setFocused] = useState();
+
+  const onSearchStateChange = searchState => {
+    setSearching(searchState.query ? true : false);
+  };
 
   return (
-    <div className={`${classes.search} ${props.className}`}>
+    <InstantSearch
+      searchClient={searchClient}
+      indexName="talks"
+      onSearchStateChange={state => onSearchStateChange(state)}
+    >
+      <Configure hitsPerPage={7} />
+      <ConnectedSearchBox
+        className={props.className}
+        onBlur={_ => setFocused(false)}
+        onFocus={_ => setFocused(true)}
+      />
+      {searching && <ConnectedHits visible={searching && focused} />}
+    </InstantSearch>
+  );
+};
+
+const MaterialUiSearchBox = ({
+  currentRefinement,
+  refine,
+  className,
+  onFocus,
+  onBlur
+}) => {
+  const classes = useStyles({});
+  return (
+    <div className={`${classes.search} ${className}`}>
       <div className={classes.searchIcon}>
         <SearchIcon />
       </div>
       <InputBase
-        placeholder="Search…"
+        value={currentRefinement}
+        onChange={e => refine(e.target.value)}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        placeholder="Search..."
+        fullWidth={true}
         classes={{
           root: classes.inputRoot,
           input: classes.inputInput
@@ -63,5 +135,68 @@ const SearchInput: React.FC<React.HTMLAttributes<HTMLDivElement>> = props => {
     </div>
   );
 };
+
+const CustomHits = ({
+  hits,
+  hasMore,
+  refine,
+  visible
+}: {
+  hits: TalkPreview[];
+  hasMore: boolean;
+  refine: any;
+  visible: boolean;
+}) => {
+  const classes = useStyles({});
+  const [clickedAway, setClickedAway] = useState(false);
+
+  return (
+    <>
+      {(!clickedAway || visible) && (
+        <ClickAwayListener onClickAway={() => setClickedAway(true)}>
+          <Paper className={classes.searchResults} elevation={4}>
+            {hits.length > 0 ? (
+              <TalkList talks={hits} onClick={_ => setClickedAway(true)} />
+            ) : (
+              <Box m={3}>
+                <Typography variant="h5">
+                  <code>🧐🤞 results.length === 0 😤👎</code>
+                </Typography>
+              </Box>
+            )}
+            <Box
+              m={1}
+              marginRight={3}
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              {hasMore && (
+                <Button
+                  onClick={() => {
+                    if (hasMore) {
+                      refine();
+                    }
+                  }}
+                  variant="outlined"
+                  disabled={!hasMore}
+                >
+                  Load more
+                </Button>
+              )}
+              <img
+                src="/static/search-by-algolia-dark-background.svg"
+                height="14"
+              ></img>
+            </Box>
+          </Paper>
+        </ClickAwayListener>
+      )}
+    </>
+  );
+};
+
+const ConnectedSearchBox = connectSearchBox(MaterialUiSearchBox);
+const ConnectedHits = connectInfiniteHits(CustomHits);
 
 export default SearchInput;

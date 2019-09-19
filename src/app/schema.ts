@@ -36,6 +36,7 @@ export type Tag = {
 };
 
 export type TalkPreview = {
+  _highlightResult?: any;
   categories: Category[];
   date: string;
   description?: string;

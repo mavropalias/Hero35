@@ -1,3 +1,4 @@
+import { Highlight } from "react-instantsearch-dom";
 import {
   createStyles,
   makeStyles,
@@ -6,23 +7,11 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListItemIcon,
   Typography,
   Box,
   ListItemAvatar,
   Avatar
 } from "@material-ui/core";
-import {
-  Highlight as HighlightsIcon,
-  FlashOn as LightningTalkIcon,
-  Mic as InterviewIcon,
-  Money as SponsorIcon,
-  PanTool as QAIcon,
-  People as PanelIcon,
-  PersonalVideo as TalkIcon,
-  Public as KeynoteIcon,
-  School as WorkshopIcon
-} from "@material-ui/icons";
 import { default as NextLink } from "next/link";
 import { TalkPreview } from "../schema";
 import TALK_TYPES from "../constants/talkTypes";
@@ -65,7 +54,13 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const TalkList = ({ talks }: { talks: TalkPreview[] }) => {
+const TalkList = ({
+  talks,
+  onClick
+}: {
+  talks: TalkPreview[];
+  onClick?: any;
+}) => {
   const classes = useStyles({});
 
   if (talks.length === 0) {
@@ -89,13 +84,21 @@ const TalkList = ({ talks }: { talks: TalkPreview[] }) => {
   return (
     <List className={classes.list}>
       {talks.map(talk => (
-        <TalkListItem key={talk.id} talk={talk} />
+        <>
+          <TalkListItem key={talk.id} talk={talk} onClick={onClick} />
+        </>
       ))}
     </List>
   );
 };
 
-const TalkListItem = ({ talk }: { talk: TalkPreview }) => {
+const TalkListItem = ({
+  talk,
+  onClick
+}: {
+  talk: TalkPreview;
+  onClick?: any;
+}) => {
   const classes = useStyles({});
 
   const typeTitle = (id: string) =>
@@ -107,7 +110,7 @@ const TalkListItem = ({ talk }: { talk: TalkPreview }) => {
       as={`/event/${talk.eventId}/${talk.editionId}/${talk.id}`}
       passHref
     >
-      <ListItem button component="a">
+      <ListItem button onClick={onClick} component="a">
         <ListItemAvatar>
           <Avatar
             alt={`${talk.title} ${typeTitle(talk.type)}, by ${talk.speaker}`}
@@ -115,26 +118,91 @@ const TalkListItem = ({ talk }: { talk: TalkPreview }) => {
           />
         </ListItemAvatar>
         <ListItemText
-          primary={talk.title}
+          primary={highlightedTalkAttribute(talk, "title")}
           secondary={
             <>
-              {`${talk.speaker} - ${talk.times && talk.times.totalMins} mins`}
-              {talk.tags.map(tag => (
-                <Chip
-                  color="default"
-                  variant="outlined"
-                  size="small"
-                  key={tag}
-                  label={`#${tag}`}
-                  className={classes.chip}
-                ></Chip>
-              ))}
+              {highlightedTalkAttribute(talk, "speaker")}
+              {` - ${talk.times && talk.times.totalMins} mins`}
+              {talk.tags.map(tag => highlightedTalkTag(talk, tag))}
             </>
           }
         />
       </ListItem>
     </NextLink>
   );
+};
+
+const highlightedTalkTag = (talk: TalkPreview, tag: string) => {
+  const classes = useStyles({});
+
+  if (talk._highlightResult) {
+    let match = "";
+    if (
+      talk._highlightResult.tags.find(talkTag => {
+        return tag === talkTag.matchedWords[0];
+      })
+    ) {
+      return (
+        <Chip
+          color="secondary"
+          variant="outlined"
+          size="small"
+          component="span"
+          key={tag}
+          label={tag}
+          className={classes.chip}
+        ></Chip>
+      );
+    } else if (
+      talk._highlightResult.tags.find(talkTag => {
+        if (tag.includes(talkTag.matchedWords[0])) {
+          match = talkTag.matchedWords[0];
+          return true;
+        } else {
+          return false;
+        }
+      })
+    ) {
+      return (
+        <Chip
+          color="default"
+          variant="outlined"
+          size="small"
+          component="span"
+          key={tag}
+          label={
+            <span
+              dangerouslySetInnerHTML={{
+                __html: tag.replace(
+                  match,
+                  `<span class="highlighted-text">${match}</span>`
+                )
+              }}
+            ></span>
+          }
+          className={classes.chip}
+        ></Chip>
+      );
+    }
+  }
+  return (
+    <Chip
+      color="default"
+      variant="outlined"
+      size="small"
+      component="span"
+      key={tag}
+      label={tag}
+      className={classes.chip}
+    ></Chip>
+  );
+};
+
+const highlightedTalkAttribute = (talk: TalkPreview, attr: string) => {
+  if (talk._highlightResult && talk._highlightResult[attr]) {
+    return <Highlight hit={talk} attribute={attr} />;
+  }
+  return talk[attr];
 };
 
 export default TalkList;

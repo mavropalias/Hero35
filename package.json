@@ -8,13 +8,17 @@
   "dependencies": {
     "@material-ui/core": "^4.4.2",
     "@material-ui/icons": "^4.4.1",
+    "@zeit/next-css": "^1.0.1",
+    "algoliasearch": "^3.34.0",
     "firebase": "^6.6.1",
     "firebase-admin": "^8.5.0",
     "firebase-functions": "^3.2.0",
     "isomorphic-unfetch": "^3.0.0",
     "next": "^9.0.5",
     "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react-dom": "^16.9.0",
+    "react-instantsearch": "^5.7.0",
+    "react-instantsearch-dom": "^5.7.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.0",

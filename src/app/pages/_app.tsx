@@ -6,6 +6,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "../appTheme";
 import * as ga from "../services/GA";
 import Router from "next/router";
+import "../style.css";
 
 Router.events.on("routeChangeComplete", url => ga.pageview(url));
 
