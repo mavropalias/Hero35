@@ -1,6 +1,5 @@
 {
   "projects": {
     "prod": "heroes-9c313",
-    "default": "heroes-9c313"
   }
 }

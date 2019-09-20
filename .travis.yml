@@ -6,7 +6,7 @@ install:
   - npm i -g firebase-tools
   - npm ci
 script:
-  - firebase deploy -m "$TRAVIS_COMMIT" --only hosting,functions --token "$FIREBASE_TOKEN" --force
+  - firebase deploy -m "$TRAVIS_COMMIT" --token "$FIREBASE_TOKEN" --force
 branches:
   only:
     - master
