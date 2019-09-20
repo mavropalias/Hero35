@@ -163,9 +163,22 @@ const CustomHits = ({
               />
             ) : (
               <Box m={3}>
-                <Typography variant="h5">
+                <Typography variant="h5" paragraph>
                   <code>🧐🤞 results.length === 0 😤👎</code>
                 </Typography>
+                <Typography variant="subtitle1">
+                  You can search by event/talk title, speaker, description, tag,
+                  and year. Try these:
+                </Typography>
+                <Typography variant="body1">- hooks 2019</Typography>
+                <Typography variant="body1">
+                  - react native performance
+                </Typography>
+                <Typography variant="body1">- graphql</Typography>
+                <Typography variant="body1">- redux vs mobx</Typography>
+                <Typography variant="body1">- a11y</Typography>
+                <Typography variant="body1">- ReactEurope 2019</Typography>
+                <Typography variant="body1">- Dan Abramov</Typography>
               </Box>
             )}
             <Box
