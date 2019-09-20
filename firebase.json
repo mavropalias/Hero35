@@ -58,7 +58,9 @@
         ]
       }
     ],
-
     "predeploy": "npm run build-public"
+  },
+  "firestore": {
+    "rules": "firestore.rules"
   }
 }
