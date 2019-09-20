@@ -201,10 +201,12 @@ const CustomHits = ({
                   Load more
                 </Button>
               )}
-              <img
-                src="/static/search-by-algolia-dark-background.svg"
-                height="14"
-              ></img>
+              {hits.length > 0 && (
+                <img
+                  src="/static/search-by-algolia-dark-background.svg"
+                  height="14"
+                ></img>
+              )}
             </Box>
           </Paper>
         </ClickAwayListener>
