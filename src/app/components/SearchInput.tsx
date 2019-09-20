@@ -156,7 +156,11 @@ const CustomHits = ({
         <ClickAwayListener onClickAway={() => setClickedAway(true)}>
           <Paper className={classes.searchResults} elevation={4}>
             {hits.length > 0 ? (
-              <TalkList talks={hits} onClick={_ => setClickedAway(true)} />
+              <TalkList
+                talks={hits}
+                onClick={_ => setClickedAway(true)}
+                showEvent={true}
+              />
             ) : (
               <Box m={3}>
                 <Typography variant="h5">

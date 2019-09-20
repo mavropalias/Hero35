@@ -1,4 +1,4 @@
-import { Highlight } from "react-instantsearch-dom";
+import { Highlight, Snippet } from "react-instantsearch-dom";
 import {
   createStyles,
   makeStyles,
@@ -56,10 +56,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const TalkList = ({
   talks,
-  onClick
+  onClick,
+  showEvent
 }: {
   talks: TalkPreview[];
   onClick?: any;
+  showEvent?: boolean;
 }) => {
   const classes = useStyles({});
 
@@ -85,7 +87,12 @@ const TalkList = ({
     <List className={classes.list}>
       {talks.map(talk => (
         <>
-          <TalkListItem key={talk.id} talk={talk} onClick={onClick} />
+          <TalkListItem
+            key={talk.id}
+            talk={talk}
+            onClick={onClick}
+            showEvent={showEvent}
+          />
         </>
       ))}
     </List>
@@ -94,13 +101,13 @@ const TalkList = ({
 
 const TalkListItem = ({
   talk,
-  onClick
+  onClick,
+  showEvent
 }: {
   talk: TalkPreview;
   onClick?: any;
+  showEvent?: boolean;
 }) => {
-  const classes = useStyles({});
-
   const typeTitle = (id: string) =>
     TALK_TYPES.filter(type => type.id === id)[0].title.toLowerCase();
 
@@ -121,9 +128,24 @@ const TalkListItem = ({
           primary={highlightedTalkAttribute(talk, "title")}
           secondary={
             <>
+              {showEvent && (
+                <>
+                  {highlightedTalkAttribute(talk, "eventTitle")}{" "}
+                  {highlightedTalkAttribute(talk, "editionTitle")}
+                  {" - "}
+                </>
+              )}
               {highlightedTalkAttribute(talk, "speaker")}
               {` - ${talk.times && talk.times.totalMins} mins`}
               {talk.tags.map(tag => highlightedTalkTag(talk, tag))}
+              {talk._highlightResult &&
+                talk._snippetResult.description.matchLevel === "full" && (
+                  <Typography component="div" variant="body2">
+                    &hellip;
+                    <Snippet hit={talk} attribute="description"></Snippet>
+                    &hellip;
+                  </Typography>
+                )}
             </>
           }
         />

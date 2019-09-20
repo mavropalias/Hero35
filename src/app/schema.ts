@@ -46,6 +46,7 @@ export type TalkPreview = {
   logo?: string;
   order?: number;
   slug?: string;
+  _snippetResult?: any;
   speaker: string;
   tags?: string[];
   times?: Times;
