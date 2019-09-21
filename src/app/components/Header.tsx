@@ -6,7 +6,9 @@ import {
   Theme,
   Toolbar,
   Link,
-  Box
+  Box,
+  Typography,
+  Button
 } from "@material-ui/core";
 import ROUTES from "../constants/routes";
 import SearchInput from "./SearchInput";
@@ -21,10 +23,8 @@ const useStyles = makeStyles((theme: Theme) =>
       maxHeight: "30px"
     },
     search: {
-      maxWidth: "350px;"
-    },
-    menuLink: {
-      margin: theme.spacing(1)
+      maxWidth: "350px",
+      margin: "0"
     }
   })
 );
@@ -41,11 +41,21 @@ const Navigation = () => {
     >
       <Container>
         <Toolbar disableGutters={true}>
-          <MenuLink href={ROUTES.HOME}>Home</MenuLink>
-          <Box flexGrow="1">
+          <Box marginRight={1}>
+            <MenuLink href={ROUTES.HOME}>Home</MenuLink>
+          </Box>
+          <Box marginRight={1}>
+            <MenuLink href={ROUTES.ACCOUNT}>Account</MenuLink>
+          </Box>
+          <Box flexGrow="1" m={1}>
             <SearchInput className={classes.search} />
           </Box>
-          <img src="/static/HERO35-logo.svg" className={classes.logo} />
+          <Box m={2}>
+            <Typography variant="caption" color="textSecondary">
+              Heroes is in ALPHA
+            </Typography>
+          </Box>
+          <img src="/static/HERO35-logo-tagline.svg" className={classes.logo} />
         </Toolbar>
       </Container>
     </AppBar>
@@ -56,9 +66,7 @@ const MenuLink = ({ href, children }) => {
   const classes = useStyles({});
   return (
     <NextLink href={href} as={href} passHref>
-      <Link variant="button" className={classes.menuLink}>
-        {children}
-      </Link>
+      <Button>{children}</Button>
     </NextLink>
   );
 };
