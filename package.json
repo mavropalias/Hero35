@@ -17,6 +17,7 @@
     "next": "^9.0.5",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-firebaseui": "^4.0.0",
     "react-instantsearch": "^5.7.0",
     "react-instantsearch-dom": "^5.7.0"
   },

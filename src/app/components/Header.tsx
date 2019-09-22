@@ -5,14 +5,16 @@ import {
   makeStyles,
   Theme,
   Toolbar,
-  Link,
   Box,
   Typography,
-  Button
+  Button,
+  Avatar
 } from "@material-ui/core";
 import ROUTES from "../constants/routes";
 import SearchInput from "./SearchInput";
 import { default as NextLink } from "next/link";
+import { useContext } from "react";
+import { UserContext } from "./UserContextProvider";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,6 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const Navigation = () => {
+  const { state, dispatch } = useContext(UserContext);
   const classes = useStyles({});
 
   return (
@@ -42,10 +45,16 @@ const Navigation = () => {
       <Container>
         <Toolbar disableGutters={true}>
           <Box marginRight={1}>
-            <MenuLink href={ROUTES.HOME}>Home</MenuLink>
+            <MenuLink href={ROUTES.ACCOUNT}>
+              {state.signedIn ? (
+                <Avatar alt={state.name} src={state.picture} />
+              ) : (
+                "Sign in"
+              )}
+            </MenuLink>
           </Box>
           <Box marginRight={1}>
-            <MenuLink href={ROUTES.ACCOUNT}>Account</MenuLink>
+            <MenuLink href={ROUTES.HOME}>Home</MenuLink>
           </Box>
           <Box flexGrow="1" m={1}>
             <SearchInput className={classes.search} />

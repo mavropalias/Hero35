@@ -7,6 +7,7 @@ import theme from "../appTheme";
 import * as ga from "../services/GA";
 import Router from "next/router";
 import "../style.css";
+import { UserContextProvider } from "../components/UserContextProvider";
 
 Router.events.on("routeChangeComplete", url => ga.pageview(url));
 
@@ -27,11 +28,13 @@ export default class MyApp extends App {
         <Head>
           <title>HERO35</title>
         </Head>
-        <ThemeProvider theme={theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <CssBaseline />
-          <Component {...pageProps} />
-        </ThemeProvider>
+        <UserContextProvider>
+          <ThemeProvider theme={theme}>
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+            <CssBaseline />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </UserContextProvider>
       </>
     );
   }

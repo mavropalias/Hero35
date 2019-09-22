@@ -17,30 +17,16 @@ const config = {
 class Database {
   auth: firebase.auth.Auth;
   db: firebase.firestore.Firestore;
+  app: firebase.app.App;
 
   constructor() {
     if (!firebase.apps.length) {
-      firebase.initializeApp(config);
+      this.app = firebase.initializeApp(config);
     }
 
-    this.auth = firebase.auth();
+    this.auth = firebase.auth(firebase.app());
     this.db = firebase.firestore();
   }
-
-  // Auth API ------------------------------------------------------------------
-
-  doCreateUserWithEmailAndPassword = (email: string, password: string) =>
-    this.auth.createUserWithEmailAndPassword(email, password);
-
-  doSignInWithEmailAndPassword = (email: string, password: string) =>
-    this.auth.signInWithEmailAndPassword(email, password);
-
-  doSignOut = () => this.auth.signOut();
-
-  doPasswordReset = (email: string) => this.auth.sendPasswordResetEmail(email);
-
-  doPasswordUpdate = (password: string) =>
-    this.auth.currentUser.updatePassword(password);
 
   // User API ------------------------------------------------------------------
 
