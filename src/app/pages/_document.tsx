@@ -89,10 +89,6 @@ class MyDocument extends Document {
           />
           <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
           <meta name="theme-color" content={theme.palette.primary.main} />
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-          />
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           <script
             async
