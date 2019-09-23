@@ -1,36 +1,44 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 import blue from "@material-ui/core/colors/blue";
 
-const theme = createMuiTheme({
-  palette: {
-    type: "dark",
-    primary: blue,
-    background: {
-      default: "#212121"
-    }
-  },
-  props: {
-    MuiTextField: {
-      variant: "outlined"
-    },
-    MuiButtonBase: {
-      disableRipple: true
-    },
-    MuiStepButton: {
-      style: {
-        textAlign: "left"
+const theme = responsiveFontSizes(
+  createMuiTheme({
+    palette: {
+      type: "dark",
+      primary: blue,
+      background: {
+        default: "#212121"
       }
     },
-    MuiTab: {
-      style: {
-        minWidth: "135px"
+    props: {
+      MuiTextField: {
+        variant: "outlined"
+      },
+      MuiButtonBase: {
+        disableRipple: true
+      },
+      MuiStepButton: {
+        style: {
+          textAlign: "left"
+        }
+      },
+      MuiTab: {
+        style: {
+          minWidth: "135px"
+        }
+      }
+    },
+    typography: {
+      fontFamily:
+        "-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol",
+      h5: {
+        fontWeight: 700
+      },
+      h6: {
+        fontWeight: 700
       }
     }
-  },
-  typography: {
-    fontFamily:
-      "-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol"
-  }
-});
+  })
+);
 
 export default theme;
