@@ -18,59 +18,45 @@ import { Talk } from "../schema";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    card: { height: "100%" },
+    card: { height: "100%", background: "black" },
     cardActionArea: {},
     eventLogo: {
       maxHeight: "1em",
       verticalAlign: "middle"
     },
-    media: { height: 150 }
+    link: {
+      textDecoration: "none",
+      color: "inherit"
+    },
+    media: {
+      paddingBottom: "56.25%" /* maintain 16:9 aspect ratio */,
+      height: 0
+    }
   })
 );
 
 interface Props {
   talks?: Talk[];
+  className?: string;
 }
 
-const Talks: NextPage<Props> = ({ talks }) => {
+const Talks: NextPage<Props> = ({ talks, className }) => {
   const classes = useStyles({});
 
   return (
-    <Container>
-      <Typography variant="h6" component="h2" gutterBottom>
-        Recent talks:
+    <Container className={className}>
+      <Typography variant="h5" component="h2" color="textSecondary" paragraph>
+        Recent talks
       </Typography>
       <Grid container spacing={4}>
         {talks.map(talk => (
           <Grid key={talk.id} item xs={12} sm={6} md={4}>
             <Card className={classes.card} elevation={5}>
-              <CardHeader
-                title={
-                  <NextLink
-                    href={`/event/[eventid]/[editionid]`}
-                    as={`/event/${talk.eventId}/${talk.editionId}`}
-                    passHref
-                  >
-                    <Link variant="body1">
-                      {talk.eventTitle} {talk.editionTitle}
-                    </Link>
-                  </NextLink>
-                }
-                avatar={
-                  <img
-                    className={classes.eventLogo}
-                    src={`${process.env.STORAGE_PATH}${encodeURIComponent(
-                      talk.logo
-                    )}?alt=media`}
-                    alt={`${talk.eventTitle} ${talk.editionTitle} logo`}
-                  />
-                }
-              />
               <NextLink
                 href={`/event/[eventid]/[editionid]/[talkid]`}
                 as={`/event/${talk.eventId}/${talk.editionId}/${talk.id}`}
               >
-                <a>
+                <a className={classes.link}>
                   <CardActionArea className={classes.cardActionArea}>
                     <CardMedia
                       className={classes.media}

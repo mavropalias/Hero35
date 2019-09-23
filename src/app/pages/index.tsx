@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(2)
     },
     feedItem: {
-      marginBottom: theme.spacing(8)
+      marginBottom: theme.spacing(6)
     }
   })
 );
@@ -29,7 +29,7 @@ const Home: NextPage<Props> = ({ talks, editions }) => {
     <Layout>
       <Box className={classes.feedContainer}>
         <EditionGrid editions={editions} className={classes.feedItem} />
-        <TalkGrid talks={talks} />
+        <TalkGrid talks={talks} className={classes.feedItem} />
       </Box>
     </Layout>
   );
