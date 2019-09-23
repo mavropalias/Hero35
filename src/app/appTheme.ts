@@ -4,7 +4,10 @@ import blue from "@material-ui/core/colors/blue";
 const theme = createMuiTheme({
   palette: {
     type: "dark",
-    primary: blue
+    primary: blue,
+    background: {
+      default: "#212121"
+    }
   },
   props: {
     MuiTextField: {
