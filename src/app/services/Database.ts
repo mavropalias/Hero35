@@ -1,10 +1,13 @@
 import firebase from "firebase/app";
 import "firebase/auth";
-import "firebase/firestore";
 import { Event, EventEdition, Talk } from "../schema";
 import fetch from "isomorphic-unfetch";
 
-const API = "https://hero35.com/api/";
+// Use Firebase internal network address for SSR
+const API =
+  typeof window !== "undefined"
+    ? "https://hero35.com/api/"
+    : "https://heroes-9c313.web.app/api/";
 
 const config = {
   apiKey: process.env.API_KEY || "AIzaSyCDkhN8TpWw5-5Ukn4cfPXI8ufjAxelcDA",
@@ -16,7 +19,6 @@ const config = {
 
 class Database {
   auth: firebase.auth.Auth;
-  db: firebase.firestore.Firestore;
   app: firebase.app.App;
 
   constructor() {
@@ -25,12 +27,7 @@ class Database {
     }
 
     this.auth = firebase.auth(firebase.app());
-    this.db = firebase.firestore();
   }
-
-  // User API ------------------------------------------------------------------
-
-  user = (uid: string) => this.db.collection("users").doc(uid);
 
   // Content API ---------------------------------------------------------------
 
