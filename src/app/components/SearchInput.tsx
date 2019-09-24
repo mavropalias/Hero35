@@ -21,10 +21,21 @@ import { Search as SearchIcon } from "@material-ui/icons";
 import { TalkPreview } from "../schema";
 import TalkList from "./TalkList";
 
-const searchClient = algoliasearch(
+const algoliaClient = algoliasearch(
   "B9STNN0U9I",
   "ee9b0c6e71cc5f9e80605e9a8bbb711c"
 );
+
+let firstLoad = true;
+const searchClient = {
+  search(requests) {
+    if (firstLoad === true) {
+      firstLoad = false;
+      return;
+    }
+    return algoliaClient.search(requests);
+  }
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -95,11 +106,6 @@ const SearchInput: React.FC<React.HTMLAttributes<HTMLDivElement>> = props => {
       searchClient={searchClient}
       indexName="talks"
       onSearchStateChange={state => onSearchStateChange(state)}
-      searchFunction={helper => {
-        if (helper.state.query) {
-          helper.search();
-        }
-      }}
     >
       <Configure hitsPerPage={7} />
       <ConnectedSearchBox
