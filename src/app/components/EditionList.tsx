@@ -119,14 +119,6 @@ const EditionList = ({
                           className={classes.chip}
                         ></Chip>
                       ))}
-                      <Chip
-                        color="default"
-                        component="span"
-                        variant="outlined"
-                        size="small"
-                        label="…"
-                        className={classes.chip}
-                      ></Chip>
                     </>
                   )}
                 </>
