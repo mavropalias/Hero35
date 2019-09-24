@@ -140,7 +140,7 @@ const recentTalks = functions.https.onRequest(async (req, res) => {
 const curatedTalks = functions.https.onRequest(async (req, res) => {
   const docSnap = await db
     .collectionGroup("talks")
-    .where("type", "==", "2")
+    .where("isCurated", "==", true)
     .orderBy("date", "desc")
     .orderBy("order", "desc")
     .limit(3)

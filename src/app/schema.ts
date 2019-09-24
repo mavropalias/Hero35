@@ -37,12 +37,14 @@ export type Tag = {
 
 export type TalkPreview = {
   _highlightResult?: any;
+  curationDescription?: string;
   categories: Category[];
   date: string;
   description?: string;
   editionId?: string;
   eventId?: string;
   id: string;
+  isCurated?: boolean;
   logo?: string;
   order?: number;
   slug?: string;
@@ -56,6 +58,7 @@ export type TalkPreview = {
 
 export type Talk = {
   categories: Category[];
+  curationDescription?: string;
   date: string;
   description: string;
   editionId: string;
@@ -63,6 +66,7 @@ export type Talk = {
   eventId: string;
   eventTitle: string;
   id: string;
+  isCurated?: boolean;
   logo: string;
   order: number;
   slug: string;
