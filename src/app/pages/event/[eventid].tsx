@@ -17,19 +17,22 @@ import { NextPage, NextPageContext } from "next";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    container: {
-      marginTop: theme.spacing(2)
-    },
-    logo: {
-      maxWidth: "50%",
-      height: theme.typography.fontSize * 4
-    },
     chip: {
       marginRight: theme.spacing(1),
       marginBottom: theme.spacing(1)
     },
+    container: {
+      marginTop: theme.spacing(2)
+    },
+    description: {
+      whiteSpace: "pre-line"
+    },
     externalLinkIcon: {
       fontSize: theme.typography.fontSize
+    },
+    logo: {
+      maxWidth: "50%",
+      height: theme.typography.fontSize * 4
     }
   })
 );
@@ -76,7 +79,9 @@ const EventDetails: NextPage<Props> = ({ event }) => {
                 ))}
               </Grid>
               <Grid item xs={12}>
-                <Typography variant="body1">{event.description}</Typography>
+                <Typography variant="body1" className={classes.description}>
+                  {event.description}
+                </Typography>
                 <p>
                   <Link href={event.website} target="_blank" variant="body2">
                     Official website{" "}

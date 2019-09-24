@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme: Theme) =>
     chip: {
       marginRight: theme.spacing(1),
       marginBottom: theme.spacing(1)
+    },
+    description: {
+      whiteSpace: "pre-line"
     }
   })
 );
@@ -96,7 +99,7 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
           </Grid>
         </Box>
         <TalkVideo videoid={talk.id} />
-        <Typography variant="body1" paragraph>
+        <Typography variant="body1" className={classes.description} paragraph>
           {talk.description}
         </Typography>
       </Container>
