@@ -100,7 +100,7 @@ const upcomingEditions = functions.https.onRequest(async (req, res) => {
     .collectionGroup("editions")
     .where("status", "==", "published-notalks")
     .orderBy("endDate", "asc")
-    .limit(3)
+    .limit(4)
     .get();
   let editions = [];
   docSnap.forEach(doc => {

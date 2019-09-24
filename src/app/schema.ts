@@ -26,6 +26,7 @@ export type EventEdition = {
   tags?: Tag[];
   topTags?: string[];
   talks?: TalkPreview[];
+  ticketsUrl?: string;
   title: string;
   website?: string;
 };

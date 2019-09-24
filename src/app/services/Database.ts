@@ -51,6 +51,11 @@ class Database {
     return ((await res.json()) as unknown) as EventEdition[];
   };
 
+  getUpcomingEditions = async (): Promise<EventEdition[]> => {
+    const res = await fetch(`${API}upcomingEditions`);
+    return ((await res.json()) as unknown) as EventEdition[];
+  };
+
   getTalk = async (
     eventId: string,
     editionId: string,

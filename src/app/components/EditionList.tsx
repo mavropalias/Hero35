@@ -46,18 +46,6 @@ const EditionList = ({
 }) => {
   const classes = useStyles({});
 
-  const editionDays = (edition: EventEdition) => {
-    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-    const firstDate = new Date(edition.startDate);
-    const secondDate = new Date(edition.endDate);
-
-    return (
-      Math.round(
-        Math.abs((firstDate.getTime() - secondDate.getTime()) / oneDay)
-      ) + 1
-    );
-  };
-
   const editionDateStart = (edition: EventEdition) => {
     const startDate = new Date(edition.startDate);
     var options = {
