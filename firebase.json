@@ -13,6 +13,10 @@
     "public": "dist/public",
     "rewrites": [
       {
+        "source": "/api/curatedTalks",
+        "function": "heroes-curatedTalks"
+      },
+      {
         "source": "/api/event",
         "function": "heroes-event"
       },
@@ -37,11 +41,7 @@
         "function": "heroes-ssr"
       }
     ],
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "headers": [
       {
         "source": "**/*.@(jpg|jpeg|gif|png|svg)",
