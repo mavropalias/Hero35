@@ -1,10 +1,10 @@
 import Layout from "../components/Layout";
-import TalkGrid from "../components/TalkGrid";
 import EditionGrid from "../components/EditionGrid";
 import { makeStyles, createStyles, Theme, Box } from "@material-ui/core";
 import { Talk, EventEdition } from "../schema";
 import Database from "../services/Database";
 import { NextPage } from "next";
+import CuratedTalks from "../components/CuratedTalks";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,8 +28,8 @@ const Home: NextPage<Props> = ({ talks, editions }) => {
   return (
     <Layout>
       <Box className={classes.feedContainer}>
+        <CuratedTalks talks={talks} className={classes.feedItem} />
         <EditionGrid editions={editions} className={classes.feedItem} />
-        <TalkGrid talks={talks} className={classes.feedItem} />
       </Box>
     </Layout>
   );
