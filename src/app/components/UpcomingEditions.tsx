@@ -33,7 +33,7 @@ interface Props {
   className?: string;
 }
 
-const EditionGrid = ({ editions, className }) => {
+const UpcomingEditions = ({ editions, className }) => {
   const classes = useStyles({});
 
   const editionDateStart = (edition: EventEdition) => {
@@ -49,10 +49,10 @@ const EditionGrid = ({ editions, className }) => {
   return (
     <Container className={className}>
       <Typography variant="h5" component="h2">
-        Recent events
+        Upcoming events
       </Typography>
       <Typography variant="subtitle1" color="textSecondary" paragraph>
-        View talks, workshops, and more, from the most recent React events.
+        Stay up to date with upcoming React events.
       </Typography>
       <Grid container spacing={4}>
         {editions.map(edition => (
@@ -81,24 +81,9 @@ const EditionGrid = ({ editions, className }) => {
                         {edition.eventTitle} {edition.title}
                       </Typography>
                       <Typography variant="subtitle1" color="textSecondary">
-                        {(edition.durationMinutes / 60).toFixed(0)} hours of
-                        videos
-                      </Typography>
-                      <Typography variant="caption" color="textSecondary">
                         {editionDateStart(edition)} at{" "}
                         {edition.state || edition.city}, {edition.country}
                       </Typography>
-                      <div>
-                        {edition.topTags.map((tag, index) => (
-                          <Chip
-                            key={index}
-                            size="small"
-                            variant="outlined"
-                            label={tag}
-                            className={classes.tag}
-                          />
-                        ))}
-                      </div>
                     </CardContent>
                   </CardActionArea>
                 </Card>
@@ -111,4 +96,4 @@ const EditionGrid = ({ editions, className }) => {
   );
 };
 
-export default EditionGrid;
+export default UpcomingEditions;

@@ -5,6 +5,7 @@ import { Talk, EventEdition } from "../schema";
 import Database from "../services/Database";
 import { NextPage } from "next";
 import CuratedTalks from "../components/CuratedTalks";
+import UpcomingEditions from "../components/UpcomingEditions";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,27 +19,37 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-  talks?: Talk[];
-  editions?: EventEdition[];
+  curatedTalks?: Talk[];
+  recentEditions?: EventEdition[];
+  upcomingEditions?: EventEdition[];
 }
 
-const Home: NextPage<Props> = ({ talks, editions }) => {
+const Home: NextPage<Props> = ({
+  curatedTalks,
+  recentEditions,
+  upcomingEditions
+}) => {
   const classes = useStyles({});
 
   return (
     <Layout>
       <Box className={classes.feedContainer}>
-        <CuratedTalks talks={talks} className={classes.feedItem} />
-        <EditionGrid editions={editions} className={classes.feedItem} />
+        <CuratedTalks talks={curatedTalks} className={classes.feedItem} />
+        <EditionGrid editions={recentEditions} className={classes.feedItem} />
+        <UpcomingEditions
+          editions={upcomingEditions}
+          className={classes.feedItem}
+        />
       </Box>
     </Layout>
   );
 };
 
 Home.getInitialProps = async () => {
-  const talks = await Database.getCuratedTalks();
-  const editions = await Database.getRecentEditions();
-  return { talks, editions };
+  const curatedTalks = await Database.getCuratedTalks();
+  const recentEditions = await Database.getRecentEditions();
+  const upcomingEditions = await Database.getRecentEditions();
+  return { curatedTalks, recentEditions, upcomingEditions };
 };
 
 export default Home;

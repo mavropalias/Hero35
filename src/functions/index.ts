@@ -75,7 +75,7 @@ const edition = functions.https.onRequest(async (req, res) => {
 });
 
 /**
- * Get recent Edition
+ * Get recent Editions
  */
 const recentEditions = functions.https.onRequest(async (req, res) => {
   const docSnap = await db
@@ -83,6 +83,24 @@ const recentEditions = functions.https.onRequest(async (req, res) => {
     .where("status", "==", "published")
     .orderBy("endDate", "desc")
     .limit(6)
+    .get();
+  let editions = [];
+  docSnap.forEach(doc => {
+    editions.push(doc.data());
+  });
+  res.set(API_HEADERS);
+  res.json(editions);
+});
+
+/**
+ * Get upcoming Editions
+ */
+const upcomingEditions = functions.https.onRequest(async (req, res) => {
+  const docSnap = await db
+    .collectionGroup("editions")
+    .where("status", "==", "published-notalks")
+    .orderBy("endDate", "asc")
+    .limit(3)
     .get();
   let editions = [];
   docSnap.forEach(doc => {
@@ -160,7 +178,8 @@ const heroes = {
   recentEditions,
   ssr,
   talk,
-  recentTalks
+  recentTalks,
+  upcomingEditions
 };
 
 export { heroes };
