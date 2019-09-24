@@ -96,8 +96,8 @@ const UpcomingEditions = ({ editions, className }: Props) => {
                         {edition.eventTitle} {edition.title}
                       </Typography>
                       <Typography variant="subtitle2" color="textSecondary">
-                        {editionDateStart(edition)} | {editionDays(edition)}{" "}
-                        days |&nbsp;
+                        {editionDateStart(edition)} | {editionDays(edition)}
+                        &nbsp;days&nbsp;|&nbsp;
                         {edition.state || edition.city}, {edition.country}
                       </Typography>
                     </CardContent>
@@ -109,6 +109,8 @@ const UpcomingEditions = ({ editions, className }: Props) => {
                   variant="contained"
                   color="secondary"
                   href={edition.ticketsUrl}
+                  target="_blank"
+                  rel="noopener"
                 >
                   Get tickets
                   <TicketIcon className={classes.icon} />
