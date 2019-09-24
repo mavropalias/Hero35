@@ -154,6 +154,7 @@ const curatedTalks = functions.https.onRequest(async (req, res) => {
 });
 
 const heroes = {
+  curatedTalks,
   edition,
   event,
   recentEditions,
