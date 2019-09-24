@@ -95,6 +95,11 @@ const SearchInput: React.FC<React.HTMLAttributes<HTMLDivElement>> = props => {
       searchClient={searchClient}
       indexName="talks"
       onSearchStateChange={state => onSearchStateChange(state)}
+      searchFunction={helper => {
+        if (helper.state.query) {
+          helper.search();
+        }
+      }}
     >
       <Configure hitsPerPage={7} />
       <ConnectedSearchBox
