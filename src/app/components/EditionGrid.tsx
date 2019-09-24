@@ -2,12 +2,10 @@ import {
   Card,
   CardActionArea,
   CardContent,
-  CardHeader,
   CardMedia,
   Container,
   createStyles,
   Grid,
-  Link,
   makeStyles,
   Theme,
   Typography,
@@ -51,8 +49,11 @@ const EditionGrid: NextPage<Props> = ({ editions, className }) => {
 
   return (
     <Container className={className}>
-      <Typography variant="h5" component="h2" color="textSecondary" paragraph>
+      <Typography variant="h5" component="h2">
         Recent events
+      </Typography>
+      <Typography variant="subtitle1" color="textSecondary" paragraph>
+        View talks, workshops, and more, from the most recent React events.
       </Typography>
       <Grid container spacing={4}>
         {editions.map(edition => (
