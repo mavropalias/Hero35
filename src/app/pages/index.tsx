@@ -36,7 +36,7 @@ const Home: NextPage<Props> = ({ talks, editions }) => {
 };
 
 Home.getInitialProps = async () => {
-  const talks = await Database.getRecentTalks();
+  const talks = await Database.getCuratedTalks();
   const editions = await Database.getRecentEditions();
   return { talks, editions };
 };
