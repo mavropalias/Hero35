@@ -9,7 +9,9 @@ import {
   Link,
   Chip,
   Container,
-  Grid
+  Grid,
+  Button,
+  Box
 } from "@material-ui/core";
 import { OpenInNew as LinkIcon } from "@material-ui/icons";
 import { EventEdition } from "../../../schema";
@@ -27,7 +29,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     chip: {
       marginRight: theme.spacing(1),
-      marginBottom: theme.spacing(1)
+      marginBottom: theme.spacing(0.5),
+      marginTop: theme.spacing(0.5)
+    },
+    chipCategory: {
+      marginRight: theme.spacing(1),
+      marginBottom: theme.spacing(0.5),
+      marginTop: theme.spacing(0.5)
     },
     externalLinkIcon: {
       fontSize: theme.typography.fontSize
@@ -68,7 +76,7 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
                   )}?alt=media`}
                   alt="Event logo"
                 />
-                <Typography variant="h1">
+                <Typography variant="h1" paragraph>
                   {edition.eventTitle} {edition.title}
                 </Typography>
                 <NextLink
@@ -76,45 +84,58 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
                   as={`/event/${edition.eventId}`}
                   passHref
                 >
-                  <Link variant="subtitle1">
+                  <Button color="secondary" variant="outlined">
                     View all {edition.eventTitle} events
-                  </Link>
+                  </Button>
                 </NextLink>
-                <Typography variant="subtitle1">
-                  {edition.state || edition.city}, {edition.country}
-                </Typography>
-                <Typography variant="subtitle2" color="textSecondary">
-                  {shortDate(edition.startDate)}&ndash;
-                  {shortDate(edition.endDate)}
-                </Typography>
-                {edition.durationMinutes > 0 && (
-                  <Typography variant="subtitle2" gutterBottom>
-                    {(edition.durationMinutes / 60).toFixed(0)} hours of content
-                  </Typography>
-                )}
-                {edition.categories.map(cat => (
-                  <Chip
-                    color="default"
-                    variant="outlined"
-                    key={cat.id}
-                    label={`#${cat.title}`}
-                    className={classes.chip}
-                  />
-                ))}
-                {edition.tags &&
-                  edition.tags.map((tag, index) => (
-                    <Chip
-                      color="default"
-                      variant="outlined"
-                      key={index}
-                      label={`#${tag.label} ${
-                        tag.count > 1 ? "(" + tag.count + ")" : ""
-                      }`}
-                      className={classes.chip}
-                    />
-                  ))}
               </Grid>
               <Grid item xs={12}>
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  marginTop={1}
+                  flexWrap="wrap"
+                >
+                  {edition.durationMinutes > 0 && (
+                    <Typography variant="body1">
+                      {(edition.durationMinutes / 60).toFixed(0)} hours of
+                      content in&nbsp;
+                    </Typography>
+                  )}
+                  {edition.categories.map(cat => (
+                    <Chip
+                      color="default"
+                      variant="default"
+                      key={cat.id}
+                      label={`${cat.title}`}
+                      className={classes.chipCategory}
+                    />
+                  ))}
+                  {edition.tags &&
+                    edition.tags.map(
+                      (tag, index) =>
+                        tag.count > 1 && (
+                          <Chip
+                            color="default"
+                            variant="outlined"
+                            key={index}
+                            label={tag.label}
+                            className={classes.chip}
+                          />
+                        )
+                    )}{" "}
+                  and more.
+                </Box>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="h5" component="h2">
+                  Event info
+                </Typography>
+                <Typography variant="overline">
+                  {shortDate(edition.startDate)}&ndash;
+                  {shortDate(edition.endDate)} | {edition.state || edition.city}
+                  , {edition.country}
+                </Typography>
                 <Typography variant="body1" className={classes.description}>
                   {edition.description}
                 </Typography>
