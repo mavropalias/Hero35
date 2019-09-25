@@ -68,10 +68,10 @@ const UpcomingEditions = ({ editions, className }: Props) => {
   return (
     <Container className={className}>
       <Typography variant="h5" component="h2">
-        Upcoming events
+        Upcoming React events
       </Typography>
       <Typography variant="subtitle1" color="textSecondary" paragraph>
-        Stay up to date with upcoming React events.
+        See what's coming next.
       </Typography>
       <Grid container spacing={4}>
         {editions.slice(0, editionCount).map(edition => (

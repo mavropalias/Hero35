@@ -77,10 +77,11 @@ const CuratedTalks: NextPage<Props> = ({ talks, className }) => {
   return (
     <Container className={className}>
       <Typography variant="h5" component="h2">
-        Curated talks
+        Curated React talks
       </Typography>
       <Typography variant="subtitle1" color="textSecondary" paragraph>
-        Must-watch talks, hand-picked by our editorial team.
+        Must-watch React talks from developer conferences around the world,
+        hand-picked by our editorial team.
       </Typography>
       <Grid container spacing={2}>
         {talks.slice(0, talkCount).map(talk => (
