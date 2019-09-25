@@ -3,7 +3,7 @@
     "baseUrl": "./",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "lib": ["es2017"],
     "module": "commonjs",
     "outDir": "../../dist/functions",
