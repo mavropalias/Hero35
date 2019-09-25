@@ -81,13 +81,11 @@ const useStyles = makeStyles((theme: Theme) =>
       left: 0,
       width: "100%",
       margin: theme.spacing(0.5, 0, 0, 0),
-      [theme.breakpoints.up("sm")]: {
-        left: "initial",
-        margin: theme.spacing(0.5, 0, 0, 3),
-        width: "460px"
-      },
+      maxHeight: "90vh",
+      overflow: "auto",
       [theme.breakpoints.up("md")]: {
-        width: "800px"
+        left: "initial",
+        width: "750px"
       }
     }
   })
