@@ -6,6 +6,7 @@ import Database from "../services/Database";
 import { NextPage } from "next";
 import CuratedTalks from "../components/CuratedTalks";
 import UpcomingEditions from "../components/UpcomingEditions";
+import CuratedTags from "../components/CuratedTags";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,6 +41,7 @@ const Home: NextPage<Props> = ({
           editions={upcomingEditions}
           className={classes.feedItem}
         />
+        <CuratedTags className={classes.feedItem} />
       </Box>
     </Layout>
   );

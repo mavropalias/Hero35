@@ -37,6 +37,10 @@
         "function": "heroes-recentTalks"
       },
       {
+        "source": "/api/talksByTopic",
+        "function": "heroes-talksByTopic"
+      },
+      {
         "source": "/api/upcomingEditions",
         "function": "heroes-upcomingEditions"
       },

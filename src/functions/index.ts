@@ -171,6 +171,24 @@ const curatedTalks = functions.https.onRequest(async (req, res) => {
   res.json(talks);
 });
 
+/**
+ * Get talks by topic
+ */
+const talksByTopic = functions.https.onRequest(async (req, res) => {
+  const docSnap = await db
+    .collectionGroup("talks")
+    .where("tags", "array-contains", req.query.topic)
+    .orderBy("date", "desc")
+    .limit(10)
+    .get();
+  let talks = [];
+  docSnap.forEach(doc => {
+    talks.push(doc.data());
+  });
+  res.set(API_HEADERS);
+  res.json(talks);
+});
+
 const heroes = {
   curatedTalks,
   edition,
@@ -179,6 +197,7 @@ const heroes = {
   ssr,
   talk,
   recentTalks,
+  talksByTopic,
   upcomingEditions
 };
 

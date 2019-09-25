@@ -76,6 +76,11 @@ class Database {
     const res = await fetch(`${API}curatedTalks`);
     return ((await res.json()) as unknown) as Talk[];
   };
+
+  getTalksByTopic = async (topic: string): Promise<Talk[]> => {
+    const res = await fetch(`${API}talksByTopic?topic=${topic}`);
+    return ((await res.json()) as unknown) as Talk[];
+  };
 }
 
 export default new Database();
