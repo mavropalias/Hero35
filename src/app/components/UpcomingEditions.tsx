@@ -11,6 +11,8 @@ import {
   Typography,
   Button
 } from "@material-ui/core";
+import { useTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { Payment as TicketIcon } from "@material-ui/icons";
 import { default as NextLink } from "next/link";
 import { EventEdition } from "../schema";
@@ -37,6 +39,8 @@ interface Props {
 }
 
 const UpcomingEditions = ({ editions, className }: Props) => {
+  const theme = useTheme();
+  const editionCount = useMediaQuery(theme.breakpoints.only("sm")) ? 4 : 3;
   const classes = useStyles({});
 
   const editionDays = (edition: EventEdition) => {
@@ -70,7 +74,7 @@ const UpcomingEditions = ({ editions, className }: Props) => {
         Stay up to date with upcoming React events.
       </Typography>
       <Grid container spacing={4}>
-        {editions.map(edition => (
+        {editions.slice(0, editionCount).map(edition => (
           <Grid
             key={`${edition.eventId}${edition.id}`}
             item
