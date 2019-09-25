@@ -6,9 +6,9 @@ import {
   Theme,
   Toolbar,
   Box,
-  Typography,
   Button,
-  Avatar
+  Avatar,
+  Tooltip
 } from "@material-ui/core";
 import ROUTES from "../constants/routes";
 import SearchInput from "./SearchInput";
@@ -18,6 +18,9 @@ import { UserContext } from "./UserContextProvider";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    alphaIcon: {
+      marginLeft: theme.spacing(1)
+    },
     appBar: {
       zIndex: theme.zIndex.drawer + 1
     },
@@ -60,9 +63,11 @@ const Navigation = () => {
             <SearchInput className={classes.search} />
           </Box>
           <Box m={2}>
-            <Typography variant="caption" color="textSecondary">
-              Heroes is in ALPHA
-            </Typography>
+            <Tooltip title="Hero35 is in ALPHA. There's tons more to come!">
+              <Button size="medium" color="secondary">
+                ALPHA
+              </Button>
+            </Tooltip>
           </Box>
           <img src="/static/HERO35-logo-tagline.svg" className={classes.logo} />
         </Toolbar>
