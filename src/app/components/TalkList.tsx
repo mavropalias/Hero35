@@ -23,33 +23,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     chip: {
       margin: theme.spacing(0.3, 0, 0.3, 1)
-    },
-    keynoteIcon: {
-      color: "#4CD964"
-    },
-    lightningTalkIcon: {
-      color: "#FF2D55"
-    },
-    panelIcon: {
-      color: "#FF9500"
-    },
-    sponsorIcon: {
-      color: "#FFCC00"
-    },
-    qaIcon: {
-      color: "#5856D6"
-    },
-    workshopIcon: {
-      color: "#007AFF"
-    },
-    interviewIcon: {
-      color: "#FF3B30"
-    },
-    highlightsIcon: {
-      color: "#C7FF00"
-    },
-    talkIcon: {
-      color: "#5AC8FA"
     }
   })
 );
@@ -86,14 +59,12 @@ const TalkList = ({
   return (
     <List className={classes.list}>
       {talks.map(talk => (
-        <>
-          <TalkListItem
-            key={talk.id}
-            talk={talk}
-            onClick={onClick}
-            showEvent={showEvent}
-          />
-        </>
+        <TalkListItem
+          key={talk.id}
+          talk={talk}
+          onClick={onClick}
+          showEvent={showEvent}
+        />
       ))}
     </List>
   );
