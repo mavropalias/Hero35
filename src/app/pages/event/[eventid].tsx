@@ -67,18 +67,18 @@ const EventDetails: NextPage<Props> = ({ event }) => {
                   )}?alt=media`}
                   alt="Event logo"
                 />
-                <Typography variant="h1">{event.title}</Typography>
+                <Typography variant="h1" paragraph>
+                  {event.title}
+                </Typography>
                 {event.categories.map(cat => (
                   <Chip
                     color="default"
-                    variant="outlined"
+                    variant="default"
                     key={cat.id}
-                    label={`#${cat.title}`}
+                    label={cat.title}
                     className={classes.chip}
                   />
                 ))}
-              </Grid>
-              <Grid item xs={12}>
                 <Typography variant="body1" className={classes.description}>
                   {event.description}
                 </Typography>
