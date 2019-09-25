@@ -161,7 +161,7 @@ const curatedTalks = functions.https.onRequest(async (req, res) => {
     .where("isCurated", "==", true)
     .orderBy("date", "desc")
     .orderBy("order", "desc")
-    .limit(3)
+    .limit(4)
     .get();
   let talks = [];
   docSnap.forEach(doc => {

@@ -2,17 +2,16 @@ import {
   Card,
   CardActionArea,
   CardContent,
-  CardHeader,
   CardMedia,
   Container,
   createStyles,
   Grid,
-  Link,
   makeStyles,
   Theme,
-  Typography,
-  Chip
+  Typography
 } from "@material-ui/core";
+import { useTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { default as NextLink } from "next/link";
 import { NextPage } from "next";
 import { Talk } from "../schema";
@@ -71,6 +70,8 @@ interface Props {
 }
 
 const CuratedTalks: NextPage<Props> = ({ talks, className }) => {
+  const theme = useTheme();
+  const talkCount = useMediaQuery(theme.breakpoints.only("sm")) ? 4 : 3;
   const classes = useStyles({});
 
   return (
@@ -82,7 +83,7 @@ const CuratedTalks: NextPage<Props> = ({ talks, className }) => {
         Must-watch talks, hand-picked by our editorial team.
       </Typography>
       <Grid container spacing={2}>
-        {talks.map(talk => (
+        {talks.slice(0, talkCount).map(talk => (
           <Grid key={talk.id} item xs={12} sm={6} md={4}>
             <Card className={classes.card} elevation={5}>
               <NextLink
