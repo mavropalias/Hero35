@@ -82,7 +82,7 @@ const EditionGrid = ({ editions, className }) => {
                       </Typography>
                       <Typography variant="subtitle1" color="textSecondary">
                         {(edition.durationMinutes / 60).toFixed(0)} hours of
-                        videos
+                        content
                       </Typography>
                       <Typography variant="caption" color="textSecondary">
                         {editionDateStart(edition)} at{" "}
