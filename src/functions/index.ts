@@ -75,6 +75,24 @@ const edition = functions.https.onRequest(async (req, res) => {
 });
 
 /**
+ * Get editions by country
+ */
+const editionsByCountry = functions.https.onRequest(async (req, res) => {
+  const docSnap = await db
+    .collectionGroup("editions")
+    .where("country", "==", req.query.id)
+    .orderBy("startDate", "desc")
+    .limit(10)
+    .get();
+  let editions = [];
+  docSnap.forEach(doc => {
+    editions.push(doc.data());
+  });
+  res.set(API_HEADERS);
+  res.json(editions);
+});
+
+/**
  * Get recent Editions
  */
 const recentEditions = functions.https.onRequest(async (req, res) => {
@@ -177,7 +195,7 @@ const curatedTalks = functions.https.onRequest(async (req, res) => {
 const talksByTopic = functions.https.onRequest(async (req, res) => {
   const docSnap = await db
     .collectionGroup("talks")
-    .where("tags", "array-contains", req.query.topic)
+    .where("tags", "array-contains", req.query.id)
     .orderBy("date", "desc")
     .limit(10)
     .get();
@@ -192,6 +210,7 @@ const talksByTopic = functions.https.onRequest(async (req, res) => {
 const heroes = {
   curatedTalks,
   edition,
+  editionsByCountry,
   event,
   recentEditions,
   ssr,

@@ -46,6 +46,11 @@ class Database {
     return ((await res.json()) as unknown) as EventEdition;
   };
 
+  getEditionsByCountry = async (country: string): Promise<EventEdition[]> => {
+    const res = await fetch(`${API}editionsByCountry?id=${country}`);
+    return ((await res.json()) as unknown) as EventEdition[];
+  };
+
   getRecentEditions = async (): Promise<EventEdition[]> => {
     const res = await fetch(`${API}recentEditions`);
     return ((await res.json()) as unknown) as EventEdition[];
@@ -78,7 +83,7 @@ class Database {
   };
 
   getTalksByTopic = async (topic: string): Promise<Talk[]> => {
-    const res = await fetch(`${API}talksByTopic?topic=${topic}`);
+    const res = await fetch(`${API}talksByTopic?id=${topic}`);
     return ((await res.json()) as unknown) as Talk[];
   };
 }
