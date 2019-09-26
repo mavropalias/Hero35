@@ -51,6 +51,11 @@ class Database {
     return ((await res.json()) as unknown) as EventEdition[];
   };
 
+  getEditionsByYear = async (year: string): Promise<EventEdition[]> => {
+    const res = await fetch(`${API}editionsByYear?id=${year}`);
+    return ((await res.json()) as unknown) as EventEdition[];
+  };
+
   getRecentEditions = async (): Promise<EventEdition[]> => {
     const res = await fetch(`${API}recentEditions`);
     return ((await res.json()) as unknown) as EventEdition[];

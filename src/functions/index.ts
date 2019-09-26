@@ -93,6 +93,25 @@ const editionsByCountry = functions.https.onRequest(async (req, res) => {
 });
 
 /**
+ * Get editions by year
+ */
+const editionsByYear = functions.https.onRequest(async (req, res) => {
+  const docSnap = await db
+    .collectionGroup("editions")
+    // TODO use timestamp
+    .where("id", "==", req.query.id)
+    .orderBy("startDate", "desc")
+    .limit(10)
+    .get();
+  let editions = [];
+  docSnap.forEach(doc => {
+    editions.push(doc.data());
+  });
+  res.set(API_HEADERS);
+  res.json(editions);
+});
+
+/**
  * Get recent Editions
  */
 const recentEditions = functions.https.onRequest(async (req, res) => {
@@ -211,6 +230,7 @@ const heroes = {
   curatedTalks,
   edition,
   editionsByCountry,
+  editionsByYear,
   event,
   recentEditions,
   ssr,

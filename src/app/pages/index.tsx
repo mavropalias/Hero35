@@ -8,6 +8,7 @@ import CuratedTalks from "../components/CuratedTalks";
 import UpcomingEditions from "../components/UpcomingEditions";
 import CuratedTags from "../components/CuratedTags";
 import CuratedCountries from "../components/CuratedCountries";
+import CuratedYears from "../components/CuratedYears";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,6 +45,7 @@ const Home: NextPage<Props> = ({
         />
         <CuratedTags className={classes.feedItem} />
         <CuratedCountries className={classes.feedItem} />
+        <CuratedYears className={classes.feedItem} />
       </Box>
     </Layout>
   );

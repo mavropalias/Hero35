@@ -29,6 +29,10 @@
         "function": "heroes-editionsByCountry"
       },
       {
+        "source": "/api/editionsByYear",
+        "function": "heroes-editionsByYear"
+      },
+      {
         "source": "/api/recentEditions",
         "function": "heroes-recentEditions"
       },
