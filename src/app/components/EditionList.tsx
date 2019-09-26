@@ -42,7 +42,7 @@ const EditionList = ({
   label
 }: {
   editions: EventEdition[];
-  label: string;
+  label?: string;
 }) => {
   const classes = useStyles({});
 
@@ -58,7 +58,9 @@ const EditionList = ({
 
   return (
     <List
-      subheader={<ListSubheader component="span">{label}</ListSubheader>}
+      subheader={
+        label && <ListSubheader component="span">{label}</ListSubheader>
+      }
       className={classes.list}
       component="nav"
     >

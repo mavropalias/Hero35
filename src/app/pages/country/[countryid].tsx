@@ -35,7 +35,7 @@ const CountryPage: NextPage<Props> = ({ country, editions }) => {
         </Typography>
         <hr />
         {editions.length > 0 ? (
-          <EditionList editions={editions} label="Events" />
+          <EditionList editions={editions} />
         ) : (
           <Typography variant="body1">
             No React developer conferences found in {country}.

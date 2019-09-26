@@ -4,16 +4,14 @@ import {
   makeStyles,
   Theme,
   Typography,
-  Chip,
   Button
 } from "@material-ui/core";
-import { Flag as ItemIcon } from "@material-ui/icons";
 import { default as NextLink } from "next/link";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    chip: {
-      margin: theme.spacing(0, 2, 2, 0)
+    item: {
+      margin: theme.spacing(0, 1, 1, 0)
     }
   })
 );
@@ -40,7 +38,7 @@ const CuratedYears = ({ className }: Props) => {
             variant="outlined"
             size="large"
             color="primary"
-            className={classes.chip}
+            className={classes.item}
           >
             {item}
           </Button>

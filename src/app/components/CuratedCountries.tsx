@@ -4,15 +4,19 @@ import {
   makeStyles,
   Theme,
   Typography,
-  Chip
+  Chip,
+  Button
 } from "@material-ui/core";
 import { Flag as ItemIcon } from "@material-ui/icons";
 import { default as NextLink } from "next/link";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    chip: {
-      margin: theme.spacing(0, 2, 2, 0)
+    icon: {
+      marginRight: theme.spacing(1)
+    },
+    item: {
+      margin: theme.spacing(0, 1, 1, 0)
     }
   })
 );
@@ -39,13 +43,14 @@ const CuratedCountries = ({ className }: Props) => {
           as={`/country/${item}`}
           passHref
         >
-          <Chip
-            component="a"
+          <Button
+            variant="outlined"
+            size="large"
             color="primary"
-            label={item}
-            icon={<ItemIcon />}
-            className={classes.chip}
-          />
+            className={classes.item}
+          >
+            <ItemIcon className={classes.icon} /> {item}
+          </Button>
         </NextLink>
       ))}
     </Container>
