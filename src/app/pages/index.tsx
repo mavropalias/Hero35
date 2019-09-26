@@ -7,6 +7,7 @@ import { NextPage } from "next";
 import CuratedTalks from "../components/CuratedTalks";
 import UpcomingEditions from "../components/UpcomingEditions";
 import CuratedTags from "../components/CuratedTags";
+import CuratedCountries from "../components/CuratedCountries";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,6 +43,7 @@ const Home: NextPage<Props> = ({
           className={classes.feedItem}
         />
         <CuratedTags className={classes.feedItem} />
+        <CuratedCountries className={classes.feedItem} />
       </Box>
     </Layout>
   );
