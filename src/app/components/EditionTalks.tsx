@@ -1,5 +1,17 @@
 import { useState, useEffect } from "react";
-import { createStyles, makeStyles, Theme, Tabs, Tab } from "@material-ui/core";
+import {
+  createStyles,
+  makeStyles,
+  Theme,
+  Tabs,
+  Tab,
+  FormControl,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  FormHelperText,
+  Box
+} from "@material-ui/core";
 import { EventEdition } from "../schema";
 import TalkList from "./TalkList";
 import TalkAccordion from "./TalkAccordion";
@@ -14,6 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const EditionTalks = ({ edition }: { edition?: EventEdition }) => {
   const [selectedDay, setSelectedDay] = useState(edition.startDate);
+  const [track, setTrack] = useState(edition.tracks && edition.tracks[0]);
   const [moreContent, setMoreContent] = useState(false);
   const classes = useStyles({});
 
@@ -43,13 +56,21 @@ const EditionTalks = ({ edition }: { edition?: EventEdition }) => {
   const filteredTalks = () => {
     return edition.talks.filter(talk => {
       if (selectedDay !== "99")
-        return talk.date == selectedDay && ["1", "2"].includes(talk.type);
+        return (
+          talk.date == selectedDay &&
+          ["1", "2"].includes(talk.type) &&
+          talk.track === track
+        );
       else return !["1", "2"].includes(talk.type);
     });
   };
 
   const handleChange = (_: React.ChangeEvent<{}>, newValue: string) => {
     setSelectedDay(newValue);
+  };
+
+  const onTrackChange = (event: React.ChangeEvent<unknown>) => {
+    setTrack((event.target as HTMLInputElement).value);
   };
 
   return (
@@ -68,7 +89,34 @@ const EditionTalks = ({ edition }: { edition?: EventEdition }) => {
         {moreContent && <Tab label="More content" value="99" />}
       </Tabs>
       {selectedDay !== "99" ? (
-        <TalkList talks={filteredTalks()} />
+        <>
+          <Box marginLeft={2}>
+            {edition.tracks && (
+              <FormControl margin="normal" style={{ display: "flex" }}>
+                <FormHelperText>
+                  This conference has {edition.tracks.length} tracks. Please
+                  choose one.
+                </FormHelperText>
+                <RadioGroup
+                  name="track"
+                  value={track}
+                  onChange={onTrackChange}
+                  row={true}
+                >
+                  {edition.tracks.map((track, index) => (
+                    <FormControlLabel
+                      key={index}
+                      value={track}
+                      control={<Radio />}
+                      label={track}
+                    />
+                  ))}
+                </RadioGroup>
+              </FormControl>
+            )}
+          </Box>
+          <TalkList talks={filteredTalks()} />
+        </>
       ) : (
         <TalkAccordion
           className={classes.talkAccordion}

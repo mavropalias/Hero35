@@ -28,6 +28,7 @@ export type EventEdition = {
   talks?: TalkPreview[];
   ticketsUrl?: string;
   title: string;
+  tracks: string[];
   website?: string;
 };
 
@@ -54,6 +55,7 @@ export type TalkPreview = {
   tags?: string[];
   times?: Times;
   title: string;
+  track?: string;
   type: string;
 };
 
@@ -75,6 +77,7 @@ export type Talk = {
   tags: string[];
   times: Times;
   title: string;
+  track?: string;
   type: string;
 };
 
