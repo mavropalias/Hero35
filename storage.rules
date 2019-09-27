@@ -2,7 +2,7 @@ service firebase.storage {
   match /b/{bucket}/o {
     match /{allPaths=**} {
       allow read: if true;
-      allow write: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin";
+      allow write: if request.auth.uid == 'OXXDuevPrfbLTaH4etkbUZZri2z1';
     }
   }
 }
