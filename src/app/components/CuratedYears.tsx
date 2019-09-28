@@ -22,7 +22,7 @@ interface Props {
 
 const CuratedYears = ({ className }: Props) => {
   const classes = useStyles({});
-  const items = ["2019", "2018", "2017", "2016", "2015"];
+  const items = ["2020", "2019", "2018", "2017", "2016", "2015"];
 
   return (
     <Container className={className}>
