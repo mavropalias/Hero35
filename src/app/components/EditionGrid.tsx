@@ -40,7 +40,8 @@ const EditionGrid = ({ editions, className }) => {
     const startDate = new Date(edition.startDate);
     var options = {
       month: "short",
-      day: "numeric"
+      day: "numeric",
+      year: "numeric"
     };
 
     return startDate.toLocaleDateString(undefined, options);
@@ -85,7 +86,7 @@ const EditionGrid = ({ editions, className }) => {
                         content
                       </Typography>
                       <Typography variant="caption" color="textSecondary">
-                        {editionDateStart(edition)} at{" "}
+                        {editionDateStart(edition)} |{" "}
                         {edition.state || edition.city}, {edition.country}
                       </Typography>
                       <div>
