@@ -56,11 +56,15 @@ const EditionTalks = ({ edition }: { edition?: EventEdition }) => {
   const filteredTalks = () => {
     return edition.talks.filter(talk => {
       if (selectedDay !== "99")
-        return (
-          talk.date == selectedDay &&
-          ["1", "2"].includes(talk.type) &&
-          talk.track === track
-        );
+        if (!track) {
+          return talk.date == selectedDay && ["1", "2"].includes(talk.type);
+        } else {
+          return (
+            talk.date == selectedDay &&
+            ["1", "2"].includes(talk.type) &&
+            talk.track === track
+          );
+        }
       else return !["1", "2"].includes(talk.type);
     });
   };
@@ -91,7 +95,7 @@ const EditionTalks = ({ edition }: { edition?: EventEdition }) => {
       {selectedDay !== "99" ? (
         <>
           <Box marginLeft={2}>
-            {edition.tracks && (
+            {edition.tracks && edition.tracks.length > 0 && (
               <FormControl margin="normal" style={{ display: "flex" }}>
                 <FormHelperText>
                   This conference has {edition.tracks.length} tracks. Please
