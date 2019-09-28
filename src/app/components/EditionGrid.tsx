@@ -50,10 +50,11 @@ const EditionGrid = ({ editions, className }) => {
   return (
     <Container className={className}>
       <Typography variant="h5" component="h2">
-        Recent React developer conferences
+        Recent React conferences
       </Typography>
       <Typography variant="subtitle1" color="textSecondary" paragraph>
-        View talks, workshops, and more from the most recent React conferences.
+        View talks, workshops, and more from the most recent React developer
+        conferences.
       </Typography>
       <Grid container spacing={4}>
         {editions.map(edition => (
