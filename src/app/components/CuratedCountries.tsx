@@ -27,7 +27,7 @@ interface Props {
 
 const CuratedCountries = ({ className }: Props) => {
   const classes = useStyles({});
-  const items = ["Czech Republic", "France", "Slovakia", "USA"];
+  const items = ["Czech Republic", "France", "Netherlands", "Slovakia", "USA"];
 
   return (
     <Container className={className}>
