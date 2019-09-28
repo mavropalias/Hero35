@@ -68,7 +68,7 @@ const UpcomingEditions = ({ editions, className }: Props) => {
   return (
     <Container className={className}>
       <Typography variant="h5" component="h2">
-        Upcoming React events
+        Upcoming React conferences
       </Typography>
       <Typography variant="subtitle1" color="textSecondary" paragraph>
         See what's coming next.
