@@ -33,7 +33,12 @@ const CuratedYears = ({ className }: Props) => {
         A record of React conferences, year by year.
       </Typography>
       {items.map(item => (
-        <NextLink href={`/year/[yearid]`} as={`/year/${item}`} passHref>
+        <NextLink
+          href={`/year/[yearid]`}
+          as={`/year/${item}`}
+          key={item}
+          passHref
+        >
           <Button
             variant="outlined"
             size="large"

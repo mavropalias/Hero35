@@ -41,6 +41,7 @@ const CuratedCountries = ({ className }: Props) => {
         <NextLink
           href={`/country/[countryid]`}
           as={`/country/${item}`}
+          key={item}
           passHref
         >
           <Button
