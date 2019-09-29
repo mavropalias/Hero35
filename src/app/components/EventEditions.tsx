@@ -35,10 +35,12 @@ const EventEditions = ({ event }: { event?: Event }) => {
 
   return (
     <>
-      <EditionList
-        label={`Upcoming ${event.title} events:`}
-        editions={upcomingEditions()}
-      />
+      {upcomingEditions().length > 0 && (
+        <EditionList
+          label={`Upcoming ${event.title} events:`}
+          editions={upcomingEditions()}
+        />
+      )}
       <EditionList
         label={`Past ${event.title} events:`}
         editions={pastEditions()}
