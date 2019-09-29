@@ -2,8 +2,8 @@ import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import next from "next";
 
-// Cache for 12 hours on the client and 7 days on the server
-const CACHE_CONTROL = `public, max-age=${12 * 60 * 60}, s-maxage=${7 *
+// Cache for 12 hours on the client and 1 day on the server
+const CACHE_CONTROL = `public, max-age=${12 * 60 * 60}, s-maxage=${1 *
   24 *
   60 *
   60}`;
