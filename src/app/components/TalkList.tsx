@@ -108,10 +108,12 @@ const TalkListItem = ({
               )}
               {highlightedTalkAttribute(talk, "speaker")}
               {` - ${talk.times && talk.times.totalMins} mins`}
-              {talk.tags.map(tag => highlightedTalkTag(talk, tag))}
+              {talk.tags.map((tag, index) =>
+                highlightedTalkTag(talk, tag, index)
+              )}
               {talk._highlightResult &&
                 talk._snippetResult.description.matchLevel === "full" && (
-                  <Typography component="div" variant="body2">
+                  <Typography variant="body2">
                     &hellip;
                     <Snippet hit={talk} attribute="description"></Snippet>
                     &hellip;
@@ -125,16 +127,11 @@ const TalkListItem = ({
   );
 };
 
-const highlightedTalkTag = (talk: TalkPreview, tag: string) => {
+const highlightedTalkTag = (talk: TalkPreview, tag: string, index: number) => {
   const classes = useStyles({});
-
   if (talk._highlightResult) {
     let match = "";
-    if (
-      talk._highlightResult.tags.find(talkTag => {
-        return tag === talkTag.matchedWords[0];
-      })
-    ) {
+    if (talk._highlightResult.tags[index].fullyHighlighted === true) {
       return (
         <Chip
           color="secondary"
