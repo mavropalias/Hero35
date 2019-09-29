@@ -36,6 +36,7 @@ const CuratedTags = ({ className }: Props) => {
       </Typography>
       {tags.map(tag => (
         <NextLink
+          key={tag}
           href={`/topic/[topicid]`}
           as={`/topic/${tag.toLowerCase()}`}
           passHref
