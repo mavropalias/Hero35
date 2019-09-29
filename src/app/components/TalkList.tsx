@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     chip: {
       margin: theme.spacing(0.3, 0, 0.3, 1)
+    },
+    descriptionSnippet: {
+      display: "block"
     }
   })
 );
@@ -79,6 +82,7 @@ const TalkListItem = ({
   onClick?: any;
   showEvent?: boolean;
 }) => {
+  const classes = useStyles({});
   const typeTitle = (id: string) =>
     TALK_TYPES.filter(type => type.id === id)[0].title.toLowerCase();
 
@@ -113,7 +117,11 @@ const TalkListItem = ({
               )}
               {talk._highlightResult &&
                 talk._snippetResult.description.matchLevel === "full" && (
-                  <Typography variant="body2">
+                  <Typography
+                    component="span"
+                    className={classes.descriptionSnippet}
+                    variant="body2"
+                  >
                     &hellip;
                     <Snippet hit={talk} attribute="description"></Snippet>
                     &hellip;
