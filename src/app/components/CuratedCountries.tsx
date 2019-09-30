@@ -27,7 +27,16 @@ interface Props {
 
 const CuratedCountries = ({ className }: Props) => {
   const classes = useStyles({});
-  const items = ["Czech Republic", "France", "Netherlands", "Slovakia", "USA"];
+  const items = [
+    "Czech Republic",
+    "France",
+    "Israel",
+    "Netherlands",
+    "Poland",
+    "Slovakia",
+    "UK",
+    "USA"
+  ];
 
   return (
     <Container className={className}>
@@ -47,6 +56,7 @@ const CuratedCountries = ({ className }: Props) => {
           <Button
             variant="outlined"
             size="large"
+            title={`React developer conferences in ${item}`}
             color="primary"
             className={classes.item}
           >
