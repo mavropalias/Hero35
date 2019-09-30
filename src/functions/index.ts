@@ -57,7 +57,12 @@ const indexTalk = functions.firestore
     } else {
       talk = { objectID: snap.before.data().id };
     }
-    return algoliaIndex.saveObject(talk);
+    // Only index: Talk, Lightning talk, Panels, Q&A, Workshops, and Interviews
+    if (["2", "3", "4", "5", "7", "8"].includes(talk.type)) {
+      return algoliaIndex.saveObject(talk);
+    } else {
+      return true;
+    }
   });
 
 /**
