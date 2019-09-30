@@ -1,5 +1,6 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
+import algoliasearch from "algoliasearch";
 import next from "next";
 
 // Cache for 12 hours on the client and 1 day on the server
@@ -16,6 +17,14 @@ const API_HEADERS = {
   "Cache-control": CACHE_CONTROL
 };
 
+// Init algolia
+const algolia = algoliasearch(
+  functions.config().algolia.app_id,
+  functions.config().algolia.api_key
+);
+const algoliaIndex = algolia.initIndex("talks");
+
+// Init Firebase
 admin.initializeApp();
 const db = admin.firestore();
 
@@ -33,6 +42,23 @@ const ssr = functions.https.onRequest(async (req, res) => {
   await app.prepare();
   return handle(req, res);
 });
+
+/**
+ * Update Algolia search index, on talk create/update/delete
+ */
+const indexTalk = functions.firestore
+  .document("events/{eventid}/editions/{editionid}/talks/{talkid}")
+  .onWrite((snap, context) => {
+    let talk: any;
+    if (snap.after.exists) {
+      talk = snap.after.data();
+      // Add an 'objectID' field which Algolia requires
+      talk.objectID = talk.id;
+    } else {
+      talk = { objectID: snap.before.data().id };
+    }
+    return algoliaIndex.saveObject(talk);
+  });
 
 /**
  * Get Event
@@ -232,6 +258,7 @@ const heroes = {
   editionsByCountry,
   editionsByYear,
   event,
+  indexTalk,
   recentEditions,
   ssr,
   talk,
