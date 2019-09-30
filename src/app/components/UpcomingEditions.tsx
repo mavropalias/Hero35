@@ -116,7 +116,7 @@ const UpcomingEditions = ({ editions, className }: Props) => {
                   target="_blank"
                   rel="noopener"
                 >
-                  Get tickets
+                  Buy tickets
                   <TicketIcon className={classes.icon} />
                 </Button>
               </CardContent>
