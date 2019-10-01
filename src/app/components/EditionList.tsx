@@ -69,7 +69,7 @@ const EditionList = ({
           href={`/event/[eventid]/[editionid]`}
           as={`/event/${edition.eventId}/${edition.id}`}
           passHref
-          key={edition.id}
+          key={`${edition.eventId}${edition.id}`}
         >
           <ListItem button component="a" key={edition.id}>
             <ListItemAvatar>
