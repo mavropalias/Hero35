@@ -167,7 +167,8 @@ const upcomingEditions = functions.https.onRequest(async (req, res) => {
   const docSnap = await db
     .collectionGroup("editions")
     .where("status", "==", "published-notalks")
-    .orderBy("endDate", "asc")
+    .where("dateTimestamp", ">", admin.firestore.Timestamp.now())
+    .orderBy("dateTimestamp", "asc")
     .limit(4)
     .get();
   let editions = [];
