@@ -30,6 +30,7 @@ const CuratedCountries = ({ className }: Props) => {
   const items = [
     "Czech Republic",
     "France",
+    "India",
     "Israel",
     "Netherlands",
     "Poland",
