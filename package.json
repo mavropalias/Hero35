@@ -14,7 +14,7 @@
     "firebase-admin": "^8.6.0",
     "firebase-functions": "^3.2.0",
     "isomorphic-unfetch": "^3.0.0",
-    "next": "^9.0.7",
+    "next": "^9.0.6",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
     "react-firebaseui": "^4.0.0",
