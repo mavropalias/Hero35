@@ -5,7 +5,7 @@ import next from "next";
 
 // Cache for 12 hours on the client and 1 day on the server
 const CACHE_CONTROL = `public, max-age=${12 * 60 * 60}, s-maxage=${1 *
-  24 *
+  1 *
   60 *
   60}`;
 
@@ -112,7 +112,7 @@ const editionsByCountry = functions.https.onRequest(async (req, res) => {
   const docSnap = await db
     .collectionGroup("editions")
     .where("country", "==", req.query.id)
-    .orderBy("startDate", "desc")
+    .orderBy("dateTimestamp", "desc")
     .limit(10)
     .get();
   let editions = [];
@@ -131,7 +131,7 @@ const editionsByYear = functions.https.onRequest(async (req, res) => {
     .collectionGroup("editions")
     // TODO use timestamp
     .where("id", "==", req.query.id)
-    .orderBy("startDate", "desc")
+    .orderBy("dateTimestamp", "desc")
     .limit(10)
     .get();
   let editions = [];
@@ -149,7 +149,7 @@ const recentEditions = functions.https.onRequest(async (req, res) => {
   const docSnap = await db
     .collectionGroup("editions")
     .where("status", "==", "published")
-    .orderBy("endDate", "desc")
+    .orderBy("dateTimestamp", "desc")
     .limit(6)
     .get();
   let editions = [];
@@ -209,7 +209,7 @@ const recentTalks = functions.https.onRequest(async (req, res) => {
   const docSnap = await db
     .collectionGroup("talks")
     .where("type", "==", "2")
-    .orderBy("date", "desc")
+    .orderBy("dateTimestamp", "desc")
     .orderBy("order", "desc")
     .limit(6)
     .get();
@@ -228,7 +228,7 @@ const curatedTalks = functions.https.onRequest(async (req, res) => {
   const docSnap = await db
     .collectionGroup("talks")
     .where("isCurated", "==", true)
-    .orderBy("date", "desc")
+    .orderBy("dateTimestamp", "desc")
     .orderBy("order", "desc")
     .limit(4)
     .get();
@@ -247,7 +247,7 @@ const talksByTopic = functions.https.onRequest(async (req, res) => {
   const docSnap = await db
     .collectionGroup("talks")
     .where("tags", "array-contains", req.query.id)
-    .orderBy("date", "desc")
+    .orderBy("dateTimestamp", "desc")
     .limit(10)
     .get();
   let talks = [];
