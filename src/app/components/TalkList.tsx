@@ -53,7 +53,8 @@ const TalkList = ({
         </Typography>
         <Typography variant="body1" color="textSecondary" paragraph>
           All non-talk content is available in the{" "}
-          <strong>'more content'</strong> tab.
+          <strong>'more content'</strong> tab (if the event organisers have made
+          it available).
         </Typography>
       </Box>
     );
