@@ -90,7 +90,7 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
                   )}?alt=media`}
                   alt="Event logo"
                 />
-                <Typography variant="h1" paragraph>
+                <Typography variant="h1" component="h1" paragraph>
                   {edition.eventTitle} {edition.title}
                 </Typography>
                 <NextLink
