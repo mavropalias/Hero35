@@ -23,6 +23,7 @@ export type EventEdition = {
   id?: string;
   startDate: string;
   state?: string;
+  status?: "draft" | "published-notalks" | "published";
   tags?: Tag[];
   topTags?: string[];
   talks?: TalkPreview[];

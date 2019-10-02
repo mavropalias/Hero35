@@ -113,7 +113,7 @@ const editionsByCountry = functions.https.onRequest(async (req, res) => {
     .collectionGroup("editions")
     .where("country", "==", req.query.id)
     .orderBy("dateTimestamp", "desc")
-    .limit(10)
+    .limit(100)
     .get();
   let editions = [];
   docSnap.forEach(doc => {
@@ -132,7 +132,7 @@ const editionsByYear = functions.https.onRequest(async (req, res) => {
     // TODO use timestamp
     .where("id", "==", req.query.id)
     .orderBy("dateTimestamp", "desc")
-    .limit(10)
+    .limit(100)
     .get();
   let editions = [];
   docSnap.forEach(doc => {
@@ -167,6 +167,7 @@ const upcomingEditions = functions.https.onRequest(async (req, res) => {
   const docSnap = await db
     .collectionGroup("editions")
     .where("status", "==", "published-notalks")
+    .where("ticketsUrl", "==", "published-notalks")
     .where("dateTimestamp", ">", admin.firestore.Timestamp.now())
     .orderBy("dateTimestamp", "asc")
     .limit(4)
@@ -248,7 +249,7 @@ const talksByTopic = functions.https.onRequest(async (req, res) => {
     .collectionGroup("talks")
     .where("tags", "array-contains", req.query.id)
     .orderBy("dateTimestamp", "desc")
-    .limit(10)
+    .limit(30)
     .get();
   let talks = [];
   docSnap.forEach(doc => {
