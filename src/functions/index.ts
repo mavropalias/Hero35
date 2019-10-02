@@ -167,7 +167,6 @@ const upcomingEditions = functions.https.onRequest(async (req, res) => {
   const docSnap = await db
     .collectionGroup("editions")
     .where("status", "==", "published-notalks")
-    .where("ticketsUrl", "==", "published-notalks")
     .where("dateTimestamp", ">", admin.firestore.Timestamp.now())
     .orderBy("dateTimestamp", "asc")
     .limit(4)
