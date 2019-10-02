@@ -13,7 +13,10 @@ import {
   Button,
   Box
 } from "@material-ui/core";
-import { OpenInNew as LinkIcon } from "@material-ui/icons";
+import {
+  OpenInNew as LinkIcon,
+  Payment as TicketIcon
+} from "@material-ui/icons";
 import { EventEdition } from "../../../schema";
 import Database from "../../../services/Database";
 import { NextPage, NextPageContext } from "next";
@@ -37,11 +40,14 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(0.5),
       marginTop: theme.spacing(0.5)
     },
+    description: {
+      whiteSpace: "pre-line"
+    },
     externalLinkIcon: {
       fontSize: theme.typography.fontSize
     },
-    description: {
-      whiteSpace: "pre-line"
+    icon: {
+      marginLeft: theme.spacing(1)
     }
   })
 );
@@ -52,6 +58,14 @@ interface Props {
 
 const EditionDetails: NextPage<Props> = ({ edition }) => {
   const classes = useStyles({});
+
+  const showTickets = (): boolean => {
+    if (edition.status !== "published-notalks") return false;
+    const currentDate = new Date();
+    const editionDate = new Date(edition.startDate);
+    if (editionDate.getTime() > currentDate.getTime()) return true;
+    else return false;
+  };
 
   const shortDate = (date: string) => {
     const startDate = new Date(date);
@@ -127,6 +141,20 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
                   and more.
                 </Box>
               </Grid>
+              {showTickets() && (
+                <Grid item xs={12}>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    href={edition.ticketsUrl}
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Buy tickets
+                    <TicketIcon className={classes.icon} />
+                  </Button>
+                </Grid>
+              )}
               <Grid item xs={12}>
                 <Typography variant="h5" component="h2">
                   Event info
