@@ -28,8 +28,11 @@ interface Props {
 const CuratedCountries = ({ className }: Props) => {
   const classes = useStyles({});
   const items = [
+    "Bulgaria",
     "Czech Republic",
+    "Finland",
     "France",
+    "Germany",
     "India",
     "Israel",
     "Italy",
@@ -38,6 +41,7 @@ const CuratedCountries = ({ className }: Props) => {
     "Slovakia",
     "Spain",
     "UK",
+    "Ukraine",
     "USA"
   ];
 
