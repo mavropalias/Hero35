@@ -17,10 +17,12 @@ const CuratedTalks: NextPage<Props> = ({ talks, className }) => {
 
   return (
     <Container className={className}>
-      <Typography variant="h5" component="h2">
+      <Typography variant="h5" component="h1">
         Curated React talks&nbsp;
         <NextLink href="/curated" passHref>
-          <Button color="secondary">More</Button>
+          <Button size="small" color="secondary">
+            More
+          </Button>
         </NextLink>
       </Typography>
       <Typography variant="subtitle1" color="textSecondary" paragraph>

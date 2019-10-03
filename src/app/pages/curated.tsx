@@ -29,7 +29,7 @@ const CuratedPage: NextPage<Props> = ({ talks }) => {
 
   return (
     <Layout>
-      <Container>
+      <Container className={classes.container}>
         <Typography variant="h5" component="h1">
           Curated React talks
         </Typography>
@@ -37,7 +37,6 @@ const CuratedPage: NextPage<Props> = ({ talks }) => {
           Must-watch React talks from developer conferences around the world,
           hand-picked by our editorial team.
         </Typography>
-        <hr />
         <Grid container spacing={2}>
           {talks.map(talk => (
             <Grid key={talk.id} item xs={12} sm={6} md={4}>
