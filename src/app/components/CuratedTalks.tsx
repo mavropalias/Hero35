@@ -29,7 +29,7 @@ const CuratedTalks: NextPage<Props> = ({ talks, className }) => {
         Must-watch React talks from developer conferences around the world,
         hand-picked by our editorial team.
       </Typography>
-      <Grid container spacing={2}>
+      <Grid container spacing={4}>
         {talks.slice(0, talkCount).map(talk => (
           <Grid key={talk.id} item xs={12} sm={6} md={4}>
             <CuratedTalk talk={talk} />
