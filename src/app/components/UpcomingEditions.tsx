@@ -109,16 +109,25 @@ const UpcomingEditions = ({ editions, className }: Props) => {
                 </a>
               </NextLink>
               <CardContent className={classes.content}>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  href={edition.ticketsUrl}
-                  target="_blank"
-                  rel="noopener"
+                <Typography paragraph>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    href={edition.ticketsUrl}
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Buy tickets *
+                    <TicketIcon className={classes.icon} />
+                  </Button>
+                </Typography>
+                <Typography
+                  variant="caption"
+                  color="textSecondary"
+                  component="div"
                 >
-                  Buy tickets
-                  <TicketIcon className={classes.icon} />
-                </Button>
+                  * Sold by {edition.eventTitle}. Not affiliated with Hero35.
+                </Typography>
               </CardContent>
             </Card>
           </Grid>
