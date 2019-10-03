@@ -225,12 +225,18 @@ const recentTalks = functions.https.onRequest(async (req, res) => {
  * Get curated Talks
  */
 const curatedTalks = functions.https.onRequest(async (req, res) => {
+  let recordCount = parseInt(req.query.records);
+  if (recordCount < 1) {
+    recordCount = 4;
+  } else if (recordCount > 20) {
+    recordCount = 20;
+  }
   const docSnap = await db
     .collectionGroup("talks")
     .where("isCurated", "==", true)
     .orderBy("dateTimestamp", "desc")
     .orderBy("order", "desc")
-    .limit(4)
+    .limit(recordCount)
     .get();
   let talks = [];
   docSnap.forEach(doc => {

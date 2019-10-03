@@ -82,8 +82,8 @@ class Database {
     return ((await res.json()) as unknown) as Talk[];
   };
 
-  getCuratedTalks = async (): Promise<Talk[]> => {
-    const res = await fetch(`${API}curatedTalks`);
+  getCuratedTalks = async (records: number = 4): Promise<Talk[]> => {
+    const res = await fetch(`${API}curatedTalks?records=${records}`);
     return ((await res.json()) as unknown) as Talk[];
   };
 
