@@ -65,6 +65,14 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
                 </Typography>
               </Box>
             </Grid>
+            {talk.curationDescription && (
+              <Grid item sm={12}>
+                <Typography variant="body2" paragraph>
+                  <strong>EDITOR'S CHOICE:</strong>&nbsp;
+                  {talk.curationDescription}
+                </Typography>
+              </Grid>
+            )}
             <Grid item sm={12}>
               <NextLink
                 passHref

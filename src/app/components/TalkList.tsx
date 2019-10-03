@@ -10,21 +10,33 @@ import {
   Typography,
   Box,
   ListItemAvatar,
-  Avatar
+  Avatar,
+  ListItemIcon,
+  IconButton
 } from "@material-ui/core";
 import { default as NextLink } from "next/link";
+import { Stars as CuratedIcon } from "@material-ui/icons";
 import { TalkPreview } from "../schema";
 import TALK_TYPES from "../constants/talkTypes";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    curatedAvatar: {
+      backgroundColor: theme.palette.secondary.main
+    },
+    curatedTalk: {
+      backgroundColor: theme.palette.background.paper
+    },
     list: {
       width: "100%"
     },
     chip: {
-      margin: theme.spacing(0.3, 0, 0.3, 1)
+      margin: theme.spacing(0.3, 1, 0.3, 0)
     },
-    descriptionSnippet: {
+    tagsContainer: {
+      marginLeft: theme.spacing(1)
+    },
+    textBlock: {
       display: "block"
     }
   })
@@ -93,12 +105,25 @@ const TalkListItem = ({
       as={`/event/${talk.eventId}/${talk.editionId}/${talk.id}`}
       passHref
     >
-      <ListItem button onClick={onClick} component="a">
+      <ListItem
+        button
+        onClick={onClick}
+        component="a"
+        className={talk.isCurated && classes.curatedTalk}
+      >
         <ListItemAvatar>
-          <Avatar
-            alt={`${talk.title} ${typeTitle(talk.type)}, by ${talk.speaker}`}
-            src={`https://i.ytimg.com/vi/${talk.id}/default.jpg`}
-          />
+          {talk.isCurated ? (
+            <Avatar className={classes.curatedAvatar}>
+              <IconButton>
+                <CuratedIcon />
+              </IconButton>
+            </Avatar>
+          ) : (
+            <Avatar
+              alt={`${talk.title} ${typeTitle(talk.type)}, by ${talk.speaker}`}
+              src={`https://i.ytimg.com/vi/${talk.id}/default.jpg`}
+            />
+          )}
         </ListItemAvatar>
         <ListItemText
           primary={highlightedTalkAttribute(talk, "title")}
@@ -113,14 +138,18 @@ const TalkListItem = ({
               )}
               {highlightedTalkAttribute(talk, "speaker")}
               {` - ${talk.times && talk.times.totalMins} mins`}
-              {talk.tags.map((tag, index) =>
-                highlightedTalkTag(talk, tag, index)
+              {talk.tags.length > 0 && (
+                <span className={classes.tagsContainer}>
+                  {talk.tags.map((tag, index) =>
+                    highlightedTalkTag(talk, tag, index)
+                  )}
+                </span>
               )}
               {talk._highlightResult &&
                 talk._snippetResult.description.matchLevel === "full" && (
                   <Typography
                     component="span"
-                    className={classes.descriptionSnippet}
+                    className={classes.textBlock}
                     variant="body2"
                   >
                     &hellip;
@@ -128,6 +157,16 @@ const TalkListItem = ({
                     &hellip;
                   </Typography>
                 )}
+              {talk.curationDescription && (
+                <Typography
+                  component="span"
+                  className={classes.textBlock}
+                  variant="body2"
+                >
+                  <strong>EDITOR'S CHOICE:</strong>&nbsp;
+                  {talk.curationDescription}
+                </Typography>
+              )}
             </>
           }
         />
