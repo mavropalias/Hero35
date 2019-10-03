@@ -28,6 +28,7 @@ interface Props {
 const CuratedCountries = ({ className }: Props) => {
   const classes = useStyles({});
   const items = [
+    "Australia",
     "Bulgaria",
     "Czech Republic",
     "Finland",
