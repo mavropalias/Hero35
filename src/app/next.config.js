@@ -15,15 +15,16 @@ module.exports = withBundleAnalyzer(
         reportFilename: "../../../../bundles/client.html"
       }
     },
-    webpack(config) {
-      return config;
-    },
-    poweredByHeader: false,
-    distDir: "../../dist/functions/next",
-    compress: false,
     env: {
       STORAGE_PATH:
         "https://firebasestorage.googleapis.com/v0/b/heroes-9c313.appspot.com/o/"
+    },
+    compress: false,
+    distDir: "../../dist/functions/next",
+    poweredByHeader: false,
+    target: "serverless",
+    webpack(config) {
+      return config;
     }
   })
 );

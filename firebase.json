@@ -5,6 +5,7 @@
       "npm run clean",
       "npm run build-funcs",
       "npm run build-app",
+      "npm run build-app-static",
       "npm run copy-deps",
       "npm run install-deps"
     ]
@@ -53,8 +54,36 @@
         "function": "heroes-upcomingEditions"
       },
       {
-        "source": "**/**",
-        "function": "heroes-ssr"
+        "source": "/",
+        "function": "heroes-ssrIndex"
+      },
+      {
+        "source": "/country/:countryid",
+        "function": "heroes-ssrCountry"
+      },
+      {
+        "source": "/curated",
+        "function": "heroes-ssrCurated"
+      },
+      {
+        "source": "/event/:eventid/:editionid/:talkid",
+        "function": "heroes-ssrTalk"
+      },
+      {
+        "source": "/event/:eventid/:editionid",
+        "function": "heroes-ssrEdition"
+      },
+      {
+        "source": "/event/:eventid",
+        "function": "heroes-ssrEvent"
+      },
+      {
+        "source": "/topic/:topicid",
+        "function": "heroes-ssrTopic"
+      },
+      {
+        "source": "/year/:yearid",
+        "function": "heroes-ssrYear"
       }
     ],
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],

@@ -1,7 +1,6 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import algoliasearch from "algoliasearch";
-import next from "next";
 
 // Cache for 12 hours on the client and 1 day on the server
 const CACHE_CONTROL = `public, max-age=${12 * 60 * 60}, s-maxage=${1 *
@@ -29,18 +28,75 @@ admin.initializeApp();
 const db = admin.firestore();
 
 /**
- * SSR with NextJS
+ * SSR /index
  */
-const app = next({
-  dev: false,
-  dir: __dirname,
-  conf: { distDir: "next" }
-});
-const handle = app.getRequestHandler();
-const ssr = functions.https.onRequest(async (req, res) => {
+const ssrIndex = functions.https.onRequest(async (req, res) => {
+  const pageIndex = require("./next/serverless/pages/index");
   res.set("Cache-control", CACHE_CONTROL);
-  await app.prepare();
-  return handle(req, res);
+  return pageIndex.render(req, res);
+});
+
+/**
+ * SSR /curated
+ */
+const ssrCurated = functions.https.onRequest(async (req, res) => {
+  const pageCurated = require("./next/serverless/pages/curated");
+  res.set("Cache-control", CACHE_CONTROL);
+  return pageCurated.render(req, res);
+});
+
+/**
+ * SSR /country
+ */
+const ssrCountry = functions.https.onRequest(async (req, res) => {
+  const pageCountry = require("./next/serverless/pages/country/[countryid]");
+  res.set("Cache-control", CACHE_CONTROL);
+  return pageCountry.render(req, res);
+});
+
+/**
+ * SSR /event
+ */
+const ssrEvent = functions.https.onRequest(async (req, res) => {
+  const pageEvent = require("./next/serverless/pages/event/[eventid]");
+  res.set("Cache-control", CACHE_CONTROL);
+  return pageEvent.render(req, res);
+});
+
+/**
+ * SSR /edition
+ */
+const ssrEdition = functions.https.onRequest(async (req, res) => {
+  const pageEdition = require("./next/serverless/pages/event/[eventid]/[editionid]");
+  res.set("Cache-control", CACHE_CONTROL);
+  return pageEdition.render(req, res);
+});
+
+/**
+ * SSR /talk
+ */
+const ssrTalk = functions.https.onRequest(async (req, res) => {
+  const pageTalk = require("./next/serverless/pages/event/[eventid]/[editionid]/[talkid]");
+  res.set("Cache-control", CACHE_CONTROL);
+  return pageTalk.render(req, res);
+});
+
+/**
+ * SSR /topic
+ */
+const ssrTopic = functions.https.onRequest(async (req, res) => {
+  const pageTopic = require("./next/serverless/pages/topic/[topicid]");
+  res.set("Cache-control", CACHE_CONTROL);
+  return pageTopic.render(req, res);
+});
+
+/**
+ * SSR /year
+ */
+const ssrYear = functions.https.onRequest(async (req, res) => {
+  const pageYear = require("./next/serverless/pages/year/[yearid]");
+  res.set("Cache-control", CACHE_CONTROL);
+  return pageYear.render(req, res);
 });
 
 /**
@@ -272,7 +328,14 @@ const heroes = {
   event,
   indexTalk,
   recentEditions,
-  ssr,
+  ssrIndex,
+  ssrCountry,
+  ssrCurated,
+  ssrEdition,
+  ssrEvent,
+  ssrTalk,
+  ssrTopic,
+  ssrYear,
   talk,
   recentTalks,
   talksByTopic,

@@ -40,11 +40,12 @@
   },
   "scripts": {
     "dev": "source .env && npm run clean && next \"src/app\"",
-    "preserve": "npm run clean && npm run build-public && npm run build-funcs && npm run build-app && npm run copy-deps && npm run install-deps",
+    "preserve": "npm run clean && npm run build-public && npm run build-funcs && npm run build-app && build-app-static && npm run copy-deps && npm run install-deps",
     "serve": "NODE_ENV=production node_modules/.bin/firebase serve",
     "deploy": "node_modules/.bin/firebase deploy",
     "clean": "rimraf \"dist/functions\" && rimraf \"dist/public\"",
     "build-public": "cpx \"src/app/static/**/*.*\" \"dist/public/static\" -C",
+    "build-app-static": "cpx \"dist/functions/next/static/**/*.*\" \"dist/public/_next/static\" -C",
     "build-app": "next build \"src/app\"",
     "build-funcs": "./node_modules/.bin/tsc --project src/functions",
     "copy-deps": "cpx \"*{package.json,package-lock.json}\" \"dist/functions\"",
