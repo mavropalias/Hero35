@@ -31,6 +31,7 @@
     "@types/node": "^12.7.8",
     "@types/react": "^16.9.3",
     "@types/react-dom": "^16.9.1",
+    "@zeit/next-bundle-analyzer": "^0.1.2",
     "cpx": "^1.5.0",
     "firebase-tools": "^7.4.0",
     "prettier": "^1.18.2",
@@ -47,6 +48,9 @@
     "build-app": "next build \"src/app\"",
     "build-funcs": "./node_modules/.bin/tsc --project src/functions",
     "copy-deps": "cpx \"*{package.json,package-lock.json}\" \"dist/functions\"",
-    "install-deps": "cd \"dist/functions\" && npm ci"
+    "install-deps": "cd \"dist/functions\" && npm ci",
+    "analyze": "BUNDLE_ANALYZE=both npm run build-app",
+    "analyze:server": "BUNDLE_ANALYZE=server npm run build-app",
+    "analyze:browser": "BUNDLE_ANALYZE=browser npm run build-app"
   }
 }
