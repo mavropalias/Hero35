@@ -1,4 +1,5 @@
 import Layout from "../components/Layout";
+import dynamic from "next/dynamic";
 import {
   makeStyles,
   createStyles,
@@ -6,11 +7,10 @@ import {
   Container,
   Button
 } from "@material-ui/core";
-import Database from "../services/Database";
 import { useContext } from "react";
-import SignIn from "../components/SignIn";
 import { UserContext } from "../components/UserContextProvider";
 import AccountDetails from "../components/AccountDetails";
+const SignIn = dynamic(() => import("../components/SignIn"));
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -56,9 +56,6 @@ const Account = () => {
       </Container>
     </Layout>
   );
-};
-Account.getInitialProps = async () => {
-  return {};
 };
 
 export default Account;
