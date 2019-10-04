@@ -101,8 +101,8 @@ const TalkListItem = ({
 
   return (
     <NextLink
-      href={`/event/[eventid]/[editionid]/[talkid]`}
-      as={`/event/${talk.eventId}/${talk.editionId}/${talk.id}`}
+      href={`/event/[eventid]/[editionid]/[talkslug]`}
+      as={`/event/${talk.eventId}/${talk.editionId}/${talk.slug}`}
       passHref
     >
       <ListItem

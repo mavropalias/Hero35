@@ -76,7 +76,7 @@ const ssrEdition = functions.https.onRequest(async (req, res) => {
  * SSR /talk
  */
 const ssrTalk = functions.https.onRequest(async (req, res) => {
-  const pageTalk = require("./next/serverless/pages/event/[eventid]/[editionid]/[talkid]");
+  const pageTalk = require("./next/serverless/pages/event/[eventid]/[editionid]/[talkslug]");
   res.set("Cache-control", CACHE_CONTROL);
   return pageTalk.render(req, res);
 });
@@ -241,19 +241,18 @@ const upcomingEditions = functions.https.onRequest(async (req, res) => {
 const talk = functions.https.onRequest(async (req, res) => {
   const eventId = req.query.eventId;
   const editionId = req.query.editionId;
-  const talkId = req.query.talkId;
+  const talkSlug = req.query.talkSlug;
   if (!eventId) res.send("eventId is required");
   if (!editionId) res.send("editionId is required");
-  if (!talkId) res.send("talkId is required");
+  if (!talkSlug) res.send("talkSlug is required");
   const docSnap = await db
-    .collection("events")
-    .doc(eventId)
-    .collection("editions")
-    .doc(editionId)
-    .collection("talks")
-    .doc(talkId)
+    .collectionGroup("talks")
+    .where("eventId", "==", eventId)
+    .where("editionId", "==", editionId)
+    .where("slug", "==", talkSlug)
+    .limit(1)
     .get();
-  const talk = docSnap.data();
+  const talk = docSnap.docs[0] ? docSnap.docs[0].data() : null;
   res.set(API_HEADERS);
   res.json(talk);
 });

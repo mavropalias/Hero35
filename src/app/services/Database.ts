@@ -69,10 +69,10 @@ class Database {
   getTalk = async (
     eventId: string,
     editionId: string,
-    talkId: string
+    talkSlug: string
   ): Promise<Talk> => {
     const res = await fetch(
-      `${API}talk?eventId=${eventId}&editionId=${editionId}&talkId=${talkId}`
+      `${API}talk?eventId=${eventId}&editionId=${editionId}&talkSlug=${talkSlug}`
     );
     return ((await res.json()) as unknown) as Talk;
   };

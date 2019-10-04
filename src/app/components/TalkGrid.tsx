@@ -53,8 +53,8 @@ const Talks: NextPage<Props> = ({ talks, className }) => {
           <Grid key={talk.id} item xs={12} sm={6} md={4}>
             <Card className={classes.card} elevation={5}>
               <NextLink
-                href={`/event/[eventid]/[editionid]/[talkid]`}
-                as={`/event/${talk.eventId}/${talk.editionId}/${talk.id}`}
+                href={`/event/[eventid]/[editionid]/[talkslug]`}
+                as={`/event/${talk.eventId}/${talk.editionId}/${talk.slug}`}
               >
                 <a className={classes.link}>
                   <CardActionArea className={classes.cardActionArea}>

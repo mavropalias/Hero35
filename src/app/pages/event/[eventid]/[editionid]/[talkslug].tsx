@@ -142,11 +142,11 @@ const TalkVideo = ({ videoid }: { videoid: string }) => (
 interface QueryProps {
   eventid: string;
   editionid: string;
-  talkid: string;
+  talkslug: string;
 }
 TalkDetails.getInitialProps = async (ctx: NextPageContext) => {
-  const { eventid, editionid, talkid } = (ctx.query as unknown) as QueryProps;
-  const talk = await Database.getTalk(eventid, editionid, talkid);
+  const { eventid, editionid, talkslug } = (ctx.query as unknown) as QueryProps;
+  const talk = await Database.getTalk(eventid, editionid, talkslug);
   return { talk };
 };
 
