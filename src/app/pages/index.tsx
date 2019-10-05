@@ -35,7 +35,7 @@ const Home: NextPage<Props> = ({
   const classes = useStyles({});
 
   return (
-    <Layout>
+    <Layout description="The single source of truth for React developer conferences & talks.">
       <Box className={classes.feedContainer}>
         <CuratedTalks talks={curatedTalks} className={classes.feedItem} />
         <EditionGrid editions={recentEditions} className={classes.feedItem} />
