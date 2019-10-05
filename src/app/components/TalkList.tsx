@@ -109,7 +109,7 @@ const TalkListItem = ({
         button
         onClick={onClick}
         component="a"
-        className={talk.isCurated && classes.curatedTalk}
+        className={talk.isCurated ? classes.curatedTalk : ""}
       >
         <ListItemAvatar>
           {talk.isCurated ? (
