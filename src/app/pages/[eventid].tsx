@@ -1,5 +1,5 @@
-import Layout from "../../components/Layout";
-import EventEditions from "../../components/EventEditions";
+import Layout from "../components/Layout";
+import EventEditions from "../components/EventEditions";
 import {
   makeStyles,
   createStyles,
@@ -11,8 +11,8 @@ import {
   Grid
 } from "@material-ui/core";
 import { OpenInNew as LinkIcon } from "@material-ui/icons";
-import { Event } from "../../schema";
-import Database from "../../services/Database";
+import { Event } from "../schema";
+import Database from "../services/Database";
 import { NextPage, NextPageContext } from "next";
 
 const useStyles = makeStyles((theme: Theme) =>

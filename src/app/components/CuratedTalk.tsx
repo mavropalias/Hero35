@@ -58,8 +58,8 @@ const CuratedTalk = ({ talk }: { talk: Talk }) => {
   return (
     <Card className={classes.card} elevation={5}>
       <NextLink
-        href={`/event/[eventid]/[editionid]/[talkslug]`}
-        as={`/event/${talk.eventId}/${talk.editionId}/${talk.slug}`}
+        href={`/[eventid]/[editionid]/[talkslug]`}
+        as={`/${talk.eventId}/${talk.editionId}/${talk.slug}`}
       >
         <a className={classes.link}>
           <CardActionArea className={classes.cardActionArea}>

@@ -66,8 +66,8 @@ const EditionGrid = ({ editions, className }) => {
             md={4}
           >
             <NextLink
-              href={`/event/[eventid]/[editionid]`}
-              as={`/event/${edition.eventId}/${edition.id}`}
+              href={`/[eventid]/[editionid]`}
+              as={`/${edition.eventId}/${edition.id}`}
             >
               <a className={classes.link}>
                 <Card className={classes.card} raised={false}>

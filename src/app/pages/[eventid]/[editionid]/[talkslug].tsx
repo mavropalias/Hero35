@@ -1,5 +1,5 @@
 import { default as NextLink } from "next/link";
-import Layout from "../../../../components/Layout";
+import Layout from "../../../components/Layout";
 import {
   makeStyles,
   createStyles,
@@ -12,8 +12,8 @@ import {
   Avatar,
   Grid
 } from "@material-ui/core";
-import { Talk } from "../../../../schema";
-import Database from "../../../../services/Database";
+import { Talk } from "../../../schema";
+import Database from "../../../services/Database";
 import { NextPage, NextPageContext } from "next";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -80,8 +80,8 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
             <Grid item sm={12}>
               <NextLink
                 passHref
-                href={`/event/[eventid]/[editionid]`}
-                as={`/event/${talk.eventId}/${talk.editionId}`}
+                href={`/[eventid]/[editionid]`}
+                as={`/${talk.eventId}/${talk.editionId}`}
               >
                 <Chip
                   avatar={

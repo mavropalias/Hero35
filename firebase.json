@@ -66,24 +66,24 @@
         "function": "heroes-ssrCurated"
       },
       {
-        "source": "/event/:eventid/:editionid/:talkslug",
-        "function": "heroes-ssrTalk"
-      },
-      {
-        "source": "/event/:eventid/:editionid",
-        "function": "heroes-ssrEdition"
-      },
-      {
-        "source": "/event/:eventid",
-        "function": "heroes-ssrEvent"
-      },
-      {
         "source": "/topic/:topicid",
         "function": "heroes-ssrTopic"
       },
       {
         "source": "/year/:yearid",
         "function": "heroes-ssrYear"
+      },
+      {
+        "source": "/:eventid/:editionid/:talkslug",
+        "function": "heroes-ssrTalk"
+      },
+      {
+        "source": "/:eventid/:editionid",
+        "function": "heroes-ssrEdition"
+      },
+      {
+        "source": "/:eventid",
+        "function": "heroes-ssrEvent"
       }
     ],
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],

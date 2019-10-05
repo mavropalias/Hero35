@@ -58,7 +58,7 @@ const ssrCountry = functions.https.onRequest(async (req, res) => {
  * SSR /event
  */
 const ssrEvent = functions.https.onRequest(async (req, res) => {
-  const pageEvent = require("./next/serverless/pages/event/[eventid]");
+  const pageEvent = require("./next/serverless/pages/[eventid]");
   res.set("Cache-control", CACHE_CONTROL);
   return pageEvent.render(req, res);
 });
@@ -67,7 +67,7 @@ const ssrEvent = functions.https.onRequest(async (req, res) => {
  * SSR /edition
  */
 const ssrEdition = functions.https.onRequest(async (req, res) => {
-  const pageEdition = require("./next/serverless/pages/event/[eventid]/[editionid]");
+  const pageEdition = require("./next/serverless/pages/[eventid]/[editionid]");
   res.set("Cache-control", CACHE_CONTROL);
   return pageEdition.render(req, res);
 });
@@ -76,7 +76,7 @@ const ssrEdition = functions.https.onRequest(async (req, res) => {
  * SSR /talk
  */
 const ssrTalk = functions.https.onRequest(async (req, res) => {
-  const pageTalk = require("./next/serverless/pages/event/[eventid]/[editionid]/[talkslug]");
+  const pageTalk = require("./next/serverless/pages/[eventid]/[editionid]/[talkslug]");
   res.set("Cache-control", CACHE_CONTROL);
   return pageTalk.render(req, res);
 });

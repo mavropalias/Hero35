@@ -1,6 +1,6 @@
 import { default as NextLink } from "next/link";
-import Layout from "../../../components/Layout";
-import EditionTalks from "../../../components/EditionTalks";
+import Layout from "../../components/Layout";
+import EditionTalks from "../../components/EditionTalks";
 import {
   makeStyles,
   createStyles,
@@ -17,8 +17,8 @@ import {
   OpenInNew as LinkIcon,
   Payment as TicketIcon
 } from "@material-ui/icons";
-import { EventEdition } from "../../../schema";
-import Database from "../../../services/Database";
+import { EventEdition } from "../../schema";
+import Database from "../../services/Database";
 import { NextPage, NextPageContext } from "next";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -100,11 +100,7 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
                 <Typography variant="h1" component="h1" paragraph>
                   {edition.eventTitle} {edition.title}
                 </Typography>
-                <NextLink
-                  href="/event/[eventid]"
-                  as={`/event/${edition.eventId}`}
-                  passHref
-                >
+                <NextLink href="/[eventid]" as={`/${edition.eventId}`} passHref>
                   <Button color="secondary" variant="outlined">
                     View all {edition.eventTitle} events
                   </Button>

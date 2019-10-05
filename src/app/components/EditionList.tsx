@@ -66,8 +66,8 @@ const EditionList = ({
     >
       {editions.map(edition => (
         <NextLink
-          href={`/event/[eventid]/[editionid]`}
-          as={`/event/${edition.eventId}/${edition.id}`}
+          href={`/[eventid]/[editionid]`}
+          as={`/${edition.eventId}/${edition.id}`}
           passHref
           key={`${edition.eventId}${edition.id}`}
         >
