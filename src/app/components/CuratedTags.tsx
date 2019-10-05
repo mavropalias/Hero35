@@ -24,7 +24,22 @@ interface Props {
 
 const CuratedTags = ({ className }: Props) => {
   const classes = useStyles({});
-  const tags = ["Hooks", "React-native", "GraphQL", "Performance", "Reason"];
+  const tags = [
+    "Accessibility",
+    "Animation",
+    "Architecture",
+    "CSS",
+    "Design system",
+    "GraphQL",
+    "Hooks",
+    "MobX",
+    "Performance",
+    "React-native",
+    "Reason",
+    "Redux",
+    "Testing",
+    "Typescript"
+  ];
 
   return (
     <Container className={className}>
