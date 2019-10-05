@@ -54,7 +54,11 @@ const EventDetails: NextPage<Props> = ({ event }) => {
   };
 
   return (
-    <Layout>
+    <Layout
+      title={`${event.title}`}
+      description={event.description}
+      keywords={`react event,react conference,developer conference`}
+    >
       <Container className={classes.container}>
         <Grid container spacing={4}>
           <Grid item xs={12} md={6}>

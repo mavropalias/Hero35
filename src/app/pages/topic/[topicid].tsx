@@ -28,7 +28,7 @@ const TopicDetails: NextPage<Props> = ({ topic, talks }) => {
   const classes = useStyles({});
 
   return (
-    <Layout>
+    <Layout title={`Developer conferences about ${topic}`}>
       <Container className={classes.container}>
         <Typography variant="h5" component="h1" paragraph>
           Developer conference talks about {topic}

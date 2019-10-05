@@ -1,13 +1,30 @@
 import Header from "./Header";
-import { CssBaseline } from "@material-ui/core";
-import { ThemeProvider } from "@material-ui/styles";
-import appTheme from "../appTheme";
+import Head from "next/head";
 
-const Layout = props => (
-  <>
-    <Header />
-    {props.children}
-  </>
-);
+const Layout = ({
+  children,
+  title,
+  description,
+  keywords
+}: {
+  children: any;
+  title?: string;
+  description?: string;
+  keywords?: string;
+}) => {
+  const headTitle = title ? `${title} - Hero35` : "Hero35";
+
+  return (
+    <>
+      <Head>
+        <title>{headTitle}</title>
+        <meta name="description" content={description} />
+        <meta name="keywords" content={`React,ReactJS,${keywords}`} />
+      </Head>
+      <Header />
+      {children}
+    </>
+  );
+};
 
 export default Layout;

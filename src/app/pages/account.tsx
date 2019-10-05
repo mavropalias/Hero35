@@ -29,7 +29,7 @@ const Account = () => {
   const classes = useStyles({});
 
   return (
-    <Layout>
+    <Layout title="Account">
       <Container className={classes.container}>
         {!state || !state.signedIn ? (
           <>

@@ -49,7 +49,11 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
   };
 
   return (
-    <Layout>
+    <Layout
+      title={`${talk.title} - ${talk.speaker}`}
+      description={talk.curationDescription || talk.description}
+      keywords={talk.tags.join(",")}
+    >
       <Container className={classes.container}>
         <Box marginBottom={2}>
           <Grid container spacing={1}>

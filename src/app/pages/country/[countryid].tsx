@@ -28,7 +28,11 @@ const CountryPage: NextPage<Props> = ({ country, editions }) => {
   const classes = useStyles({});
 
   return (
-    <Layout>
+    <Layout
+      title={`React developer conferences in ${country}`}
+      description={`All React conferences for developers in ${country}`}
+      keywords={`${country},React conferences,developers,developer conference,React event,React in ${country}`}
+    >
       <Container className={classes.container}>
         <Typography variant="h5" component="h1" paragraph>
           React developer conferences in {country}

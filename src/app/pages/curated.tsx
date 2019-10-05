@@ -28,7 +28,10 @@ const CuratedPage: NextPage<Props> = ({ talks }) => {
   const classes = useStyles({});
 
   return (
-    <Layout>
+    <Layout
+      title="Curated React conference talks"
+      description="Must-watch React talks from developer conferences around the world, hand-picked by our editorial team."
+    >
       <Container className={classes.container}>
         <Typography variant="h5" component="h1">
           Curated React talks

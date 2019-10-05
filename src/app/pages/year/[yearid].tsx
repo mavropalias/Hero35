@@ -28,7 +28,11 @@ const YearPage: NextPage<Props> = ({ year, editions }) => {
   const classes = useStyles({});
 
   return (
-    <Layout>
+    <Layout
+      title={`${year} React developer conferences`}
+      description={`All React developer conferences for the year ${year}.`}
+      keywords={`${year},conferences,developer conference,year ${year},developers,event`}
+    >
       <Container className={classes.container}>
         <Typography variant="h5" component="h1" paragraph>
           React developer conferences in {year}

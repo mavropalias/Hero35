@@ -77,7 +77,13 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
   };
 
   return (
-    <Layout>
+    <Layout
+      title={`${edition.eventTitle} ${edition.title}`}
+      description={edition.description}
+      keywords={`${edition.topTags.join(
+        ","
+      )},react event,react conference,developer conference`}
+    >
       <Container className={classes.container}>
         <Grid container spacing={4}>
           <Grid item xs={12} md={6}>
