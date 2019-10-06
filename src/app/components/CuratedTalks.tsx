@@ -18,7 +18,7 @@ const CuratedTalks: NextPage<Props> = ({ talks, className }) => {
   return (
     <>
       <Typography variant="h6" component="h2">
-        <NextLink href="/curated-conferencer-talks" passHref>
+        <NextLink href="/curated-conference-talks" passHref>
           <Link>Curated React talks</Link>
         </NextLink>
       </Typography>
