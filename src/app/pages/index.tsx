@@ -66,9 +66,11 @@ const Home: NextPage<Props> = ({
 };
 
 Home.getInitialProps = async () => {
-  const curatedTalks = await Database.getCuratedTalks();
-  const recentEditions = await Database.getRecentEditions();
-  const upcomingEditions = await Database.getUpcomingEditions();
+  const [curatedTalks, recentEditions, upcomingEditions] = await Promise.all([
+    Database.getCuratedTalks(),
+    Database.getRecentEditions(),
+    Database.getUpcomingEditions()
+  ]);
   return { curatedTalks, recentEditions, upcomingEditions };
 };
 
