@@ -7,8 +7,7 @@ import {
   Toolbar,
   Box,
   Button,
-  Avatar,
-  Tooltip
+  Avatar
 } from "@material-ui/core";
 import ROUTES from "../constants/routes";
 import SearchInput from "./SearchInput";
@@ -42,7 +41,7 @@ const Navigation = () => {
     <AppBar
       className={classes.appBar}
       position="sticky"
-      color="default"
+      color="inherit"
       elevation={0}
     >
       <Container>
@@ -62,14 +61,7 @@ const Navigation = () => {
           <Box flexGrow="1" m={1}>
             <SearchInput className={classes.search} />
           </Box>
-          <Box m={2}>
-            <Tooltip title="Hero35 is in ALPHA. There's tons more to come!">
-              <Button size="medium" color="secondary">
-                ALPHA
-              </Button>
-            </Tooltip>
-          </Box>
-          <img src="/static/HERO35-logo-tagline.svg" className={classes.logo} />
+          <img src="/static/HERO35-logo.svg" className={classes.logo} />
         </Toolbar>
       </Container>
     </AppBar>

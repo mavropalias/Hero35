@@ -1,4 +1,4 @@
-import { Container, Grid, Typography, Button } from "@material-ui/core";
+import { Grid, Typography, Link } from "@material-ui/core";
 import { default as NextLink } from "next/link";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -16,16 +16,13 @@ const CuratedTalks: NextPage<Props> = ({ talks, className }) => {
   const talkCount = useMediaQuery(theme.breakpoints.only("sm")) ? 4 : 3;
 
   return (
-    <Container className={className}>
-      <Typography variant="h5" component="h1">
-        Curated React talks&nbsp;
-        <NextLink href="/curated" passHref>
-          <Button size="small" color="secondary">
-            More
-          </Button>
+    <>
+      <Typography variant="h6" component="h2">
+        <NextLink href="/curated-conferencer-talks" passHref>
+          <Link>Curated React talks</Link>
         </NextLink>
       </Typography>
-      <Typography variant="subtitle1" color="textSecondary" paragraph>
+      <Typography variant="body2" color="textSecondary" paragraph>
         Must-watch React talks from developer conferences around the world,
         hand-picked by our editorial team.
       </Typography>
@@ -36,7 +33,7 @@ const CuratedTalks: NextPage<Props> = ({ talks, className }) => {
           </Grid>
         ))}
       </Grid>
-    </Container>
+    </>
   );
 };
 

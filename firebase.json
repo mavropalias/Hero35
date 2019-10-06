@@ -62,7 +62,7 @@
         "function": "heroes-ssrCountry"
       },
       {
-        "source": "/curated",
+        "source": "/curated-conference-talks",
         "function": "heroes-ssrCurated"
       },
       {

@@ -5,6 +5,7 @@ const theme = responsiveFontSizes(
     palette: {
       type: "dark",
       background: {
+        paper: "#171717",
         default: "#121212"
       }
     },

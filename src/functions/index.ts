@@ -40,7 +40,7 @@ const ssrIndex = functions.https.onRequest(async (req, res) => {
  * SSR /curated
  */
 const ssrCurated = functions.https.onRequest(async (req, res) => {
-  const pageCurated = require("./next/serverless/pages/curated");
+  const pageCurated = require("./next/serverless/pages/curated-conference-talks");
   res.set("Cache-control", CACHE_CONTROL);
   return pageCurated.render(req, res);
 });

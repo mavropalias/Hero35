@@ -13,7 +13,7 @@ import { Talk } from "../schema";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    card: { height: "100%", background: "black" },
+    card: { height: "100%" },
     cardActionArea: {
       height: "100%",
       display: "flex",
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
       position: "absolute",
       background:
-        "linear-gradient(0deg, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 100%)",
+        "linear-gradient(0deg, rgba(23,23,23,1) 20%, rgba(23,23,23,0) 100%)",
       display: "flex",
       flexDirection: "column",
       justifyContent: "flex-end",
@@ -74,10 +74,10 @@ const CuratedTalk = ({ talk }: { talk: Talk }) => {
               </div>
             </CardMedia>
             <CardContent className={classes.cardContent}>
-              <Typography variant="h5" component="h2">
+              <Typography variant="subtitle1" color="secondary">
                 {talk.title}
               </Typography>
-              <Typography variant="body1" color="textSecondary">
+              <Typography variant="body2" color="textSecondary">
                 {talk.curationDescription}
               </Typography>
             </CardContent>

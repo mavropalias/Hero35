@@ -3,7 +3,6 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
-  Container,
   createStyles,
   Grid,
   makeStyles,
@@ -66,11 +65,11 @@ const UpcomingEditions = ({ editions, className }: Props) => {
   };
 
   return (
-    <Container className={className}>
-      <Typography variant="h5" component="h2">
+    <>
+      <Typography variant="h6" component="h2">
         Upcoming React conferences
       </Typography>
-      <Typography variant="subtitle1" color="textSecondary" paragraph>
+      <Typography variant="body2" color="textSecondary" paragraph>
         See what's coming next.
       </Typography>
       <Grid container spacing={4}>
@@ -96,7 +95,7 @@ const UpcomingEditions = ({ editions, className }: Props) => {
                       )}?alt=media`}
                     />
                     <CardContent className={classes.content}>
-                      <Typography variant="h6">
+                      <Typography variant="subtitle1">
                         {edition.eventTitle} {edition.title}
                       </Typography>
                       <Typography variant="subtitle2" color="textSecondary">
@@ -133,7 +132,7 @@ const UpcomingEditions = ({ editions, className }: Props) => {
           </Grid>
         ))}
       </Grid>
-    </Container>
+    </>
   );
 };
 

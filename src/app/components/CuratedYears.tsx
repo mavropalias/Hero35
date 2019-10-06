@@ -1,5 +1,4 @@
 import {
-  Container,
   createStyles,
   makeStyles,
   Theme,
@@ -16,20 +15,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface Props {
-  className?: string;
-}
-
-const CuratedYears = ({ className }: Props) => {
+const CuratedYears = () => {
   const classes = useStyles({});
   const items = ["2020", "2019", "2018", "2017", "2016", "2015"];
 
   return (
-    <Container className={className}>
-      <Typography variant="h5" component="h2">
+    <>
+      <Typography variant="h6" component="h2">
         React annals
       </Typography>
-      <Typography variant="subtitle1" color="textSecondary" paragraph>
+      <Typography variant="body2" color="textSecondary" paragraph>
         A record of React conferences, year by year.
       </Typography>
       {items.map(item => (
@@ -49,7 +44,7 @@ const CuratedYears = ({ className }: Props) => {
           </Button>
         </NextLink>
       ))}
-    </Container>
+    </>
   );
 };
 

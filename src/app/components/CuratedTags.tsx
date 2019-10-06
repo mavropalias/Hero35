@@ -1,10 +1,8 @@
 import {
-  Container,
   createStyles,
   makeStyles,
   Theme,
   Typography,
-  Button,
   Chip
 } from "@material-ui/core";
 import { Whatshot as TopicIcon } from "@material-ui/icons";
@@ -42,11 +40,11 @@ const CuratedTags = ({ className }: Props) => {
   ];
 
   return (
-    <Container className={className}>
-      <Typography variant="h5" component="h2">
+    <>
+      <Typography variant="h6" component="h2">
         Hot React topics
       </Typography>
-      <Typography variant="subtitle1" color="textSecondary" paragraph>
+      <Typography variant="body2" color="textSecondary" paragraph>
         Stay up-to-date with the most important topics in React.
       </Typography>
       {tags.map(tag => (
@@ -65,7 +63,7 @@ const CuratedTags = ({ className }: Props) => {
           />
         </NextLink>
       ))}
-    </Container>
+    </>
   );
 };
 

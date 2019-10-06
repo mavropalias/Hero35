@@ -3,7 +3,6 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
-  Container,
   createStyles,
   Grid,
   makeStyles,
@@ -16,7 +15,7 @@ import { EventEdition } from "../schema";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    card: { height: "100%", background: "transparent" },
+    card: { height: "100%" },
     content: { textAlign: "center" },
     link: { textDecoration: "none" },
     media: {
@@ -30,10 +29,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
   editions?: EventEdition[];
-  className?: string;
 }
 
-const EditionGrid = ({ editions, className }) => {
+const EditionGrid = ({ editions }) => {
   const classes = useStyles({});
 
   const editionDateStart = (edition: EventEdition) => {
@@ -48,11 +46,11 @@ const EditionGrid = ({ editions, className }) => {
   };
 
   return (
-    <Container className={className}>
-      <Typography variant="h5" component="h2">
+    <>
+      <Typography variant="h6" component="h2">
         Recent React conferences
       </Typography>
-      <Typography variant="subtitle1" color="textSecondary" paragraph>
+      <Typography variant="body2" color="textSecondary" paragraph>
         View talks, workshops, and more from the most recent React developer
         conferences.
       </Typography>
@@ -79,10 +77,10 @@ const EditionGrid = ({ editions, className }) => {
                       )}?alt=media`}
                     />
                     <CardContent className={classes.content}>
-                      <Typography variant="h6" component="span">
+                      <Typography variant="subtitle1" component="span">
                         {edition.eventTitle} {edition.title}
                       </Typography>
-                      <Typography variant="subtitle1" color="textSecondary">
+                      <Typography variant="subtitle2" color="textSecondary">
                         {(edition.durationMinutes / 60).toFixed(0)} hours of
                         content
                       </Typography>
@@ -109,7 +107,7 @@ const EditionGrid = ({ editions, className }) => {
           </Grid>
         ))}
       </Grid>
-    </Container>
+    </>
   );
 };
 

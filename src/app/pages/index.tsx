@@ -1,6 +1,12 @@
 import Layout from "../components/Layout";
 import EditionGrid from "../components/EditionGrid";
-import { makeStyles, createStyles, Theme, Box } from "@material-ui/core";
+import {
+  makeStyles,
+  createStyles,
+  Theme,
+  Grid,
+  Container
+} from "@material-ui/core";
 import { Talk, EventEdition } from "../schema";
 import Database from "../services/Database";
 import { NextPage } from "next";
@@ -14,9 +20,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     feedContainer: {
       marginTop: theme.spacing(2)
-    },
-    feedItem: {
-      marginBottom: theme.spacing(6)
     }
   })
 );
@@ -36,17 +39,28 @@ const Home: NextPage<Props> = ({
 
   return (
     <Layout description="The single source of truth for React developer conferences & talks.">
-      <Box className={classes.feedContainer}>
-        <CuratedTalks talks={curatedTalks} className={classes.feedItem} />
-        <EditionGrid editions={recentEditions} className={classes.feedItem} />
-        <UpcomingEditions
-          editions={upcomingEditions}
-          className={classes.feedItem}
-        />
-        <CuratedTags className={classes.feedItem} />
-        <CuratedCountries className={classes.feedItem} />
-        <CuratedYears className={classes.feedItem} />
-      </Box>
+      <Container>
+        <Grid spacing={8} container className={classes.feedContainer}>
+          <Grid item sm={12}>
+            <CuratedTalks talks={curatedTalks} />
+          </Grid>
+          <Grid item sm={12}>
+            <EditionGrid editions={recentEditions} />
+          </Grid>
+          <Grid item sm={12}>
+            <UpcomingEditions editions={upcomingEditions} />
+          </Grid>
+          <Grid item sm={12} md={6}>
+            <CuratedTags />
+          </Grid>
+          <Grid item sm={12} md={6}>
+            <CuratedCountries />
+          </Grid>
+          <Grid item>
+            <CuratedYears />
+          </Grid>
+        </Grid>
+      </Container>
     </Layout>
   );
 };

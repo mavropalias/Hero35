@@ -1,10 +1,8 @@
 import {
-  Container,
   createStyles,
   makeStyles,
   Theme,
   Typography,
-  Chip,
   Button
 } from "@material-ui/core";
 import { Flag as ItemIcon } from "@material-ui/icons";
@@ -21,11 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface Props {
-  className?: string;
-}
-
-const CuratedCountries = ({ className }: Props) => {
+const CuratedCountries = () => {
   const classes = useStyles({});
   const items = [
     "Australia",
@@ -47,11 +41,11 @@ const CuratedCountries = ({ className }: Props) => {
   ];
 
   return (
-    <Container className={className}>
-      <Typography variant="h5" component="h2">
+    <>
+      <Typography variant="h6" component="h2">
         React conferences around the world
       </Typography>
-      <Typography variant="subtitle1" color="textSecondary" paragraph>
+      <Typography variant="body2" color="textSecondary" paragraph>
         These countries are React conference hotspots.
       </Typography>
       {items.map(item => (
@@ -72,7 +66,7 @@ const CuratedCountries = ({ className }: Props) => {
           </Button>
         </NextLink>
       ))}
-    </Container>
+    </>
   );
 };
 
