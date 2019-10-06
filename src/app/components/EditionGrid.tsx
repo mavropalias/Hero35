@@ -77,7 +77,11 @@ const EditionGrid = ({ editions }) => {
                       )}?alt=media`}
                     />
                     <CardContent className={classes.content}>
-                      <Typography variant="subtitle1" component="span">
+                      <Typography
+                        variant="subtitle1"
+                        color="primary"
+                        component="span"
+                      >
                         {edition.eventTitle} {edition.title}
                       </Typography>
                       <Typography variant="subtitle2" color="textSecondary">

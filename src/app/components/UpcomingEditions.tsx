@@ -95,7 +95,7 @@ const UpcomingEditions = ({ editions, className }: Props) => {
                       )}?alt=media`}
                     />
                     <CardContent className={classes.content}>
-                      <Typography variant="subtitle1">
+                      <Typography variant="subtitle1" color="primary">
                         {edition.eventTitle} {edition.title}
                       </Typography>
                       <Typography variant="subtitle2" color="textSecondary">

@@ -74,7 +74,7 @@ const CuratedTalk = ({ talk }: { talk: Talk }) => {
               </div>
             </CardMedia>
             <CardContent className={classes.cardContent}>
-              <Typography variant="subtitle1" color="secondary">
+              <Typography variant="subtitle1" color="primary">
                 {talk.title}
               </Typography>
               <Typography variant="body2" color="textSecondary">
