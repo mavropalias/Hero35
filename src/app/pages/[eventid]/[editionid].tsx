@@ -20,6 +20,7 @@ import {
 import { EventEdition } from "../../schema";
 import Database from "../../services/Database";
 import { NextPage, NextPageContext } from "next";
+import Breadcrumbs from "../../components/Breadcrumbs";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -76,6 +77,16 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
     return startDate.toLocaleDateString(undefined, options);
   };
 
+  const breadcrumbs = [
+    {
+      path: edition.eventId,
+      title: edition.eventTitle
+    },
+    {
+      title: edition.title
+    }
+  ];
+
   return (
     <Layout
       title={`${edition.eventTitle} ${edition.title}`}
@@ -85,6 +96,7 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
           ","
         )},react event,react conference,developer conference`}
     >
+      <Breadcrumbs items={breadcrumbs} />
       <Container className={classes.container}>
         <Grid container spacing={4}>
           <Grid item xs={12} md={6}>

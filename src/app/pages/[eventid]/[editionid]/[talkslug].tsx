@@ -15,9 +15,13 @@ import {
 import { Talk } from "../../../schema";
 import Database from "../../../services/Database";
 import { NextPage, NextPageContext } from "next";
+import Breadcrumbs from "../../../components/Breadcrumbs";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    breadcrumb: {
+      display: "none"
+    },
     container: {
       marginTop: theme.spacing(2)
     },
@@ -48,12 +52,27 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
     return shortDate.toLocaleDateString(undefined, options);
   };
 
+  const breadcrumbs = [
+    {
+      path: talk.eventId,
+      title: talk.eventTitle
+    },
+    {
+      path: `${talk.eventId}/${talk.editionId}`,
+      title: talk.editionTitle
+    },
+    {
+      title: talk.title
+    }
+  ];
+
   return (
     <Layout
       title={`${talk.title} - ${talk.speaker}`}
       description={talk.curationDescription || talk.description}
       keywords={talk.tags.join(",")}
     >
+      <Breadcrumbs items={breadcrumbs} />
       <Container className={classes.container}>
         <Box marginBottom={2}>
           <Grid container spacing={1}>

@@ -14,6 +14,7 @@ import { OpenInNew as LinkIcon } from "@material-ui/icons";
 import { Event } from "../schema";
 import Database from "../services/Database";
 import { NextPage, NextPageContext } from "next";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,12 +54,19 @@ const EventDetails: NextPage<Props> = ({ event }) => {
     return startDate.toLocaleDateString(undefined, options);
   };
 
+  const breadcrumbs = [
+    {
+      title: event.title
+    }
+  ];
+
   return (
     <Layout
       title={`${event.title}`}
       description={event.description}
       keywords={`react event,react conference,developer conference`}
     >
+      <Breadcrumbs items={breadcrumbs} />
       <Container className={classes.container}>
         <Grid container spacing={4}>
           <Grid item xs={12} md={6}>
