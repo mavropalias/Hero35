@@ -118,13 +118,19 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
                 />
               </NextLink>
               {talk.tags.map(tag => (
-                <Chip
-                  color="default"
-                  variant="outlined"
+                <NextLink
                   key={tag}
-                  label={`#${tag}`}
-                  className={classes.chip}
-                />
+                  href={`/topic/[topicid]`}
+                  as={`/topic/${tag.toLowerCase()}`}
+                  passHref
+                >
+                  <Chip
+                    component="a"
+                    color="primary"
+                    label={tag}
+                    className={classes.chip}
+                  />
+                </NextLink>
               ))}
             </Grid>
           </Grid>
