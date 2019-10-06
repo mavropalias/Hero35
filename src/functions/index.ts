@@ -8,14 +8,6 @@ const CACHE_CONTROL = `public, max-age=${12 * 60 * 60}, s-maxage=${1 *
   60 *
   60}`;
 
-// Allow all origins
-// TODO limit this to hero.com and admin users
-const ACCESS_CONTROL = "*";
-const API_HEADERS = {
-  "Access-Control-Allow-Origin": ACCESS_CONTROL,
-  "Cache-control": CACHE_CONTROL
-};
-
 // Init algolia
 const algolia = algoliasearch(
   functions.config().algolia.app_id,
@@ -27,76 +19,107 @@ const algoliaIndex = algolia.initIndex("talks");
 admin.initializeApp();
 const db = admin.firestore();
 
+// Middleware
+const middleware = (
+  req: functions.https.Request,
+  res: functions.Response
+): [functions.https.Request, functions.Response, boolean] => {
+  // Disallow requests from foreign origins
+  let approved = false;
+  if (
+    !["hero35.com", "heroes-9c313.web.app", "localhost"].includes(req.headers[
+      "x-forwarded-host"
+    ] as string)
+  ) {
+    res.set("Access-Control-Allow-Origin", "https://hero35.com");
+  } else {
+    approved = true;
+    res.set({
+      "Access-Control-Allow-Origin": "*",
+      "Cache-control": CACHE_CONTROL
+    });
+  }
+  return [req, res, approved];
+};
+
 /**
  * SSR /index
  */
 const ssrIndex = functions.https.onRequest(async (req, res) => {
-  const pageIndex = require("./next/serverless/pages/index");
-  res.set("Cache-control", CACHE_CONTROL);
-  return pageIndex.render(req, res);
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  const page = require("./next/serverless/pages/index");
+  return page.render(request, response);
 });
 
 /**
  * SSR /curated
  */
 const ssrCurated = functions.https.onRequest(async (req, res) => {
-  const pageCurated = require("./next/serverless/pages/curated-conference-talks");
-  res.set("Cache-control", CACHE_CONTROL);
-  return pageCurated.render(req, res);
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  const page = require("./next/serverless/pages/curated-conference-talks");
+  return page.render(request, response);
 });
 
 /**
  * SSR /country
  */
 const ssrCountry = functions.https.onRequest(async (req, res) => {
-  const pageCountry = require("./next/serverless/pages/country/[countryid]");
-  res.set("Cache-control", CACHE_CONTROL);
-  return pageCountry.render(req, res);
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  const page = require("./next/serverless/pages/country/[countryid]");
+  return page.render(request, response);
 });
 
 /**
  * SSR /event
  */
 const ssrEvent = functions.https.onRequest(async (req, res) => {
-  const pageEvent = require("./next/serverless/pages/[eventid]");
-  res.set("Cache-control", CACHE_CONTROL);
-  return pageEvent.render(req, res);
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  const page = require("./next/serverless/pages/[eventid]");
+  return page.render(request, response);
 });
 
 /**
  * SSR /edition
  */
 const ssrEdition = functions.https.onRequest(async (req, res) => {
-  const pageEdition = require("./next/serverless/pages/[eventid]/[editionid]");
-  res.set("Cache-control", CACHE_CONTROL);
-  return pageEdition.render(req, res);
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  const page = require("./next/serverless/pages/[eventid]/[editionid]");
+  return page.render(request, response);
 });
 
 /**
  * SSR /talk
  */
 const ssrTalk = functions.https.onRequest(async (req, res) => {
-  const pageTalk = require("./next/serverless/pages/[eventid]/[editionid]/[talkslug]");
-  res.set("Cache-control", CACHE_CONTROL);
-  return pageTalk.render(req, res);
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  const page = require("./next/serverless/pages/[eventid]/[editionid]/[talkslug]");
+  return page.render(request, response);
 });
 
 /**
  * SSR /topic
  */
 const ssrTopic = functions.https.onRequest(async (req, res) => {
-  const pageTopic = require("./next/serverless/pages/topic/[topicid]");
-  res.set("Cache-control", CACHE_CONTROL);
-  return pageTopic.render(req, res);
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  const page = require("./next/serverless/pages/topic/[topicid]");
+  return page.render(request, response);
 });
 
 /**
  * SSR /year
  */
 const ssrYear = functions.https.onRequest(async (req, res) => {
-  const pageYear = require("./next/serverless/pages/year/[yearid]");
-  res.set("Cache-control", CACHE_CONTROL);
-  return pageYear.render(req, res);
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  const page = require("./next/serverless/pages/year/[yearid]");
+  return page.render(request, response);
 });
 
 /**
@@ -125,8 +148,10 @@ const indexTalk = functions.firestore
  * Get Event
  */
 const event = functions.https.onRequest(async (req, res) => {
-  const eventId = req.query.id;
-  if (!eventId) res.send("event id is required");
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  const eventId = request.query.id;
+  if (!eventId) response.send("event id is required");
   const docRef = await db.collection("events").doc(eventId);
   const docSnap = await docRef.get();
   let event = docSnap.data();
@@ -138,18 +163,19 @@ const event = functions.https.onRequest(async (req, res) => {
     });
     event.editions = editions;
   }
-  res.set(API_HEADERS);
-  res.json(event);
+  response.json(event);
 });
 
 /**
  * Get Edition
  */
 const edition = functions.https.onRequest(async (req, res) => {
-  const eventId = req.query.eventId;
-  const editionId = req.query.editionId;
-  if (!eventId) res.send("eventId is required");
-  if (!editionId) res.send("editionId is required");
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  const eventId = request.query.eventId;
+  const editionId = request.query.editionId;
+  if (!eventId) response.send("eventId is required");
+  if (!editionId) response.send("editionId is required");
   const docSnap = await db
     .collection("events")
     .doc(eventId)
@@ -157,17 +183,18 @@ const edition = functions.https.onRequest(async (req, res) => {
     .doc(editionId)
     .get();
   const edition = docSnap.data();
-  res.set(API_HEADERS);
-  res.json(edition);
+  response.json(edition);
 });
 
 /**
  * Get editions by country
  */
 const editionsByCountry = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
   const docSnap = await db
     .collectionGroup("editions")
-    .where("country", "==", req.query.id)
+    .where("country", "==", request.query.id)
     .orderBy("dateTimestamp", "desc")
     .limit(100)
     .get();
@@ -175,18 +202,19 @@ const editionsByCountry = functions.https.onRequest(async (req, res) => {
   docSnap.forEach(doc => {
     editions.push(doc.data());
   });
-  res.set(API_HEADERS);
-  res.json(editions);
+  response.json(editions);
 });
 
 /**
  * Get editions by year
  */
 const editionsByYear = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
   const docSnap = await db
     .collectionGroup("editions")
     // TODO use timestamp
-    .where("id", "==", req.query.id)
+    .where("id", "==", request.query.id)
     .orderBy("dateTimestamp", "desc")
     .limit(100)
     .get();
@@ -194,14 +222,15 @@ const editionsByYear = functions.https.onRequest(async (req, res) => {
   docSnap.forEach(doc => {
     editions.push(doc.data());
   });
-  res.set(API_HEADERS);
-  res.json(editions);
+  response.json(editions);
 });
 
 /**
  * Get recent Editions
  */
 const recentEditions = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
   const docSnap = await db
     .collectionGroup("editions")
     .where("status", "==", "published")
@@ -212,14 +241,15 @@ const recentEditions = functions.https.onRequest(async (req, res) => {
   docSnap.forEach(doc => {
     editions.push(doc.data());
   });
-  res.set(API_HEADERS);
-  res.json(editions);
+  response.json(editions);
 });
 
 /**
  * Get upcoming Editions
  */
 const upcomingEditions = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
   const docSnap = await db
     .collectionGroup("editions")
     .where("status", "==", "published-notalks")
@@ -231,20 +261,21 @@ const upcomingEditions = functions.https.onRequest(async (req, res) => {
   docSnap.forEach(doc => {
     editions.push(doc.data());
   });
-  res.set(API_HEADERS);
-  res.json(editions);
+  response.json(editions);
 });
 
 /**
  * Get Talk
  */
 const talk = functions.https.onRequest(async (req, res) => {
-  const eventId = req.query.eventId;
-  const editionId = req.query.editionId;
-  const talkSlug = req.query.talkSlug;
-  if (!eventId) res.send("eventId is required");
-  if (!editionId) res.send("editionId is required");
-  if (!talkSlug) res.send("talkSlug is required");
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  const eventId = request.query.eventId;
+  const editionId = request.query.editionId;
+  const talkSlug = request.query.talkSlug;
+  if (!eventId) response.send("eventId is required");
+  if (!editionId) response.send("editionId is required");
+  if (!talkSlug) response.send("talkSlug is required");
   const docSnap = await db
     .collectionGroup("talks")
     .where("eventId", "==", eventId)
@@ -253,14 +284,15 @@ const talk = functions.https.onRequest(async (req, res) => {
     .limit(1)
     .get();
   const talk = docSnap.docs[0] ? docSnap.docs[0].data() : null;
-  res.set(API_HEADERS);
-  res.json(talk);
+  response.json(talk);
 });
 
 /**
  * Get recent Talks
  */
 const recentTalks = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
   const docSnap = await db
     .collectionGroup("talks")
     .where("type", "==", "2")
@@ -272,15 +304,16 @@ const recentTalks = functions.https.onRequest(async (req, res) => {
   docSnap.forEach(doc => {
     talks.push(doc.data());
   });
-  res.set(API_HEADERS);
-  res.json(talks);
+  response.json(talks);
 });
 
 /**
  * Get curated Talks
  */
 const curatedTalks = functions.https.onRequest(async (req, res) => {
-  let recordCount = parseInt(req.query.records);
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  let recordCount = parseInt(request.query.records);
   if (recordCount < 1) {
     recordCount = 4;
   } else if (recordCount > 20) {
@@ -297,17 +330,18 @@ const curatedTalks = functions.https.onRequest(async (req, res) => {
   docSnap.forEach(doc => {
     talks.push(doc.data());
   });
-  res.set(API_HEADERS);
-  res.json(talks);
+  response.json(talks);
 });
 
 /**
  * Get talks by topic
  */
 const talksByTopic = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
   const docSnap = await db
     .collectionGroup("talks")
-    .where("tags", "array-contains", req.query.id)
+    .where("tags", "array-contains", request.query.id)
     .orderBy("dateTimestamp", "desc")
     .limit(30)
     .get();
@@ -315,8 +349,7 @@ const talksByTopic = functions.https.onRequest(async (req, res) => {
   docSnap.forEach(doc => {
     talks.push(doc.data());
   });
-  res.set(API_HEADERS);
-  res.json(talks);
+  response.json(talks);
 });
 
 const heroes = {
