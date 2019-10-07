@@ -164,6 +164,7 @@ const TalkVideo = ({ videoid }: { videoid: string }) => (
       }}
       src={`https://www.youtube-nocookie.com/embed/${videoid}`}
       frameBorder="0"
+      allowFullScreen={true}
     />
   </Box>
 );
