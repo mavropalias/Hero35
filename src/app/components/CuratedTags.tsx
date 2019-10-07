@@ -58,6 +58,7 @@ const CuratedTags = ({ className }: Props) => {
             component="a"
             color="primary"
             label={tag}
+            variant="outlined"
             icon={<TopicIcon />}
             className={classes.chip}
           />
