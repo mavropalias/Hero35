@@ -16,6 +16,7 @@ import CuratedTags from "../components/CuratedTags";
 import CuratedCountries from "../components/CuratedCountries";
 import CuratedYears from "../components/CuratedYears";
 import Welcome from "../components/Welcome";
+import Stacks from "../components/Stacks";
 import { useContext } from "react";
 import { UserContext } from "../components/UserContextProvider";
 
@@ -44,6 +45,7 @@ const Home: NextPage<Props> = ({
   return (
     <Layout description="The single source of truth for React developer conferences & talks.">
       {!state.signedIn && <Welcome />}
+      <Stacks />
       <Container>
         <Grid spacing={8} container className={classes.feedContainer}>
           <Grid item sm={12}>
