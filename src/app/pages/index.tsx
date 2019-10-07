@@ -15,6 +15,9 @@ import UpcomingEditions from "../components/UpcomingEditions";
 import CuratedTags from "../components/CuratedTags";
 import CuratedCountries from "../components/CuratedCountries";
 import CuratedYears from "../components/CuratedYears";
+import Welcome from "../components/Welcome";
+import { useContext } from "react";
+import { UserContext } from "../components/UserContextProvider";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,9 +39,11 @@ const Home: NextPage<Props> = ({
   upcomingEditions
 }) => {
   const classes = useStyles({});
+  const { state, dispatch } = useContext(UserContext);
 
   return (
     <Layout description="The single source of truth for React developer conferences & talks.">
+      {!state.signedIn && <Welcome />}
       <Container>
         <Grid spacing={8} container className={classes.feedContainer}>
           <Grid item sm={12}>

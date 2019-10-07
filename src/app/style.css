@@ -11,3 +11,7 @@
   color: #f50057;
   font-style: initial;
 }
+
+.firebaseui-idp-list {
+  margin: 0 !important;
+}
