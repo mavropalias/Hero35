@@ -4,7 +4,10 @@ import {
   createStyles,
   Theme,
   Typography,
-  Container
+  Container,
+  Paper,
+  Grid,
+  Box
 } from "@material-ui/core";
 import { Talk } from "../../schema";
 import Database from "../../services/Database";
@@ -14,7 +17,10 @@ import TalkList from "../../components/TalkList";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      marginTop: theme.spacing(2)
+      paddingTop: theme.spacing(8)
+    },
+    paper: {
+      marginBottom: theme.spacing(4)
     }
   })
 );
@@ -29,11 +35,20 @@ const TopicDetails: NextPage<Props> = ({ topic, talks }) => {
 
   return (
     <Layout title={`Developer conference talks about ${topic}`}>
-      <Container className={classes.container}>
-        <Typography variant="h5" component="h1" paragraph>
-          Developer conference talks about {topic}
-        </Typography>
-        <hr />
+      <Paper className={classes.paper}>
+        <Container className={classes.container}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={8}>
+              <Box display="flex" alignItems="center">
+                <Typography variant="h4">
+                  Developer conference talks about {topic}
+                </Typography>
+              </Box>
+            </Grid>
+          </Grid>
+        </Container>
+      </Paper>
+      <Container>
         {talks.length > 0 ? (
           <TalkList talks={talks} showEvent={true} />
         ) : (
