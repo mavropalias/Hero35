@@ -29,7 +29,7 @@ const Breadcrumbs = ({
           <meta property="position" content="1" />
         </li>
         {items.map((item, index) => (
-          <li property="itemListElement" typeof="ListItem">
+          <li key={index} property="itemListElement" typeof="ListItem">
             {item.path ? (
               <a
                 property="item"

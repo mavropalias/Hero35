@@ -73,8 +73,8 @@ const Stacks = () => {
       <Box paddingTop={4} paddingBottom={4}>
         <Container>
           <Grid container spacing={1}>
-            {stacks.map(stack => (
-              <Grid item xs={4} sm={3} md={2} lg={2}>
+            {stacks.map((stack, index) => (
+              <Grid item xs={4} sm={3} md={2} lg={2} key={index}>
                 <Card className={classes.card} elevation={0}>
                   <NextLink
                     href={`/topic/[topicid]`}

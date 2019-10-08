@@ -141,7 +141,12 @@ const TalkListItem = ({
               {talk.tags.length > 0 && (
                 <span className={classes.tagsContainer}>
                   {talk.tags.map((tag, index) => (
-                    <HighlightedTalkTag talk={talk} tag={tag} index={index} />
+                    <HighlightedTalkTag
+                      talk={talk}
+                      tag={tag}
+                      index={index}
+                      key={index}
+                    />
                   ))}
                 </span>
               )}
