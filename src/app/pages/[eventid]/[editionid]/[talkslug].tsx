@@ -6,12 +6,13 @@ import {
   Theme,
   Box,
   Typography,
-  Link,
   Chip,
   Container,
   Avatar,
-  Grid
+  Grid,
+  Paper
 } from "@material-ui/core";
+import { Face as SpeakerIcon, Stars as CuratedIcon } from "@material-ui/icons";
 import { Talk } from "../../../schema";
 import Database from "../../../services/Database";
 import { NextPage, NextPageContext } from "next";
@@ -29,6 +30,9 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(1),
       marginBottom: theme.spacing(1)
     },
+    curated: {
+      color: theme.palette.secondary.main
+    },
     description: {
       whiteSpace: "pre-line"
     }
@@ -41,6 +45,10 @@ interface Props {
 
 const TalkDetails: NextPage<Props> = ({ talk }) => {
   const classes = useStyles({});
+
+  const speakers = talk.speaker
+    .split(/ *(,|and|&) */g)
+    .filter(speaker => ![",", "and", "&"].includes(speaker));
 
   const shortDate = (date: string) => {
     const shortDate = new Date(date);
@@ -74,71 +82,117 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
     >
       <Breadcrumbs items={breadcrumbs} />
       <Container className={classes.container}>
-        <Box marginBottom={2}>
-          <Grid container spacing={1}>
-            <Grid item sm={12}>
-              <Typography variant="h5" component="h1">
-                {talk.title}
-              </Typography>
-              <Box display="flex" alignItems="center">
-                <Typography variant="subtitle1">{talk.speaker}</Typography>
-                <Typography variant="subtitle1" color="textSecondary">
-                  &nbsp;-&nbsp;{talk.times.totalMins} mins&nbsp;-&nbsp;
-                  {shortDate(talk.date)}
-                </Typography>
-              </Box>
-            </Grid>
-            {talk.curationDescription && (
-              <Grid item sm={12}>
-                <Typography variant="body2" paragraph>
-                  <strong>EDITOR'S CHOICE:</strong>&nbsp;
-                  {talk.curationDescription}
-                </Typography>
-              </Grid>
-            )}
-            <Grid item sm={12}>
+        <Grid container spacing={1}>
+          <Grid item sm={12} md={8}>
+            <Typography variant="h4" component="h1" gutterBottom>
+              {talk.title}
+            </Typography>
+          </Grid>
+          <Grid item sm={12}>
+            <NextLink
+              passHref
+              href={`/[eventid]/[editionid]`}
+              as={`/${talk.eventId}/${talk.editionId}`}
+            >
+              <Chip
+                avatar={
+                  <Avatar
+                    component="span"
+                    alt={`${talk.eventTitle} ${talk.editionTitle} logo`}
+                    src={`${process.env.STORAGE_PATH}${encodeURIComponent(
+                      talk.logo
+                    )}?alt=media`}
+                  />
+                }
+                component="a"
+                color="primary"
+                label={`${talk.eventTitle} ${talk.editionTitle}`}
+                className={classes.chip}
+              />
+            </NextLink>
+            {speakers.map((speaker, index) => (
               <NextLink
+                key={index}
                 passHref
-                href={`/[eventid]/[editionid]`}
-                as={`/${talk.eventId}/${talk.editionId}`}
+                href={`/hero/[heroid]`}
+                as={`/hero/${encodeURI(speaker)}`}
               >
                 <Chip
-                  avatar={
-                    <Avatar
-                      component="span"
-                      alt={`${talk.eventTitle} ${talk.editionTitle} logo`}
-                      src={`${process.env.STORAGE_PATH}${encodeURIComponent(
-                        talk.logo
-                      )}?alt=media`}
-                    />
-                  }
                   component="a"
-                  label={`${talk.eventTitle} ${talk.editionTitle}`}
+                  color="primary"
+                  variant="outlined"
+                  title={`${speaker} conference talks`}
+                  icon={<SpeakerIcon />}
+                  label={speaker}
                   className={classes.chip}
                 />
               </NextLink>
-              {talk.tags.map(tag => (
-                <NextLink
-                  key={tag}
-                  href={`/topic/[topicid]`}
-                  as={`/topic/${tag.toLowerCase()}`}
-                  passHref
-                >
-                  <Chip
-                    component="a"
-                    color="primary"
-                    label={tag}
-                    className={classes.chip}
-                  />
-                </NextLink>
-              ))}
-            </Grid>
+            ))}
+            {talk.tags.map(tag => (
+              <NextLink
+                key={tag}
+                href={`/topic/[topicid]`}
+                as={`/topic/${tag.toLowerCase()}`}
+                passHref
+              >
+                <Chip
+                  component="a"
+                  color="primary"
+                  variant="outlined"
+                  label={tag}
+                  className={classes.chip}
+                />
+              </NextLink>
+            ))}
           </Grid>
-        </Box>
-        <TalkVideo videoid={talk.id} />
-        <Typography variant="body1" className={classes.description} paragraph>
-          {talk.description}
-        </Typography>
+          {talk.curationDescription && (
+            <Grid item sm={12} md={8}>
+              <Paper>
+                <Box
+                  paddingTop={1}
+                  paddingLeft={2}
+                  paddingRight={2}
+                  paddingBottom={2}
+                >
+                  <Grid
+                    container
+                    className={classes.curated}
+                    spacing={1}
+                    alignItems="center"
+                  >
+                    <Grid item>
+                      <CuratedIcon />
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="overline">
+                        Editor's choice
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Typography variant="body1">
+                    {talk.curationDescription}
+                  </Typography>
+                </Box>
+              </Paper>
+            </Grid>
+          )}
+          <Grid item sm={12}>
+            <TalkVideo videoid={talk.id} />
+          </Grid>
+          <Grid item sm={12} md={8}>
+            <Typography variant="caption" color="textSecondary" paragraph>
+              {talk.times.totalMins} mins&nbsp;-&nbsp;
+              {shortDate(talk.date)}
+            </Typography>
+            <Typography
+              variant="body1"
+              className={classes.description}
+              paragraph
+            >
+              {talk.description}
+            </Typography>
+          </Grid>
+        </Grid>
       </Container>
     </Layout>
   );
