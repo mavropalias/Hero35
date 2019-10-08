@@ -46,6 +46,10 @@
         "function": "heroes-recentTalks"
       },
       {
+        "source": "/api/heroTalks",
+        "function": "heroes-heroTalks"
+      },
+      {
         "source": "/api/talksByTopic",
         "function": "heroes-talksByTopic"
       },
@@ -56,6 +60,10 @@
       {
         "source": "/",
         "function": "heroes-ssrIndex"
+      },
+      {
+        "source": "/hero/:heroid",
+        "function": "heroes-ssrHero"
       },
       {
         "source": "/country/:countryid",

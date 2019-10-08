@@ -93,6 +93,16 @@ const ssrEdition = functions.https.onRequest(async (req, res) => {
 });
 
 /**
+ * SSR /hero
+ */
+const ssrHero = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  const page = require("./next/serverless/pages/hero/[heroid]");
+  return page.render(request, response);
+});
+
+/**
  * SSR /talk
  */
 const ssrTalk = functions.https.onRequest(async (req, res) => {
@@ -308,6 +318,24 @@ const recentTalks = functions.https.onRequest(async (req, res) => {
 });
 
 /**
+ * Get hero Talks
+ */
+const heroTalks = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  const docSnap = await db
+    .collectionGroup("talks")
+    .where("speaker", "==", decodeURI(request.query.name))
+    .orderBy("dateTimestamp", "desc")
+    .get();
+  let talks = [];
+  docSnap.forEach(doc => {
+    talks.push(doc.data());
+  });
+  response.json(talks);
+});
+
+/**
  * Get curated Talks
  */
 const curatedTalks = functions.https.onRequest(async (req, res) => {
@@ -354,6 +382,7 @@ const talksByTopic = functions.https.onRequest(async (req, res) => {
 
 const heroes = {
   curatedTalks,
+  heroTalks,
   edition,
   editionsByCountry,
   editionsByYear,
@@ -365,6 +394,7 @@ const heroes = {
   ssrCurated,
   ssrEdition,
   ssrEvent,
+  ssrHero,
   ssrTalk,
   ssrTopic,
   ssrYear,
