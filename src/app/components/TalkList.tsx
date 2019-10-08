@@ -140,9 +140,9 @@ const TalkListItem = ({
               {` - ${talk.times && talk.times.totalMins} mins`}
               {talk.tags.length > 0 && (
                 <span className={classes.tagsContainer}>
-                  {talk.tags.map((tag, index) =>
-                    highlightedTalkTag(talk, tag, index)
-                  )}
+                  {talk.tags.map((tag, index) => (
+                    <HighlightedTalkTag talk={talk} tag={tag} index={index} />
+                  ))}
                 </span>
               )}
               {talk._highlightResult &&
@@ -175,7 +175,15 @@ const TalkListItem = ({
   );
 };
 
-const highlightedTalkTag = (talk: TalkPreview, tag: string, index: number) => {
+const HighlightedTalkTag = ({
+  talk,
+  tag,
+  index
+}: {
+  talk: TalkPreview;
+  tag: string;
+  index: number;
+}) => {
   const classes = useStyles({});
   if (talk._highlightResult) {
     let match = "";
