@@ -82,7 +82,7 @@
         "function": "heroes-ssrEdition"
       },
       {
-        "source": "/:eventid",
+        "source": "/event/:eventid",
         "function": "heroes-ssrEvent"
       }
     ],
