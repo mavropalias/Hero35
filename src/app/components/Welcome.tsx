@@ -97,7 +97,7 @@ const Welcome = () => {
                 </Grid>
                 <Grid item>
                   <Typography variant="body2" color="textSecondary">
-                    Hero35 is in Alpha, with tons of features in the pipeline.
+                    Heroes is in Alpha, with tons of features in the pipeline.
                   </Typography>
                 </Grid>
               </Grid>
