@@ -61,46 +61,43 @@ const Welcome = () => {
                 Heroes is <em className={classes.em}>the</em> place to watch
                 developer conference talks
               </Typography>
-              <Grid container spacing={1} alignItems="center">
+              <Grid container spacing={2}>
                 <Grid item>
-                  <BulletIcon fontSize="small" />
+                  <Grid container spacing={1} alignItems="center">
+                    <Grid item>
+                      <BulletIcon fontSize="small" />
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="h6" className={classes.success}>
+                        1000+ talks on React and its surrounding ecosystem
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid container spacing={1} alignItems="center">
+                    <Grid item>
+                      <BulletIcon fontSize="small" />
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="h6" className={classes.success}>
+                        Watch the best of the best in our Curated section
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid container spacing={1} alignItems="center">
+                    <Grid item>
+                      <BulletIcon fontSize="small" />
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="h6" className={classes.success}>
+                        More stacks (frontend, backend, machine learning, &
+                        mobile) on the way!
+                      </Typography>
+                    </Grid>
+                  </Grid>
                 </Grid>
                 <Grid item>
-                  <Typography
-                    variant="h6"
-                    className={classes.success}
-                    color="textSecondary"
-                  >
-                    1000+ talks on React and its surrounding ecosystem
-                  </Typography>
-                </Grid>
-              </Grid>
-              <Grid container spacing={1} alignItems="center">
-                <Grid item>
-                  <BulletIcon fontSize="small" />
-                </Grid>
-                <Grid item>
-                  <Typography
-                    variant="h6"
-                    className={classes.success}
-                    color="textSecondary"
-                  >
-                    Watch the best of the best in our Curated section
-                  </Typography>
-                </Grid>
-              </Grid>
-              <Grid container spacing={1} alignItems="center">
-                <Grid item>
-                  <BulletIcon fontSize="small" />
-                </Grid>
-                <Grid item>
-                  <Typography
-                    variant="h6"
-                    className={classes.success}
-                    color="textSecondary"
-                  >
-                    More stacks (frontend, backend, machine learning, & mobile)
-                    on the way!
+                  <Typography variant="body2" color="textSecondary">
+                    Hero35 is in Alpha, with tons of features in the pipeline.
                   </Typography>
                 </Grid>
               </Grid>
