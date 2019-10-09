@@ -8,6 +8,7 @@ import {
   Box,
   Container
 } from "@material-ui/core";
+import { DoneOutline as BulletIcon } from "@material-ui/icons";
 import dynamic from "next/dynamic";
 const SignIn = dynamic(() => import("./SignIn"));
 
@@ -58,19 +59,51 @@ const Welcome = () => {
               </Typography>
               <Typography variant="h4" paragraph>
                 Heroes is <em className={classes.em}>the</em> place to watch
-                curated developer conference talks.
+                developer conference talks
               </Typography>
-              <Typography
-                variant="h6"
-                className={classes.success}
-                color="textSecondary"
-              >
-                1000+ talks on React and its surrounding ecosystem.
-              </Typography>
-              <Typography variant="subtitle1" color="textSecondary" paragraph>
-                More stacks (frontend, backend, machine learning, and mobile) on
-                the way!
-              </Typography>
+              <Grid container spacing={1} alignItems="center">
+                <Grid item>
+                  <BulletIcon fontSize="small" />
+                </Grid>
+                <Grid item>
+                  <Typography
+                    variant="h6"
+                    className={classes.success}
+                    color="textSecondary"
+                  >
+                    1000+ talks on React and its surrounding ecosystem
+                  </Typography>
+                </Grid>
+              </Grid>
+              <Grid container spacing={1} alignItems="center">
+                <Grid item>
+                  <BulletIcon fontSize="small" />
+                </Grid>
+                <Grid item>
+                  <Typography
+                    variant="h6"
+                    className={classes.success}
+                    color="textSecondary"
+                  >
+                    Watch the best of the best in our Curated section
+                  </Typography>
+                </Grid>
+              </Grid>
+              <Grid container spacing={1} alignItems="center">
+                <Grid item>
+                  <BulletIcon fontSize="small" />
+                </Grid>
+                <Grid item>
+                  <Typography
+                    variant="h6"
+                    className={classes.success}
+                    color="textSecondary"
+                  >
+                    More stacks (frontend, backend, machine learning, & mobile)
+                    on the way!
+                  </Typography>
+                </Grid>
+              </Grid>
             </Grid>
             <Grid item xs={12} md={4}>
               <SignIn />
