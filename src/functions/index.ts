@@ -103,6 +103,16 @@ const ssrHero = functions.https.onRequest(async (req, res) => {
 });
 
 /**
+ * SSR /privacy-policy
+ */
+const ssrPrivacyPolicy = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  const page = require("./next/serverless/pages/privacy-policy");
+  return page.render(request, response);
+});
+
+/**
  * SSR /talk
  */
 const ssrTalk = functions.https.onRequest(async (req, res) => {
@@ -395,6 +405,7 @@ const heroes = {
   ssrEdition,
   ssrEvent,
   ssrHero,
+  ssrPrivacyPolicy,
   ssrTalk,
   ssrTopic,
   ssrYear,

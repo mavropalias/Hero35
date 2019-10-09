@@ -62,24 +62,12 @@
         "function": "heroes-ssrIndex"
       },
       {
-        "source": "/hero/:heroid",
-        "function": "heroes-ssrHero"
-      },
-      {
         "source": "/country/:countryid",
         "function": "heroes-ssrCountry"
       },
       {
         "source": "/curated-conference-talks",
         "function": "heroes-ssrCurated"
-      },
-      {
-        "source": "/topic/:topicid",
-        "function": "heroes-ssrTopic"
-      },
-      {
-        "source": "/year/:yearid",
-        "function": "heroes-ssrYear"
       },
       {
         "source": "/:eventid/:editionid/:talkslug",
@@ -92,7 +80,23 @@
       {
         "source": "/event/:eventid",
         "function": "heroes-ssrEvent"
+      },
+      {
+        "source": "/hero/:heroid",
+        "function": "heroes-ssrHero"
+      },
+      {
+        "source": "/privacy-policy",
+        "function": "heroes-ssrPrivacyPolicy"
       }
+      {
+        "source": "/topic/:topicid",
+        "function": "heroes-ssrTopic"
+      },
+      {
+        "source": "/year/:yearid",
+        "function": "heroes-ssrYear"
+      },
     ],
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "headers": [

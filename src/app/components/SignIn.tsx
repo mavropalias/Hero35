@@ -16,7 +16,7 @@ const SignIn = () => {
     },
     //TODO update urls
     tosUrl: "/",
-    privacyPolicyUrl: "/"
+    privacyPolicyUrl: "/privacy-policy"
   };
 
   return (
