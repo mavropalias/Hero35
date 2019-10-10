@@ -50,27 +50,31 @@ export const UserContextProvider = props => {
 
   useEffect(() => {
     //TODO this get triggered too often
-    const unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
-      if (!!user) {
-        if (!state.signedIn) {
-          dispatch({
-            type: "login",
-            payload: {
-              name: user.displayName,
-              picture: user.photoURL,
-              signedIn: true
+    if (firebase.auth) {
+      const unregisterAuthObserver = firebase
+        .auth()
+        .onAuthStateChanged(user => {
+          if (!!user) {
+            if (!state.signedIn) {
+              dispatch({
+                type: "login",
+                payload: {
+                  name: user.displayName,
+                  picture: user.photoURL,
+                  signedIn: true
+                }
+              });
             }
-          });
-        }
-      } else {
-        if (state.signedIn) {
-          dispatch({ type: "logout" });
-        }
-      }
-    });
-    return function cleanup() {
-      unregisterAuthObserver();
-    };
+          } else {
+            if (state.signedIn) {
+              dispatch({ type: "logout" });
+            }
+          }
+        });
+      return function cleanup() {
+        unregisterAuthObserver();
+      };
+    }
   });
 
   return (
