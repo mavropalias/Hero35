@@ -77,10 +77,7 @@
         "source": "/:eventid/:editionid/:talkslug",
         "function": "heroes-ssrTalk"
       },
-      {
-        "source": "/:eventid/:editionid",
-        "function": "heroes-ssrEdition"
-      },
+
       {
         "source": "/event/:eventid",
         "function": "heroes-ssrEvent"
@@ -104,6 +101,10 @@
       {
         "source": "/year/:yearid",
         "function": "heroes-ssrYear"
+      },
+      {
+        "source": "/:eventid/:editionid",
+        "function": "heroes-ssrEdition"
       }
     ],
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
