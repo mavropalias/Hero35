@@ -63,17 +63,43 @@ const Welcome = () => {
               </Typography>
               <Grid container spacing={2}>
                 <Grid item>
-                  <Grid container spacing={1} alignItems="center">
+                  <Grid
+                    container
+                    spacing={1}
+                    alignItems="baseline"
+                    wrap="nowrap"
+                  >
                     <Grid item>
                       <BulletIcon fontSize="small" />
                     </Grid>
                     <Grid item>
                       <Typography variant="h6" className={classes.success}>
-                        1000+ talks on React and its surrounding ecosystem
+                        1000+ educational talks on React and its surrounding
+                        ecosystem
                       </Typography>
                     </Grid>
                   </Grid>
-                  <Grid container spacing={1} alignItems="center">
+                  <Grid
+                    container
+                    spacing={1}
+                    alignItems="baseline"
+                    wrap="nowrap"
+                  >
+                    <Grid item>
+                      <BulletIcon fontSize="small" />
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="h6" className={classes.success}>
+                        New talks and events added continually
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid
+                    container
+                    spacing={1}
+                    alignItems="baseline"
+                    wrap="nowrap"
+                  >
                     <Grid item>
                       <BulletIcon fontSize="small" />
                     </Grid>
@@ -83,7 +109,12 @@ const Welcome = () => {
                       </Typography>
                     </Grid>
                   </Grid>
-                  <Grid container spacing={1} alignItems="center">
+                  <Grid
+                    container
+                    spacing={1}
+                    alignItems="baseline"
+                    wrap="nowrap"
+                  >
                     <Grid item>
                       <BulletIcon fontSize="small" />
                     </Grid>
@@ -97,7 +128,7 @@ const Welcome = () => {
                 </Grid>
                 <Grid item>
                   <Typography variant="body2" color="textSecondary">
-                    Heroes is in Alpha, with tons of features in the pipeline.
+                    Heroes is in Alpha. Many cool things are in the pipeline!
                   </Typography>
                 </Grid>
               </Grid>
