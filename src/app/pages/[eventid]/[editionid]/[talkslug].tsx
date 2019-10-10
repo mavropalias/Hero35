@@ -76,7 +76,7 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
 
   return (
     <Layout
-      title={`${talk.title} - ${talk.speaker}`}
+      title={`${talk.title} - ${talk.speaker} - ${talk.eventTitle} ${talk.editionTitle}`}
       description={talk.curationDescription || talk.description}
       keywords={talk.tags.join(",")}
     >
