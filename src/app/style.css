@@ -1,3 +1,4 @@
+/* Algolia highlights */
 .ais-Highlight-highlighted {
   color: #f50057;
   font-style: initial;
@@ -14,4 +15,46 @@
 
 .firebaseui-idp-list {
   margin: 0 !important;
+}
+
+/* Progress bar */
+#nprogress {
+  pointer-events: none;
+  z-index: 1031;
+}
+
+#nprogress .bar {
+  background: #91dd64;
+
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 4px;
+}
+
+/* Fancy blur effect */
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  box-shadow: 0 0 10px #29d, 0 0 5px #29d;
+  opacity: 1;
+
+  -webkit-transform: rotate(3deg) translate(0px, -4px);
+  -ms-transform: rotate(3deg) translate(0px, -4px);
+  transform: rotate(3deg) translate(0px, -4px);
+}
+
+.nprogress-custom-parent {
+  overflow: hidden;
+  position: relative;
+}
+
+.nprogress-custom-parent #nprogress .bar {
+  position: absolute;
 }

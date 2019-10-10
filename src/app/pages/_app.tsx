@@ -1,15 +1,23 @@
 import React from "react";
 import App from "next/app";
 import Head from "next/head";
+import Router from "next/router";
 import { ThemeProvider } from "@material-ui/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "../appTheme";
 import * as ga from "../services/GA";
-import Router from "next/router";
 import "../style.css";
+import NProgress from "nprogress";
 import { UserContextProvider } from "../components/UserContextProvider";
 
-Router.events.on("routeChangeComplete", url => ga.pageview(url));
+Router.events.on("routeChangeStart", url => {
+  NProgress.start();
+});
+Router.events.on("routeChangeError", () => NProgress.done());
+Router.events.on("routeChangeComplete", url => {
+  ga.pageview(url);
+  NProgress.done();
+});
 
 export default class MyApp extends App {
   componentDidMount() {
