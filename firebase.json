@@ -62,6 +62,10 @@
         "function": "heroes-ssrIndex"
       },
       {
+        "source": "/account",
+        "function": "heroes-ssrAccount"
+      },
+      {
         "source": "/country/:countryid",
         "function": "heroes-ssrCountry"
       },
