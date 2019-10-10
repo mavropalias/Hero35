@@ -7,12 +7,18 @@ import {
   Toolbar,
   Box,
   Button,
-  Avatar
+  IconButton,
+  Avatar,
+  Hidden,
+  Drawer,
+  List,
+  ListItem
 } from "@material-ui/core";
 import ROUTES from "../constants/routes";
 import SearchInput from "./SearchInput";
+import { Menu as MenuIcon } from "@material-ui/icons/";
 import { default as NextLink } from "next/link";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "./UserContextProvider";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -26,6 +32,9 @@ const useStyles = makeStyles((theme: Theme) =>
     logo: {
       maxHeight: "30px"
     },
+    menuLink: {
+      whiteSpace: "nowrap"
+    },
     search: {
       maxWidth: "350px",
       margin: "0"
@@ -35,7 +44,22 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Navigation = () => {
   const { state, dispatch } = useContext(UserContext);
+  const [drawer, setDrawer] = useState();
   const classes = useStyles({});
+
+  const toggleDrawer = (open: boolean) => (
+    event: React.KeyboardEvent | React.MouseEvent
+  ) => {
+    if (
+      event.type === "keydown" &&
+      ((event as React.KeyboardEvent).key === "Tab" ||
+        (event as React.KeyboardEvent).key === "Shift")
+    ) {
+      return;
+    }
+
+    setDrawer(open);
+  };
 
   return (
     <AppBar
@@ -45,24 +69,58 @@ const Navigation = () => {
       elevation={0}
     >
       <Container>
-        <Toolbar disableGutters={true}>
-          <Box marginRight={1}>
-            <MenuLink href={ROUTES.ACCOUNT}>
-              {state.signedIn ? (
-                <Avatar alt={state.name} src={state.picture} />
-              ) : (
-                "Sign in"
-              )}
-            </MenuLink>
-          </Box>
-          <Box marginRight={1}>
-            <MenuLink href={ROUTES.HOME}>Home</MenuLink>
-          </Box>
-          <Box flexGrow="1" m={1}>
-            <SearchInput className={classes.search} />
-          </Box>
-          <img src="/static/HERO35-logo.svg" className={classes.logo} />
-        </Toolbar>
+        <Hidden implementation="css" xsDown>
+          <Toolbar disableGutters={true}>
+            <Box marginRight={1}>
+              <MenuLink href={ROUTES.ACCOUNT}>
+                {state.signedIn ? (
+                  <Avatar alt={state.name} src={state.picture} />
+                ) : (
+                  "Sign in"
+                )}
+              </MenuLink>
+            </Box>
+            <Box marginRight={1}>
+              <MenuLink href={ROUTES.HOME}>Home</MenuLink>
+            </Box>
+            <Box flexGrow="1" m={1}>
+              <SearchInput className={classes.search} />
+            </Box>
+            <img src="/static/HERO35-logo.svg" className={classes.logo} />
+          </Toolbar>
+        </Hidden>
+        <Hidden implementation="css" smUp>
+          <Toolbar disableGutters={true}>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={toggleDrawer(true)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Box flexGrow="1" marginRight={2}>
+              <SearchInput className={classes.search} />
+            </Box>
+            <img src="/static/HERO35-logo.svg" className={classes.logo} />
+          </Toolbar>
+          <Drawer open={drawer} onClose={toggleDrawer(false)}>
+            <List>
+              <ListItem>
+                <MenuLink href={ROUTES.HOME}>Home</MenuLink>
+              </ListItem>
+              <ListItem>
+                <MenuLink href={ROUTES.ACCOUNT}>
+                  {state.signedIn ? (
+                    <Avatar alt={state.name} src={state.picture} />
+                  ) : (
+                    "Sign in"
+                  )}
+                </MenuLink>
+              </ListItem>
+            </List>
+          </Drawer>
+        </Hidden>
       </Container>
     </AppBar>
   );
@@ -70,9 +128,10 @@ const Navigation = () => {
 
 const MenuLink = ({ href, children }) => {
   const classes = useStyles({});
+
   return (
     <NextLink href={href} as={href} passHref>
-      <Button>{children}</Button>
+      <Button className={classes.menuLink}>{children}</Button>
     </NextLink>
   );
 };
