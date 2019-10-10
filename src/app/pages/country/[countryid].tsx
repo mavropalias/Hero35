@@ -4,7 +4,10 @@ import {
   createStyles,
   Theme,
   Typography,
-  Container
+  Container,
+  Paper,
+  Grid,
+  Box
 } from "@material-ui/core";
 import { EventEdition } from "../../schema";
 import Database from "../../services/Database";
@@ -14,7 +17,10 @@ import EditionList from "../../components/EditionList";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      marginTop: theme.spacing(2)
+      paddingTop: theme.spacing(8)
+    },
+    paper: {
+      marginBottom: theme.spacing(4)
     }
   })
 );
@@ -33,11 +39,20 @@ const CountryPage: NextPage<Props> = ({ country, editions }) => {
       description={`All React conferences for developers in ${country}`}
       keywords={`${country},React conferences,developers,developer conference,React event,React in ${country}`}
     >
-      <Container className={classes.container}>
-        <Typography variant="h5" component="h1" paragraph>
-          React developer conferences in {country}
-        </Typography>
-        <hr />
+      <Paper className={classes.paper}>
+        <Container className={classes.container}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={8}>
+              <Box display="flex" alignItems="center">
+                <Typography variant="h4">
+                  React developer conferences in {country}
+                </Typography>
+              </Box>
+            </Grid>
+          </Grid>
+        </Container>
+      </Paper>
+      <Container>
         {editions.length > 0 ? (
           <EditionList editions={editions} />
         ) : (

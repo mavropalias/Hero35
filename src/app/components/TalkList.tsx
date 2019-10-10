@@ -25,7 +25,10 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.secondary.main
     },
     curatedTalk: {
-      backgroundColor: theme.palette.background.paper
+      backgroundColor: theme.palette.background.paper,
+      border: "1px solid",
+      borderColor: theme.palette.secondary.main,
+      borderRadius: theme.shape.borderRadius
     },
     list: {
       width: "100%"
