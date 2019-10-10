@@ -47,7 +47,7 @@ const Home: NextPage<Props> = ({
       {!state.signedIn && <Welcome />}
       <Stacks />
       <Container>
-        <Grid spacing={8} container className={classes.feedContainer}>
+        <Grid spacing={6} container className={classes.feedContainer}>
           <Grid item sm={12}>
             <CuratedTalks talks={curatedTalks} />
           </Grid>
