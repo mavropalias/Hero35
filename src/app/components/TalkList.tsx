@@ -56,17 +56,8 @@ const TalkList = ({
   if (talks.length === 0) {
     return (
       <Box m={3}>
-        <Typography variant="body1" color="textSecondary" paragraph>
-          No talks are available for this day.
-        </Typography>
-        <Typography variant="body1" color="textSecondary" paragraph>
-          This probably means that there were only workshops and other types of
-          events this day.
-        </Typography>
-        <Typography variant="body1" color="textSecondary" paragraph>
-          All non-talk content is available in the{" "}
-          <strong>'more content'</strong> tab (if the event organisers have made
-          it available).
+        <Typography variant="body1" color="textSecondary">
+          No talks available.
         </Typography>
       </Box>
     );
