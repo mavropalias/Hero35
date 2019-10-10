@@ -53,6 +53,15 @@ const ssrIndex = functions.https.onRequest(async (req, res) => {
 });
 
 /**
+ * SSR /account
+ */
+const ssrAccount = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  response.sendFile(`${__dirname}/next/serverless/pages/account.html`);
+});
+
+/**
  * SSR /curated
  */
 const ssrCurated = functions.https.onRequest(async (req, res) => {
@@ -108,6 +117,9 @@ const ssrHero = functions.https.onRequest(async (req, res) => {
 const ssrPrivacyPolicy = functions.https.onRequest(async (req, res) => {
   const [request, response, approved] = middleware(req, res);
   if (!approved) return response.send();
+  response.sendFile(`${__dirname}/next/serverless/pages/privacy-policy.html`);
+});
+
 /**
  * SSR /terms-of-service
  */
@@ -405,6 +417,7 @@ const heroes = {
   indexTalk,
   recentEditions,
   ssrIndex,
+  ssrAccount,
   ssrCountry,
   ssrCurated,
   ssrEdition,
@@ -412,6 +425,7 @@ const heroes = {
   ssrHero,
   ssrPrivacyPolicy,
   ssrTalk,
+  ssrTermsOfService,
   ssrTopic,
   ssrYear,
   talk,

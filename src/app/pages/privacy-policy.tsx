@@ -11,10 +11,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       marginTop: theme.spacing(2)
-    },
-    logo: {
-      marginBottom: theme.spacing(3),
-      width: "80%"
     }
   })
 );
