@@ -31,6 +31,11 @@ const Footer = () => {
               <Link color="inherit">Privacy policy</Link>
             </NextLink>
           </Grid>
+          <Grid item>
+            <NextLink href="/terms-of-service" as="/terms-of-service" passHref>
+              <Link color="inherit">Terms of Service</Link>
+            </NextLink>
+          </Grid>
         </Grid>
       </Typography>
     </Container>

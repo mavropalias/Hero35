@@ -90,6 +90,10 @@
         "function": "heroes-ssrPrivacyPolicy"
       },
       {
+        "source": "/terms-of-service",
+        "function": "heroes-ssrTermsOfService"
+      },
+      {
         "source": "/topic/:topicid",
         "function": "heroes-ssrTopic"
       },

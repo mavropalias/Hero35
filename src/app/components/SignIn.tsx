@@ -14,8 +14,7 @@ const SignIn = () => {
     callbacks: {
       signInSuccessWithAuthResult: _ => false
     },
-    //TODO update urls
-    tosUrl: "/",
+    tosUrl: "/terms-of-service",
     privacyPolicyUrl: "/privacy-policy"
   };
 

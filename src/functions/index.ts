@@ -108,8 +108,13 @@ const ssrHero = functions.https.onRequest(async (req, res) => {
 const ssrPrivacyPolicy = functions.https.onRequest(async (req, res) => {
   const [request, response, approved] = middleware(req, res);
   if (!approved) return response.send();
-  const page = require("./next/serverless/pages/privacy-policy");
-  return page.render(request, response);
+/**
+ * SSR /terms-of-service
+ */
+const ssrTermsOfService = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  response.sendFile(`${__dirname}/next/serverless/pages/terms-of-service.html`);
 });
 
 /**
