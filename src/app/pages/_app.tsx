@@ -10,12 +10,23 @@ import "../style.css";
 import NProgress from "nprogress";
 import { UserContextProvider } from "../components/UserContextProvider";
 
+NProgress.configure({ showSpinner: false });
+let doneLoading = true;
 Router.events.on("routeChangeStart", url => {
-  NProgress.start();
+  doneLoading = false;
+  setTimeout(() => {
+    if (!doneLoading) {
+      NProgress.start();
+    }
+  }, 300);
 });
-Router.events.on("routeChangeError", () => NProgress.done());
+Router.events.on("routeChangeError", () => {
+  doneLoading = true;
+  NProgress.done();
+});
 Router.events.on("routeChangeComplete", url => {
   ga.pageview(url);
+  doneLoading = true;
   NProgress.done();
 });
 
