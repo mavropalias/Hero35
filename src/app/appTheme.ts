@@ -11,21 +11,13 @@ const theme = responsiveFontSizes(
         main: "#FFD14A"
       },
       background: {
-        paper: "#171717",
+        paper: "#191919",
         default: "#121212"
       }
     },
     props: {
       MuiTextField: {
         variant: "outlined"
-      },
-      MuiButtonBase: {
-        disableRipple: true
-      },
-      MuiStepButton: {
-        style: {
-          textAlign: "left"
-        }
       },
       MuiTab: {
         style: {
