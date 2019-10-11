@@ -86,7 +86,9 @@ const Navigation = () => {
             <Box flexGrow="1" m={1}>
               <SearchInput className={classes.search} />
             </Box>
-            <img src="/static/HERO35-logo.svg" className={classes.logo} />
+            <MenuLink href={ROUTES.HOME}>
+              <img src="/static/HERO35-logo.svg" className={classes.logo} />
+            </MenuLink>
           </Toolbar>
         </Hidden>
         <Hidden implementation="css" smUp>
@@ -102,7 +104,9 @@ const Navigation = () => {
             <Box flexGrow="1" marginRight={2}>
               <SearchInput className={classes.search} />
             </Box>
-            <img src="/static/HERO35-logo.svg" className={classes.logo} />
+            <MenuLink href={ROUTES.HOME}>
+              <img src="/static/HERO35-logo.svg" className={classes.logo} />
+            </MenuLink>
           </Toolbar>
           <Drawer open={drawer} onClose={toggleDrawer(false)}>
             <List>
