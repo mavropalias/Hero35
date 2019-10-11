@@ -36,9 +36,14 @@ const CuratedPage: NextPage<Props> = ({ talks }) => {
         <Typography variant="h5" component="h1">
           Curated React talks
         </Typography>
-        <Typography variant="subtitle1" color="textSecondary" paragraph>
+        <Typography variant="subtitle1">
           Must-watch React talks from developer conferences around the world,
           hand-picked by our editorial team.
+        </Typography>
+        <Typography variant="body2" color="textSecondary" paragraph>
+          The ingredients of a great conference talk, are: fascinating content
+          and/or high educational value, captivating delivery, and clear audio
+          quality.
         </Typography>
         <Grid container spacing={4}>
           {talks.map(talk => (
