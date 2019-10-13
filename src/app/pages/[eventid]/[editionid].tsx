@@ -34,7 +34,10 @@ const useStyles = makeStyles((theme: Theme) =>
     chip: {
       marginRight: theme.spacing(1),
       marginBottom: theme.spacing(0.5),
-      marginTop: theme.spacing(0.5)
+      marginTop: theme.spacing(0.5),
+      "&:first-child": {
+        marginLeft: theme.spacing(1)
+      }
     },
     chipCategory: {
       marginRight: theme.spacing(1),
@@ -131,28 +134,37 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
                       content in&nbsp;
                     </Typography>
                   )}
-                  {edition.categories.map(cat => (
-                    <Chip
-                      color="default"
-                      variant="default"
-                      key={cat.id}
-                      label={`${cat.title}`}
-                      className={classes.chipCategory}
-                    />
-                  ))}
-                  {edition.tags &&
-                    edition.tags.map(
-                      (tag, index) =>
-                        tag.count > 1 && (
-                          <Chip
-                            color="default"
-                            variant="outlined"
-                            key={index}
-                            label={tag.label}
-                            className={classes.chip}
-                          />
-                        )
-                    )}{" "}
+                  {edition.categories
+                    .map(cat => <span>{cat.title}</span>)
+                    .reduce((previous, current) => (
+                      <>
+                        {previous}, {current}
+                      </>
+                    ))}
+                  {edition.tags && (
+                    <span>
+                      {edition.tags.map(
+                        (tag, index) =>
+                          tag.count > 1 && (
+                            <NextLink
+                              key={index}
+                              passHref
+                              href={`/topic/[topicid]`}
+                              as={`/topic/${tag.label.toLowerCase()}`}
+                            >
+                              <Chip
+                                component="a"
+                                color="primary"
+                                variant="outlined"
+                                key={index}
+                                label={tag.label}
+                                className={classes.chip}
+                              />
+                            </NextLink>
+                          )
+                      )}
+                    </span>
+                  )}{" "}
                   and more.
                 </Box>
               </Grid>
@@ -183,7 +195,12 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
                   {edition.description}
                 </Typography>
                 <p>
-                  <Link href={edition.website} target="_blank" variant="body2">
+                  <Link
+                    href={edition.website}
+                    color="secondary"
+                    target="_blank"
+                    variant="body2"
+                  >
                     Official website{" "}
                     <LinkIcon className={classes.externalLinkIcon} />
                   </Link>
