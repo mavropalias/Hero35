@@ -128,11 +128,13 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
                   marginTop={1}
                   flexWrap="wrap"
                 >
-                  {edition.durationMinutes > 0 && (
+                  {edition.durationMinutes > 0 ? (
                     <Typography variant="body1">
                       {(edition.durationMinutes / 60).toFixed(0)} hours of
                       content in&nbsp;
                     </Typography>
+                  ) : (
+                    <>Event category:&nbsp;&nbsp;</>
                   )}
                   {edition.categories
                     .map(cat => <span>{cat.title}</span>)
@@ -167,7 +169,7 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
                       )}
                     </>
                   )}{" "}
-                  and more.
+                  {edition.durationMinutes > 0 && <>and more.</>}
                 </Box>
               </Grid>
               {showTickets() && (
