@@ -10,9 +10,13 @@ import {
   Container,
   Avatar,
   Grid,
-  Paper
+  Paper,
+  Button,
+  IconButton,
+  Link
 } from "@material-ui/core";
 import {
+  Bookmark as BookmarkIcon,
   Face as SpeakerIcon,
   Stars as CuratedIcon,
   ThumbUp as VoteUp,
@@ -22,6 +26,8 @@ import { Talk } from "../../../schema";
 import Database from "../../../services/Database";
 import { NextPage, NextPageContext } from "next";
 import Breadcrumbs from "../../../components/Breadcrumbs";
+import { UserContext } from "../../../components/UserContextProvider";
+import { useContext } from "react";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,6 +46,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     description: {
       whiteSpace: "pre-line"
+    },
+    voteButton: {
+      fontSize: theme.typography.fontSize * 2
     }
   })
 );
@@ -153,10 +162,15 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
             <TalkVideo videoid={talk.id} />
           </Grid>
           <Grid item sm={12} md={8}>
-            <Typography variant="caption" color="textSecondary" paragraph>
+            <Typography variant="caption" color="textSecondary">
               {talk.times.totalMins} mins&nbsp;-&nbsp;
               {shortDate(talk.date)}
             </Typography>
+          </Grid>
+          <Grid item sm={12} md={8}>
+            <TalkControls />
+          </Grid>
+          <Grid item sm={12} md={8}>
             <Typography
               variant="body1"
               className={classes.description}
@@ -245,6 +259,47 @@ const TalkVideo = ({ videoid }: { videoid: string }) => (
     />
   </Box>
 );
+
+const TalkControls = () => {
+  const { state, dispatch } = useContext(UserContext);
+  const classes = useStyles({});
+
+  return (
+    <>
+      {!state.signedIn ? (
+        <Typography variant="overline">
+          <NextLink href={`/account`} as={`/account`} passHref>
+            <Link>Please sign in to rate & save talks.</Link>
+          </NextLink>
+        </Typography>
+      ) : (
+        <Typography variant="overline" color="textSecondary">
+          Voting & saving coming soon.
+        </Typography>
+      )}
+      <Grid container spacing={4} alignItems="center">
+        <Grid item>
+          <IconButton title="Like" color="primary" disabled={!state.signedIn}>
+            <VoteUp className={classes.voteButton} />
+          </IconButton>
+          <IconButton title="Disike" color="primary" disabled={!state.signedIn}>
+            <VoteDown className={classes.voteButton} />
+          </IconButton>
+        </Grid>
+        <Grid item>
+          <Button
+            color="secondary"
+            disabled={!state.signedIn}
+            title="Save this talk in your Saved Videos"
+            startIcon={<BookmarkIcon />}
+          >
+            Save
+          </Button>
+        </Grid>
+      </Grid>
+    </>
+  );
+};
 
 interface QueryProps {
   eventid: string;
