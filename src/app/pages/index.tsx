@@ -45,7 +45,10 @@ const Home: NextPage<Props> = ({
   const { state, dispatch } = useContext(UserContext);
 
   return (
-    <Layout description="The single source of truth for React developer conferences & talks.">
+    <Layout
+      title="Dev conference talks"
+      description="The single source of truth for React developer conferences & talks."
+    >
       {!state.signedIn && <Welcome />}
       <Stacks />
       <Container>
