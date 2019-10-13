@@ -12,6 +12,7 @@ import {
   CardContent
 } from "@material-ui/core";
 import { default as NextLink } from "next/link";
+import STACKS from "../constants/stacks";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,56 +44,30 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Stacks = () => {
   const classes = useStyles({});
-  const stacks = [
-    "Apollo",
-    "AWS",
-    "Babel",
-    "CSS",
-    "D3",
-    "Elm",
-    "Functional Programming",
-    "Gatsby",
-    "GraphQL",
-    "Jest",
-    "MobX",
-    "NextJS",
-    "NPM",
-    "Redux",
-    "React Native",
-    "Reason",
-    "RxJS",
-    "Serverless",
-    "Storybook",
-    "TypeScript",
-    "WebAssembly",
-    "Webpack"
-  ];
 
   return (
     <Paper elevation={4} square={true}>
       <Box paddingTop={4} paddingBottom={4}>
         <Container>
           <Grid container spacing={1}>
-            {stacks.map((stack, index) => (
+            {STACKS.map((stack, index) => (
               <Grid item xs={4} sm={3} md={2} lg={2} key={index}>
                 <Card className={classes.card} elevation={0}>
                   <NextLink
                     href={`/topic/[topicid]`}
-                    as={`/topic/${stack.toLowerCase().replace(/ /g, "-")}`}
+                    as={`/topic/${stack.slug}`}
                   >
                     <a
                       className={classes.link}
-                      title={`${stack} conference talks`}
+                      title={`${stack.label} conference talks`}
                     >
                       <CardActionArea className={classes.cardActionArea}>
                         <CardContent className={classes.cardContent}>
                           <Box paddingBottom={1}>
                             <img
-                              src={`/static/stacks/${stack
-                                .toLowerCase()
-                                .replace(/ /g, "-")}.svg`}
+                              src={`/static/stacks/${stack.slug}.svg`}
                               className={classes.stackLogo}
-                              alt={`${stack} logo`}
+                              alt={`${stack.label} logo`}
                             />
                           </Box>
                           <Typography
@@ -100,7 +75,7 @@ const Stacks = () => {
                             component="p"
                             color="primary"
                           >
-                            {stack}
+                            {stack.label}
                           </Typography>
                         </CardContent>
                       </CardActionArea>
