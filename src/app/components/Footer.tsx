@@ -36,6 +36,13 @@ const Footer = () => {
               <Link color="inherit">Terms of Service</Link>
             </NextLink>
           </Grid>
+          <Grid item>
+            <NextLink href="https://twitter.com/Hero35Official" passHref>
+              <Link target="_blank" color="inherit">
+                Follow us on Twitter
+              </Link>
+            </NextLink>
+          </Grid>
         </Grid>
       </Typography>
     </Container>
