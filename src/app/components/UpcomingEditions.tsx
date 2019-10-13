@@ -18,7 +18,7 @@ import { EventEdition } from "../schema";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    card: { height: "100%", background: "transparent" },
+    card: { height: "100%" },
     content: { textAlign: "center" },
     link: { textDecoration: "none", color: "inherit" },
     media: {
