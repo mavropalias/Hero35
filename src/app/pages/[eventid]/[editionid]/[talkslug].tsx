@@ -96,13 +96,9 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
     >
       <Breadcrumbs items={breadcrumbs} />
       <Container className={classes.container}>
-        <Grid container spacing={1}>
+        <TalkVideo videoid={talk.id} />
+        <Grid container spacing={1} direction="column">
           <Grid item sm={12} md={8}>
-            <Typography variant="h4" component="h1" gutterBottom>
-              {talk.title}
-            </Typography>
-          </Grid>
-          <Grid item sm={12}>
             <NextLink
               passHref
               href={`/[eventid]/[editionid]`}
@@ -119,13 +115,24 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
                   />
                 }
                 component="a"
+                size="small"
                 color="primary"
                 label={`${talk.eventTitle} ${talk.editionTitle}`}
                 className={classes.chip}
               />
             </NextLink>
             <TalkSpeakers speakers={speakers} />
+            <Typography variant="h4" component="h1">
+              {talk.title}
+            </Typography>
+            <Typography variant="caption" color="textSecondary">
+              {talk.times.totalMins} mins&nbsp;-&nbsp;
+              {shortDate(talk.date)}
+            </Typography>
+          </Grid>
+          <Grid item sm={12} md={8}>
             <TalkTags tags={talk.tags} />
+            <TalkControls />
           </Grid>
           {talk.curationDescription && (
             <Grid item sm={12} md={8}>
@@ -158,18 +165,6 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
               </Paper>
             </Grid>
           )}
-          <Grid item sm={12}>
-            <TalkVideo videoid={talk.id} />
-          </Grid>
-          <Grid item sm={12} md={8}>
-            <Typography variant="caption" color="textSecondary">
-              {talk.times.totalMins} mins&nbsp;-&nbsp;
-              {shortDate(talk.date)}
-            </Typography>
-          </Grid>
-          <Grid item sm={12} md={8}>
-            <TalkControls />
-          </Grid>
           <Grid item sm={12} md={8}>
             <Typography
               variant="body1"
@@ -199,7 +194,7 @@ const TalkSpeakers = ({ speakers }: { speakers: string[] }) => {
           <Chip
             component="a"
             color="primary"
-            variant="outlined"
+            size="small"
             title={`${speaker} conference talks`}
             icon={<SpeakerIcon />}
             label={speaker}
@@ -226,6 +221,7 @@ const TalkTags = ({ tags }: { tags: string[] }) => {
             component="a"
             color="primary"
             variant="outlined"
+            size="small"
             label={tag}
             className={classes.chip}
           />
@@ -263,38 +259,47 @@ const TalkVideo = ({ videoid }: { videoid: string }) => (
 const TalkControls = () => {
   const { state, dispatch } = useContext(UserContext);
   const classes = useStyles({});
-
   return (
     <>
-      {!state.signedIn ? (
-        <Typography variant="overline">
-          <NextLink href={`/account`} as={`/account`} passHref>
-            <Link>Please sign in to rate & save talks.</Link>
-          </NextLink>
-        </Typography>
-      ) : (
-        <Typography variant="overline" color="textSecondary">
-          Voting & saving coming soon.
-        </Typography>
-      )}
-      <Grid container spacing={4} alignItems="center">
+      <Grid container alignItems="center">
         <Grid item>
-          <IconButton title="Like" color="primary" disabled={!state.signedIn}>
-            <VoteUp className={classes.voteButton} />
-          </IconButton>
-          <IconButton title="Disike" color="primary" disabled={!state.signedIn}>
-            <VoteDown className={classes.voteButton} />
-          </IconButton>
+          <Box marginRight={3}>
+            <IconButton title="Like" color="primary" disabled={!state.signedIn}>
+              <VoteUp className={classes.voteButton} />
+            </IconButton>
+            <IconButton
+              title="Disike"
+              color="primary"
+              disabled={!state.signedIn}
+            >
+              <VoteDown className={classes.voteButton} />
+            </IconButton>
+          </Box>
         </Grid>
         <Grid item>
-          <Button
-            color="secondary"
-            disabled={!state.signedIn}
-            title="Save this talk in your Saved Videos"
-            startIcon={<BookmarkIcon />}
-          >
-            Save
-          </Button>
+          <Box marginRight={2}>
+            <Button
+              color="secondary"
+              disabled={!state.signedIn}
+              title="Save this talk in your Saved Videos"
+              startIcon={<BookmarkIcon />}
+            >
+              Save
+            </Button>
+          </Box>
+        </Grid>
+        <Grid item>
+          {!state.signedIn ? (
+            <Typography variant="overline">
+              <NextLink href={`/account`} as={`/account`} passHref>
+                <Link>Sign in</Link>
+              </NextLink>
+            </Typography>
+          ) : (
+            <Typography variant="overline" color="textSecondary">
+              Vote/save coming soon
+            </Typography>
+          )}
         </Grid>
       </Grid>
     </>
