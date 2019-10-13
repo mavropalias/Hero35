@@ -13,6 +13,7 @@ import { Talk } from "../../schema";
 import Database from "../../services/Database";
 import { NextPage, NextPageContext } from "next";
 import TalkList from "../../components/TalkList";
+import STACKS from "../../constants/stacks";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,29 +22,49 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     paper: {
       marginBottom: theme.spacing(4)
+    },
+    stackLogo: {
+      height: "128px",
+      maxWidth: "100%"
     }
   })
 );
 
 interface Props {
-  topic: string;
+  title: string;
   talks: Talk[];
 }
 
-const TopicDetails: NextPage<Props> = ({ topic, talks }) => {
+const TopicDetails: NextPage<Props> = ({ title, talks }) => {
   const classes = useStyles({});
+  const stack = STACKS.filter(stack => stack.slug === title)[0];
+  if (stack) {
+    title = stack.label;
+  } else {
+    title = title[0].toUpperCase() + title.slice(1).replace(/-/g, " ");
+  }
 
   return (
-    <Layout title={`Developer conference talks about ${topic}`}>
+    <Layout title={`Developer conference talks about ${title}`}>
       <Paper className={classes.paper}>
         <Container className={classes.container}>
-          <Grid container spacing={2}>
+          <Grid container spacing={1}>
             <Grid item xs={12} md={8}>
-              <Box display="flex" alignItems="center">
-                <Typography variant="h4">
-                  Developer conference talks about {topic}
-                </Typography>
-              </Box>
+              {stack ? (
+                <img
+                  src={`/static/stacks/${stack.slug}.svg`}
+                  className={classes.stackLogo}
+                  alt={`${stack.label} logo`}
+                  title={`${stack.label} conference talks`}
+                />
+              ) : (
+                <Typography variant="h1">{title}</Typography>
+              )}
+            </Grid>
+            <Grid item xs={12} md={8}>
+              <Typography variant="caption" color="textSecondary" paragraph>
+                Developer conference talks about {title}
+              </Typography>
             </Grid>
           </Grid>
         </Container>
@@ -52,9 +73,7 @@ const TopicDetails: NextPage<Props> = ({ topic, talks }) => {
         {talks.length > 0 ? (
           <TalkList talks={talks} showEvent={true} />
         ) : (
-          <Typography variant="body1">
-            No talks found for this topic.
-          </Typography>
+          <Typography variant="body1">No talks found.</Typography>
         )}
       </Container>
     </Layout>
@@ -65,9 +84,9 @@ interface QueryProps {
   topicid: string;
 }
 TopicDetails.getInitialProps = async (ctx: NextPageContext) => {
-  const { topicid: topic } = (ctx.query as unknown) as QueryProps;
-  const talks = await Database.getTalksByTopic(topic);
-  return { topic, talks };
+  const { topicid: title } = (ctx.query as unknown) as QueryProps;
+  const talks = await Database.getTalksByTopic(title);
+  return { title, talks };
 };
 
 export default TopicDetails;
