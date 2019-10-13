@@ -142,7 +142,8 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
                       </>
                     ))}
                   {edition.tags && (
-                    <span>
+                    <>
+                      <span>&nbsp;&nbsp;</span>
                       {edition.tags.map(
                         (tag, index) =>
                           tag.count > 1 && (
@@ -156,6 +157,7 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
                                 component="a"
                                 color="primary"
                                 variant="outlined"
+                                size="small"
                                 key={index}
                                 label={tag.label}
                                 className={classes.chip}
@@ -163,7 +165,7 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
                             </NextLink>
                           )
                       )}
-                    </span>
+                    </>
                   )}{" "}
                   and more.
                 </Box>
@@ -197,7 +199,7 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
                 <p>
                   <Link
                     href={edition.website}
-                    color="secondary"
+                    color="textSecondary"
                     target="_blank"
                     variant="body2"
                   >
