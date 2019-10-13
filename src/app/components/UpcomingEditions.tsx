@@ -8,7 +8,8 @@ import {
   makeStyles,
   Theme,
   Typography,
-  Button
+  Button,
+  Hidden
 } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -39,20 +40,8 @@ interface Props {
 
 const UpcomingEditions = ({ editions, className }: Props) => {
   const theme = useTheme();
-  const editionCount = useMediaQuery(theme.breakpoints.only("sm")) ? 4 : 3;
+  const editionCount = useMediaQuery(theme.breakpoints.down("sm")) ? 4 : 3;
   const classes = useStyles({});
-
-  const editionDays = (edition: EventEdition) => {
-    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-    const firstDate = new Date(edition.startDate);
-    const secondDate = new Date(edition.endDate);
-
-    return (
-      Math.round(
-        Math.abs((firstDate.getTime() - secondDate.getTime()) / oneDay)
-      ) + 1
-    );
-  };
 
   const editionDateStart = (edition: EventEdition) => {
     const startDate = new Date(edition.startDate);
@@ -99,8 +88,7 @@ const UpcomingEditions = ({ editions, className }: Props) => {
                         {edition.eventTitle} {edition.title}
                       </Typography>
                       <Typography variant="subtitle2" color="textSecondary">
-                        {editionDateStart(edition)} | {editionDays(edition)}
-                        &nbsp;days&nbsp;|&nbsp;
+                        {editionDateStart(edition)},{" "}
                         {edition.state || edition.city}, {edition.country}
                       </Typography>
                     </CardContent>
@@ -108,24 +96,19 @@ const UpcomingEditions = ({ editions, className }: Props) => {
                 </a>
               </NextLink>
               <CardContent className={classes.content}>
-                <Typography paragraph>
+                <Typography>
                   <Button
                     variant="contained"
                     color="secondary"
                     href={edition.ticketsUrl}
                     target="_blank"
+                    title={`Tickets are sold by the ${edition.eventTitle} organisers. Not affiliated with Hero35.`}
                     rel="noopener"
                   >
-                    Buy tickets *
+                    <Hidden smDown>Buy tickets *</Hidden>
+                    <Hidden mdUp>Tickets *</Hidden>
                     <TicketIcon className={classes.icon} />
                   </Button>
-                </Typography>
-                <Typography
-                  variant="caption"
-                  color="textSecondary"
-                  component="div"
-                >
-                  * Sold by {edition.eventTitle}. Not affiliated with Hero35.
                 </Typography>
               </CardContent>
             </Card>
