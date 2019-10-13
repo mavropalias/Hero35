@@ -100,6 +100,7 @@ const TalkListItem = ({
       passHref
     >
       <ListItem
+        divider
         button
         onClick={onClick}
         component="a"

@@ -71,7 +71,7 @@ const EditionList = ({
           passHref
           key={`${edition.eventId}${edition.id}`}
         >
-          <ListItem button component="a" key={edition.id}>
+          <ListItem divider button component="a" key={edition.id}>
             <ListItemAvatar>
               <Avatar
                 component="span"
