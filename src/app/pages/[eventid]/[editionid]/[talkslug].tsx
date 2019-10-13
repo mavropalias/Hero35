@@ -12,7 +12,12 @@ import {
   Grid,
   Paper
 } from "@material-ui/core";
-import { Face as SpeakerIcon, Stars as CuratedIcon } from "@material-ui/icons";
+import {
+  Face as SpeakerIcon,
+  Stars as CuratedIcon,
+  ThumbUp as VoteUp,
+  ThumbDown as VoteDown
+} from "@material-ui/icons";
 import { Talk } from "../../../schema";
 import Database from "../../../services/Database";
 import { NextPage, NextPageContext } from "next";
@@ -110,40 +115,8 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
                 className={classes.chip}
               />
             </NextLink>
-            {speakers.map((speaker, index) => (
-              <NextLink
-                key={index}
-                passHref
-                href={`/hero/[heroid]`}
-                as={`/hero/${encodeURI(speaker)}`}
-              >
-                <Chip
-                  component="a"
-                  color="primary"
-                  variant="outlined"
-                  title={`${speaker} conference talks`}
-                  icon={<SpeakerIcon />}
-                  label={speaker}
-                  className={classes.chip}
-                />
-              </NextLink>
-            ))}
-            {talk.tags.map(tag => (
-              <NextLink
-                key={tag}
-                href={`/topic/[topicid]`}
-                as={`/topic/${tag.toLowerCase()}`}
-                passHref
-              >
-                <Chip
-                  component="a"
-                  color="primary"
-                  variant="outlined"
-                  label={tag}
-                  className={classes.chip}
-                />
-              </NextLink>
-            ))}
+            <TalkSpeakers speakers={speakers} />
+            <TalkTags tags={talk.tags} />
           </Grid>
           {talk.curationDescription && (
             <Grid item sm={12} md={8}>
@@ -195,6 +168,56 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
         </Grid>
       </Container>
     </Layout>
+  );
+};
+
+const TalkSpeakers = ({ speakers }: { speakers: string[] }) => {
+  const classes = useStyles({});
+  return (
+    <>
+      {speakers.map((speaker, index) => (
+        <NextLink
+          key={index}
+          passHref
+          href={`/hero/[heroid]`}
+          as={`/hero/${encodeURI(speaker)}`}
+        >
+          <Chip
+            component="a"
+            color="primary"
+            variant="outlined"
+            title={`${speaker} conference talks`}
+            icon={<SpeakerIcon />}
+            label={speaker}
+            className={classes.chip}
+          />
+        </NextLink>
+      ))}
+    </>
+  );
+};
+
+const TalkTags = ({ tags }: { tags: string[] }) => {
+  const classes = useStyles({});
+  return (
+    <>
+      {tags.map(tag => (
+        <NextLink
+          key={tag}
+          href={`/topic/[topicid]`}
+          as={`/topic/${tag.toLowerCase()}`}
+          passHref
+        >
+          <Chip
+            component="a"
+            color="primary"
+            variant="outlined"
+            label={tag}
+            className={classes.chip}
+          />
+        </NextLink>
+      ))}
+    </>
   );
 };
 
