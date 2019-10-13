@@ -230,7 +230,7 @@ const editionsByCountry = functions.https.onRequest(async (req, res) => {
     .collectionGroup("editions")
     .where("country", "==", request.query.id)
     .orderBy("dateTimestamp", "desc")
-    .limit(100)
+    .limit(1000)
     .get();
   let editions = [];
   docSnap.forEach(doc => {
@@ -250,7 +250,7 @@ const editionsByYear = functions.https.onRequest(async (req, res) => {
     // TODO use timestamp
     .where("id", "==", request.query.id)
     .orderBy("dateTimestamp", "desc")
-    .limit(100)
+    .limit(1000)
     .get();
   let editions = [];
   docSnap.forEach(doc => {
@@ -395,7 +395,7 @@ const talksByTopic = functions.https.onRequest(async (req, res) => {
     .collectionGroup("talks")
     .where("tags", "array-contains", request.query.id)
     .orderBy("dateTimestamp", "desc")
-    .limit(30)
+    .limit(1000)
     .get();
   let talks = [];
   docSnap.forEach(doc => {
