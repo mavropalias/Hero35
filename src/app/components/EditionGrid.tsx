@@ -38,7 +38,6 @@ const EditionGrid = ({ editions }) => {
     const startDate = new Date(edition.startDate);
     var options = {
       month: "short",
-      day: "numeric",
       year: "numeric"
     };
 
@@ -89,8 +88,7 @@ const EditionGrid = ({ editions }) => {
                         content
                       </Typography>
                       <Typography variant="caption" color="textSecondary">
-                        {editionDateStart(edition)} |{" "}
-                        {edition.state || edition.city}, {edition.country}
+                        {editionDateStart(edition)}, {edition.country}
                       </Typography>
                       <div>
                         {edition.topTags.map((tag, index) => (
