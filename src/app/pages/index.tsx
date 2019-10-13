@@ -5,7 +5,8 @@ import {
   createStyles,
   Theme,
   Grid,
-  Container
+  Container,
+  Hidden
 } from "@material-ui/core";
 import { Talk, EventEdition } from "../schema";
 import Database from "../services/Database";
@@ -19,6 +20,7 @@ import Welcome from "../components/Welcome";
 import Stacks from "../components/Stacks";
 import { useContext } from "react";
 import { UserContext } from "../components/UserContextProvider";
+import RecentEditions from "../components/RecentEditions";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,7 +54,7 @@ const Home: NextPage<Props> = ({
             <CuratedTalks talks={curatedTalks} />
           </Grid>
           <Grid item sm={12}>
-            <EditionGrid editions={recentEditions} />
+            <RecentEditions editions={recentEditions} />
           </Grid>
           <Grid item sm={12}>
             <UpcomingEditions editions={upcomingEditions} />

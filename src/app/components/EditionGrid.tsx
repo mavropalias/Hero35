@@ -46,13 +46,6 @@ const EditionGrid = ({ editions }) => {
 
   return (
     <>
-      <Typography variant="h6" component="h2">
-        Recent React conferences
-      </Typography>
-      <Typography variant="body2" color="textSecondary" paragraph>
-        View talks, workshops, and more from the most recent React developer
-        conferences.
-      </Typography>
       <Grid container spacing={4}>
         {editions.map(edition => (
           <Grid
@@ -91,15 +84,16 @@ const EditionGrid = ({ editions }) => {
                         {editionDateStart(edition)}, {edition.country}
                       </Typography>
                       <div>
-                        {edition.topTags.map((tag, index) => (
-                          <Chip
-                            key={index}
-                            size="small"
-                            variant="outlined"
-                            label={tag}
-                            className={classes.tag}
-                          />
-                        ))}
+                        {edition.topTags &&
+                          edition.topTags.map((tag, index) => (
+                            <Chip
+                              key={index}
+                              size="small"
+                              variant="outlined"
+                              label={tag}
+                              className={classes.tag}
+                            />
+                          ))}
                       </div>
                     </CardContent>
                   </CardActionArea>
