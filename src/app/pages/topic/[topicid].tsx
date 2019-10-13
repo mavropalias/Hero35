@@ -63,7 +63,7 @@ const TopicDetails: NextPage<Props> = ({ title, talks }) => {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="caption" color="textSecondary" paragraph>
-                Developer conference talks about {title}
+                {talks.length} developer conference talks about {title}
               </Typography>
             </Grid>
           </Grid>
