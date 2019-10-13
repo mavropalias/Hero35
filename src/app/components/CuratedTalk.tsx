@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
       position: "absolute",
       background:
-        "linear-gradient(0deg, rgba(23,23,23,1) 20%, rgba(23,23,23,0) 100%)",
+        "linear-gradient(0deg, rgba(25,25,25,1) 20%, rgba(25,25,25,0) 100%)",
       display: "flex",
       flexDirection: "column",
       justifyContent: "flex-end",
