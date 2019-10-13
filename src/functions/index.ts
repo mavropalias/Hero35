@@ -84,7 +84,7 @@ const ssrCountry = functions.https.onRequest(async (req, res) => {
 const ssrEvent = functions.https.onRequest(async (req, res) => {
   const [request, response, approved] = middleware(req, res);
   if (!approved) return response.send();
-  const page = require("./next/serverless/pages/event/[eventid]");
+  const page = require("./next/serverless/pages/[eventid]");
   return page.render(request, response);
 });
 
