@@ -25,7 +25,9 @@ Router.events.on("routeChangeError", () => {
   NProgress.done();
 });
 Router.events.on("routeChangeComplete", url => {
-  ga.pageview(url);
+  if (window.location.hostname !== "localhost") {
+    ga.pageview(url);
+  }
   doneLoading = true;
   NProgress.done();
 });
