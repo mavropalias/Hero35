@@ -50,40 +50,43 @@ const Stacks = () => {
       <Box paddingTop={4} paddingBottom={4}>
         <Container>
           <Grid container spacing={1}>
-            {STACKS.map((stack, index) => (
-              <Grid item xs={4} sm={3} md={2} lg={2} key={index}>
-                <Card className={classes.card} elevation={0}>
-                  <NextLink
-                    href={`/topic/[topicid]`}
-                    as={`/topic/${stack.slug}`}
-                  >
-                    <a
-                      className={classes.link}
-                      title={`${stack.label} conference talks`}
-                    >
-                      <CardActionArea className={classes.cardActionArea}>
-                        <CardContent className={classes.cardContent}>
-                          <Box paddingBottom={1}>
-                            <img
-                              src={`/static/stacks/${stack.slug}.svg`}
-                              className={classes.stackLogo}
-                              alt={`${stack.label} logo`}
-                            />
-                          </Box>
-                          <Typography
-                            variant="body1"
-                            component="p"
-                            color="primary"
-                          >
-                            {stack.label}
-                          </Typography>
-                        </CardContent>
-                      </CardActionArea>
-                    </a>
-                  </NextLink>
-                </Card>
-              </Grid>
-            ))}
+            {STACKS.map(
+              (stack, index) =>
+                stack.featured && (
+                  <Grid item xs={4} sm={3} md={2} lg={2} key={index}>
+                    <Card className={classes.card} elevation={0}>
+                      <NextLink
+                        href={`/topic/[topicid]`}
+                        as={`/topic/${stack.slug}`}
+                      >
+                        <a
+                          className={classes.link}
+                          title={`${stack.label} conference talks`}
+                        >
+                          <CardActionArea className={classes.cardActionArea}>
+                            <CardContent className={classes.cardContent}>
+                              <Box paddingBottom={1}>
+                                <img
+                                  src={`/static/stacks/${stack.slug}.svg`}
+                                  className={classes.stackLogo}
+                                  alt={`${stack.label} logo`}
+                                />
+                              </Box>
+                              <Typography
+                                variant="body1"
+                                component="p"
+                                color="primary"
+                              >
+                                {stack.label}
+                              </Typography>
+                            </CardContent>
+                          </CardActionArea>
+                        </a>
+                      </NextLink>
+                    </Card>
+                  </Grid>
+                )
+            )}
           </Grid>
         </Container>
       </Box>

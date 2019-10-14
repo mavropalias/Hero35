@@ -1,8 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="256px" height="274px" viewBox="0 0 256 274" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
-		<g>
-				<path d="M145.726081,42.0651946 L145.726081,84.1347419 L218.586952,126.204312 L218.586952,84.1347419 L145.726081,42.0651946 Z M-1.98726454e-07,84.1347419 L-1.98726454e-07,126.204312 L36.4304238,147.234755 L36.4304238,105.169527 L-1.98726454e-07,84.1347419 Z M109.291294,105.169527 L72.8608701,126.204312 L72.8608701,252.404316 L109.291294,273.439101 L109.291294,189.304303 L145.726081,210.339088 L145.726081,168.26954 L109.291294,147.234755 L109.291294,105.169527 Z" fill="#E55B2D"></path>
-				<path d="M145.726081,42.0651946 L36.4304238,105.169527 L36.4304238,147.234755 L109.291294,105.169527 L109.291294,147.234755 L145.726081,126.204312 L145.726081,42.0651946 Z M255.021717,63.0999794 L218.586952,84.1347419 L218.586952,126.204312 L255.021717,105.169527 L255.021717,63.0999794 Z M182.156505,147.234755 L145.726081,168.26954 L145.726081,210.339088 L182.156505,189.304303 L182.156505,147.234755 Z M145.726081,210.339088 L109.291294,189.304303 L109.291294,273.439101 L145.726081,252.404316 L145.726081,210.339088 Z" fill="#ED8E24"></path>
-				<path d="M145.726081,-3.41864288e-05 L-1.98726454e-07,84.1347419 L36.4304238,105.169527 L145.726081,42.0651946 L218.586952,84.1347419 L255.021717,63.0999794 L145.726081,-3.41864288e-05 Z M145.726081,126.204312 L109.291294,147.234755 L145.726081,168.26954 L182.156505,147.234755 L145.726081,126.204312 Z" fill="#F8BF3C"></path>
-		</g>
+<svg width="59px" height="67px" viewBox="0 0 59 67" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>Artboard</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="0.669 66.302 11.896 59.782 11.896 41.266 20.375 46.173 20.328 33.508 11.896 28.689 11.896 21.334 28.811 31.108 28.772 16.543 0.669 0.487"></polygon>
+        <linearGradient x1="-118.066037%" y1="49.8808799%" x2="127.172069%" y2="49.8808799%" id="linearGradient-3">
+            <stop stop-color="#FF6E00" offset="0%"></stop>
+            <stop stop-color="#FFA800" offset="100%"></stop>
+        </linearGradient>
+        <polygon id="path-4" points="0.038 16.543 0 31.108 16.915 21.334 16.915 59.782 28.142 66.302 28.142 0.487"></polygon>
+        <linearGradient x1="-10.7447534%" y1="49.8808799%" x2="234.493353%" y2="49.8808799%" id="linearGradient-6">
+            <stop stop-color="#FF6E00" offset="0%"></stop>
+            <stop stop-color="#FFA800" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-6" transform="translate(30.000000, 0.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Clip-5"></g>
+            <polygon id="Fill-4" fill="url(#linearGradient-3)" mask="url(#mask-2)" points="0.669 66.302 11.896 59.782 11.896 41.266 20.375 46.173 20.328 33.508 11.896 28.689 11.896 21.334 28.811 31.108 28.772 16.543 0.669 0.487"></polygon>
+        </g>
+        <g id="Group-9">
+            <mask id="mask-5" fill="white">
+                <use xlink:href="#path-4"></use>
+            </mask>
+            <g id="Clip-8"></g>
+            <polygon id="Fill-7" fill="url(#linearGradient-6)" mask="url(#mask-5)" points="0.038 16.543 0 31.108 16.915 21.334 16.915 59.782 28.142 66.302 28.142 0.487"></polygon>
+        </g>
+    </g>
 </svg>

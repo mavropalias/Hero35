@@ -14,6 +14,7 @@ import Database from "../../services/Database";
 import { NextPage, NextPageContext } from "next";
 import TalkList from "../../components/TalkList";
 import STACKS from "../../constants/stacks";
+import theme from "../../appTheme";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,6 +39,11 @@ interface Props {
 const TopicDetails: NextPage<Props> = ({ title, talks }) => {
   const classes = useStyles({});
   const stack = STACKS.filter(stack => stack.slug === title)[0];
+  let style = {
+    background: `linear-gradient(35deg, ${theme.palette.background.paper} 0%, ${
+      stack ? stack.color : "#444444"
+    } 100%)`
+  };
   if (stack) {
     title = stack.label;
   } else {
@@ -46,7 +52,7 @@ const TopicDetails: NextPage<Props> = ({ title, talks }) => {
 
   return (
     <Layout title={`Developer conference talks about ${title}`}>
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} style={style} square>
         <Container className={classes.container}>
           <Grid container spacing={1}>
             <Grid item xs={12} md={8}>
