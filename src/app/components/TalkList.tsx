@@ -11,7 +11,6 @@ import {
   Box,
   ListItemAvatar,
   Avatar,
-  ListItemIcon,
   IconButton
 } from "@material-ui/core";
 import { default as NextLink } from "next/link";
@@ -34,7 +33,12 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%"
     },
     chip: {
-      margin: theme.spacing(0.3, 1, 0.3, 0)
+      margin: theme.spacing(0.3, 1, 0.3, 0),
+      pointerEvents: "none"
+    },
+    chipDefault: {
+      borderColor: `rgba(255,255,255,.1)`,
+      color: theme.palette.text.secondary
     },
     tagsContainer: {
       marginLeft: theme.spacing(1)
@@ -239,7 +243,7 @@ const HighlightedTalkTag = ({
       component="span"
       key={tag}
       label={tag}
-      className={classes.chip}
+      className={`${classes.chip} ${classes.chipDefault}`}
     ></Chip>
   );
 };
