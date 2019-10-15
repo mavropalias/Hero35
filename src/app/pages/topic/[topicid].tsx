@@ -6,8 +6,7 @@ import {
   Typography,
   Container,
   Paper,
-  Grid,
-  Box
+  Grid
 } from "@material-ui/core";
 import { Talk } from "../../schema";
 import Database from "../../services/Database";
