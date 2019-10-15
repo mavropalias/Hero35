@@ -96,6 +96,19 @@ class Database {
     const res = await fetch(`${API}talksByTopic?id=${topic}`);
     return ((await res.json()) as unknown) as Talk[];
   };
+
+  getTalksByFilter = async (
+    topic: string,
+    curated: boolean,
+    type: number = 2,
+    orderBy: string = "dateTimestamp",
+    sortOrder: string = "desc"
+  ): Promise<Talk[]> => {
+    const res = await fetch(
+      `${API}filterTalks?topic=${topic}&curated=${curated}&type=${type}&orderBy=${orderBy}&sortOrder=${sortOrder}`
+    );
+    return ((await res.json()) as unknown) as Talk[];
+  };
 }
 
 export default new Database();

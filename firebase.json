@@ -42,6 +42,10 @@
         "function": "heroes-talk"
       },
       {
+        "source": "/api/filterTalks",
+        "function": "heroes-filterTalks"
+      },
+      {
         "source": "/api/recentTalks",
         "function": "heroes-recentTalks"
       },

@@ -322,6 +322,27 @@ const talk = functions.https.onRequest(async (req, res) => {
 });
 
 /**
+ * Get filtered Talks
+ */
+const filterTalks = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  const docSnap = await db
+    .collectionGroup("talks")
+    .where("type", "==", request.query.type)
+    .where("tags", "array-contains", request.query.topic)
+    .where("isCurated", "==", request.query.curated)
+    .orderBy(request.query.orderBy, request.query.sortOrder)
+    .limit(100)
+    .get();
+  let talks = [];
+  docSnap.forEach(doc => {
+    talks.push(doc.data());
+  });
+  response.json(talks);
+});
+
+/**
  * Get recent Talks
  */
 const recentTalks = functions.https.onRequest(async (req, res) => {
@@ -411,6 +432,7 @@ const heroes = {
   editionsByCountry,
   editionsByYear,
   event,
+  filterTalks,
   indexTalk,
   recentEditions,
   ssrIndex,
