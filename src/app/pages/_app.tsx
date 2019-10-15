@@ -9,6 +9,7 @@ import * as ga from "../services/GA";
 import "../style.css";
 import NProgress from "nprogress";
 import { UserContextProvider } from "../components/UserContextProvider";
+import NavigationBottom from "../components/NavigationBottom";
 
 NProgress.configure({ showSpinner: false });
 let doneLoading = true;
@@ -54,6 +55,7 @@ export default class MyApp extends App {
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
             <Component {...pageProps} />
+            <NavigationBottom />
           </ThemeProvider>
         </UserContextProvider>
       </>

@@ -12,11 +12,12 @@ import {
   Hidden,
   Drawer,
   List,
-  ListItem
+  ListItem,
+  Link
 } from "@material-ui/core";
 import ROUTES from "../constants/routes";
 import SearchInput from "./SearchInput";
-import { Menu as MenuIcon } from "@material-ui/icons/";
+import { Menu as MenuIcon, Twitter as TwitterIcon } from "@material-ui/icons/";
 import { default as NextLink } from "next/link";
 import { useContext, useState } from "react";
 import { UserContext } from "./UserContextProvider";
@@ -72,6 +73,15 @@ const Navigation = () => {
         <Hidden implementation="css" xsDown>
           <Toolbar disableGutters={true}>
             <Box marginRight={1}>
+              <MenuLink href={ROUTES.HOME}>Home</MenuLink>
+            </Box>
+            <Box marginRight={1}>
+              <MenuLink href={ROUTES.CURATED}>Curated talks</MenuLink>
+            </Box>
+            <Box flexGrow="1" m={1}>
+              <SearchInput className={classes.search} />
+            </Box>
+            <Box marginRight={1}>
               <MenuLink href={ROUTES.ACCOUNT}>
                 {state.signedIn ? (
                   <Avatar alt={state.name} src={state.picture} />
@@ -79,12 +89,6 @@ const Navigation = () => {
                   "Sign in"
                 )}
               </MenuLink>
-            </Box>
-            <Box marginRight={1}>
-              <MenuLink href={ROUTES.HOME}>Home</MenuLink>
-            </Box>
-            <Box flexGrow="1" m={1}>
-              <SearchInput className={classes.search} />
             </Box>
             <MenuLink href={ROUTES.HOME}>
               <img src="/static/HERO35-logo.svg" className={classes.logo} />
@@ -114,6 +118,9 @@ const Navigation = () => {
                 <MenuLink href={ROUTES.HOME}>Home</MenuLink>
               </ListItem>
               <ListItem>
+                <MenuLink href={ROUTES.CURATED}>Curated talks</MenuLink>
+              </ListItem>
+              <ListItem divider>
                 <MenuLink href={ROUTES.ACCOUNT}>
                   {state.signedIn ? (
                     <Avatar alt={state.name} src={state.picture} />
@@ -121,6 +128,18 @@ const Navigation = () => {
                     "Sign in"
                   )}
                 </MenuLink>
+              </ListItem>
+              <ListItem>
+                <NextLink href={ROUTES.TWITTER} as={ROUTES.TWITTER} passHref>
+                  <Button
+                    component="a"
+                    target="_blank"
+                    startIcon={<TwitterIcon />}
+                    className={classes.menuLink}
+                  >
+                    @Hero35Official
+                  </Button>
+                </NextLink>
               </ListItem>
             </List>
           </Drawer>
