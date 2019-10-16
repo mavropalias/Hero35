@@ -174,6 +174,17 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
               {talk.description}
             </Typography>
           </Grid>
+          <Grid item sm={12} md={8}>
+            <NextLink
+              passHref
+              href={`/[eventid]/[editionid]`}
+              as={`/${talk.eventId}/${talk.editionId}`}
+            >
+              <Button variant="text" color="secondary" size="large">
+                View all {talk.eventTitle} {talk.editionTitle} talks
+              </Button>
+            </NextLink>
+          </Grid>
         </Grid>
       </Container>
     </Layout>
