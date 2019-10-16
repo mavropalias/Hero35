@@ -8,6 +8,7 @@
   "dependencies": {
     "@material-ui/core": "^4.5.0",
     "@material-ui/icons": "^4.4.3",
+    "@types/next": "^8.0.6",
     "@zeit/next-css": "^1.0.1",
     "algoliasearch": "^3.35.0",
     "firebase": "^7.1.0",
