@@ -98,7 +98,7 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
       keywords={talk.tags.join(",")}
     >
       <Breadcrumbs items={breadcrumbs} />
-      <Container maxWidth="xl" className={classes.containerVideo}>
+      <Container className={classes.containerVideo}>
         <TalkVideo videoid={talk.id} />
       </Container>
       <Container className={classes.container}>
