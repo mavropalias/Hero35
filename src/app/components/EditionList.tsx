@@ -6,23 +6,10 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListItemIcon,
   ListSubheader,
   ListItemAvatar,
-  Avatar,
-  Link
+  Avatar
 } from "@material-ui/core";
-import {
-  Highlight as HighlightsIcon,
-  FlashOn as LightningTalkIcon,
-  Mic as InterviewIcon,
-  Money as SponsorIcon,
-  PanTool as QAIcon,
-  People as PanelIcon,
-  PersonalVideo as TalkIcon,
-  Public as KeynoteIcon,
-  School as WorkshopIcon
-} from "@material-ui/icons";
 import { default as NextLink } from "next/link";
 import { Talk, EventEdition } from "../schema";
 
@@ -32,7 +19,10 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%"
     },
     chip: {
-      margin: theme.spacing(0.3, 0, 0.3, 1)
+      margin: theme.spacing(0.3, 0, 0.3, 1),
+      pointerEvents: "none",
+      borderColor: `rgba(255,255,255,.1)`,
+      color: theme.palette.text.secondary
     }
   })
 );
