@@ -95,7 +95,7 @@ const EditionList = ({
                           variant="outlined"
                           size="small"
                           key={index}
-                          label={`#${tag}`}
+                          label={tag}
                           className={classes.chip}
                         ></Chip>
                       ))}
