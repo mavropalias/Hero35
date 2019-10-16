@@ -61,8 +61,8 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
   const classes = useStyles({});
 
   const speakers = talk.speaker
-    .split(/ *(,|and|&) */g)
-    .filter(speaker => ![",", "and", "&"].includes(speaker));
+    .split(/ *(,| and | & ) */g)
+    .filter(speaker => ![",", " and ", " & "].includes(speaker));
 
   const shortDate = (date: string) => {
     const shortDate = new Date(date);
