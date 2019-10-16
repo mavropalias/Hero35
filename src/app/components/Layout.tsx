@@ -30,16 +30,16 @@ const Layout = ({
         <meta
           data-react-helmet="true"
           name="twitter-image"
-          content="https://hero35.com/static/favicons/apple-icon-180x180.png"
+          content="https://hero35.com/static/social-media-square.png"
         />
         <meta name="og:image:type" content="image/jpeg" />
         <meta
           name="og:image"
-          content="https://hero35.com/static/favicons/apple-icon-180x180.png"
+          content="https://hero35.com/static/social-media-square.png"
         />
         <meta
           name="og:image:secure_url"
-          content="https://hero35.com/static/favicons/apple-icon-180x180.png"
+          content="https://hero35.com/static/social-media-square.png"
         />
       </Head>
       <Header />
