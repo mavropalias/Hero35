@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme: Theme) =>
     container: {
       marginTop: theme.spacing(2)
     },
+    containerVideo: {
+      padding: 0
+    },
     chip: {
       marginRight: theme.spacing(1),
       marginBottom: theme.spacing(1)
@@ -95,8 +98,10 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
       keywords={talk.tags.join(",")}
     >
       <Breadcrumbs items={breadcrumbs} />
-      <Container className={classes.container}>
+      <Container maxWidth="xl" className={classes.containerVideo}>
         <TalkVideo videoid={talk.id} />
+      </Container>
+      <Container className={classes.container}>
         <Grid container spacing={1} direction="column">
           <Grid item sm={12} md={8}>
             <NextLink
