@@ -71,7 +71,7 @@ const Navigation = () => {
     >
       <Container>
         <Hidden implementation="css" xsDown>
-          <Toolbar disableGutters={true}>
+          <Toolbar disableGutters={true} variant="dense">
             <Box marginRight={1}>
               <MenuLink href={ROUTES.HOME}>Home</MenuLink>
             </Box>
