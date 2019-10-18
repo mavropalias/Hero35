@@ -51,8 +51,12 @@ const useStyles = makeStyles((theme: Theme) =>
     description: {
       whiteSpace: "pre-line"
     },
-    voteButton: {
-      fontSize: theme.typography.fontSize * 2
+    eventTitle: {
+      lineHeight: 1.2
+    },
+    tag: {
+      marginRight: theme.spacing(1),
+      marginBottom: theme.spacing(1)
     }
   })
 );
@@ -104,44 +108,49 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
       </Container>
       <Container className={classes.container}>
         <Grid container spacing={2} direction="column">
-          <Grid item sm={12} md={8}>
-            <NextLink
-              passHref
-              href={`/[eventid]/[editionid]`}
-              as={`/${talk.eventId}/${talk.editionId}`}
-            >
-              <Chip
-                avatar={
-                  <Avatar
-                    component="span"
-                    alt={`${talk.eventTitle} ${talk.editionTitle} logo`}
-                    src={`${process.env.STORAGE_PATH}${encodeURIComponent(
-                      talk.logo
-                    )}?alt=media`}
-                  />
-                }
-                component="a"
-                size="small"
-                color="primary"
-                label={`${talk.eventTitle} ${talk.editionTitle}`}
-                className={classes.chip}
-              />
-            </NextLink>
-            <TalkSpeakers speakers={speakers} />
-            <Typography variant="h4" component="h1">
+          <Grid item xs={12} md={8}>
+            <Typography variant="body1" color="textSecondary" component="div">
+              <TalkTags tags={talk.tags} />
+            </Typography>
+            <Typography variant="h5" component="h1">
               {talk.title}
             </Typography>
-            <Typography variant="caption" color="textSecondary">
-              {talk.times.totalMins} mins&nbsp;-&nbsp;
-              {shortDate(talk.date)}
+            <Typography variant="subtitle2" color="textSecondary" paragraph>
+              Speaker{speakers.length > 1 && "s"}:{" "}
+              <TalkSpeakers speakers={speakers} />
             </Typography>
+            <Grid container spacing={2} alignItems="center">
+              <Grid item>
+                <Avatar
+                  component="span"
+                  alt={`${talk.eventTitle} ${talk.editionTitle} logo`}
+                  src={`${process.env.STORAGE_PATH}${encodeURIComponent(
+                    talk.logo
+                  )}?alt=media`}
+                />
+              </Grid>
+              <Grid item>
+                <Typography variant="subtitle1" className={classes.eventTitle}>
+                  Event:&nbsp;
+                  <NextLink
+                    passHref
+                    href={`/[eventid]/[editionid]`}
+                    as={`/${talk.eventId}/${talk.editionId}`}
+                  >
+                    <Link>{`${talk.eventTitle} ${talk.editionTitle}`}</Link>
+                  </NextLink>{" "}
+                </Typography>
+                <Typography variant="caption" color="textSecondary">
+                  {shortDate(talk.date)}
+                </Typography>
+              </Grid>
+            </Grid>
           </Grid>
-          <Grid item sm={12} md={8}>
-            <TalkTags tags={talk.tags} />
+          <Grid item xs={12} md={8}>
             <TalkControls />
           </Grid>
           {talk.curationDescription && (
-            <Grid item sm={12} md={8}>
+            <Grid item xs={12} md={8}>
               <Paper>
                 <Box
                   paddingTop={1}
@@ -171,23 +180,13 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
               </Paper>
             </Grid>
           )}
-          <Grid item sm={12} md={8}>
+          <Grid item xs={12} md={8}>
             <Typography variant="body1" className={classes.description}>
               {talk.description}
             </Typography>
           </Grid>
-          <Grid item sm={12} md={8}>
-            <NextLink
-              passHref
-              href={`/[eventid]/[editionid]`}
-              as={`/${talk.eventId}/${talk.editionId}`}
-            >
-              <Link color="secondary">
-                View all {talk.eventTitle} {talk.editionTitle} talks
-              </Link>
-            </NextLink>
-          </Grid>
-          <Grid item sm={12} md={8}>
+          <Grid item xs={12} md={8}>
+            <hr />
             <Typography variant="h6" paragraph>
               Explore more stacks:
             </Typography>
@@ -210,15 +209,10 @@ const TalkSpeakers = ({ speakers }: { speakers: string[] }) => {
           href={`/hero/[heroid]`}
           as={`/hero/${encodeURI(speaker)}`}
         >
-          <Chip
-            component="a"
-            color="primary"
-            size="small"
-            title={`${speaker} conference talks`}
-            icon={<SpeakerIcon />}
-            label={speaker}
-            className={classes.chip}
-          />
+          <Link>
+            {speaker}
+            {index + 1 < speakers.length && ", "}
+          </Link>
         </NextLink>
       ))}
     </>
@@ -236,14 +230,7 @@ const TalkTags = ({ tags }: { tags: string[] }) => {
           as={`/topic/${tag.toLowerCase()}`}
           passHref
         >
-          <Chip
-            component="a"
-            color="primary"
-            variant="outlined"
-            size="small"
-            label={tag}
-            className={classes.chip}
-          />
+          <Link className={classes.tag}>#{tag}</Link>
         </NextLink>
       ))}
     </>
@@ -284,14 +271,14 @@ const TalkControls = () => {
         <Grid item>
           <Box marginRight={3}>
             <IconButton title="Like" color="primary" disabled={!state.signedIn}>
-              <VoteUp className={classes.voteButton} />
+              <VoteUp />
             </IconButton>
             <IconButton
               title="Disike"
               color="primary"
               disabled={!state.signedIn}
             >
-              <VoteDown className={classes.voteButton} />
+              <VoteDown />
             </IconButton>
           </Box>
         </Grid>
