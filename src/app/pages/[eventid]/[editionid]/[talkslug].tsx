@@ -223,7 +223,7 @@ const TalkTags = ({ tags }: { tags: string[] }) => {
   const classes = useStyles({});
   return (
     <>
-      {tags.map(tag => (
+      {tags.sort().map(tag => (
         <NextLink
           key={tag}
           href={`/topic/[topicid]`}
