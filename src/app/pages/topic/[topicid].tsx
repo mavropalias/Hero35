@@ -148,7 +148,7 @@ const TopicDetails: NextPage<Props> = ({ title, talks }) => {
       <Container>
         {talks.length > 0 ? (
           <>
-            <TalkTabs handleChange={handleChange} tab={tab} />
+            {/* <TalkTabs handleChange={handleChange} tab={tab} /> */}
             <Grid container spacing={4}>
               <Grid item xs={12}>
                 <Paper>
