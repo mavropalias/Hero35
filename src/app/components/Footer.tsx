@@ -1,4 +1,5 @@
 import { default as NextLink } from "next/link";
+import { Twitter as TwitterIcon } from "@material-ui/icons";
 import {
   makeStyles,
   createStyles,
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       marginTop: theme.spacing(8),
-      marginBottom: theme.spacing(4)
+      marginBottom: theme.spacing(12)
     }
   })
 );
@@ -35,8 +36,23 @@ const Footer = ({ path }) => {
         </Box>
       )}
       <Typography variant="caption" color="textSecondary">
-        <Grid container spacing={2} justify="center">
+        <Grid container spacing={2} justify="center" alignItems="center">
           <Grid item>&copy; Heroes, all rights reserved.</Grid>
+          <Grid item>
+            <Box display="flex" alignItems="center">
+              <TwitterIcon fontSize="small" />
+              &nbsp;
+              <NextLink
+                href="https://twitter.com/Hero35Official"
+                passHref
+                prefetch={false}
+              >
+                <Link target="_blank" color="inherit">
+                  Follow us on Twitter
+                </Link>
+              </NextLink>
+            </Box>
+          </Grid>
           <Grid item>
             <NextLink
               href="/privacy-policy"
@@ -55,17 +71,6 @@ const Footer = ({ path }) => {
               prefetch={false}
             >
               <Link color="inherit">Terms of Service</Link>
-            </NextLink>
-          </Grid>
-          <Grid item>
-            <NextLink
-              href="https://twitter.com/Hero35Official"
-              passHref
-              prefetch={false}
-            >
-              <Link target="_blank" color="inherit">
-                Follow us on Twitter
-              </Link>
             </NextLink>
           </Grid>
         </Grid>
