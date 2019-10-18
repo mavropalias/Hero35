@@ -16,8 +16,8 @@ const CuratedTalks: NextPage<Props> = ({ talks, className }) => {
   const talkCount = useMediaQuery(theme.breakpoints.only("sm")) ? 4 : 3;
 
   return (
-    <>
-      <Typography variant="h6" component="h2">
+    <section className={className}>
+      <Typography variant="h5" component="h2">
         <NextLink href="/curated-conference-talks" passHref>
           <Link>Curated React talks</Link>
         </NextLink>
@@ -33,7 +33,7 @@ const CuratedTalks: NextPage<Props> = ({ talks, className }) => {
           </Grid>
         ))}
       </Grid>
-    </>
+    </section>
   );
 };
 

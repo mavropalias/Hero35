@@ -42,7 +42,7 @@ const CuratedCountries = () => {
 
   return (
     <>
-      <Typography variant="h6" component="h2">
+      <Typography variant="h5" component="h2">
         React conferences around the world
       </Typography>
       <Typography variant="body2" color="textSecondary" paragraph>

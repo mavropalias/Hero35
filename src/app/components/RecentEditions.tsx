@@ -1,12 +1,4 @@
-import {
-  createStyles,
-  makeStyles,
-  Theme,
-  Typography,
-  Hidden
-} from "@material-ui/core";
-import { useTheme } from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { Typography, Hidden } from "@material-ui/core";
 import { EventEdition } from "../schema";
 import EditionList from "./EditionList";
 import EditionGrid from "./EditionGrid";
@@ -18,8 +10,8 @@ interface Props {
 
 const RecentEditions = ({ editions, className }: Props) => {
   return (
-    <>
-      <Typography variant="h6" component="h2">
+    <section className={className}>
+      <Typography variant="h5" component="h2">
         Recent React conferences
       </Typography>
       <Typography variant="body2" color="textSecondary" paragraph>
@@ -32,7 +24,7 @@ const RecentEditions = ({ editions, className }: Props) => {
       <Hidden mdUp>
         <EditionList editions={editions} />
       </Hidden>
-    </>
+    </section>
   );
 };
 

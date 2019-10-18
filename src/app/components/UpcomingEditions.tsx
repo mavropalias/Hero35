@@ -54,8 +54,8 @@ const UpcomingEditions = ({ editions, className }: Props) => {
   };
 
   return (
-    <>
-      <Typography variant="h6" component="h2">
+    <section className={className}>
+      <Typography variant="h5" component="h2">
         Upcoming React conferences
       </Typography>
       <Typography variant="body2" color="textSecondary" paragraph>
@@ -115,7 +115,7 @@ const UpcomingEditions = ({ editions, className }: Props) => {
           </Grid>
         ))}
       </Grid>
-    </>
+    </section>
   );
 };
 

@@ -24,8 +24,11 @@ import RecentEditions from "../components/RecentEditions";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    feedContainer: {
-      marginTop: theme.spacing(2)
+    homeContainer: {
+      marginTop: theme.spacing(10)
+    },
+    homeSection: {
+      marginBottom: theme.spacing(10)
     }
   })
 );
@@ -51,27 +54,25 @@ const Home: NextPage<Props> = ({
     >
       {!state.signedIn && <Welcome />}
       <Stacks />
-      <Container>
-        <Grid spacing={6} container className={classes.feedContainer}>
-          <Grid item sm={12}>
-            <CuratedTalks talks={curatedTalks} />
-          </Grid>
-          <Grid item sm={12}>
-            <RecentEditions editions={recentEditions} />
-          </Grid>
-          <Grid item sm={12}>
-            <UpcomingEditions editions={upcomingEditions} />
-          </Grid>
-          <Grid item sm={12} md={6}>
+      <Container className={classes.homeContainer}>
+        <CuratedTalks talks={curatedTalks} className={classes.homeSection} />
+        <RecentEditions
+          editions={recentEditions}
+          className={classes.homeSection}
+        />
+        <UpcomingEditions
+          editions={upcomingEditions}
+          className={classes.homeSection}
+        />
+        <Grid spacing={10} xs={12} container className={classes.homeSection}>
+          <Grid item xs={12} md={6}>
             <CuratedTags />
           </Grid>
-          <Grid item sm={12} md={6}>
+          <Grid item xs={12} md={6}>
             <CuratedCountries />
           </Grid>
-          <Grid item>
-            <CuratedYears />
-          </Grid>
         </Grid>
+        <CuratedYears className={classes.homeSection} />
       </Container>
     </Layout>
   );

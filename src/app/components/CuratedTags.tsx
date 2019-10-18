@@ -41,7 +41,7 @@ const CuratedTags = ({ className }: Props) => {
 
   return (
     <>
-      <Typography variant="h6" component="h2">
+      <Typography variant="h5" component="h2">
         Hot React topics
       </Typography>
       <Typography variant="body2" color="textSecondary" paragraph>
