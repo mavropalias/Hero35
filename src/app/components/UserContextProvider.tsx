@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext, useReducer } from "react";
 import firebase from "firebase/app";
+declare const FS: any;
 
 export type UserContextProps = {
   name: string;
@@ -64,10 +65,16 @@ export const UserContextProvider = props => {
                   signedIn: true
                 }
               });
+              if (FS) {
+                FS.identify(user.uid);
+              }
             }
           } else {
             if (state.signedIn) {
               dispatch({ type: "logout" });
+              if (FS) {
+                FS.identify(false);
+              }
             }
           }
         });
