@@ -13,7 +13,8 @@ import {
   Paper,
   Button,
   IconButton,
-  Link
+  Link,
+  Divider
 } from "@material-ui/core";
 import {
   Bookmark as BookmarkIcon,
@@ -44,9 +45,6 @@ const useStyles = makeStyles((theme: Theme) =>
     chip: {
       marginRight: theme.spacing(1),
       marginBottom: theme.spacing(1)
-    },
-    curated: {
-      color: theme.palette.secondary.main
     },
     description: {
       whiteSpace: "pre-line"
@@ -147,47 +145,95 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
             </Grid>
           </Grid>
           <Grid item xs={12} md={8}>
+            <Divider />
+          </Grid>
+          <Grid item xs={12} md={8}>
             <TalkControls />
           </Grid>
+          <Grid item xs={12} md={8}>
+            <Divider />
+          </Grid>
           {talk.curationDescription && (
-            <Grid item xs={12} md={8}>
-              <Paper>
-                <Box
-                  paddingTop={1}
-                  paddingLeft={2}
-                  paddingRight={2}
-                  paddingBottom={2}
-                >
-                  <Grid
-                    container
-                    className={classes.curated}
-                    spacing={1}
-                    alignItems="center"
-                  >
-                    <Grid item>
-                      <CuratedIcon />
-                    </Grid>
-                    <Grid item>
-                      <Typography variant="overline">
-                        Editor's choice
-                      </Typography>
+            <>
+              <Grid item xs={12} md={8}>
+                <Grid container alignItems="baseline" justify="space-between">
+                  <Grid item>
+                    <Grid container alignItems="center" spacing={1}>
+                      <Grid item>
+                        <Typography
+                          variant="overline"
+                          color="textSecondary"
+                          style={{ lineHeight: 1 }}
+                        >
+                          Curated talk
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <CuratedIcon
+                          color="secondary"
+                          fontSize="inherit"
+                          style={{ verticalAlign: "text-bottom" }}
+                        />
+                      </Grid>
+                      <Grid item>
+                        <Typography
+                          style={{ lineHeight: 1 }}
+                          variant="caption"
+                          color="textSecondary"
+                        >
+                          Editor's note:
+                        </Typography>
+                      </Grid>
                     </Grid>
                   </Grid>
-                  <Typography variant="body1">
-                    {talk.curationDescription}
-                  </Typography>
-                </Box>
-              </Paper>
-            </Grid>
+                  <Grid item>
+                    <Typography variant="overline">
+                      <NextLink
+                        passHref
+                        href={`/curated-conference-talks`}
+                        as={`/curated-conference-talks`}
+                      >
+                        <Link color="secondary">More curated talks</Link>
+                      </NextLink>
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Typography variant="body1" gutterBottom>
+                  {talk.curationDescription}
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={8}>
+                <Divider />
+              </Grid>
+            </>
           )}
-          <Grid item xs={12} md={8}>
-            <Typography variant="body1" className={classes.description}>
-              {talk.description}
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={8}>
-            <hr />
-            <Typography variant="h6" paragraph>
+          {talk.description && (
+            <>
+              <Grid item xs={12} md={8}>
+                <Typography
+                  variant="overline"
+                  color="textSecondary"
+                  style={{ lineHeight: 1 }}
+                  paragraph
+                >
+                  Description
+                </Typography>
+                <Typography variant="body1" className={classes.description}>
+                  {talk.description}
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={8}>
+                <Divider />
+              </Grid>
+            </>
+          )}
+          <Grid item xs={12}>
+            <Typography
+              variant="overline"
+              color="textSecondary"
+              style={{ lineHeight: 1 }}
+              paragraph
+            >
               Explore more stacks:
             </Typography>
             <Stacks />
