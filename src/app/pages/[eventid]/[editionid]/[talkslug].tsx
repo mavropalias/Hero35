@@ -28,6 +28,7 @@ import { NextPage, NextPageContext } from "next";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import { UserContext } from "../../../components/UserContextProvider";
 import { useContext } from "react";
+import Stacks from "../../../components/Stacks";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -102,7 +103,7 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
         <TalkVideo videoid={talk.id} />
       </Container>
       <Container className={classes.container}>
-        <Grid container spacing={1} direction="column">
+        <Grid container spacing={2} direction="column">
           <Grid item sm={12} md={8}>
             <NextLink
               passHref
@@ -171,11 +172,7 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
             </Grid>
           )}
           <Grid item sm={12} md={8}>
-            <Typography
-              variant="body1"
-              className={classes.description}
-              paragraph
-            >
+            <Typography variant="body1" className={classes.description}>
               {talk.description}
             </Typography>
           </Grid>
@@ -185,10 +182,16 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
               href={`/[eventid]/[editionid]`}
               as={`/${talk.eventId}/${talk.editionId}`}
             >
-              <Button variant="text" color="secondary" size="large">
+              <Link color="secondary">
                 View all {talk.eventTitle} {talk.editionTitle} talks
-              </Button>
+              </Link>
             </NextLink>
+          </Grid>
+          <Grid item sm={12} md={8}>
+            <Typography variant="h6" paragraph>
+              Explore more stacks:
+            </Typography>
+            <Stacks />
           </Grid>
         </Grid>
       </Container>
