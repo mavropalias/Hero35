@@ -8,6 +8,7 @@ import {
   Theme,
   Typography
 } from "@material-ui/core";
+import { fade } from "@material-ui/core/styles/colorManipulator";
 import { default as NextLink } from "next/link";
 import { Talk } from "../schema";
 
@@ -36,18 +37,30 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "100%",
       width: "100%",
       position: "absolute",
-      background:
-        "linear-gradient(0deg, rgba(25,25,25,1) 20%, rgba(25,25,25,0) 100%)",
+      background: `linear-gradient(0deg, ${
+        theme.palette.background.paper
+      } 8%, ${fade(
+        theme.palette.text.primary,
+        0.1
+      )}  100% ), linear-gradient(35deg, ${
+        theme.palette.secondary.main
+      } 10%, ${fade(theme.palette.secondary.main, 0.1)} 50% )`,
       display: "flex",
       flexDirection: "column",
       justifyContent: "flex-end",
       padding: theme.spacing(2, 2, 0, 2)
+    },
+    eventName: {
+      lineHeight: 1.2
     },
     link: {
       display: "block",
       height: "100%",
       textDecoration: "none",
       color: "inherit"
+    },
+    title: {
+      lineHeight: 1.2
     }
   })
 );
@@ -68,16 +81,26 @@ const CuratedTalk = ({ talk }: { talk: Talk }) => {
               image={`https://i.ytimg.com/vi/${talk.id}/sddefault.jpg`}
             >
               <div className={classes.cardMediaShadow}>
-                <Typography variant="overline" color="textSecondary">
+                <Typography
+                  className={classes.eventName}
+                  variant="overline"
+                  color="textSecondary"
+                  gutterBottom
+                >
                   {talk.eventTitle} {talk.editionTitle}
                 </Typography>
               </div>
             </CardMedia>
             <CardContent className={classes.cardContent}>
-              <Typography variant="subtitle1" color="primary">
+              <Typography
+                className={classes.title}
+                variant="h6"
+                color="secondary"
+                gutterBottom
+              >
                 {talk.title}
               </Typography>
-              <Typography variant="body2" color="textSecondary">
+              <Typography variant="body1" color="textSecondary">
                 {talk.curationDescription}
               </Typography>
             </CardContent>
