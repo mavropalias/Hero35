@@ -71,10 +71,7 @@ const useStyles = makeStyles((theme: Theme) =>
     inputInput: {
       padding: theme.spacing(1, 1, 1, 7),
       transition: theme.transitions.create("width"),
-      width: "100%",
-      [theme.breakpoints.up("md")]: {
-        width: 200
-      }
+      width: "100%"
     },
     searchResults: {
       position: "absolute",
@@ -85,7 +82,7 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: "auto",
       [theme.breakpoints.up("md")]: {
         left: "initial",
-        width: "750px"
+        width: "700px"
       }
     }
   })
@@ -134,7 +131,7 @@ const MaterialUiSearchBox = ({
         onChange={e => refine(e.target.value)}
         onFocus={onFocus}
         onBlur={onBlur}
-        placeholder="Search talks..."
+        placeholder="Search 1000+ talks & topics"
         fullWidth={true}
         classes={{
           root: classes.inputRoot,
@@ -163,7 +160,7 @@ const CustomHits = ({
     <>
       {(!clickedAway || visible) && (
         <ClickAwayListener onClickAway={() => setClickedAway(true)}>
-          <Paper className={classes.searchResults} elevation={4}>
+          <Paper className={classes.searchResults} elevation={8}>
             {hits.length > 0 ? (
               <TalkList
                 talks={hits}
