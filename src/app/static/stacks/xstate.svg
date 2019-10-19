@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="65px" height="79px" viewBox="0 0 65 79" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59 (86127) - https://sketch.com -->
+    <title>Artboard</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="xstate" transform="translate(-0.000000, 0.000000)" fill="#2D2E47" fill-rule="nonzero">
+            <g id="Layer_6">
+                <path d="M44.8,0.4 L44.8,0.4 L64.3,0.4 L44.6,34.6 L44.6,34.6 C38.6,23.9 38.7,10.9 44.8,0.4 Z" id="Path"></path>
+                <polygon id="Path" points="64.4 78.1 19.5 0.4 0 0.4 22.4 39.3 0 78.1 19.5 78.1 32.2 56.2 44.8 78.1"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

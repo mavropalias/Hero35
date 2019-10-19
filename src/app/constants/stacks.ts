@@ -1,8 +1,18 @@
 const STACKS = [
   {
+    color: "#007AFF",
+    label: "Accessibility",
+    slug: "accessibility"
+  },
+  {
     color: "#E23237",
     label: "Angular",
     slug: "angular"
+  },
+  {
+    color: "#3FC8F2",
+    label: "Architecture",
+    slug: "architecture"
   },
   {
     color: "#F25CC1",
@@ -206,6 +216,16 @@ const STACKS = [
     slug: "flux"
   },
   {
+    color: "#9911FF",
+    label: "Framer Motion",
+    slug: "framer-motion"
+  },
+  {
+    color: "#A0ECFF",
+    label: "Frontend application bundle",
+    slug: "frontend-application-bundle"
+  },
+  {
     color: "#4285F4",
     featured: true,
     label: "Functional Programming",
@@ -269,6 +289,11 @@ const STACKS = [
     slug: "gulp"
   },
   {
+    color: "#174d73",
+    label: "GuessJS",
+    slug: "guessjs"
+  },
+  {
     color: "#FFFF00",
     label: "Hadoop",
     slug: "hadoop"
@@ -292,6 +317,11 @@ const STACKS = [
     color: "#430098",
     label: "Heroku",
     slug: "heroku"
+  },
+  {
+    color: "#86AAB2",
+    label: "Hooks",
+    slug: "hooks"
   },
   {
     color: "#E44D26",
@@ -458,6 +488,11 @@ const STACKS = [
     slug: "paypal"
   },
   {
+    color: "#617186",
+    label: "Performance",
+    slug: "performance"
+  },
+  {
     color: "#6181B6",
     label: "PHP",
     slug: "php"
@@ -559,6 +594,11 @@ const STACKS = [
     color: "#9E0C00",
     label: "Ruby",
     slug: "ruby"
+  },
+  {
+    color: "#FD6A00",
+    label: "Rust",
+    slug: "rust"
   },
   {
     color: "#ED168F",
@@ -680,6 +720,11 @@ const STACKS = [
     color: "#464342",
     label: "Wordpress",
     slug: "wordpress"
+  },
+  {
+    color: "#2D2E47",
+    label: "Xstate",
+    slug: "xstate"
   },
   {
     color: "#368FB9",
