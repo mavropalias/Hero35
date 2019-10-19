@@ -105,8 +105,8 @@ const UpcomingEditions = ({ editions, className }: Props) => {
                     title={`Tickets are sold by the ${edition.eventTitle} organisers. Not affiliated with Hero35.`}
                     rel="noopener"
                   >
-                    <Hidden smDown>Buy tickets *</Hidden>
-                    <Hidden mdUp>Tickets *</Hidden>
+                    <Hidden smDown>Buy tickets</Hidden>
+                    <Hidden mdUp>Tickets</Hidden>
                     <TicketIcon className={classes.icon} />
                   </Button>
                 </Typography>

@@ -22,6 +22,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     paper: {
       marginBottom: theme.spacing(4)
+    },
+    title: {
+      background: `linear-gradient(35deg, ${theme.palette.secondary.light} 0%, ${theme.palette.secondary.dark} 100%)`,
+      ["background-clip"]: "text",
+      ["text-fill-color"]: "transparent"
     }
   })
 );
@@ -34,7 +39,7 @@ const CuratedPage: NextPage<Props> = ({ talks }) => {
   const classes = useStyles({});
 
   let style = {
-    background: `linear-gradient(35deg, ${theme.palette.primary.dark} 0%, ${theme.palette.secondary.dark} 100%)`
+    background: `linear-gradient(35deg, ${theme.palette.background.paper} 0%, #444 100%)`
   };
 
   return (
@@ -46,7 +51,9 @@ const CuratedPage: NextPage<Props> = ({ talks }) => {
         <Container className={classes.container}>
           <Grid container spacing={1}>
             <Grid item xs={12} md={8}>
-              <Typography variant="h1">Curated React talks</Typography>
+              <Typography variant="h1" className={classes.title}>
+                Curated React talks
+              </Typography>
             </Grid>
             <Grid item xs={12} md={8}>
               <Grid container spacing={1}>
