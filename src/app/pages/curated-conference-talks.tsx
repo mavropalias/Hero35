@@ -33,7 +33,7 @@ const CuratedPage: NextPage<Props> = ({ talks }) => {
   const classes = useStyles({});
 
   let style = {
-    background: `linear-gradient(35deg, ${theme.palette.background.paper} 0%, #444444 100%)`
+    background: `linear-gradient(35deg, ${theme.palette.background.paper} 0%, ${theme.palette.secondary.dark} 100%)`
   };
 
   return (
