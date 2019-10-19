@@ -2,8 +2,8 @@ import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import algoliasearch from "algoliasearch";
 
-// Cache for 24 hours on the client and 12 hours on the server
-const CACHE_CONTROL = `public, max-age=${24 * 3600}, s-maxage=${12 * 3600}`;
+// Cache for 12 hours on the client and 24 hours on the server
+const CACHE_CONTROL = `public, max-age=${12 * 3600}, s-maxage=${24 * 3600}`;
 
 // Init algolia
 const algolia = algoliasearch(
