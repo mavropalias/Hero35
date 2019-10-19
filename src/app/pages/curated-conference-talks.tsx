@@ -7,7 +7,8 @@ import {
   Typography,
   Container,
   Grid,
-  Paper
+  Paper,
+  Avatar
 } from "@material-ui/core";
 import { Talk } from "../schema";
 import Database from "../services/Database";
@@ -33,7 +34,7 @@ const CuratedPage: NextPage<Props> = ({ talks }) => {
   const classes = useStyles({});
 
   let style = {
-    background: `linear-gradient(35deg, ${theme.palette.background.paper} 0%, ${theme.palette.secondary.dark} 100%)`
+    background: `linear-gradient(35deg, ${theme.palette.primary.dark} 0%, ${theme.palette.secondary.dark} 100%)`
   };
 
   return (
@@ -48,15 +49,21 @@ const CuratedPage: NextPage<Props> = ({ talks }) => {
               <Typography variant="h1">Curated React talks</Typography>
             </Grid>
             <Grid item xs={12} md={8}>
-              <Typography variant="body1">
-                Must-watch React talks from conferences around the world,
-                hand-picked by our editorial team.
-              </Typography>
-              <Typography variant="caption" color="textSecondary" paragraph>
-                The ingredients of a great conference talk, are: fascinating
-                content and/or high educational value, captivating delivery, and
-                clear audio quality.
-              </Typography>
+              <Grid container spacing={1}>
+                <Grid item>
+                  <Avatar src="/static/kostas.png" />
+                </Grid>
+                <Grid item xs>
+                  <Typography variant="body1">
+                    I curate React talks from conferences around the world. I'm
+                    looking for fascinating content and/or high educational
+                    value, captivating delivery, and clear audio quality.
+                  </Typography>
+                  <Typography variant="caption" color="textSecondary">
+                    <em>Kostas, Hero35 Founder</em>
+                  </Typography>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         </Container>
