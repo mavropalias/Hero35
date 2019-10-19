@@ -1,3 +1,4 @@
+import theme from "../../appTheme";
 import Layout from "../../components/Layout";
 import {
   makeStyles,
@@ -33,21 +34,26 @@ interface Props {
 const CountryPage: NextPage<Props> = ({ country, editions }) => {
   const classes = useStyles({});
 
+  let style = {
+    background: `linear-gradient(35deg, ${theme.palette.background.paper} 0%,${theme.palette.primary.dark}  100%)`
+  };
+
   return (
     <Layout
       title={`React developer conferences in ${country}`}
       description={`All React conferences for developers in ${country}`}
       keywords={`${country},React conferences,developers,developer conference,React event,React in ${country}`}
     >
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} style={style} square>
         <Container className={classes.container}>
-          <Grid container spacing={2}>
+          <Grid container spacing={1}>
             <Grid item xs={12} md={8}>
-              <Box display="flex" alignItems="center">
-                <Typography variant="h4">
-                  React developer conferences in {country}
-                </Typography>
-              </Box>
+              <Typography variant="h1">{country}</Typography>
+            </Grid>
+            <Grid item xs={12} md={8}>
+              <Typography variant="caption" color="textSecondary" paragraph>
+                React developer conferences in {country}
+              </Typography>
             </Grid>
           </Grid>
         </Container>

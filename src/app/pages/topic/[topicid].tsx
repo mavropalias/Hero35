@@ -71,7 +71,7 @@ const TopicDetails: NextPage<Props> = ({ title, talks }) => {
   const stack = STACKS.filter(stack => stack.slug === title)[0];
   let style = {
     background: `linear-gradient(35deg, ${theme.palette.background.paper} 0%, ${
-      stack ? stack.color : "#444444"
+      stack ? stack.color : theme.palette.primary.dark
     } 100%)`
   };
   if (stack) {

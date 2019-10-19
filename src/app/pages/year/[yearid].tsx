@@ -1,4 +1,5 @@
 import Layout from "../../components/Layout";
+import theme from "../../appTheme";
 import {
   makeStyles,
   createStyles,
@@ -33,21 +34,26 @@ interface Props {
 const YearPage: NextPage<Props> = ({ year, editions }) => {
   const classes = useStyles({});
 
+  let style = {
+    background: `linear-gradient(35deg, ${theme.palette.background.paper} 0%, ${theme.palette.primary.dark} 100%)`
+  };
+
   return (
     <Layout
       title={`${year} React developer conferences`}
       description={`All React developer conferences for the year ${year}.`}
       keywords={`${year},conferences,developer conference,year ${year},developers,event`}
     >
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} style={style} square>
         <Container className={classes.container}>
-          <Grid container spacing={2}>
+          <Grid container spacing={1}>
             <Grid item xs={12} md={8}>
-              <Box display="flex" alignItems="center">
-                <Typography variant="h4">
-                  React developer conferences in {year}
-                </Typography>
-              </Box>
+              <Typography variant="h1">{year}</Typography>
+            </Grid>
+            <Grid item xs={12} md={8}>
+              <Typography variant="caption" color="textSecondary" paragraph>
+                React developer conferences in {year}
+              </Typography>
             </Grid>
           </Grid>
         </Container>
