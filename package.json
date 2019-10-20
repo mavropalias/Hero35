@@ -42,7 +42,7 @@
   },
   "scripts": {
     "dev": "source .env && npm run clean && next \"src/app\"",
-    "preserve": "npm run clean && npm run build-public && npm run build-funcs && npm run build-app && build-app-static && npm run copy-deps && npm run install-deps",
+    "preserve": "npm run clean && npm run build-public && npm run build-funcs && npm run build-app && npm run build-app-static && npm run copy-deps && npm run install-deps",
     "serve": "NODE_ENV=production node_modules/.bin/firebase serve",
     "deploy": "node_modules/.bin/firebase deploy",
     "clean": "rimraf \"dist/functions\" && rimraf \"dist/public\"",
