@@ -31,28 +31,7 @@ const Account = () => {
   return (
     <Layout title="Account">
       <Container className={classes.container}>
-        {!state || !state.signedIn ? (
-          <>
-            <SignIn />
-            {/* <Button
-              onClick={e => {
-                dispatch({
-                  type: "login",
-                  payload: {
-                    name: "Kostas Mavropalias",
-                    picture:
-                      "https://lh3.googleusercontent.com/a-/AAuE7mC0cseak5_9MHDfch3YYDUEqHssCt8TIc7p1mtD6EQ",
-                    signedIn: true
-                  }
-                });
-              }}
-            >
-              Login
-            </Button> */}
-          </>
-        ) : (
-          <AccountDetails />
-        )}
+        {!state || !state.signedIn ? <SignIn /> : <AccountDetails />}
       </Container>
     </Layout>
   );
