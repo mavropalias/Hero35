@@ -64,7 +64,7 @@ const Home: NextPage<Props> = ({
           editions={upcomingEditions}
           className={classes.homeSection}
         />
-        <Grid spacing={10} xs={12} container className={classes.homeSection}>
+        <Grid spacing={8} container className={classes.homeSection}>
           <Grid item xs={12} md={6}>
             <CuratedTags />
           </Grid>
