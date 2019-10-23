@@ -41,7 +41,7 @@
     "typescript": "^3.6.3"
   },
   "scripts": {
-    "dev": "source .env && npm run clean && next \"src/app\"",
+    "dev": "source .env && npm run clean && next \"src/app\" -p 3500",
     "preserve": "npm run clean && npm run build-public && npm run build-funcs && npm run build-app && npm run build-app-static && npm run copy-deps && npm run install-deps",
     "serve": "NODE_ENV=production node_modules/.bin/firebase serve",
     "deploy": "node_modules/.bin/firebase deploy",
