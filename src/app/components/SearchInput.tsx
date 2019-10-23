@@ -29,7 +29,11 @@ const algoliaClient = algoliasearch(
 let firstLoad = true;
 const searchClient = {
   search(requests) {
-    if (firstLoad === true) {
+    if (
+      requests.length > 0 &&
+      requests[0].params.query !== "" &&
+      firstLoad === true
+    ) {
       firstLoad = false;
       return;
     }
