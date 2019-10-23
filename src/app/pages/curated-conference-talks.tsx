@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     title: {
       background: `linear-gradient(35deg, ${theme.palette.secondary.light} 0%, ${theme.palette.secondary.dark} 100%)`,
+      ["-webkit-background-clip"]: "text",
       ["background-clip"]: "text",
       ["text-fill-color"]: "transparent"
     }
