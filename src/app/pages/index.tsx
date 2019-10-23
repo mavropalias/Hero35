@@ -6,7 +6,9 @@ import {
   Theme,
   Grid,
   Container,
-  Hidden
+  Hidden,
+  Box,
+  Divider
 } from "@material-ui/core";
 import { Talk, EventEdition } from "../schema";
 import Database from "../services/Database";
@@ -25,10 +27,10 @@ import RecentEditions from "../components/RecentEditions";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     homeContainer: {
-      marginTop: theme.spacing(10)
+      marginTop: theme.spacing(8)
     },
     homeSection: {
-      marginBottom: theme.spacing(10)
+      marginBottom: theme.spacing(8)
     }
   })
 );
@@ -53,7 +55,11 @@ const Home: NextPage<Props> = ({
       description="The single source of truth for React developer conferences & talks."
     >
       {!state.signedIn && <Welcome />}
-      <Stacks />
+      <Box paddingTop={4} paddingBottom={4}>
+        <Container>
+          <Stacks />
+        </Container>
+      </Box>
       <Container className={classes.homeContainer}>
         <CuratedTalks talks={curatedTalks} className={classes.homeSection} />
         <RecentEditions
@@ -64,7 +70,7 @@ const Home: NextPage<Props> = ({
           editions={upcomingEditions}
           className={classes.homeSection}
         />
-        <Grid container className={classes.homeSection}>
+        <Grid container spacing={8} className={classes.homeSection}>
           <Grid item xs={12} md={6}>
             <CuratedTags />
           </Grid>

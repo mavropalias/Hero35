@@ -2,11 +2,9 @@ import {
   makeStyles,
   Theme,
   createStyles,
-  Paper,
   Typography,
   Grid,
   Box,
-  Container,
   Card,
   CardActionArea,
   CardContent
@@ -16,7 +14,7 @@ import STACKS from "../constants/stacks";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    card: { height: "100%" },
+    card: { height: "100%", background: "transparent" },
     cardActionArea: {
       height: "100%",
       display: "flex",
@@ -46,51 +44,41 @@ const Stacks = () => {
   const classes = useStyles({});
 
   return (
-    <Paper elevation={4} square={true}>
-      <Box paddingTop={4} paddingBottom={4}>
-        <Container>
-          <Grid container spacing={1}>
-            {STACKS.map(
-              (stack, index) =>
-                stack.featured && (
-                  <Grid item xs={4} sm={3} md={2} lg={2} key={index}>
-                    <Card className={classes.card} elevation={0}>
-                      <NextLink
-                        href={`/topic/[topicid]`}
-                        as={`/topic/${stack.slug}`}
-                      >
-                        <a
-                          className={classes.link}
-                          title={`${stack.label} conference talks`}
-                        >
-                          <CardActionArea className={classes.cardActionArea}>
-                            <CardContent className={classes.cardContent}>
-                              <Box paddingBottom={1}>
-                                <img
-                                  src={`/static/stacks/${stack.slug}.svg`}
-                                  className={classes.stackLogo}
-                                  alt={`${stack.label} logo`}
-                                />
-                              </Box>
-                              <Typography
-                                variant="body1"
-                                component="p"
-                                color="primary"
-                              >
-                                {stack.label}
-                              </Typography>
-                            </CardContent>
-                          </CardActionArea>
-                        </a>
-                      </NextLink>
-                    </Card>
-                  </Grid>
-                )
-            )}
-          </Grid>
-        </Container>
-      </Box>
-    </Paper>
+    <>
+      <Grid container spacing={1}>
+        {STACKS.map(
+          (stack, index) =>
+            stack.featured && (
+              <Grid item xs={4} sm={3} md={2} lg={2} key={index}>
+                <Card className={classes.card} elevation={0}>
+                  <NextLink
+                    href={`/topic/[topicid]`}
+                    as={`/topic/${stack.slug}`}
+                  >
+                    <a
+                      className={classes.link}
+                      title={`${stack.label} conference talks`}
+                    >
+                      <CardActionArea className={classes.cardActionArea}>
+                        <CardContent className={classes.cardContent}>
+                          <Box paddingBottom={1}>
+                            <img
+                              src={`/static/stacks/${stack.slug}.svg`}
+                              className={classes.stackLogo}
+                              alt={`${stack.label}`}
+                            />
+                          </Box>
+                          <Typography variant="body2">{stack.label}</Typography>
+                        </CardContent>
+                      </CardActionArea>
+                    </a>
+                  </NextLink>
+                </Card>
+              </Grid>
+            )
+        )}
+      </Grid>
+    </>
   );
 };
 

@@ -7,12 +7,10 @@
   color: #f50057;
   font-style: initial;
 }
-
 .highlighted-text {
   color: #f50057;
   font-style: initial;
 }
-
 .firebaseui-idp-list {
   margin: 0 !important;
 }
@@ -22,20 +20,15 @@
   pointer-events: none;
   z-index: 1031;
 }
-
 #nprogress .bar {
   background: #91dd64;
-
   position: fixed;
   z-index: 9999;
   top: 0;
   left: 0;
-
   width: 100%;
   height: 3px;
 }
-
-/* Fancy blur effect */
 #nprogress .peg {
   display: block;
   position: absolute;
@@ -44,17 +37,46 @@
   height: 100%;
   box-shadow: 0 0 10px #91dd64, 0 0 5px #91dd64;
   opacity: 1;
-
   -webkit-transform: rotate(3deg) translate(0px, -4px);
   -ms-transform: rotate(3deg) translate(0px, -4px);
   transform: rotate(3deg) translate(0px, -4px);
 }
-
 .nprogress-custom-parent {
   overflow: hidden;
   position: relative;
 }
-
 .nprogress-custom-parent #nprogress .bar {
   position: absolute;
+}
+
+/* FirebaseUI */
+.firebaseui-container {
+  font: inherit !important;
+}
+.firebaseui-container .firebaseui-card-content {
+  padding: 0;
+}
+.firebaseui-container .firebaseui-list-item {
+  margin-bottom: 16px !important;
+}
+.firebaseui-container .firebaseui-idp-button {
+  background: #121212;
+  border-radius: 0;
+  border: 1px solid #444;
+  max-width: none;
+  padding: 8px 16px;
+  min-height: 64px;
+  text-align: center;
+}
+.firebaseui-container .firebaseui-idp-button:hover {
+  background: #444;
+}
+.firebaseui-container .firebaseui-idp-button .firebaseui-idp-text {
+  color: #eeeeee;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 16px;
+}
+.firebaseui-container .firebaseui-tos {
+  margin-bottom: 0;
 }
