@@ -27,7 +27,7 @@ const CuratedTags = ({ className }: Props) => {
     "Animation",
     "Architecture",
     "CSS",
-    "Design system",
+    "Design-system",
     "GraphQL",
     "Hooks",
     "MobX",
