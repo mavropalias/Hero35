@@ -1,6 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/auth";
-import { Event, EventEdition, Talk, TalkPreview, User } from "../schema";
+import { Event, EventEdition, Talk, User } from "../schema";
 import fetch from "isomorphic-unfetch";
 
 // Use Firebase internal network address for SSR
