@@ -16,6 +16,7 @@ module.exports = withBundleAnalyzer(
       }
     },
     env: {
+      API_KEY: process.env.API_KEY,
       STORAGE_PATH:
         "https://firebasestorage.googleapis.com/v0/b/heroes-9c313.appspot.com/o/"
     },
