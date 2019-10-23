@@ -1,6 +1,7 @@
 const STACKS = [
   {
     color: "#007AFF",
+    featured: true,
     label: "Accessibility",
     slug: "accessibility"
   },
@@ -63,7 +64,6 @@ const STACKS = [
   },
   {
     color: "#F9DC3E",
-    featured: true,
     label: "Babel",
     slug: "babel"
   },
@@ -156,7 +156,6 @@ const STACKS = [
   },
   {
     color: "#5FB4CB",
-    featured: true,
     label: "Elm",
     slug: "elm"
   },
@@ -320,7 +319,8 @@ const STACKS = [
   },
   {
     color: "#86AAB2",
-    label: "Hooks",
+    featured: true,
+    label: "React Hooks",
     slug: "hooks"
   },
   {
@@ -365,7 +365,6 @@ const STACKS = [
   },
   {
     color: "#99425B",
-    featured: true,
     label: "Jest",
     slug: "jest"
   },
@@ -463,7 +462,6 @@ const STACKS = [
   },
   {
     color: "#CB3837",
-    featured: true,
     label: "NPM",
     slug: "npm"
   },
@@ -489,6 +487,7 @@ const STACKS = [
   },
   {
     color: "#617186",
+    featured: true,
     label: "Performance",
     slug: "performance"
   },
