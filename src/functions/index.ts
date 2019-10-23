@@ -19,7 +19,8 @@ const db = admin.firestore();
 // Middleware
 const middleware = (
   req: functions.https.Request,
-  res: functions.Response
+  res: functions.Response,
+  cacheControl?: boolean
 ): [functions.https.Request, functions.Response, boolean] => {
   // Disallow requests from foreign origins
   let approved = false;
@@ -32,11 +33,32 @@ const middleware = (
   } else {
     approved = true;
     res.set({
-      "Access-Control-Allow-Origin": "*",
-      "Cache-control": CACHE_CONTROL
+      "Access-Control-Allow-Origin": "*"
     });
+    if (cacheControl) {
+      res.set({
+        "Cache-control": CACHE_CONTROL
+      });
+    }
   }
   return [req, res, approved];
+};
+
+/**
+ * Verifies access token and returns uid.
+ */
+const verifyIdToken = async (req: functions.https.Request): Promise<string> => {
+  let decodedIdToken: admin.auth.DecodedIdToken;
+  try {
+    decodedIdToken = await admin
+      .auth()
+      .verifyIdToken(req.query.accessToken || "");
+    return Promise.resolve(decodedIdToken.uid);
+  } catch (error) {
+    return Promise.reject(
+      `accessToken: ${req.query.accessToken}, error: ${error}`
+    );
+  }
 };
 
 /**
@@ -363,6 +385,25 @@ const recentTalks = functions.https.onRequest(async (req, res) => {
 });
 
 /**
+ * Get user
+ */
+const getUser = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  let uid;
+  try {
+    uid = await verifyIdToken(request);
+  } catch (e) {
+    response.send(e);
+  }
+  const user = await db
+    .collection("users")
+    .doc(uid)
+    .get();
+  response.json(user.data());
+});
+
+/**
  * Get hero Talks
  */
 const heroTalks = functions.https.onRequest(async (req, res) => {
@@ -370,7 +411,7 @@ const heroTalks = functions.https.onRequest(async (req, res) => {
   if (!approved) return response.send();
   const docSnap = await db
     .collectionGroup("talks")
-    .where("speaker", "==", decodeURI(request.query.name))
+    .where("speaker", "==", decodeURIComponent(request.query.name))
     .orderBy("dateTimestamp", "desc")
     .get();
   let talks = [];
@@ -425,6 +466,106 @@ const talksByTopic = functions.https.onRequest(async (req, res) => {
   response.json(talks);
 });
 
+/**
+ * Save talk
+ */
+const saveTalkInUserProfile = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = middleware(req, res, false);
+  if (!approved) return response.send();
+  let uid;
+  try {
+    uid = await verifyIdToken(request);
+  } catch (e) {
+    response.send(e);
+  }
+  const userDocRef = await db.collection("users").doc(uid);
+
+  const talkDocSnap = await db
+    .collectionGroup("talks")
+    .where("id", "==", request.query.talkId)
+    .get();
+  const talk: any = talkDocSnap.docs[0] ? talkDocSnap.docs[0].data() : null;
+  if (!talk) {
+    response.send(null);
+  }
+  const savedTalk = {
+    categories: talk.categories,
+    curationDescription: talk.curationDescription || "",
+    date: talk.date,
+    editionId: talk.editionId,
+    editionTitle: talk.editionTitle,
+    eventId: talk.eventId,
+    eventTitle: talk.eventTitle,
+    id: talk.id,
+    isCurated: talk.isCurated || false,
+    slug: talk.slug,
+    speaker: talk.speaker,
+    tags: talk.tags,
+    times: talk.times,
+    title: talk.title,
+    type: talk.type
+  };
+
+  await userDocRef.set(
+    {
+      savedTalks: admin.firestore.FieldValue.arrayUnion(savedTalk)
+    },
+    { merge: true }
+  );
+  const user = await userDocRef.get();
+  response.json(user.data());
+});
+
+/**
+ * Unsave talk
+ */
+const unsaveTalkInUserProfile = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = middleware(req, res, false);
+  if (!approved) return response.send();
+  let uid;
+  try {
+    uid = await verifyIdToken(request);
+  } catch (e) {
+    response.send(e);
+  }
+  const userDocRef = await db.collection("users").doc(uid);
+
+  const talkDocSnap = await db
+    .collectionGroup("talks")
+    .where("id", "==", request.query.talkId)
+    .get();
+  const talk: any = talkDocSnap.docs[0] ? talkDocSnap.docs[0].data() : null;
+  if (!talk) {
+    response.send(null);
+  }
+  const savedTalk = {
+    categories: talk.categories,
+    curationDescription: talk.curationDescription || "",
+    date: talk.date,
+    editionId: talk.editionId,
+    editionTitle: talk.editionTitle,
+    eventId: talk.eventId,
+    eventTitle: talk.eventTitle,
+    id: talk.id,
+    isCurated: talk.isCurated || false,
+    slug: talk.slug,
+    speaker: talk.speaker,
+    tags: talk.tags,
+    times: talk.times,
+    title: talk.title,
+    type: talk.type
+  };
+
+  await userDocRef.set(
+    {
+      savedTalks: admin.firestore.FieldValue.arrayRemove(savedTalk)
+    },
+    { merge: true }
+  );
+  const user = await userDocRef.get();
+  response.json(user.data());
+});
+
 const heroes = {
   curatedTalks,
   heroTalks,
@@ -433,8 +574,10 @@ const heroes = {
   editionsByYear,
   event,
   filterTalks,
+  getUser,
   indexTalk,
   recentEditions,
+  saveTalkInUserProfile,
   ssrIndex,
   ssrAccount,
   ssrCountry,
@@ -450,6 +593,7 @@ const heroes = {
   talk,
   recentTalks,
   talksByTopic,
+  unsaveTalkInUserProfile,
   upcomingEditions
 };
 

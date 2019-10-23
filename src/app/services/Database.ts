@@ -1,6 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/auth";
-import { Event, EventEdition, Talk } from "../schema";
+import { Event, EventEdition, Talk, TalkPreview, User } from "../schema";
 import fetch from "isomorphic-unfetch";
 
 // Use Firebase internal network address for SSR
@@ -28,6 +28,10 @@ class Database {
 
     this.auth = firebase.auth(firebase.app());
   }
+
+  token = async () => {
+    return await firebase.auth().currentUser.getIdToken();
+  };
 
   // Content API ---------------------------------------------------------------
 
@@ -83,7 +87,7 @@ class Database {
   };
 
   getHeroTalks = async (name: string): Promise<Talk[]> => {
-    const res = await fetch(`${API}heroTalks?name=${name}`);
+    const res = await fetch(`${API}heroTalks?name=${encodeURIComponent(name)}`);
     return ((await res.json()) as unknown) as Talk[];
   };
 
@@ -108,6 +112,30 @@ class Database {
       `${API}filterTalks?topic=${topic}&curated=${curated}&type=${type}&orderBy=${orderBy}&sortOrder=${sortOrder}`
     );
     return ((await res.json()) as unknown) as Talk[];
+  };
+
+  // User API ------------------------------------------------------------------
+
+  getUser = async () => {
+    const token = await this.token();
+    const res = await fetch(`${API}getUser?accessToken=${token}`);
+    return (await (res.json() as unknown)) as User;
+  };
+
+  saveTalkInUserProfile = async (talkId: string) => {
+    const token = await this.token();
+    const res = await fetch(
+      `${API}saveTalkInUserProfile?talkId=${talkId}&accessToken=${token}`
+    );
+    return (await (res.json() as unknown)) as User;
+  };
+
+  unsaveTalkInUserProfile = async (talkId: string) => {
+    const token = await this.token();
+    const res = await fetch(
+      `${API}unsaveTalkInUserProfile?talkId=${talkId}&accessToken=${token}`
+    );
+    return (await (res.json() as unknown)) as User;
   };
 }
 

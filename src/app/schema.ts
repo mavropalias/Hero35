@@ -40,12 +40,14 @@ export type Tag = {
 
 export type TalkPreview = {
   _highlightResult?: any;
-  curationDescription?: string;
   categories: Category[];
+  curationDescription?: string;
   date: string;
   description?: string;
   editionId?: string;
+  editionTitle?: string;
   eventId?: string;
+  eventTitle?: string;
   id: string;
   isCurated?: boolean;
   logo?: string;
@@ -125,4 +127,23 @@ export type CachedResponse = {
 export type ApiResponse = {
   items: any[];
   nextPageToken?: string;
+};
+
+export type UserContextProps = {
+  name?: string;
+  email?: string;
+  picture?: string;
+  signedIn?: boolean;
+  savedTalks?: TalkPreview[];
+};
+
+export type User = {
+  email: string;
+  savedTalks?: TalkPreview[];
+  role?: string;
+};
+
+export type UserReducerAction = {
+  type: "LOGIN" | "LOGOUT" | "HYDRATE_FROM_DB";
+  payload?: UserContextProps;
 };

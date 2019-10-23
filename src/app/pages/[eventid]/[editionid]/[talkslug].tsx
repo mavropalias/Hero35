@@ -6,18 +6,16 @@ import {
   Theme,
   Box,
   Typography,
-  Chip,
   Container,
   Avatar,
   Grid,
-  Paper,
   Button,
-  IconButton,
   Link,
   Divider
 } from "@material-ui/core";
 import {
   Bookmark as BookmarkIcon,
+  BookmarkBorder as BookmarkOutlinedIcon,
   Face as SpeakerIcon,
   Stars as CuratedIcon,
   ThumbUp as VoteUp,
@@ -28,7 +26,7 @@ import Database from "../../../services/Database";
 import { NextPage, NextPageContext } from "next";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import { UserContext } from "../../../components/UserContextProvider";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Stacks from "../../../components/Stacks";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -145,10 +143,7 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
             </Grid>
           </Grid>
           <Grid item xs={12} md={8}>
-            <Divider />
-          </Grid>
-          <Grid item xs={12} md={8}>
-            <TalkControls />
+            <TalkControls talkId={talk.id} />
           </Grid>
           <Grid item xs={12} md={8}>
             <Divider />
@@ -193,7 +188,7 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
                         href={`/curated-conference-talks`}
                         as={`/curated-conference-talks`}
                       >
-                        <Link color="secondary">More curated talks</Link>
+                        <Link color="primary">More curated talks</Link>
                       </NextLink>
                     </Typography>
                   </Grid>
@@ -216,7 +211,7 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
                   style={{ lineHeight: 1 }}
                   paragraph
                 >
-                  Description
+                  Description:
                 </Typography>
                 <Typography variant="body1" className={classes.description}>
                   {talk.description}
@@ -253,7 +248,7 @@ const TalkSpeakers = ({ speakers }: { speakers: string[] }) => {
           key={index}
           passHref
           href={`/hero/[heroid]`}
-          as={`/hero/${encodeURI(speaker)}`}
+          as={`/hero/${encodeURIComponent(speaker)}`}
         >
           <Link>
             {speaker}
@@ -308,13 +303,47 @@ const TalkVideo = ({ videoid }: { videoid: string }) => (
   </Box>
 );
 
-const TalkControls = () => {
+const TalkControls = ({ talkId }: { talkId: string }) => {
   const { state, dispatch } = useContext(UserContext);
-  const classes = useStyles({});
+  const [loading, setLoading] = useState();
+  const [error, setError] = useState("");
+
+  const saveTalk = async () => {
+    try {
+      setError("");
+      setLoading(true);
+      const updatedUser = await Database.saveTalkInUserProfile(talkId);
+      dispatch({
+        type: "HYDRATE_FROM_DB",
+        payload: { savedTalks: updatedUser.savedTalks }
+      });
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const unsaveTalk = async () => {
+    try {
+      setError("");
+      setLoading(true);
+      const updatedUser = await Database.unsaveTalkInUserProfile(talkId);
+      dispatch({
+        type: "HYDRATE_FROM_DB",
+        payload: { savedTalks: updatedUser.savedTalks }
+      });
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <Grid container alignItems="center">
-        <Grid item>
+        {/* TODO <Grid item>
           <Box marginRight={3}>
             <IconButton title="Like" color="primary" disabled={!state.signedIn}>
               <VoteUp />
@@ -327,29 +356,40 @@ const TalkControls = () => {
               <VoteDown />
             </IconButton>
           </Box>
-        </Grid>
+        </Grid> */}
         <Grid item>
           <Box marginRight={2}>
-            <Button
-              color="secondary"
-              disabled={!state.signedIn}
-              title="Save this talk in your Saved Videos"
-              startIcon={<BookmarkIcon />}
-            >
-              Save
-            </Button>
+            {state.savedTalks.filter(savedTalk => savedTalk.id === talkId)
+              .length > 0 ? (
+              <Button
+                color="secondary"
+                disabled={!state.signedIn || loading}
+                title="Remove this saved talk"
+                onClick={_ => unsaveTalk()}
+                startIcon={<BookmarkIcon />}
+              >
+                Unsave talk
+              </Button>
+            ) : (
+              <Button
+                color="secondary"
+                disabled={!state.signedIn || loading}
+                title="Save this talk in your Saved Talks"
+                onClick={_ => saveTalk()}
+                startIcon={<BookmarkOutlinedIcon />}
+              >
+                Save talk for later
+              </Button>
+            )}
+            <span>{error}</span>
           </Box>
         </Grid>
         <Grid item>
-          {!state.signedIn ? (
+          {!state.signedIn && (
             <Typography variant="overline">
               <NextLink href={`/account`} as={`/account`} passHref>
-                <Link>Sign in</Link>
+                <Link color="secondary">Sign in to save talks</Link>
               </NextLink>
-            </Typography>
-          ) : (
-            <Typography variant="overline" color="textSecondary">
-              Vote/save coming soon
             </Typography>
           )}
         </Grid>

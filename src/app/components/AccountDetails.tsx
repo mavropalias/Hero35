@@ -1,4 +1,4 @@
-import { UserContext, UserContextProps } from "./UserContextProvider";
+import { UserContext } from "./UserContextProvider";
 import Database from "../services/Database";
 import {
   makeStyles,
@@ -8,18 +8,11 @@ import {
   Container,
   Button,
   Avatar,
-  List,
-  ListSubheader,
-  ListItem,
-  ListItemIcon,
-  ListItemText
+  Typography
 } from "@material-ui/core";
-import {
-  Bookmarks as BookmarksIcon,
-  Event as EventIcon,
-  Label as TopicsIcon
-} from "@material-ui/icons";
+import { Bookmarks as BookmarksIcon } from "@material-ui/icons";
 import { useContext } from "react";
+import TalkList from "./TalkList";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,37 +28,24 @@ const AccountDetails = () => {
   const { state, dispatch } = useContext(UserContext);
   const classes = useStyles({});
 
+  const savedTalks = () => {
+    return state.savedTalks.sort((a, b) => (a.date < b.date ? 1 : 0));
+  };
+
   return (
     <Container>
       <Avatar alt={state.name} src={state.picture} className={classes.avatar} />
-      <List
-        component="nav"
-        aria-labelledby="nested-list-subheader"
-        subheader={
-          <ListSubheader component="div" id="nested-list-subheader">
-            {state.name}
-          </ListSubheader>
-        }
-      >
-        <ListItem button>
-          <ListItemIcon>
-            <BookmarksIcon />
-          </ListItemIcon>
-          <ListItemText primary="Watch list" secondary="Coming soon..." />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <EventIcon />
-          </ListItemIcon>
-          <ListItemText primary="Saved Events" secondary="Coming soon..." />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <TopicsIcon />
-          </ListItemIcon>
-          <ListItemText primary="Favourite topics" secondary="Coming soon..." />
-        </ListItem>
-      </List>
+      <Typography color="textSecondary" paragraph>
+        {state.name || state.email}
+      </Typography>
+      <Box display="flex" alignItems="center" marginBottom={1}>
+        <BookmarksIcon fontSize="small" />
+        &nbsp;
+        <Typography variant="h5" component="h2">
+          Saved talks:
+        </Typography>
+      </Box>
+      <TalkList talks={savedTalks()} showEvent={true}></TalkList>
       <Box marginTop={3}>
         <Button
           variant="outlined"

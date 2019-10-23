@@ -34,28 +34,40 @@
         "function": "heroes-editionsByYear"
       },
       {
-        "source": "/api/recentEditions",
-        "function": "heroes-recentEditions"
-      },
-      {
-        "source": "/api/talk",
-        "function": "heroes-talk"
-      },
-      {
         "source": "/api/filterTalks",
         "function": "heroes-filterTalks"
       },
       {
-        "source": "/api/recentTalks",
-        "function": "heroes-recentTalks"
+        "source": "/api/getUser",
+        "function": "heroes-getUser"
       },
       {
         "source": "/api/heroTalks",
         "function": "heroes-heroTalks"
       },
       {
+        "source": "/api/recentEditions",
+        "function": "heroes-recentEditions"
+      },
+      {
+        "source": "/api/recentTalks",
+        "function": "heroes-recentTalks"
+      },
+      {
+        "source": "/api/saveTalkInUserProfile",
+        "function": "heroes-saveTalkInUserProfile"
+      },
+      {
+        "source": "/api/talk",
+        "function": "heroes-talk"
+      },
+      {
         "source": "/api/talksByTopic",
         "function": "heroes-talksByTopic"
+      },
+      {
+        "source": "/api/unsaveTalkInUserProfile",
+        "function": "heroes-unsaveTalkInUserProfile"
       },
       {
         "source": "/api/upcomingEditions",
