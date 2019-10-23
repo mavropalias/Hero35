@@ -19,13 +19,18 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: 0,
       backgroundAttachment: "fixed",
       backgroundColor: theme.palette.background.default,
-      border: "11px solid rgba(0,0,0,.85)"
+      [theme.breakpoints.up("sm")]: {
+        border: "11px solid rgba(0,0,0,.85)"
+      }
     },
     ticketInner: {
-      padding: theme.spacing(4, 4, 1, 4),
+      padding: theme.spacing(1),
       background: `${fade(theme.palette.background.default, 0.98)}`,
       ["-webkit-backdrop-filter"]: "blur(4px)",
-      ["backdrop-filter"]: "blur(4px)"
+      ["backdrop-filter"]: "blur(4px)",
+      [theme.breakpoints.up("sm")]: {
+        padding: theme.spacing(4, 4, 1, 4)
+      }
     },
     ticketTitle: {
       background: `linear-gradient(35deg, ${theme.palette.secondary.main} 35%, ${theme.palette.secondary.contrastText} 140%)`,
