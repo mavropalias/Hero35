@@ -26,8 +26,6 @@ const useStyles = makeStyles((theme: Theme) =>
     ticketInner: {
       padding: theme.spacing(1),
       background: `${fade(theme.palette.background.default, 0.98)}`,
-      ["-webkit-backdrop-filter"]: "blur(4px)",
-      ["backdrop-filter"]: "blur(4px)",
       [theme.breakpoints.up("sm")]: {
         padding: theme.spacing(4, 4, 1, 4)
       }
