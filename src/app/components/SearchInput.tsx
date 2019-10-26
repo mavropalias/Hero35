@@ -26,16 +26,17 @@ const algoliaClient = algoliasearch(
   "ee9b0c6e71cc5f9e80605e9a8bbb711c"
 );
 
-let firstLoad = true;
 const searchClient = {
   search(requests) {
-    if (
-      requests.length > 0 &&
-      requests[0].params.query !== "" &&
-      firstLoad === true
-    ) {
-      firstLoad = false;
-      return;
+    // Do not connect to Algolia on page load
+    if (requests.length > 0 && requests[0].params.query === "") {
+      return Promise.resolve({
+        results: requests.map(() => ({
+          hits: [],
+          nbHits: 0,
+          processingTimeMS: 0
+        }))
+      });
     }
     return algoliaClient.search(requests);
   }
