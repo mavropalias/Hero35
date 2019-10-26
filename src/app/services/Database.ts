@@ -137,6 +137,22 @@ class Database {
     );
     return (await (res.json() as unknown)) as User;
   };
+
+  likeTalk = async (talkId: string) => {
+    const token = await this.token();
+    const res = await fetch(
+      `${API}likeTalk?talkId=${talkId}&accessToken=${token}`
+    );
+    return (await (res.json() as unknown)) as User;
+  };
+
+  dislikeTalk = async (talkId: string) => {
+    const token = await this.token();
+    const res = await fetch(
+      `${API}dislikeTalk?talkId=${talkId}&accessToken=${token}`
+    );
+    return (await (res.json() as unknown)) as User;
+  };
 }
 
 export default new Database();

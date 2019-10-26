@@ -1,16 +1,10 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import algoliasearch from "algoliasearch";
+import { Talk, TalkPreview, User } from "./schema";
 
 // Cache for 12 hours on the client and 24 hours on the server
 const CACHE_CONTROL = `public, max-age=${12 * 3600}, s-maxage=${24 * 3600}`;
-
-// Init algolia
-const algolia = algoliasearch(
-  functions.config().algolia.app_id,
-  functions.config().algolia.api_key
-);
-const algoliaIndex = algolia.initIndex("talks");
 
 // Init Firebase
 admin.initializeApp();
@@ -184,20 +178,22 @@ const ssrYear = functions.https.onRequest(async (req, res) => {
 const indexTalk = functions.firestore
   .document("events/{eventid}/editions/{editionid}/talks/{talkid}")
   .onWrite((snap, context) => {
-    let talk: any;
+    // Init algolia
+    const algolia = algoliasearch(
+      functions.config().algolia.app_id,
+      functions.config().algolia.api_key
+    );
+    const algoliaIndex = algolia.initIndex("talks");
+    let talk: Talk;
     if (snap.after.exists) {
-      talk = snap.after.data();
+      talk = (snap.after.data() as unknown) as Talk;
+      // Do not index like/dislike UIDs
+      delete talk.likesUIDs;
+      delete talk.dislikesUIDs;
       // Add an 'objectID' field which Algolia requires
       talk.objectID = talk.id;
-    } else {
-      talk = { objectID: snap.before.data().id };
     }
-    // Only index: Talk, Lightning talk, Panels, Q&A, Workshops, and Interviews
-    if (["2", "3", "4", "5", "7", "8"].includes(talk.type)) {
-      return algoliaIndex.saveObject(talk);
-    } else {
-      return true;
-    }
+    return algoliaIndex.saveObject(talk || { objectID: snap.before.data().id });
   });
 
 /**
@@ -339,7 +335,11 @@ const talk = functions.https.onRequest(async (req, res) => {
     .where("slug", "==", talkSlug)
     .limit(1)
     .get();
-  const talk = docSnap.docs[0] ? docSnap.docs[0].data() : null;
+  const talk: Talk = docSnap.docs[0]
+    ? ((docSnap.docs[0].data() as unknown) as Talk)
+    : null;
+  delete talk.dislikesUIDs;
+  delete talk.likesUIDs;
   response.json(talk);
 });
 
@@ -467,6 +467,104 @@ const talksByTopic = functions.https.onRequest(async (req, res) => {
 });
 
 /**
+ * Like talk
+ */
+const likeTalk = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = middleware(req, res, false);
+  if (!approved) return response.send();
+  let uid: string;
+  try {
+    uid = await verifyIdToken(request);
+  } catch (e) {
+    response.send(e);
+  }
+  const userDocRef = await db.collection("users").doc(uid);
+  const talkDocSnap = await db
+    .collectionGroup("talks")
+    .where("id", "==", request.query.talkId)
+    .get();
+  const talk: Talk = talkDocSnap.docs[0]
+    ? ((talkDocSnap.docs[0].data() as unknown) as Talk)
+    : null;
+  if (!talk) {
+    response.send(null);
+  }
+  await db
+    .collection("events")
+    .doc(talk.eventId)
+    .collection("editions")
+    .doc(talk.editionId)
+    .collection("talks")
+    .doc(talk.id)
+    .set(
+      {
+        dislikesUIDs: admin.firestore.FieldValue.arrayRemove(uid),
+        likes: talk.likesUIDs ? talk.likesUIDs.length + 1 : 1,
+        likesUIDs: admin.firestore.FieldValue.arrayUnion(uid)
+      },
+      { merge: true }
+    );
+  await userDocRef.set(
+    {
+      dislikedTalks: admin.firestore.FieldValue.arrayRemove(talk.id),
+      likedTalks: admin.firestore.FieldValue.arrayUnion(talk.id)
+    },
+    { merge: true }
+  );
+  const user = await userDocRef.get();
+  response.json((user.data() as unknown) as User);
+});
+
+/**
+ * Dislike talk
+ */
+const dislikeTalk = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = middleware(req, res, false);
+  if (!approved) return response.send();
+  let uid: string;
+  try {
+    uid = await verifyIdToken(request);
+  } catch (e) {
+    response.send(e);
+  }
+  const userDocRef = await db.collection("users").doc(uid);
+  const talkDocSnap = await db
+    .collectionGroup("talks")
+    .where("id", "==", request.query.talkId)
+    .get();
+  const talk: Talk = talkDocSnap.docs[0]
+    ? ((talkDocSnap.docs[0].data() as unknown) as Talk)
+    : null;
+  if (!talk) {
+    response.send(null);
+  }
+  await db
+    .collection("events")
+    .doc(talk.eventId)
+    .collection("editions")
+    .doc(talk.editionId)
+    .collection("talks")
+    .doc(talk.id)
+    .set(
+      {
+        dislikesUIDs: admin.firestore.FieldValue.arrayUnion(uid),
+        dislikes: talk.dislikesUIDs ? talk.dislikesUIDs.length + 1 : 1,
+        likesUIDs: admin.firestore.FieldValue.arrayRemove(uid)
+      },
+      { merge: true }
+    );
+  await userDocRef.set(
+    {
+      dislikedTalks: admin.firestore.FieldValue.arrayUnion(talk.id),
+      likedTalks: admin.firestore.FieldValue.arrayRemove(talk.id)
+    },
+    { merge: true }
+  );
+  const user = await userDocRef.get();
+  response.json((user.data() as unknown) as User);
+});
+
+/**
  * Save talk
  */
 const saveTalkInUserProfile = functions.https.onRequest(async (req, res) => {
@@ -479,7 +577,6 @@ const saveTalkInUserProfile = functions.https.onRequest(async (req, res) => {
     response.send(e);
   }
   const userDocRef = await db.collection("users").doc(uid);
-
   const talkDocSnap = await db
     .collectionGroup("talks")
     .where("id", "==", request.query.talkId)
@@ -505,7 +602,6 @@ const saveTalkInUserProfile = functions.https.onRequest(async (req, res) => {
     title: talk.title,
     type: talk.type
   };
-
   await userDocRef.set(
     {
       savedTalks: admin.firestore.FieldValue.arrayUnion(savedTalk)
@@ -529,7 +625,6 @@ const unsaveTalkInUserProfile = functions.https.onRequest(async (req, res) => {
     response.send(e);
   }
   const userDocRef = await db.collection("users").doc(uid);
-
   const talkDocSnap = await db
     .collectionGroup("talks")
     .where("id", "==", request.query.talkId)
@@ -555,7 +650,6 @@ const unsaveTalkInUserProfile = functions.https.onRequest(async (req, res) => {
     title: talk.title,
     type: talk.type
   };
-
   await userDocRef.set(
     {
       savedTalks: admin.firestore.FieldValue.arrayRemove(savedTalk)
@@ -568,15 +662,18 @@ const unsaveTalkInUserProfile = functions.https.onRequest(async (req, res) => {
 
 const heroes = {
   curatedTalks,
-  heroTalks,
+  dislikeTalk,
   edition,
   editionsByCountry,
   editionsByYear,
   event,
   filterTalks,
   getUser,
+  heroTalks,
   indexTalk,
+  likeTalk,
   recentEditions,
+  recentTalks,
   saveTalkInUserProfile,
   ssrIndex,
   ssrAccount,
@@ -591,7 +688,6 @@ const heroes = {
   ssrTopic,
   ssrYear,
   talk,
-  recentTalks,
   talksByTopic,
   unsaveTalkInUserProfile,
   upcomingEditions

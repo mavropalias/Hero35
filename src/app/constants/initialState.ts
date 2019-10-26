@@ -1,6 +1,8 @@
 import { UserContextProps } from "../schema";
 
 const INITIAL_STATE: UserContextProps = {
+  dislikedTalks: [],
+  likedTalks: [],
   name: null,
   picture: null,
   signedIn: false,

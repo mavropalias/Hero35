@@ -16,7 +16,6 @@ import {
 import {
   Bookmark as BookmarkIcon,
   BookmarkBorder as BookmarkOutlinedIcon,
-  Face as SpeakerIcon,
   Stars as CuratedIcon,
   ThumbUp as VoteUp,
   ThumbDown as VoteDown
@@ -159,6 +158,7 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
                           variant="overline"
                           color="textSecondary"
                           style={{ lineHeight: 1 }}
+                          component="h2"
                         >
                           Curated talk
                         </Typography>
@@ -207,6 +207,7 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
               <Grid item xs={12} md={8}>
                 <Typography
                   variant="overline"
+                  component="h2"
                   color="textSecondary"
                   style={{ lineHeight: 1 }}
                   paragraph
@@ -225,6 +226,7 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
           <Grid item xs={12}>
             <Typography
               variant="overline"
+              component="h2"
               color="textSecondary"
               style={{ lineHeight: 1 }}
               paragraph
@@ -305,13 +307,46 @@ const TalkVideo = ({ videoid }: { videoid: string }) => (
 
 const TalkControls = ({ talkId }: { talkId: string }) => {
   const { state, dispatch } = useContext(UserContext);
-  const [loading, setLoading] = useState();
+  const [loadingLike, setLoadingLike] = useState();
+  const [loadingSave, setLoadingSave] = useState();
   const [error, setError] = useState("");
+
+  const likeTalk = async () => {
+    try {
+      setError("");
+      setLoadingLike(true);
+      const updatedUser = await Database.likeTalk(talkId);
+      dispatch({
+        type: "HYDRATE_FROM_DB",
+        payload: { likedTalks: updatedUser.likedTalks }
+      });
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoadingLike(false);
+    }
+  };
+
+  const dislikeTalk = async () => {
+    try {
+      setError("");
+      setLoadingLike(true);
+      const updatedUser = await Database.dislikeTalk(talkId);
+      dispatch({
+        type: "HYDRATE_FROM_DB",
+        payload: { dislikedTalks: updatedUser.dislikedTalks }
+      });
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoadingLike(false);
+    }
+  };
 
   const saveTalk = async () => {
     try {
       setError("");
-      setLoading(true);
+      setLoadingSave(true);
       const updatedUser = await Database.saveTalkInUserProfile(talkId);
       dispatch({
         type: "HYDRATE_FROM_DB",
@@ -320,14 +355,14 @@ const TalkControls = ({ talkId }: { talkId: string }) => {
     } catch (error) {
       setError(error);
     } finally {
-      setLoading(false);
+      setLoadingSave(false);
     }
   };
 
   const unsaveTalk = async () => {
     try {
       setError("");
-      setLoading(true);
+      setLoadingSave(true);
       const updatedUser = await Database.unsaveTalkInUserProfile(talkId);
       dispatch({
         type: "HYDRATE_FROM_DB",
@@ -336,59 +371,65 @@ const TalkControls = ({ talkId }: { talkId: string }) => {
     } catch (error) {
       setError(error);
     } finally {
-      setLoading(false);
+      setLoadingSave(false);
     }
   };
 
   return (
     <>
-      <Grid container alignItems="center">
-        {/* TODO <Grid item>
-          <Box marginRight={3}>
-            <IconButton title="Like" color="primary" disabled={!state.signedIn}>
-              <VoteUp />
-            </IconButton>
-            <IconButton
-              title="Disike"
-              color="primary"
-              disabled={!state.signedIn}
-            >
-              <VoteDown />
-            </IconButton>
-          </Box>
-        </Grid> */}
+      <Grid container spacing={2} alignItems="center">
         <Grid item>
-          <Box marginRight={2}>
-            {state.savedTalks.filter(savedTalk => savedTalk.id === talkId)
-              .length > 0 ? (
-              <Button
-                color="secondary"
-                disabled={!state.signedIn || loading}
-                title="Remove this saved talk"
-                onClick={_ => unsaveTalk()}
-                startIcon={<BookmarkIcon />}
-              >
-                Unsave talk
-              </Button>
-            ) : (
-              <Button
-                color="secondary"
-                disabled={!state.signedIn || loading}
-                title="Save this talk in your Saved Talks"
-                onClick={_ => saveTalk()}
-                startIcon={<BookmarkOutlinedIcon />}
-              >
-                Save talk for later
-              </Button>
-            )}
-            <span>{error}</span>
-          </Box>
+          <Button
+            color={state.likedTalks.includes(talkId) ? "secondary" : "default"}
+            variant="outlined"
+            disabled={!state.signedIn || loadingLike}
+            startIcon={<VoteUp />}
+            onClick={_ => likeTalk()}
+          >
+            Like
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button
+            color={
+              state.dislikedTalks.includes(talkId) ? "secondary" : "default"
+            }
+            variant="outlined"
+            disabled={!state.signedIn || loadingLike}
+            startIcon={<VoteDown />}
+            onClick={_ => dislikeTalk()}
+          >
+            Dislike
+          </Button>
+        </Grid>
+        <Grid item>
+          {state.savedTalks.filter(savedTalk => savedTalk.id === talkId)
+            .length > 0 ? (
+            <Button
+              disabled={!state.signedIn || loadingSave}
+              title="Remove this saved talk"
+              onClick={_ => unsaveTalk()}
+              startIcon={<BookmarkIcon color="secondary" />}
+            >
+              Unsave talk
+            </Button>
+          ) : (
+            <Button
+              disabled={!state.signedIn || loadingSave}
+              title="Save this talk in your Saved Talks"
+              onClick={_ => saveTalk()}
+              startIcon={<BookmarkOutlinedIcon color="secondary" />}
+            >
+              Save talk for later
+            </Button>
+          )}
+          <span>{error}</span>
         </Grid>
         <Grid item>
           {!state.signedIn && (
             <Typography variant="overline">
               <NextLink href={`/account`} as={`/account`} passHref>
-                <Link color="secondary">Sign in to save talks</Link>
+                <Link color="secondary">Sign in to vote & save talks</Link>
               </NextLink>
             </Typography>
           )}

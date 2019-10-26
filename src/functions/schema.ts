@@ -82,6 +82,7 @@ export type Talk = {
   likes?: number;
   likesUIDs?: string[];
   logo: string;
+  objectID?: string;
   order: number;
   slug: string;
   speaker: string;
@@ -110,52 +111,10 @@ export type Times = {
   totalMins?: number;
 };
 
-export type YoutubeVideo = {
-  description: string;
-  tags?: string[];
-  times?: Times;
-  title: string;
-  id: string;
-  order: number;
-};
-
-export type EventStep = {
-  caption: string;
-  id: number;
-  isActive: boolean;
-  name: string;
-  optional: boolean;
-};
-
-export type CachedResponse = {
-  date: string;
-  data: any;
-};
-
-export type ApiResponse = {
-  items: any[];
-  nextPageToken?: string;
-};
-
-export type UserContextProps = {
-  name?: string;
-  email?: string;
-  picture?: string;
-  signedIn?: boolean;
-  savedTalks?: TalkPreview[];
-  likedTalks?: string[];
-  dislikedTalks?: string[];
-};
-
 export type User = {
   email: string;
   savedTalks?: TalkPreview[];
   likedTalks?: string[];
   dislikedTalks?: string[];
   role?: string;
-};
-
-export type UserReducerAction = {
-  type: "LOGIN" | "LOGOUT" | "HYDRATE_FROM_DB";
-  payload?: UserContextProps;
 };

@@ -30,7 +30,9 @@ const reducer = (state: UserContextProps, action: UserReducerAction) => {
     case "HYDRATE_FROM_DB":
       return {
         ...state,
-        savedTalks: action.payload.savedTalks || []
+        savedTalks: action.payload.savedTalks || [],
+        likedTalks: action.payload.likedTalks || [],
+        dislikedTalks: action.payload.dislikedTalks || []
       };
   }
 };
@@ -63,7 +65,11 @@ export const UserContextProvider = props => {
             const updatedUser = await Database.getUser();
             dispatch({
               type: "HYDRATE_FROM_DB",
-              payload: { savedTalks: updatedUser.savedTalks }
+              payload: {
+                savedTalks: updatedUser.savedTalks,
+                likedTalks: updatedUser.likedTalks || [],
+                dislikedTalks: updatedUser.dislikedTalks || []
+              }
             });
           } else {
             if (state.signedIn) {

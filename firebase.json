@@ -18,6 +18,10 @@
         "function": "heroes-curatedTalks"
       },
       {
+        "source": "/api/dislikeTalk",
+        "function": "heroes-dislikeTalk"
+      },
+      {
         "source": "/api/event",
         "function": "heroes-event"
       },
@@ -44,6 +48,10 @@
       {
         "source": "/api/heroTalks",
         "function": "heroes-heroTalks"
+      },
+      {
+        "source": "/api/likeTalk",
+        "function": "heroes-likeTalk"
       },
       {
         "source": "/api/recentEditions",
