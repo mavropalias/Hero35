@@ -55,9 +55,7 @@ const UpcomingEditions = ({ editions, className }: Props) => {
 
   return (
     <section className={className}>
-      <Typography variant="h5" component="h2">
-        Upcoming React conferences
-      </Typography>
+      <Typography variant="h2">Upcoming React conferences</Typography>
       <Typography variant="body2" color="textSecondary" paragraph>
         See what's coming next.
       </Typography>
@@ -99,7 +97,6 @@ const UpcomingEditions = ({ editions, className }: Props) => {
                 <Typography>
                   <Button
                     variant="contained"
-                    color="secondary"
                     href={edition.ticketsUrl}
                     target="_blank"
                     title={`Tickets are sold by the ${edition.eventTitle} organisers. Not affiliated with Hero35.`}

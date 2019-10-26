@@ -11,9 +11,7 @@ interface Props {
 const RecentEditions = ({ editions, className }: Props) => {
   return (
     <section className={className}>
-      <Typography variant="h5" component="h2">
-        Recent React conferences
-      </Typography>
+      <Typography variant="h2">Recent React conferences</Typography>
       <Typography variant="body2" color="textSecondary" paragraph>
         View talks, workshops, and more from the most recent React developer
         conferences.

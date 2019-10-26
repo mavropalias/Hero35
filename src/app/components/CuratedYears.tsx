@@ -21,9 +21,7 @@ const CuratedYears = ({ className }) => {
 
   return (
     <>
-      <Typography variant="h5" component="h2">
-        React annals
-      </Typography>
+      <Typography variant="h2">React annals</Typography>
       <Typography variant="body2" color="textSecondary" paragraph>
         A record of React conferences, year by year.
       </Typography>
