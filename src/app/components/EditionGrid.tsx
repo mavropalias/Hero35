@@ -17,6 +17,13 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     card: { height: "100%" },
     content: { textAlign: "center" },
+    distinctiveEdition: {
+      backgroundColor: theme.palette.background.paper,
+      border: "1px solid",
+      borderColor: theme.palette.secondary.main,
+      borderRadius: theme.shape.borderRadius,
+      height: "100%"
+    },
     link: { textDecoration: "none" },
     media: {
       height: 48,
@@ -60,7 +67,14 @@ const EditionGrid = ({ editions }) => {
               as={`/${edition.eventId}/${edition.id}`}
             >
               <a className={classes.link}>
-                <Card className={classes.card} raised={false}>
+                <Card
+                  raised={false}
+                  className={
+                    edition.isDistinctive
+                      ? classes.distinctiveEdition
+                      : classes.card
+                  }
+                >
                   <CardActionArea>
                     <CardMedia
                       className={classes.media}
@@ -76,10 +90,21 @@ const EditionGrid = ({ editions }) => {
                       >
                         {edition.eventTitle} {edition.title}
                       </Typography>
-                      <Typography variant="subtitle2" color="textSecondary">
-                        {(edition.durationMinutes / 60).toFixed(0)} hours of
-                        content
-                      </Typography>
+                      {edition.isDistinctive ? (
+                        <Typography gutterBottom>
+                          <Chip
+                            color="secondary"
+                            size="small"
+                            label="Distinctive event"
+                            className={classes.tag}
+                          ></Chip>
+                        </Typography>
+                      ) : (
+                        <Typography variant="subtitle2" color="textSecondary">
+                          {(edition.durationMinutes / 60).toFixed(0)} hours of
+                          content
+                        </Typography>
+                      )}
                       <Typography variant="caption" color="textSecondary">
                         {editionDateStart(edition)}, {edition.country}
                       </Typography>

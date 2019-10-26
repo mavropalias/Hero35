@@ -11,10 +11,12 @@ import {
   Container,
   Grid,
   Button,
-  Box
+  Box,
+  Paper
 } from "@material-ui/core";
 import {
   OpenInNew as LinkIcon,
+  Stars as DistinctiveIcon,
   Payment as TicketIcon
 } from "@material-ui/icons";
 import { EventEdition } from "../../schema";
@@ -46,6 +48,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     description: {
       whiteSpace: "pre-line"
+    },
+    distinctiveContainer: {
+      width: "100%",
+      background: `linear-gradient(35deg, ${theme.palette.secondary.dark} 0%, ${theme.palette.secondary.light} 100%)`,
+      padding: theme.spacing(2),
+      margin: theme.spacing(2, 0),
+      color: theme.palette.background.default
     },
     externalLinkIcon: {
       fontSize: theme.typography.fontSize
@@ -116,7 +125,7 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
                   {edition.eventTitle} {edition.title}
                 </Typography>
                 <NextLink href="/[eventid]" as={`/${edition.eventId}`} passHref>
-                  <Button color="secondary" variant="outlined">
+                  <Button color="primary">
                     View all {edition.eventTitle} events
                   </Button>
                 </NextLink>
@@ -185,6 +194,20 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
                     <TicketIcon className={classes.icon} />
                   </Button>
                 </Grid>
+              )}
+              {edition.isDistinctive && (
+                <Paper className={classes.distinctiveContainer}>
+                  <Box display="flex" alignItems="center">
+                    <DistinctiveIcon />
+                    &nbsp;
+                    <Typography variant="h6">Distinctive event</Typography>
+                  </Box>
+                  <Typography variant="body2">
+                    This event has superior content and excellent audio / video
+                    quality. The Editor's Choice talks are only the beginning.
+                    We're confident that you'll enjoy most of the content.
+                  </Typography>
+                </Paper>
               )}
               <Grid item xs={12}>
                 <Typography variant="h5" component="h2">

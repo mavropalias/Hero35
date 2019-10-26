@@ -15,14 +15,20 @@ import { Talk, EventEdition } from "../schema";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    distinctiveEdition: {
+      backgroundColor: theme.palette.background.paper,
+      border: "1px solid",
+      borderColor: theme.palette.secondary.main,
+      borderRadius: theme.shape.borderRadius
+    },
     list: {
       width: "100%"
     },
     chip: {
       margin: theme.spacing(0.3, 0, 0.3, 1),
       pointerEvents: "none",
-      borderColor: `rgba(255,255,255,.1)`,
-      color: theme.palette.text.secondary
+      borderColor: `rgba(255,255,255,.1)`
+      // color: theme.palette.text.secondary
     }
   })
 );
@@ -61,7 +67,13 @@ const EditionList = ({
           passHref
           key={`${edition.eventId}${edition.id}`}
         >
-          <ListItem divider button component="a" key={edition.id}>
+          <ListItem
+            divider
+            button
+            component="a"
+            key={edition.id}
+            className={edition.isDistinctive ? classes.distinctiveEdition : ""}
+          >
             <ListItemAvatar>
               <Avatar
                 component="span"
@@ -85,6 +97,15 @@ const EditionList = ({
                       {editionDateStart(edition)} at {edition.city},{" "}
                       {edition.country}
                     </>
+                  )}
+                  {edition.isDistinctive && (
+                    <Chip
+                      color="secondary"
+                      component="span"
+                      size="small"
+                      label="Distinctive event"
+                      className={classes.chip}
+                    ></Chip>
                   )}
                   {edition.topTags && (
                     <>
