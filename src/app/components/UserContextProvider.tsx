@@ -4,6 +4,7 @@ import Database from "../services/Database";
 import { UserContextProps, UserReducerAction } from "../schema";
 import INITIAL_STATE from "../constants/initialState";
 declare const FS: any;
+declare const gtag: any;
 
 // Crate context
 export const UserContext = React.createContext({
@@ -61,6 +62,9 @@ export const UserContextProvider = props => {
               if (FS) {
                 FS.identify(user.uid);
               }
+              if (gtag) {
+                gtag("set", { user_id: user.uid });
+              }
             }
             const updatedUser = await Database.getUser();
             dispatch({
@@ -76,6 +80,9 @@ export const UserContextProvider = props => {
               dispatch({ type: "LOGOUT" });
               if (FS) {
                 FS.identify(false);
+              }
+              if (gtag) {
+                gtag("set", { user_id: null });
               }
             }
           }
