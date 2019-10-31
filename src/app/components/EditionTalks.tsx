@@ -98,10 +98,6 @@ const EditionTalks = ({ edition }: { edition?: EventEdition }) => {
           <Box marginLeft={2}>
             {edition.tracks && edition.tracks.length > 0 && (
               <FormControl margin="normal" style={{ display: "flex" }}>
-                <FormHelperText>
-                  This conference has {edition.tracks.length} tracks. Please
-                  choose one.
-                </FormHelperText>
                 <RadioGroup
                   name="track"
                   value={track}
@@ -113,10 +109,14 @@ const EditionTalks = ({ edition }: { edition?: EventEdition }) => {
                       key={index}
                       value={track}
                       control={<Radio />}
-                      label={track}
+                      label={`${track} track`}
                     />
                   ))}
                 </RadioGroup>
+                <FormHelperText>
+                  This conference has {edition.tracks.length} tracks. Please
+                  choose one.
+                </FormHelperText>
               </FormControl>
             )}
           </Box>
