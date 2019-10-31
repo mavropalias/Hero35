@@ -60,7 +60,8 @@ const Talks: NextPage<Props> = ({ talks, className }) => {
                   <CardActionArea className={classes.cardActionArea}>
                     <CardMedia
                       className={classes.media}
-                      image={`https://i.ytimg.com/vi/${talk.id}/sddefault.jpg`}
+                      image={`https://i.ytimg.com/vi/${talk.youtubeId ||
+                        talk.id}/sddefault.jpg`}
                     />
                     <CardContent>
                       <Typography variant="h6" component="h2">

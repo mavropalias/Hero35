@@ -49,6 +49,7 @@ export type TalkPreview = {
   dislikes?: number;
   editionId?: string;
   editionTitle?: string;
+  end?: number;
   eventId?: string;
   eventTitle?: string;
   id: string;
@@ -59,11 +60,13 @@ export type TalkPreview = {
   slug?: string;
   _snippetResult?: any;
   speaker: string;
+  start?: number;
   tags?: string[];
   times?: Times;
   title: string;
   track?: string;
   type: string;
+  youtubeId: string;
 };
 
 export type Talk = {
@@ -75,6 +78,7 @@ export type Talk = {
   dislikesUIDs?: string[];
   editionId: string;
   editionTitle: string;
+  end?: number;
   eventId: string;
   eventTitle: string;
   id: string;
@@ -85,11 +89,13 @@ export type Talk = {
   order: number;
   slug: string;
   speaker: string;
+  start?: number;
   tags: string[];
   times: Times;
   title: string;
   track?: string;
   type: string;
+  youtubeId: string;
 };
 
 export type TalkType = {
@@ -108,15 +114,6 @@ export type Times = {
   m: number;
   s: number;
   totalMins?: number;
-};
-
-export type YoutubeVideo = {
-  description: string;
-  tags?: string[];
-  times?: Times;
-  title: string;
-  id: string;
-  order: number;
 };
 
 export type EventStep = {

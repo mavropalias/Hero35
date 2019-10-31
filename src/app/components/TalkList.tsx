@@ -120,7 +120,8 @@ const TalkListItem = ({
           ) : (
             <Avatar
               alt={`${talk.title} ${typeTitle(talk.type)}, by ${talk.speaker}`}
-              src={`https://i.ytimg.com/vi/${talk.id}/default.jpg`}
+              src={`https://i.ytimg.com/vi/${talk.youtubeId ||
+                talk.id}/default.jpg`}
             />
           )}
         </ListItemAvatar>

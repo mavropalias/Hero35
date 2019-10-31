@@ -78,7 +78,8 @@ const CuratedTalk = ({ talk }: { talk: Talk }) => {
           <CardActionArea className={classes.cardActionArea}>
             <CardMedia
               className={classes.cardMedia}
-              image={`https://i.ytimg.com/vi/${talk.id}/sddefault.jpg`}
+              image={`https://i.ytimg.com/vi/${talk.youtubeId ||
+                talk.id}/sddefault.jpg`}
             >
               <div className={classes.cardMediaShadow}>
                 <Typography

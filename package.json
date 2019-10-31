@@ -21,7 +21,9 @@
     "react-dom": "^16.9.0",
     "react-firebaseui": "^4.0.0",
     "react-instantsearch": "^5.7.0",
-    "react-instantsearch-dom": "^5.7.0"
+    "react-instantsearch-dom": "^5.7.0",
+    "react-youtube": "^7.9.0",
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.2",

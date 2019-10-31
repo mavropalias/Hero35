@@ -1,5 +1,6 @@
 import { default as NextLink } from "next/link";
 import Layout from "../../../components/Layout";
+import YouTube from "react-youtube";
 import {
   makeStyles,
   createStyles,
@@ -48,6 +49,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     eventTitle: {
       lineHeight: 1.2
+    },
+    youtubePlayer: {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%"
     },
     tag: {
       marginRight: theme.spacing(1),
@@ -99,7 +107,11 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
     >
       <Breadcrumbs items={breadcrumbs} />
       <Container className={classes.containerVideo}>
-        <TalkVideo videoid={talk.id} />
+        <TalkVideo
+          videoid={talk.youtubeId || talk.id}
+          start={talk.start}
+          end={talk.end}
+        />
       </Container>
       <Container className={classes.container}>
         <Grid container spacing={2} direction="column">
@@ -280,30 +292,38 @@ const TalkTags = ({ tags }: { tags: string[] }) => {
   );
 };
 
-const TalkVideo = ({ videoid }: { videoid: string }) => (
-  <Box
-    marginBottom={2}
-    style={{
-      position: "relative",
-      paddingBottom: "56.25%" /* maintain 16:9 aspect ratio */,
-      paddingTop: 25,
-      height: 0
-    }}
-  >
-    <iframe
+type TalkVideo = {
+  videoid: string;
+  start?: number;
+  end?: number;
+};
+
+const TalkVideo = ({ videoid, start, end }: TalkVideo) => {
+  const classes = useStyles({});
+  const opts = {
+    height: "100%",
+    width: "100%",
+    playerVars: { end, modestbranding: true, playsinline: true, rel: 0, start }
+  };
+
+  return (
+    <Box
+      marginBottom={2}
       style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%"
+        position: "relative",
+        paddingBottom: "56.25%" /* maintain 16:9 aspect ratio */,
+        paddingTop: 25,
+        height: 0
       }}
-      src={`https://www.youtube-nocookie.com/embed/${videoid}`}
-      frameBorder="0"
-      allowFullScreen={true}
-    />
-  </Box>
-);
+    >
+      <YouTube
+        className={classes.youtubePlayer}
+        videoId={videoid}
+        opts={opts}
+      />
+    </Box>
+  );
+};
 
 const TalkControls = ({ talkId }: { talkId: string }) => {
   const { state, dispatch } = useContext(UserContext);
