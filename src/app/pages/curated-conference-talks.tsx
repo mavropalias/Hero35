@@ -90,7 +90,7 @@ const CuratedPage: NextPage<Props> = ({ talks }) => {
 };
 
 CuratedPage.getInitialProps = async (ctx: NextPageContext) => {
-  const talks = await Database.getCuratedTalks(20);
+  const talks = await Database.getCuratedTalks();
   return { talks };
 };
 

@@ -427,18 +427,12 @@ const heroTalks = functions.https.onRequest(async (req, res) => {
 const curatedTalks = functions.https.onRequest(async (req, res) => {
   const [request, response, approved] = middleware(req, res);
   if (!approved) return response.send();
-  let recordCount = parseInt(request.query.records);
-  if (recordCount < 1) {
-    recordCount = 4;
-  } else if (recordCount > 20) {
-    recordCount = 20;
-  }
   const docSnap = await db
     .collectionGroup("talks")
     .where("isCurated", "==", true)
     .orderBy("dateTimestamp", "desc")
     .orderBy("order", "desc")
-    .limit(recordCount)
+    .limit(80)
     .get();
   let talks = [];
   docSnap.forEach(doc => {
