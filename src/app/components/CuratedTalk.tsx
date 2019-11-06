@@ -39,12 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
       position: "absolute",
       background: `linear-gradient(0deg, ${
         theme.palette.background.paper
-      } 8%, ${fade(
-        theme.palette.text.primary,
-        0.1
-      )}  100% ), linear-gradient(35deg, ${
-        theme.palette.secondary.main
-      } 10%, ${fade(theme.palette.secondary.main, 0.1)} 50% )`,
+      } 15%, ${fade(theme.palette.background.default, 0)}  100% )`,
       display: "flex",
       flexDirection: "column",
       justifyContent: "flex-end",
@@ -90,17 +85,17 @@ const CuratedTalk = ({ talk }: { talk: Talk }) => {
                 >
                   {talk.eventTitle} {talk.editionTitle}
                 </Typography>
+                <Typography
+                  className={classes.title}
+                  variant="h6"
+                  color="secondary"
+                  gutterBottom
+                >
+                  {talk.title}
+                </Typography>
               </div>
             </CardMedia>
             <CardContent className={classes.cardContent}>
-              <Typography
-                className={classes.title}
-                variant="h6"
-                color="secondary"
-                gutterBottom
-              >
-                {talk.title}
-              </Typography>
               <Typography variant="body1" color="textSecondary">
                 {talk.curationDescription}
               </Typography>
