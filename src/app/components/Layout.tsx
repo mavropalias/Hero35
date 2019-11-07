@@ -1,17 +1,32 @@
 import Header from "./Header";
 import Head from "next/head";
+import AppDrawer from "./AppDrawer";
+import { Box, makeStyles, Theme, createStyles } from "@material-ui/core";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    main: {
+      flex: "1"
+    }
+  })
+);
+
+type LayoutType = {
+  children: any;
+  title?: string;
+  description?: string;
+  keywords?: string;
+  showDrawer?: boolean;
+};
 
 const Layout = ({
   children,
   title,
   description,
-  keywords
-}: {
-  children: any;
-  title?: string;
-  description?: string;
-  keywords?: string;
-}) => {
+  keywords,
+  showDrawer
+}: LayoutType) => {
+  const classes = useStyles({});
   const headTitle = title ? `${title} - Hero35` : "Hero35";
 
   return (
@@ -43,7 +58,10 @@ const Layout = ({
         />
       </Head>
       <Header />
-      {children}
+      <Box display="flex">
+        {showDrawer && <AppDrawer />}
+        <main className={classes.main}>{children}</main>
+      </Box>
     </>
   );
 };

@@ -14,6 +14,9 @@ import { Talk } from "../schema";
 import Database from "../services/Database";
 import { NextPage, NextPageContext } from "next";
 import CuratedTalk from "../components/CuratedTalk";
+import CATEGORIES from "../constants/categories";
+import { useContext } from "react";
+import { StackContext } from "../components/context-providers/StackContextProvider";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,6 +40,7 @@ interface Props {
 }
 
 const CuratedPage: NextPage<Props> = ({ talks }) => {
+  const { state: stateStack } = useContext(StackContext);
   const classes = useStyles({});
 
   let style = {
@@ -53,7 +57,7 @@ const CuratedPage: NextPage<Props> = ({ talks }) => {
           <Grid container spacing={1}>
             <Grid item xs={12} md={8}>
               <Typography variant="h1" className={classes.title}>
-                Curated React talks
+                Curated {stateStack.contextTitle} talks
               </Typography>
             </Grid>
             <Grid item xs={12} md={8}>
@@ -63,7 +67,7 @@ const CuratedPage: NextPage<Props> = ({ talks }) => {
                 </Grid>
                 <Grid item xs>
                   <Typography variant="body1">
-                    I curate React talks from conferences around the world. I'm
+                    I curate tech-talks from conferences around the world. I'm
                     looking for fascinating content and/or high educational
                     value, captivating delivery, and clear audio quality.
                   </Typography>
@@ -89,8 +93,13 @@ const CuratedPage: NextPage<Props> = ({ talks }) => {
   );
 };
 
+interface QueryProps {
+  stack: string;
+}
 CuratedPage.getInitialProps = async (ctx: NextPageContext) => {
-  const talks = await Database.getCuratedTalks();
+  const { stack } = (ctx.query as unknown) as QueryProps;
+  const stackid = stack ? CATEGORIES.find(cat => cat.slug === stack).id : null;
+  const talks = await Database.getCuratedTalks(stackid);
   return { talks };
 };
 

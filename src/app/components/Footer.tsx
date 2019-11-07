@@ -11,7 +11,7 @@ import {
   Box
 } from "@material-ui/core";
 import { useContext } from "react";
-import { UserContext } from "../components/UserContextProvider";
+import { UserContext } from "./context-providers/UserContextProvider";
 import Welcome from "../components/Welcome";
 import ROUTES from "../constants/routes";
 

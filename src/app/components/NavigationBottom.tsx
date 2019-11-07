@@ -16,7 +16,7 @@ import {
   CardMembership as CuratedIcon
 } from "@material-ui/icons/";
 import { useContext, useState } from "react";
-import { UserContext } from "./UserContextProvider";
+import { UserContext } from "./context-providers/UserContextProvider";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

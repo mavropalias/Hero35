@@ -1,4 +1,4 @@
-import { UserContext } from "./UserContextProvider";
+import { UserContext } from "./context-providers/UserContextProvider";
 import Database from "../services/Database";
 import {
   makeStyles,

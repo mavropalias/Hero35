@@ -1,8 +1,8 @@
 import React, { useEffect, useReducer } from "react";
 import firebase from "firebase/app";
-import Database from "../services/Database";
-import { UserContextProps, UserReducerAction } from "../schema";
-import INITIAL_STATE from "../constants/initialState";
+import Database from "../../services/Database";
+import { UserContextProps, UserReducerAction } from "../../schema";
+import INITIAL_STATE from "../../constants/initialState";
 declare const FS: any;
 declare const gtag: any;
 

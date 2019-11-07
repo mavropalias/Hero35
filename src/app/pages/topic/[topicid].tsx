@@ -21,7 +21,8 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
-  ListSubheader
+  ListSubheader,
+  LinearProgress
 } from "@material-ui/core";
 import { Talk } from "../../schema";
 import Database from "../../services/Database";
@@ -29,7 +30,10 @@ import { NextPage, NextPageContext } from "next";
 import TalkList from "../../components/TalkList";
 import STACKS from "../../constants/stacks";
 import theme from "../../appTheme";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import CATEGORIES from "../../constants/categories";
+import { StackContext } from "../../components/context-providers/StackContextProvider";
+import StackTabs from "../../components/StackTabs";
 
 const drawerWidth = 240;
 
@@ -52,9 +56,6 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "128px",
       maxWidth: "100%"
     },
-    tabs: {
-      marginBottom: theme.spacing(2)
-    },
     toolbar: theme.mixins.toolbar
   })
 );
@@ -65,63 +66,32 @@ interface Props {
 }
 
 const TopicDetails: NextPage<Props> = ({ title, talks }) => {
+  const { state: stateStack } = useContext(StackContext);
   const classes = useStyles({});
-  const [tab, setTab] = useState("recent");
   const [filteredTalks, setFilteredTalks] = useState(talks);
+  const [isLoading, setIsLoading] = useState();
   const stack = STACKS.filter(stack => stack.slug === title)[0];
   let style = {
     background: `linear-gradient(35deg, ${theme.palette.background.paper} 0%, ${
       stack ? stack.color : theme.palette.primary.dark
     } 100%)`
   };
+  let titleParsed;
   if (stack) {
-    title = stack.label;
+    titleParsed = stack.label;
   } else {
-    title = title[0].toUpperCase() + title.slice(1).replace(/-/g, " ");
+    titleParsed = title[0].toUpperCase() + title.slice(1).replace(/-/g, " ");
   }
 
-  const handleChange = async (_: React.ChangeEvent<{}>, newValue: string) => {
-    setTab(newValue);
-    fetchTalks(newValue);
-  };
-
-  const fetchTalks = async (filter: string) => {
-    switch (filter) {
-      case "recent":
-        setFilteredTalks(talks);
-        break;
-      case "curated":
-        setFilteredTalks(
-          await Database.getTalksByFilter(stack ? stack.slug : title, true)
-        );
-        break;
-      case "longest":
-        setFilteredTalks(
-          await Database.getTalksByFilter(
-            stack ? stack.slug : title,
-            false,
-            2,
-            "times.totalMins",
-            "desc"
-          )
-        );
-        break;
-      case "shortest":
-        setFilteredTalks(
-          await Database.getTalksByFilter(
-            stack ? stack.slug : title,
-            false,
-            2,
-            "times.totalMins",
-            "asc"
-          )
-        );
-        break;
-    }
+  const fetchData = async (stackid: string) => {
+    setIsLoading(true);
+    const resTalks = await Database.getTalksByTopic(title, stackid);
+    setFilteredTalks(resTalks);
+    setIsLoading(false);
   };
 
   return (
-    <Layout title={`Developer conference talks about ${title}`}>
+    <Layout title={`Developer conference talks about ${titleParsed}`}>
       <Paper className={classes.paper} style={style} square>
         <Container className={classes.container}>
           <Grid container spacing={1}>
@@ -134,21 +104,22 @@ const TopicDetails: NextPage<Props> = ({ title, talks }) => {
                   title={`${stack.label} conference talks`}
                 />
               ) : (
-                <Typography variant="h1">{title}</Typography>
+                <Typography variant="h1">{titleParsed}</Typography>
               )}
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="caption" color="textSecondary" paragraph>
-                {talks.length} developer conference talks about {title}
+                {talks.length} developer conference talks about {titleParsed}
+                {stateStack.slug && ` in ${stateStack.contextTitle}`}
               </Typography>
             </Grid>
           </Grid>
         </Container>
       </Paper>
       <Container>
-        {talks.length > 0 ? (
+        <StackTabs fetch={fetchData} isLoading={isLoading} />
+        {filteredTalks.length > 0 ? (
           <>
-            {/* <TalkTabs handleChange={handleChange} tab={tab} /> */}
             <Grid container spacing={4}>
               <Grid item xs={12}>
                 <Paper>
@@ -161,31 +132,12 @@ const TopicDetails: NextPage<Props> = ({ title, talks }) => {
             </Grid>
           </>
         ) : (
-          <Typography variant="body1">No talks found.</Typography>
+          <Box m={2}>
+            <Typography variant="body1">No talks found.</Typography>
+          </Box>
         )}
       </Container>
     </Layout>
-  );
-};
-
-const TalkTabs = ({ tab, handleChange }) => {
-  const classes = useStyles({});
-
-  return (
-    <Tabs
-      value={tab}
-      indicatorColor="primary"
-      textColor="primary"
-      variant="scrollable"
-      scrollButtons="auto"
-      onChange={handleChange}
-      className={classes.tabs}
-    >
-      <Tab label="Recent" value="recent" />
-      <Tab label="Curated" value="curated" />
-      <Tab label="Longest" value="longest" />
-      <Tab label="Shortest" value="shortest" />
-    </Tabs>
   );
 };
 
@@ -283,10 +235,16 @@ const Filters = () => {
 
 interface QueryProps {
   topicid: string;
+  stack?: string;
 }
 TopicDetails.getInitialProps = async (ctx: NextPageContext) => {
-  const { topicid: title } = (ctx.query as unknown) as QueryProps;
-  const talks = await Database.getTalksByTopic(title);
+  const {
+    topicid: title,
+    stack: stackSlug
+  } = (ctx.query as unknown) as QueryProps;
+  const stack = CATEGORIES.find(cat => cat.slug === stackSlug);
+  const stackid = stack ? stack.id : null;
+  const talks = await Database.getTalksByTopic(title, stackid);
   return { title, talks };
 };
 

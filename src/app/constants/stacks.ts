@@ -1,21 +1,29 @@
-const STACKS = [
+import { Stack } from "../schema";
+
+const STACKS: Stack[] = [
   {
+    categories: ["-1", "4"],
     color: "#007AFF",
     featured: true,
     label: "Accessibility",
     slug: "accessibility"
   },
   {
+    categories: ["-1", "1"],
     color: "#E23237",
+    featured: true,
     label: "Angular",
     slug: "angular"
   },
   {
+    categories: ["-1", "4"],
     color: "#3FC8F2",
+    featured: true,
     label: "Architecture",
     slug: "architecture"
   },
   {
+    categories: ["-1", "1", "4"],
     color: "#F25CC1",
     featured: true,
     label: "Apollo",
@@ -42,6 +50,7 @@ const STACKS = [
     slug: "auth0"
   },
   {
+    categories: ["-1", "1", "4"],
     color: "#FF9900",
     featured: true,
     label: "AWS",
@@ -63,7 +72,9 @@ const STACKS = [
     slug: "azure"
   },
   {
+    categories: ["1"],
     color: "#F9DC3E",
+    featured: true,
     label: "Babel",
     slug: "babel"
   },
@@ -123,6 +134,7 @@ const STACKS = [
     slug: "chrome"
   },
   {
+    categories: ["-1", "1", "4"],
     color: "#264DE4",
     featured: true,
     label: "CSS",
@@ -134,6 +146,7 @@ const STACKS = [
     slug: "cypress"
   },
   {
+    categories: ["-1", "1", "4"],
     color: "#F7974E",
     featured: true,
     label: "D3",
@@ -150,17 +163,23 @@ const STACKS = [
     slug: "dynamodb"
   },
   {
+    categories: ["-1", "1"],
     color: "#47848F",
+    featured: true,
     label: "Electron",
     slug: "electron"
   },
   {
+    categories: ["-1"],
     color: "#5FB4CB",
+    featured: true,
     label: "Elm",
     slug: "elm"
   },
   {
+    categories: ["-1", "1"],
     color: "#E24B31",
+    featured: true,
     label: "Ember",
     slug: "ember"
   },
@@ -180,7 +199,9 @@ const STACKS = [
     slug: "ethereum"
   },
   {
+    categories: ["-1"],
     color: "#1173B6",
+    featured: true,
     label: "Expo",
     slug: "expo"
   },
@@ -190,7 +211,9 @@ const STACKS = [
     slug: "express"
   },
   {
+    categories: ["-1", "1"],
     color: "#FCCA3F",
+    featured: true,
     label: "Firebase",
     slug: "firebase"
   },
@@ -205,7 +228,9 @@ const STACKS = [
     slug: "flow"
   },
   {
+    categories: ["-1"],
     color: "#00569E",
+    featured: true,
     label: "Flutter",
     slug: "flutter"
   },
@@ -225,12 +250,14 @@ const STACKS = [
     slug: "frontend-application-bundle"
   },
   {
+    categories: ["-1", "1", "4"],
     color: "#4285F4",
     featured: true,
     label: "Functional Programming",
     slug: "functional-programming"
   },
   {
+    categories: ["-1", "4"],
     color: "#744C9E",
     featured: true,
     label: "Gatsby",
@@ -272,6 +299,7 @@ const STACKS = [
     slug: "graphene"
   },
   {
+    categories: ["-1", "1", "4"],
     color: "#E535AB",
     featured: true,
     label: "GraphQL",
@@ -303,7 +331,9 @@ const STACKS = [
     slug: "handlebars"
   },
   {
+    categories: ["-1"],
     color: "#F97E2F",
+    featured: true,
     label: "Haskell",
     slug: "haskell"
   },
@@ -318,6 +348,7 @@ const STACKS = [
     slug: "heroku"
   },
   {
+    categories: ["4"],
     color: "#86AAB2",
     featured: true,
     label: "React Hooks",
@@ -359,12 +390,17 @@ const STACKS = [
     slug: "java"
   },
   {
+    categories: ["-1"],
     color: "#F7DF1E",
+    featured: true,
+    isCategory: true,
     label: "JavaScript",
     slug: "javascript"
   },
   {
+    categories: ["-1"],
     color: "#99425B",
+    featured: true,
     label: "Jest",
     slug: "jest"
   },
@@ -414,6 +450,7 @@ const STACKS = [
     slug: "microsoft"
   },
   {
+    categories: ["-1", "4"],
     color: "#EA6618",
     featured: true,
     label: "MobX",
@@ -440,6 +477,7 @@ const STACKS = [
     slug: "mysql"
   },
   {
+    categories: ["-1", "4"],
     color: "#000000",
     featured: true,
     label: "NextJS",
@@ -451,7 +489,9 @@ const STACKS = [
     slug: "nginx"
   },
   {
+    categories: ["-1", "1"],
     color: "#539E43",
+    featured: true,
     label: "Node",
     slug: "node"
   },
@@ -486,6 +526,7 @@ const STACKS = [
     slug: "paypal"
   },
   {
+    categories: ["-1", "1", "4"],
     color: "#617186",
     featured: true,
     label: "Performance",
@@ -522,7 +563,9 @@ const STACKS = [
     slug: "prettier"
   },
   {
+    categories: ["-1"],
     color: "#5A0FC8",
+    featured: true,
     label: "Progressive Web Apps",
     slug: "progressive-web-apps"
   },
@@ -542,11 +585,15 @@ const STACKS = [
     slug: "rabbitmq"
   },
   {
+    categories: ["-1", "1"],
     color: "#00D8FF",
+    featured: true,
+    isCategory: true,
     label: "React",
     slug: "react"
   },
   {
+    categories: ["-1", "1", "4"],
     color: "#61DAFB",
     featured: true,
     label: "React Native",
@@ -558,6 +605,7 @@ const STACKS = [
     slug: "react-router"
   },
   {
+    categories: ["-1", "1", "4"],
     color: "#DD4B39",
     featured: true,
     label: "Reason",
@@ -569,6 +617,7 @@ const STACKS = [
     slug: "redis"
   },
   {
+    categories: ["-1", "1", "4"],
     color: "#764ABC",
     featured: true,
     label: "Redux",
@@ -600,6 +649,7 @@ const STACKS = [
     slug: "rust"
   },
   {
+    categories: ["-1", "1", "4"],
     color: "#ED168F",
     featured: true,
     label: "RxJS",
@@ -616,13 +666,16 @@ const STACKS = [
     slug: "sass"
   },
   {
+    categories: ["-1", "1", "4"],
     color: "#F26D61",
     featured: true,
     label: "Serverless",
     slug: "serverless"
   },
   {
+    categories: ["-1"],
     color: "#FDAD00",
+    featured: true,
     label: "Sketch",
     slug: "sketch"
   },
@@ -632,13 +685,16 @@ const STACKS = [
     slug: "solr"
   },
   {
+    categories: ["-1", "4"],
     color: "#FF4785",
     featured: true,
     label: "Storybook",
     slug: "storybook"
   },
   {
+    categories: ["-1"],
     color: "#FFB13B",
+    featured: true,
     label: "SVG",
     slug: "svg"
   },
@@ -668,6 +724,7 @@ const STACKS = [
     slug: "twitter"
   },
   {
+    categories: ["-1", "1", "4"],
     color: "#007ACC",
     featured: true,
     label: "TypeScript",
@@ -689,22 +746,28 @@ const STACKS = [
     slug: "visual-studio-code"
   },
   {
+    categories: ["-1", "1"],
     color: "#41B883",
+    featured: true,
     label: "Vue",
     slug: "vue"
   },
   {
+    categories: ["-1", "1", "4"],
     color: "#654FF0",
     featured: true,
     label: "WebAssembly",
     slug: "webassembly"
   },
   {
+    categories: ["-1"],
     color: "#E44D26",
+    featured: true,
     label: "WebComponents",
     slug: "webcomponents"
   },
   {
+    categories: ["-1", "1", "4"],
     color: "#1C78C0",
     featured: true,
     label: "Webpack",
@@ -721,6 +784,8 @@ const STACKS = [
     slug: "wordpress"
   },
   {
+    categories: ["-1", "1", "4"],
+    featured: true,
     color: "#2D2E47",
     label: "Xstate",
     slug: "xstate"

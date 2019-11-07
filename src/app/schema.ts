@@ -1,5 +1,7 @@
+import CATEGORIES from "./constants/categories";
+
 export type Event = {
-  categories: Category[];
+  categories: string[];
   description: string;
   editions?: EventEdition[];
   id?: string;
@@ -11,7 +13,7 @@ export type Event = {
 };
 
 export type EventEdition = {
-  categories: Category[];
+  categories: string[];
   city?: string;
   country?: string;
   description: string;
@@ -42,7 +44,7 @@ export type Tag = {
 
 export type TalkPreview = {
   _highlightResult?: any;
-  categories: Category[];
+  categories: string[];
   curationDescription?: string;
   date: string;
   description?: string;
@@ -70,7 +72,7 @@ export type TalkPreview = {
 };
 
 export type Talk = {
-  categories: Category[];
+  categories: string[];
   curationDescription?: string;
   date: string;
   description: string;
@@ -105,8 +107,25 @@ export type TalkType = {
 };
 
 export type Category = {
-  id?: string;
+  id: string;
+  colorBackground: string;
+  colorText: string;
+  contextTitle: string;
+  countries: string[];
+  hasHotTopics: boolean;
+  isCurated: boolean;
+  shortTitle: string;
+  slug: string;
   title: string;
+};
+
+export type Stack = {
+  categories?: string[];
+  color: string;
+  featured?: boolean;
+  isCategory?: boolean;
+  label: string;
+  slug: string;
 };
 
 export type Times = {

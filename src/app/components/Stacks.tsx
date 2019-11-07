@@ -11,6 +11,10 @@ import {
 } from "@material-ui/core";
 import { default as NextLink } from "next/link";
 import STACKS from "../constants/stacks";
+import { useContext } from "react";
+import { StackContext } from "./context-providers/StackContextProvider";
+import CATEGORIES from "../constants/categories";
+import { Stack } from "../schema";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,33 +46,68 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Stacks = () => {
   const classes = useStyles({});
+  const { state: stateStack } = useContext(StackContext);
+
+  const stackHref = (stack: Stack) =>
+    stack.isCategory
+      ? `/stack/[stackid]`
+      : `/topic/[topicid]${stateStack.slug ? `?stack=${stateStack.slug}` : ""}`;
+
+  const stackAs = (stack: Stack) =>
+    stack.isCategory
+      ? `/stack/${stack.slug}`
+      : `/topic/${stack.slug}${
+          stateStack.slug ? `?stack=${stateStack.slug}` : ""
+        }`;
 
   return (
     <>
       <Grid container spacing={1}>
         {STACKS.map(
-          (stack, index) =>
-            stack.featured && (
-              <Grid item xs={4} sm={3} md={2} lg={2} key={index}>
-                <Card className={classes.card} elevation={0}>
-                  <NextLink
-                    href={`/topic/[topicid]`}
-                    as={`/topic/${stack.slug}`}
-                  >
+          stack =>
+            stack.featured &&
+            stack.categories.includes(stateStack.id) && (
+              <Grid item xs={4} sm={3} md={2} lg={2} key={stack.slug}>
+                <Card
+                  className={classes.card}
+                  raised={stack.isCategory ? true : false}
+                  elevation={stack.isCategory ? 4 : 0}
+                  style={
+                    stack.isCategory
+                      ? {
+                          backgroundColor: CATEGORIES.find(
+                            cat => cat.slug === stack.slug
+                          ).colorBackground,
+                          color: CATEGORIES.find(cat => cat.slug === stack.slug)
+                            .colorText
+                        }
+                      : {}
+                  }
+                >
+                  <NextLink href={stackHref(stack)} as={stackAs(stack)}>
                     <a
                       className={classes.link}
-                      title={`${stack.label} conference talks`}
+                      title={
+                        stack.isCategory
+                          ? `${stack.label} hub`
+                          : `${stack.label} conference talks`
+                      }
                     >
                       <CardActionArea className={classes.cardActionArea}>
                         <CardContent className={classes.cardContent}>
                           <Box paddingBottom={1}>
                             <img
-                              src={`/static/stacks/${stack.slug}.svg`}
+                              src={`/static/stacks/${stack.slug}${
+                                stack.isCategory ? "-inverse" : ""
+                              }.svg`}
                               className={classes.stackLogo}
                               alt={`${stack.label}`}
                             />
                           </Box>
-                          <Typography variant="body2">{stack.label}</Typography>
+                          <Typography variant="body2">
+                            {stack.label}
+                            {stack.isCategory && " hub"}
+                          </Typography>
                         </CardContent>
                       </CardActionArea>
                     </a>

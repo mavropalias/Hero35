@@ -50,23 +50,37 @@ class Database {
     return ((await res.json()) as unknown) as EventEdition;
   };
 
-  getEditionsByCountry = async (country: string): Promise<EventEdition[]> => {
-    const res = await fetch(`${API}editionsByCountry?id=${country}`);
+  getEditionsByCountry = async (
+    country: string,
+    stackid: string = "-1"
+  ): Promise<EventEdition[]> => {
+    const res = await fetch(
+      `${API}editionsByCountry?id=${country}&stackid=${stackid}`
+    );
     return ((await res.json()) as unknown) as EventEdition[];
   };
 
-  getEditionsByYear = async (year: string): Promise<EventEdition[]> => {
-    const res = await fetch(`${API}editionsByYear?id=${year}`);
+  getEditionsByYear = async (
+    year: string,
+    stackid: string = "-1"
+  ): Promise<EventEdition[]> => {
+    const res = await fetch(
+      `${API}editionsByYear?id=${year}&stackid=${stackid}`
+    );
     return ((await res.json()) as unknown) as EventEdition[];
   };
 
-  getRecentEditions = async (): Promise<EventEdition[]> => {
-    const res = await fetch(`${API}recentEditions`);
+  getRecentEditions = async (
+    stackid: string = "-1"
+  ): Promise<EventEdition[]> => {
+    const res = await fetch(`${API}recentEditions?stackid=${stackid}`);
     return ((await res.json()) as unknown) as EventEdition[];
   };
 
-  getUpcomingEditions = async (): Promise<EventEdition[]> => {
-    const res = await fetch(`${API}upcomingEditions`);
+  getUpcomingEditions = async (
+    stackid: string = "-1"
+  ): Promise<EventEdition[]> => {
+    const res = await fetch(`${API}upcomingEditions?stackid=${stackid}`);
     return ((await res.json()) as unknown) as EventEdition[];
   };
 
@@ -91,13 +105,18 @@ class Database {
     return ((await res.json()) as unknown) as Talk[];
   };
 
-  getCuratedTalks = async (): Promise<Talk[]> => {
-    const res = await fetch(`${API}curatedTalks`);
+  getCuratedTalks = async (stackid: string = "-1"): Promise<Talk[]> => {
+    const res = await fetch(`${API}curatedTalks?stackid=${stackid}`);
     return ((await res.json()) as unknown) as Talk[];
   };
 
-  getTalksByTopic = async (topic: string): Promise<Talk[]> => {
-    const res = await fetch(`${API}talksByTopic?id=${topic}`);
+  getTalksByTopic = async (
+    topicid: string,
+    stackid?: string
+  ): Promise<Talk[]> => {
+    const res = await fetch(
+      `${API}talksByTopic?id=${topicid}&stackid=${stackid}`
+    );
     return ((await res.json()) as unknown) as Talk[];
   };
 

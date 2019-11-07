@@ -15,6 +15,7 @@ import { Event } from "../schema";
 import Database from "../services/Database";
 import { NextPage, NextPageContext } from "next";
 import Breadcrumbs from "../components/Breadcrumbs";
+import CATEGORIES from "../constants/categories";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -86,8 +87,10 @@ const EventDetails: NextPage<Props> = ({ event }) => {
                   <Chip
                     color="default"
                     variant="default"
-                    key={cat.id}
-                    label={cat.title}
+                    key={cat}
+                    label={
+                      CATEGORIES.find(category => category.id === cat).title
+                    }
                     className={classes.chip}
                   />
                 ))}

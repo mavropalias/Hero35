@@ -16,6 +16,10 @@ import { EventEdition } from "../../schema";
 import Database from "../../services/Database";
 import { NextPage, NextPageContext } from "next";
 import EditionList from "../../components/EditionList";
+import CATEGORIES from "../../constants/categories";
+import { useContext, useState, useEffect } from "react";
+import { StackContext } from "../../components/context-providers/StackContextProvider";
+import StackTabs from "../../components/StackTabs";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,17 +38,31 @@ interface Props {
 }
 
 const YearPage: NextPage<Props> = ({ year, editions }) => {
+  const { state: stateStack } = useContext(StackContext);
+  const [filteredEditions, setFilteredEditions] = useState(editions);
+  const [isLoading, setIsLoading] = useState();
   const classes = useStyles({});
-  const years = ["2020", "2019", "2018", "2017", "2016", "2015"];
 
+  useEffect(() => {
+    setFilteredEditions(editions);
+  }, [editions]);
+
+  const years = ["2020", "2019", "2018", "2017", "2016", "2015"];
   let style = {
     background: `linear-gradient(35deg, ${theme.palette.background.paper} 0%, ${theme.palette.primary.dark} 100%)`
   };
 
+  const fetchData = async (stackid: string) => {
+    setIsLoading(true);
+    const resEditions = await Database.getEditionsByYear(year, stackid);
+    setFilteredEditions(resEditions);
+    setIsLoading(false);
+  };
+
   return (
     <Layout
-      title={`${year} React developer conferences`}
-      description={`All React developer conferences for the year ${year}.`}
+      title={`${year} ${stateStack.contextTitle} developer conferences`}
+      description={`All ${stateStack.contextTitle} developer conferences for the year ${year}.`}
       keywords={`${year},conferences,developer conference,year ${year},developers,event`}
     >
       <Paper className={classes.paper} style={style} square>
@@ -55,18 +73,20 @@ const YearPage: NextPage<Props> = ({ year, editions }) => {
             </Grid>
             <Grid item xs={12} md={8}>
               <Typography variant="caption" color="textSecondary" paragraph>
-                {editions.length} React developer conferences in {year}
+                {editions.length} {stateStack.contextTitle} developer
+                conferences in {year}
               </Typography>
             </Grid>
           </Grid>
         </Container>
       </Paper>
       <Container>
-        {editions.length > 0 ? (
-          <EditionList editions={editions} />
+        <StackTabs fetch={fetchData} isLoading={isLoading} stateMark={year} />
+        {filteredEditions.length > 0 ? (
+          <EditionList editions={filteredEditions} />
         ) : (
           <Typography variant="body1">
-            No React developer conferences found in {year}.
+            No {stateStack.contextTitle} developer conferences found in {year}.
           </Typography>
         )}
         <Box marginTop={4} alignItems="center">
@@ -75,8 +95,12 @@ const YearPage: NextPage<Props> = ({ year, editions }) => {
           </Typography>
           {years.map(item => (
             <NextLink
-              href={`/year/[yearid]`}
-              as={`/year/${item}`}
+              href={`/year/[yearid]${
+                stateStack.slug ? `?stack=${stateStack.slug}` : ""
+              }`}
+              as={`/year/${item}${
+                stateStack.slug ? `?stack=${stateStack.slug}` : ""
+              }`}
               key={item}
               passHref
             >
@@ -93,10 +117,12 @@ const YearPage: NextPage<Props> = ({ year, editions }) => {
 
 interface QueryProps {
   yearid: string;
+  stack: string;
 }
 YearPage.getInitialProps = async (ctx: NextPageContext) => {
-  const { yearid: year } = (ctx.query as unknown) as QueryProps;
-  const editions = await Database.getEditionsByYear(year);
+  const { yearid: year, stack } = (ctx.query as unknown) as QueryProps;
+  const stackid = stack ? CATEGORIES.find(cat => cat.slug === stack).id : null;
+  const editions = await Database.getEditionsByYear(year, stackid);
   return { year, editions };
 };
 

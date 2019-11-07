@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(0.5, 0, 0, 0),
       maxHeight: "90vh",
       overflow: "auto",
-      [theme.breakpoints.up("md")]: {
+      [theme.breakpoints.up("lg")]: {
         left: "initial",
         width: "700px"
       }
@@ -136,7 +136,7 @@ const MaterialUiSearchBox = ({
         onChange={e => refine(e.target.value)}
         onFocus={onFocus}
         onBlur={onBlur}
-        placeholder="Search 1000+ talks & topics"
+        placeholder="Search 1500+ talks & topics"
         fullWidth={true}
         classes={{
           root: classes.inputRoot,

@@ -23,6 +23,9 @@ import { EventEdition } from "../../schema";
 import Database from "../../services/Database";
 import { NextPage, NextPageContext } from "next";
 import Breadcrumbs from "../../components/Breadcrumbs";
+import CATEGORIES from "../../constants/categories";
+import { useContext } from "react";
+import { StackContext } from "../../components/context-providers/StackContextProvider";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -70,6 +73,7 @@ interface Props {
 }
 
 const EditionDetails: NextPage<Props> = ({ edition }) => {
+  const { state: stateStack } = useContext(StackContext);
   const classes = useStyles({});
 
   const showTickets = (): boolean => {
@@ -146,7 +150,11 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
                     <>Event category:&nbsp;&nbsp;</>
                   )}
                   {edition.categories
-                    .map(cat => <span>{cat.title}</span>)
+                    .map(cat => (
+                      <span key={cat}>
+                        {CATEGORIES.find(category => cat === category.id).title}
+                      </span>
+                    ))
                     .reduce((previous, current) => (
                       <>
                         {previous}, {current}
@@ -161,8 +169,16 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
                             <NextLink
                               key={index}
                               passHref
-                              href={`/topic/[topicid]`}
-                              as={`/topic/${tag.label.toLowerCase()}`}
+                              href={`/topic/[topicid]${
+                                stateStack.slug
+                                  ? `?stack=${stateStack.slug}`
+                                  : ""
+                              }`}
+                              as={`/topic/${tag.label.toLowerCase()}${
+                                stateStack.slug
+                                  ? `?stack=${stateStack.slug}`
+                                  : ""
+                              }`}
                             >
                               <Chip
                                 component="a"

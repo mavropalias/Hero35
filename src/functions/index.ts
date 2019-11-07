@@ -134,6 +134,16 @@ const ssrPrivacyPolicy = functions.https.onRequest(async (req, res) => {
 });
 
 /**
+ * SSR /stack
+ */
+const ssrStack = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  const page = require("./next/serverless/pages/stack/[stackid]");
+  return page.render(request, response);
+});
+
+/**
  * SSR /terms-of-service
  */
 const ssrTermsOfService = functions.https.onRequest(async (req, res) => {
@@ -244,9 +254,13 @@ const edition = functions.https.onRequest(async (req, res) => {
 const editionsByCountry = functions.https.onRequest(async (req, res) => {
   const [request, response, approved] = middleware(req, res);
   if (!approved) return response.send();
-  const docSnap = await db
+  let query = db
     .collectionGroup("editions")
-    .where("country", "==", request.query.id)
+    .where("country", "==", request.query.id);
+  if (request.query.stackid > 0) {
+    query = query.where("categories", "array-contains", request.query.stackid);
+  }
+  const docSnap = await query
     .orderBy("dateTimestamp", "desc")
     .limit(1000)
     .get();
@@ -263,10 +277,14 @@ const editionsByCountry = functions.https.onRequest(async (req, res) => {
 const editionsByYear = functions.https.onRequest(async (req, res) => {
   const [request, response, approved] = middleware(req, res);
   if (!approved) return response.send();
-  const docSnap = await db
+  let query = db
     .collectionGroup("editions")
-    // TODO use timestamp
-    .where("id", "==", request.query.id)
+    // TODO Use timestamp to get year
+    .where("id", "==", request.query.id);
+  if (request.query.stackid > 0) {
+    query = query.where("categories", "array-contains", request.query.stackid);
+  }
+  const docSnap = await query
     .orderBy("dateTimestamp", "desc")
     .limit(1000)
     .get();
@@ -283,12 +301,15 @@ const editionsByYear = functions.https.onRequest(async (req, res) => {
 const recentEditions = functions.https.onRequest(async (req, res) => {
   const [request, response, approved] = middleware(req, res);
   if (!approved) return response.send();
-  const docSnap = await db
+  let query = db
     .collectionGroup("editions")
     .where("status", "==", "published")
-    .orderBy("dateTimestamp", "desc")
-    .limit(6)
-    .get();
+    .orderBy("dateTimestamp", "desc");
+  if (request.query.stackid > 0) {
+    query = query.where("categories", "array-contains", request.query.stackid);
+  }
+  query = query.limit(6);
+  const docSnap = await query.get();
   let editions = [];
   docSnap.forEach(doc => {
     editions.push(doc.data());
@@ -302,10 +323,14 @@ const recentEditions = functions.https.onRequest(async (req, res) => {
 const upcomingEditions = functions.https.onRequest(async (req, res) => {
   const [request, response, approved] = middleware(req, res);
   if (!approved) return response.send();
-  const docSnap = await db
+  let query = db
     .collectionGroup("editions")
     .where("status", "==", "published-notalks")
-    .where("dateTimestamp", ">", admin.firestore.Timestamp.now())
+    .where("dateTimestamp", ">", admin.firestore.Timestamp.now());
+  if (request.query.stackid > 0) {
+    query = query.where("categories", "array-contains", request.query.stackid);
+  }
+  const docSnap = await query
     .orderBy("dateTimestamp", "asc")
     .limit(4)
     .get();
@@ -345,6 +370,7 @@ const talk = functions.https.onRequest(async (req, res) => {
 
 /**
  * Get filtered Talks
+ * TODO
  */
 const filterTalks = functions.https.onRequest(async (req, res) => {
   const [request, response, approved] = middleware(req, res);
@@ -366,6 +392,7 @@ const filterTalks = functions.https.onRequest(async (req, res) => {
 
 /**
  * Get recent Talks
+ * TODO
  */
 const recentTalks = functions.https.onRequest(async (req, res) => {
   const [request, response, approved] = middleware(req, res);
@@ -427,9 +454,11 @@ const heroTalks = functions.https.onRequest(async (req, res) => {
 const curatedTalks = functions.https.onRequest(async (req, res) => {
   const [request, response, approved] = middleware(req, res);
   if (!approved) return response.send();
-  const docSnap = await db
-    .collectionGroup("talks")
-    .where("isCurated", "==", true)
+  let query = await db.collectionGroup("talks").where("isCurated", "==", true);
+  if (request.query.stackid > 0) {
+    query = query.where("categories", "array-contains", request.query.stackid);
+  }
+  const docSnap = await query
     .orderBy("dateTimestamp", "desc")
     .orderBy("order", "desc")
     .limit(80)
@@ -454,9 +483,17 @@ const talksByTopic = functions.https.onRequest(async (req, res) => {
     .limit(1000)
     .get();
   let talks = [];
-  docSnap.forEach(doc => {
-    talks.push(doc.data());
-  });
+  if (request.query.stackid > 0) {
+    docSnap.forEach(doc => {
+      if (doc.data().categories.includes(request.query.stackid)) {
+        talks.push(doc.data());
+      }
+    });
+  } else {
+    docSnap.forEach(doc => {
+      talks.push(doc.data());
+    });
+  }
   response.json(talks);
 });
 
@@ -619,34 +656,16 @@ const unsaveTalkInUserProfile = functions.https.onRequest(async (req, res) => {
     response.send(e);
   }
   const userDocRef = await db.collection("users").doc(uid);
-  const talkDocSnap = await db
-    .collectionGroup("talks")
-    .where("id", "==", request.query.talkId)
-    .get();
-  const talk: any = talkDocSnap.docs[0] ? talkDocSnap.docs[0].data() : null;
+  const userDocSnap = await userDocRef.get();
+  const talk: any = ((userDocSnap.data() as unknown) as User).savedTalks.find(
+    talk => talk.id === request.query.talkid
+  );
   if (!talk) {
-    response.send(null);
+    response.send(userDocSnap.data());
   }
-  const savedTalk = {
-    categories: talk.categories,
-    curationDescription: talk.curationDescription || "",
-    date: talk.date,
-    editionId: talk.editionId,
-    editionTitle: talk.editionTitle,
-    eventId: talk.eventId,
-    eventTitle: talk.eventTitle,
-    id: talk.id,
-    isCurated: talk.isCurated || false,
-    slug: talk.slug,
-    speaker: talk.speaker,
-    tags: talk.tags,
-    times: talk.times,
-    title: talk.title,
-    type: talk.type
-  };
   await userDocRef.set(
     {
-      savedTalks: admin.firestore.FieldValue.arrayRemove(savedTalk)
+      savedTalks: admin.firestore.FieldValue.arrayRemove(talk)
     },
     { merge: true }
   );
@@ -677,6 +696,7 @@ const heroes = {
   ssrEvent,
   ssrHero,
   ssrPrivacyPolicy,
+  ssrStack,
   ssrTalk,
   ssrTermsOfService,
   ssrTopic,

@@ -8,7 +8,7 @@ import {
   Button
 } from "@material-ui/core";
 import { useContext } from "react";
-import { UserContext } from "../components/UserContextProvider";
+import { UserContext } from "../components/context-providers/UserContextProvider";
 import AccountDetails from "../components/AccountDetails";
 const SignIn = dynamic(() => import("../components/SignIn"));
 

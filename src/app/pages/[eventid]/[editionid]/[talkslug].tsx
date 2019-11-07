@@ -25,9 +25,10 @@ import { Talk } from "../../../schema";
 import Database from "../../../services/Database";
 import { NextPage, NextPageContext } from "next";
 import Breadcrumbs from "../../../components/Breadcrumbs";
-import { UserContext } from "../../../components/UserContextProvider";
+import { UserContext } from "../../../components/context-providers/UserContextProvider";
 import { useContext, useState } from "react";
 import Stacks from "../../../components/Stacks";
+import { StackContext } from "../../../components/context-providers/StackContextProvider";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -69,6 +70,7 @@ interface Props {
 }
 
 const TalkDetails: NextPage<Props> = ({ talk }) => {
+  const { state: stateStack } = useContext(StackContext);
   const classes = useStyles({});
 
   const speakers = talk.speaker
@@ -197,8 +199,12 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
                     <Typography variant="overline">
                       <NextLink
                         passHref
-                        href={`/curated-conference-talks`}
-                        as={`/curated-conference-talks`}
+                        href={`/curated-conference-talks${
+                          stateStack.slug ? `?stack=${stateStack.slug}` : ""
+                        }`}
+                        as={`/curated-conference-talks${
+                          stateStack.slug ? `?stack=${stateStack.slug}` : ""
+                        }`}
                       >
                         <Link color="primary">More curated talks</Link>
                       </NextLink>
@@ -275,14 +281,19 @@ const TalkSpeakers = ({ speakers }: { speakers: string[] }) => {
 };
 
 const TalkTags = ({ tags }: { tags: string[] }) => {
+  const { state: stateStack } = useContext(StackContext);
   const classes = useStyles({});
   return (
     <>
       {tags.sort().map(tag => (
         <NextLink
           key={tag}
-          href={`/topic/[topicid]`}
-          as={`/topic/${tag.toLowerCase()}`}
+          href={`/topic/[topicid]${
+            stateStack.slug ? `?stack=${stateStack.slug}` : ""
+          }`}
+          as={`/topic/${tag.toLowerCase()}${
+            stateStack.slug ? `?stack=${stateStack.slug}` : ""
+          }`}
           passHref
         >
           <Link className={classes.tag}>#{tag}</Link>

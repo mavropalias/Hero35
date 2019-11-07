@@ -7,6 +7,9 @@ import {
 } from "@material-ui/core";
 import { Flag as ItemIcon } from "@material-ui/icons";
 import { default as NextLink } from "next/link";
+import { useContext } from "react";
+import { StackContext } from "./context-providers/StackContextProvider";
+import CATEGORIES from "../constants/categories";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,41 +18,35 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     item: {
       margin: theme.spacing(0, 1, 1, 0)
+    },
+    title: {
+      "&::first-letter": {
+        textTransform: "uppercase"
+      }
     }
   })
 );
 
-const CuratedCountries = () => {
+const CuratedCountries = ({ className }) => {
+  const { state: stateStack } = useContext(StackContext);
   const classes = useStyles({});
-  const items = [
-    "Australia",
-    "Bulgaria",
-    "Czech Republic",
-    "Finland",
-    "France",
-    "Germany",
-    "India",
-    "Israel",
-    "Italy",
-    "Netherlands",
-    "Poland",
-    "Slovakia",
-    "Spain",
-    "UK",
-    "Ukraine",
-    "USA"
-  ];
 
   return (
-    <>
-      <Typography variant="h2">React conferences around the world</Typography>
-      <Typography variant="body2" color="textSecondary" paragraph>
-        These countries are React conference hotspots.
+    <section className={className}>
+      <Typography variant="h2" className={classes.title}>
+        {stateStack.contextTitle} conferences around the world
       </Typography>
-      {items.map(item => (
+      <Typography variant="body2" color="textSecondary" paragraph>
+        These countries are {stateStack.contextTitle} conference hotspots.
+      </Typography>
+      {CATEGORIES.find(cat => cat.id === stateStack.id).countries.map(item => (
         <NextLink
-          href={`/country/[countryid]`}
-          as={`/country/${item}`}
+          href={`/country/[countryid]${
+            stateStack.slug ? `?stack=${stateStack.slug}` : ""
+          }`}
+          as={`/country/${item}${
+            stateStack.slug ? `?stack=${stateStack.slug}` : ""
+          }`}
           key={item}
           passHref
         >
@@ -64,7 +61,7 @@ const CuratedCountries = () => {
           </Button>
         </NextLink>
       ))}
-    </>
+    </section>
   );
 };
 

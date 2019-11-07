@@ -7,6 +7,8 @@ import {
 } from "@material-ui/core";
 import { Whatshot as TopicIcon } from "@material-ui/icons";
 import { default as NextLink } from "next/link";
+import { useContext } from "react";
+import { StackContext } from "./context-providers/StackContextProvider";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,6 +23,7 @@ interface Props {
 }
 
 const CuratedTags = ({ className }: Props) => {
+  const { state: stateStack } = useContext(StackContext);
   const classes = useStyles({});
   const tags = [
     "Accessibility",
@@ -40,16 +43,24 @@ const CuratedTags = ({ className }: Props) => {
   ];
 
   return (
-    <>
-      <Typography variant="h2">Hot React topics</Typography>
+    <section className={className}>
+      <Typography variant="h2">Hot {stateStack.contextTitle} topics</Typography>
       <Typography variant="body2" color="textSecondary" paragraph>
-        Stay up-to-date with the most important topics in React.
+        Stay up-to-date with the most important topics in{" "}
+        {stateStack.contextTitle !== ""
+          ? stateStack.contextTitle
+          : stateStack.title.toLocaleLowerCase()}
+        .
       </Typography>
       {tags.map(tag => (
         <NextLink
           key={tag}
-          href={`/topic/[topicid]`}
-          as={`/topic/${tag.toLowerCase()}`}
+          href={`/topic/[topicid]?stack=${
+            stateStack.slug ? stateStack.slug : "all"
+          }`}
+          as={`/topic/${tag.toLowerCase()}?stack=${
+            stateStack.slug ? stateStack.slug : "all"
+          }`}
           passHref
         >
           <Chip
@@ -62,7 +73,7 @@ const CuratedTags = ({ className }: Props) => {
           />
         </NextLink>
       ))}
-    </>
+    </section>
   );
 };
 

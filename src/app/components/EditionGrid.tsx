@@ -97,6 +97,7 @@ const EditionGrid = ({ editions }) => {
                             size="small"
                             label="Distinctive event"
                             className={classes.tag}
+                            component="span"
                           ></Chip>
                         </Typography>
                       ) : (
