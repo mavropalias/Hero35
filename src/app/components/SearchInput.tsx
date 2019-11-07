@@ -136,7 +136,7 @@ const MaterialUiSearchBox = ({
         onChange={e => refine(e.target.value)}
         onFocus={onFocus}
         onBlur={onBlur}
-        placeholder="Search 1500+ talks & topics"
+        placeholder="Search 1700+ talks & topics"
         fullWidth={true}
         classes={{
           root: classes.inputRoot,
