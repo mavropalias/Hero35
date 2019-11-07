@@ -35,7 +35,7 @@ const CATEGORIES: Category[] = [
     colorBackground: "#F7DF1E",
     colorText: "#000000",
     contextTitle: "JavaScript",
-    countries: ["Czech Republic", "Germany", "Slovakia"],
+    countries: ["Czech Republic", "Germany", "Slovakia", "UK", "USA"],
     hasHotTopics: false,
     isCurated: false,
     shortTitle: "JS",
