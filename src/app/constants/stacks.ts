@@ -644,7 +644,9 @@ const STACKS: Stack[] = [
     slug: "ruby"
   },
   {
+    categories: ["-1", "1"],
     color: "#FD6A00",
+    featured: true,
     label: "Rust",
     slug: "rust"
   },
