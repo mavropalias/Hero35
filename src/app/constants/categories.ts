@@ -13,6 +13,7 @@ const CATEGORIES: Category[] = [
       "Finland",
       "France",
       "Germany",
+      "Hungary",
       "India",
       "Israel",
       "Italy",
@@ -35,7 +36,14 @@ const CATEGORIES: Category[] = [
     colorBackground: "#F7DF1E",
     colorText: "#000000",
     contextTitle: "JavaScript",
-    countries: ["Czech Republic", "Germany", "Slovakia", "UK", "USA"],
+    countries: [
+      "Czech Republic",
+      "Germany",
+      "Hungary",
+      "Slovakia",
+      "UK",
+      "USA"
+    ],
     hasHotTopics: false,
     isCurated: false,
     shortTitle: "JS",
