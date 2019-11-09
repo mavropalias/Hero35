@@ -349,7 +349,7 @@ const TalkControls = ({ talkId }: { talkId: string }) => {
       const updatedUser = await Database.likeTalk(talkId);
       dispatch({
         type: "HYDRATE_FROM_DB",
-        payload: { likedTalks: updatedUser.likedTalks }
+        payload: { ...updatedUser }
       });
     } catch (error) {
       setError(error);
@@ -365,7 +365,7 @@ const TalkControls = ({ talkId }: { talkId: string }) => {
       const updatedUser = await Database.dislikeTalk(talkId);
       dispatch({
         type: "HYDRATE_FROM_DB",
-        payload: { dislikedTalks: updatedUser.dislikedTalks }
+        payload: { ...updatedUser }
       });
     } catch (error) {
       setError(error);
@@ -381,7 +381,7 @@ const TalkControls = ({ talkId }: { talkId: string }) => {
       const updatedUser = await Database.saveTalkInUserProfile(talkId);
       dispatch({
         type: "HYDRATE_FROM_DB",
-        payload: { savedTalks: updatedUser.savedTalks }
+        payload: { ...updatedUser }
       });
     } catch (error) {
       setError(error);
@@ -397,7 +397,7 @@ const TalkControls = ({ talkId }: { talkId: string }) => {
       const updatedUser = await Database.unsaveTalkInUserProfile(talkId);
       dispatch({
         type: "HYDRATE_FROM_DB",
-        payload: { savedTalks: updatedUser.savedTalks }
+        payload: { ...updatedUser }
       });
     } catch (error) {
       setError(error);

@@ -616,7 +616,7 @@ const saveTalkInUserProfile = functions.https.onRequest(async (req, res) => {
   if (!talk) {
     response.send(null);
   }
-  const savedTalk = {
+  const savedTalk: TalkPreview = {
     categories: talk.categories,
     curationDescription: talk.curationDescription || "",
     date: talk.date,
@@ -631,7 +631,8 @@ const saveTalkInUserProfile = functions.https.onRequest(async (req, res) => {
     tags: talk.tags,
     times: talk.times,
     title: talk.title,
-    type: talk.type
+    type: talk.type,
+    youtubeId: talk.youtubeId
   };
   await userDocRef.set(
     {
@@ -657,15 +658,12 @@ const unsaveTalkInUserProfile = functions.https.onRequest(async (req, res) => {
   }
   const userDocRef = await db.collection("users").doc(uid);
   const userDocSnap = await userDocRef.get();
-  const talk: any = ((userDocSnap.data() as unknown) as User).savedTalks.find(
-    talk => talk.id === request.query.talkid
+  const updatedSavedTalks: TalkPreview[] = ((userDocSnap.data() as unknown) as User).savedTalks.filter(
+    talk => talk.id !== request.query.talkId
   );
-  if (!talk) {
-    response.send(userDocSnap.data());
-  }
   await userDocRef.set(
     {
-      savedTalks: admin.firestore.FieldValue.arrayRemove(talk)
+      savedTalks: updatedSavedTalks
     },
     { merge: true }
   );
