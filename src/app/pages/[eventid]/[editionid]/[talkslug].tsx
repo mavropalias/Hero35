@@ -338,14 +338,15 @@ const TalkVideo = ({ videoid, start, end }: TalkVideo) => {
 
 const TalkControls = ({ talkId }: { talkId: string }) => {
   const { state, dispatch } = useContext(UserContext);
-  const [loadingLike, setLoadingLike] = useState();
-  const [loadingSave, setLoadingSave] = useState();
+  const [optimisticTalkState, setOptimisticTalkState] = useState<
+    "saved" | "unsaved" | "liked" | "disliked" | ""
+  >("");
   const [error, setError] = useState("");
 
   const likeTalk = async () => {
     try {
       setError("");
-      setLoadingLike(true);
+      setOptimisticTalkState("liked");
       const updatedUser = await Database.likeTalk(talkId);
       dispatch({
         type: "HYDRATE_FROM_DB",
@@ -354,14 +355,14 @@ const TalkControls = ({ talkId }: { talkId: string }) => {
     } catch (error) {
       setError(error);
     } finally {
-      setLoadingLike(false);
+      setOptimisticTalkState("");
     }
   };
 
   const dislikeTalk = async () => {
     try {
       setError("");
-      setLoadingLike(true);
+      setOptimisticTalkState("disliked");
       const updatedUser = await Database.dislikeTalk(talkId);
       dispatch({
         type: "HYDRATE_FROM_DB",
@@ -370,14 +371,14 @@ const TalkControls = ({ talkId }: { talkId: string }) => {
     } catch (error) {
       setError(error);
     } finally {
-      setLoadingLike(false);
+      setOptimisticTalkState("");
     }
   };
 
   const saveTalk = async () => {
     try {
       setError("");
-      setLoadingSave(true);
+      setOptimisticTalkState("saved");
       const updatedUser = await Database.saveTalkInUserProfile(talkId);
       dispatch({
         type: "HYDRATE_FROM_DB",
@@ -386,14 +387,28 @@ const TalkControls = ({ talkId }: { talkId: string }) => {
     } catch (error) {
       setError(error);
     } finally {
-      setLoadingSave(false);
+      setOptimisticTalkState("");
     }
   };
+
+  const isTalkLiked = (talkId: string): boolean =>
+    (state.likedTalks.includes(talkId) || optimisticTalkState === "liked") &&
+    optimisticTalkState !== "disliked";
+
+  const isTalkDisliked = (talkId: string): boolean =>
+    (state.dislikedTalks.includes(talkId) ||
+      optimisticTalkState === "disliked") &&
+    optimisticTalkState !== "liked";
+
+  const isTalkSaved = (talkId: string): boolean =>
+    (state.savedTalks.filter(savedTalk => savedTalk.id === talkId).length > 0 ||
+      optimisticTalkState === "saved") &&
+    optimisticTalkState !== "unsaved";
 
   const unsaveTalk = async () => {
     try {
       setError("");
-      setLoadingSave(true);
+      setOptimisticTalkState("unsaved");
       const updatedUser = await Database.unsaveTalkInUserProfile(talkId);
       dispatch({
         type: "HYDRATE_FROM_DB",
@@ -402,7 +417,7 @@ const TalkControls = ({ talkId }: { talkId: string }) => {
     } catch (error) {
       setError(error);
     } finally {
-      setLoadingSave(false);
+      setOptimisticTalkState("");
     }
   };
 
@@ -411,9 +426,9 @@ const TalkControls = ({ talkId }: { talkId: string }) => {
       <Grid container spacing={2} alignItems="center">
         <Grid item>
           <Button
-            color={state.likedTalks.includes(talkId) ? "secondary" : "default"}
+            color={isTalkLiked(talkId) ? "secondary" : "default"}
             variant="outlined"
-            disabled={!state.signedIn || loadingLike}
+            disabled={!state.signedIn}
             startIcon={<VoteUp />}
             onClick={_ => likeTalk()}
           >
@@ -422,11 +437,9 @@ const TalkControls = ({ talkId }: { talkId: string }) => {
         </Grid>
         <Grid item>
           <Button
-            color={
-              state.dislikedTalks.includes(talkId) ? "secondary" : "default"
-            }
+            color={isTalkDisliked(talkId) ? "secondary" : "default"}
             variant="outlined"
-            disabled={!state.signedIn || loadingLike}
+            disabled={!state.signedIn}
             startIcon={<VoteDown />}
             onClick={_ => dislikeTalk()}
           >
@@ -434,19 +447,18 @@ const TalkControls = ({ talkId }: { talkId: string }) => {
           </Button>
         </Grid>
         <Grid item>
-          {state.savedTalks.filter(savedTalk => savedTalk.id === talkId)
-            .length > 0 ? (
+          {isTalkSaved(talkId) ? (
             <Button
-              disabled={!state.signedIn || loadingSave}
+              disabled={!state.signedIn}
               title="Remove this saved talk"
               onClick={_ => unsaveTalk()}
               startIcon={<BookmarkIcon color="secondary" />}
             >
-              Unsave talk
+              Saved
             </Button>
           ) : (
             <Button
-              disabled={!state.signedIn || loadingSave}
+              disabled={!state.signedIn}
               title="Save this talk in your Saved Talks"
               onClick={_ => saveTalk()}
               startIcon={<BookmarkOutlinedIcon color="secondary" />}
