@@ -471,6 +471,28 @@ const curatedTalks = functions.https.onRequest(async (req, res) => {
 });
 
 /**
+ * Get hot Talks
+ */
+const hotTalks = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  let query = await db.collectionGroup("talks");
+  if (request.query.stackid > 0) {
+    query = query.where("categories", "array-contains", request.query.stackid);
+  }
+  const docSnap = await query
+    .orderBy("likes", "desc")
+    .orderBy("dateTimestamp", "desc")
+    .limit(12)
+    .get();
+  let talks = [];
+  docSnap.forEach(doc => {
+    talks.push(doc.data());
+  });
+  response.json(talks);
+});
+
+/**
  * Get talks by topic
  */
 const talksByTopic = functions.https.onRequest(async (req, res) => {
@@ -681,6 +703,7 @@ const heroes = {
   filterTalks,
   getUser,
   heroTalks,
+  hotTalks,
   indexTalk,
   likeTalk,
   recentEditions,

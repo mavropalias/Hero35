@@ -50,6 +50,10 @@
         "function": "heroes-heroTalks"
       },
       {
+        "source": "/api/hotTalks",
+        "function": "heroes-hotTalks"
+      },
+      {
         "source": "/api/likeTalk",
         "function": "heroes-likeTalk"
       },
