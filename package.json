@@ -6,8 +6,8 @@
     "node": "8"
   },
   "dependencies": {
-    "@material-ui/core": "^4.5.0",
-    "@material-ui/icons": "^4.4.3",
+    "@material-ui/core": "^4.6.0",
+    "@material-ui/icons": "^4.5.1",
     "@types/next": "^8.0.6",
     "@zeit/next-css": "^1.0.1",
     "algoliasearch": "^3.35.0",
@@ -37,10 +37,10 @@
     "@types/react-dom": "^16.9.1",
     "@zeit/next-bundle-analyzer": "^0.1.2",
     "cpx": "^1.5.0",
-    "firebase-tools": "^7.4.0",
-    "prettier": "^1.18.2",
+    "firebase-tools": "^7.7.0",
+    "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
-    "typescript": "^3.6.3"
+    "typescript": "^3.7.2"
   },
   "scripts": {
     "dev": "source .env && npm run clean && next \"src/app\" -p 3500",
