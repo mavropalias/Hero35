@@ -110,6 +110,11 @@ class Database {
     return ((await res.json()) as unknown) as Talk[];
   };
 
+  getHotTalks = async (stackid: string = "-1"): Promise<Talk[]> => {
+    const res = await fetch(`${API}hotTalks?stackid=${stackid}`);
+    return ((await res.json()) as unknown) as Talk[];
+  };
+
   getTalksByTopic = async (
     topicid: string,
     stackid?: string

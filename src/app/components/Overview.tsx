@@ -18,6 +18,7 @@ import { useContext } from "react";
 import { UserContext } from "./context-providers/UserContextProvider";
 import RecentEditions from "./RecentEditions";
 import { StackContext } from "./context-providers/StackContextProvider";
+import HotTalks from "./HotTalks";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,12 +33,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
   curatedTalks?: Talk[];
+  hotTalks?: Talk[];
   recentEditions?: EventEdition[];
   upcomingEditions?: EventEdition[];
 }
 
 const Overview = ({
   curatedTalks,
+  hotTalks,
   recentEditions,
   upcomingEditions
 }: Props) => {
@@ -57,6 +60,7 @@ const Overview = ({
         </Container>
       </Box>
       <Container className={classes.container}>
+        {hotTalks && <HotTalks talks={hotTalks} className={classes.section} />}
         {stateStack.isCurated && (
           <CuratedTalks talks={curatedTalks} className={classes.section} />
         )}

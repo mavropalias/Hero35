@@ -81,6 +81,7 @@ export type Talk = {
   end?: number;
   eventId: string;
   eventTitle: string;
+  hasLikes?: boolean;
   id: string;
   isCurated?: boolean;
   likes?: number;

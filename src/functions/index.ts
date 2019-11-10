@@ -3,6 +3,9 @@ import * as admin from "firebase-admin";
 import algoliasearch from "algoliasearch";
 import { Talk, TalkPreview, User } from "./schema";
 
+// Config
+const CURATORS = ["OXXDuevPrfbLTaH4etkbUZZri2z1"];
+
 // Cache for 12 hours on the client and 24 hours on the server
 const CACHE_CONTROL = `public, max-age=${12 * 3600}, s-maxage=${24 * 3600}`;
 
@@ -53,6 +56,18 @@ const verifyIdToken = async (req: functions.https.Request): Promise<string> => {
       `accessToken: ${req.query.accessToken}, error: ${error}`
     );
   }
+};
+
+/**
+ * Determine talk vote count
+ */
+const determineVotesForTalkFromUser = (userid: string, talk: Talk): number => {
+  let count = 1;
+  // Curator votes count 10x, plus a deterministic adjustment.
+  if (CURATORS.includes(userid)) {
+    count += 10 + (talk.times.totalMins % 10);
+  }
+  return count;
 };
 
 /**
@@ -481,14 +496,23 @@ const hotTalks = functions.https.onRequest(async (req, res) => {
     query = query.where("categories", "array-contains", request.query.stackid);
   }
   const docSnap = await query
-    .orderBy("likes", "desc")
+    .where("hasLikes", "==", true)
     .orderBy("dateTimestamp", "desc")
-    .limit(12)
+    .limit(50)
     .get();
   let talks = [];
   docSnap.forEach(doc => {
     talks.push(doc.data());
   });
+  talks.forEach(talk => {
+    const score = talk.likes;
+    const order = Math.log10(score);
+    const seconds = Math.round(talk.dateTimestamp.toDate().getTime() / 1000);
+    // talks 30 days older will need 10x the amount of likes:
+    talk.score = order + seconds / 2592000;
+  });
+  talks.sort((a, b) => b.score - a.score);
+  talks = talks.slice(0, 12);
   response.json(talks);
 });
 
@@ -542,6 +566,16 @@ const likeTalk = functions.https.onRequest(async (req, res) => {
   if (!talk) {
     response.send(null);
   }
+  const likes = talk.likesUIDs
+    ? talk.likesUIDs
+        .map(
+          likeUid =>
+            likeUid !== uid && determineVotesForTalkFromUser(likeUid, talk)
+        )
+        .reduce((prev, curr) => prev + curr, 0) +
+      determineVotesForTalkFromUser(uid, talk) +
+      (talk.isCurated ? 15 : 0)
+    : determineVotesForTalkFromUser(uid, talk) + (talk.isCurated ? 15 : 0);
   await db
     .collection("events")
     .doc(talk.eventId)
@@ -552,7 +586,8 @@ const likeTalk = functions.https.onRequest(async (req, res) => {
     .set(
       {
         dislikesUIDs: admin.firestore.FieldValue.arrayRemove(uid),
-        likes: talk.likesUIDs ? talk.likesUIDs.length + 1 : 1,
+        hasLikes: likes > 0 ? true : false,
+        likes,
         likesUIDs: admin.firestore.FieldValue.arrayUnion(uid)
       },
       { merge: true }
