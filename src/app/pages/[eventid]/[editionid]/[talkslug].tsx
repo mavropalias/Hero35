@@ -353,7 +353,7 @@ const TalkControls = ({ talkId }: { talkId: string }) => {
         payload: { ...updatedUser }
       });
     } catch (error) {
-      setError(error);
+      setError(error.message);
     } finally {
       setOptimisticTalkState("");
     }
@@ -369,7 +369,7 @@ const TalkControls = ({ talkId }: { talkId: string }) => {
         payload: { ...updatedUser }
       });
     } catch (error) {
-      setError(error);
+      setError(error.message);
     } finally {
       setOptimisticTalkState("");
     }
@@ -385,7 +385,7 @@ const TalkControls = ({ talkId }: { talkId: string }) => {
         payload: { ...updatedUser }
       });
     } catch (error) {
-      setError(error);
+      setError(error.message);
     } finally {
       setOptimisticTalkState("");
     }
@@ -415,7 +415,7 @@ const TalkControls = ({ talkId }: { talkId: string }) => {
         payload: { ...updatedUser }
       });
     } catch (error) {
-      setError(error);
+      setError(error.message);
     } finally {
       setOptimisticTalkState("");
     }
