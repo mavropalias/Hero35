@@ -176,7 +176,7 @@ const TalkCard: NextPage<Props> = ({ talk, showCuration }) => {
           {talk.tags && <TalkCardTags tags={talk.tags} />}
         </Grid>
         <Grid item>
-          <Typography color="textSecondary">
+          <Typography>
             {isTalkSaved() ? (
               <IconButton
                 onClick={_ => unsaveTalk()}
@@ -188,7 +188,7 @@ const TalkCard: NextPage<Props> = ({ talk, showCuration }) => {
               <IconButton
                 onClick={_ => saveTalk()}
                 title="Save for later"
-                color="inherit"
+                color="secondary"
               >
                 <SaveIcon />
               </IconButton>
