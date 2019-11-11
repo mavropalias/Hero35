@@ -14,6 +14,8 @@ export type EventEdition = {
   categories: string[];
   city?: string;
   country?: string;
+  dateTimestamp?: any;
+  dateAddedTimestamp?: any;
   description: string;
   durationMinutes?: number;
   endDate: string;
@@ -73,6 +75,8 @@ export type Talk = {
   categories: string[];
   curationDescription?: string;
   date: string;
+  dateTimestamp?: any;
+  dateAddedTimestamp?: any;
   description: string;
   dislikes?: number;
   dislikesUIDs?: string[];
