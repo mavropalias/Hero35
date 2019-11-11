@@ -112,7 +112,6 @@ export type Category = {
   colorText: string;
   contextTitle: string;
   countries: string[];
-  hasHotTopics: boolean;
   isCurated: boolean;
   shortTitle: string;
   slug: string;

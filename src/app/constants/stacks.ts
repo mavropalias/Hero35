@@ -72,9 +72,7 @@ const STACKS: Stack[] = [
     slug: "azure"
   },
   {
-    categories: ["1"],
     color: "#F9DC3E",
-    featured: true,
     label: "Babel",
     slug: "babel"
   },
@@ -331,9 +329,7 @@ const STACKS: Stack[] = [
     slug: "handlebars"
   },
   {
-    categories: ["-1"],
     color: "#F97E2F",
-    featured: true,
     label: "Haskell",
     slug: "haskell"
   },
@@ -675,9 +671,7 @@ const STACKS: Stack[] = [
     slug: "serverless"
   },
   {
-    categories: ["-1"],
     color: "#FDAD00",
-    featured: true,
     label: "Sketch",
     slug: "sketch"
   },

@@ -17,6 +17,7 @@ const CATEGORIES: Category[] = [
       "India",
       "Israel",
       "Italy",
+      "Korea",
       "Netherlands",
       "Poland",
       "Slovakia",
@@ -25,7 +26,6 @@ const CATEGORIES: Category[] = [
       "Ukraine",
       "USA"
     ],
-    hasHotTopics: false,
     isCurated: true,
     shortTitle: "All Stacks",
     slug: "",
@@ -40,12 +40,12 @@ const CATEGORIES: Category[] = [
       "Czech Republic",
       "Germany",
       "Hungary",
+      "Korea",
       "Slovakia",
       "UK",
       "USA"
     ],
-    hasHotTopics: false,
-    isCurated: false,
+    isCurated: true,
     shortTitle: "JS",
     slug: "javascript",
     title: "JavaScript"
@@ -73,7 +73,6 @@ const CATEGORIES: Category[] = [
       "Ukraine",
       "USA"
     ],
-    hasHotTopics: true,
     isCurated: true,
     shortTitle: "React",
     slug: "react",

@@ -17,20 +17,13 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const CuratedYears = ({ className }) => {
+const CuratedYears = () => {
   const { state: stateStack } = useContext(StackContext);
   const classes = useStyles({});
   const items = ["2020", "2019", "2018", "2017", "2016", "2015"];
 
   return (
     <>
-      <Typography variant="h2">
-        {stateStack.contextTitle ? stateStack.contextTitle : "Conference"}{" "}
-        annals
-      </Typography>
-      <Typography variant="body2" color="textSecondary" paragraph>
-        A record of {stateStack.contextTitle} conferences, year by year.
-      </Typography>
       {items.map(item => (
         <NextLink
           href={`/year/[yearid]${

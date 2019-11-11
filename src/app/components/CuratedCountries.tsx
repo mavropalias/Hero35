@@ -1,10 +1,4 @@
-import {
-  createStyles,
-  makeStyles,
-  Theme,
-  Typography,
-  Button
-} from "@material-ui/core";
+import { createStyles, makeStyles, Theme, Button } from "@material-ui/core";
 import { Flag as ItemIcon } from "@material-ui/icons";
 import { default as NextLink } from "next/link";
 import { useContext } from "react";
@@ -18,27 +12,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     item: {
       margin: theme.spacing(0, 1, 1, 0)
-    },
-    title: {
-      "&::first-letter": {
-        textTransform: "uppercase"
-      }
     }
   })
 );
 
-const CuratedCountries = ({ className }) => {
+const CuratedCountries = () => {
   const { state: stateStack } = useContext(StackContext);
   const classes = useStyles({});
 
   return (
-    <section className={className}>
-      <Typography variant="h2" className={classes.title}>
-        {stateStack.contextTitle} conferences around the world
-      </Typography>
-      <Typography variant="body2" color="textSecondary" paragraph>
-        These countries are {stateStack.contextTitle} conference hotspots.
-      </Typography>
+    <>
       {CATEGORIES.find(cat => cat.id === stateStack.id).countries.map(item => (
         <NextLink
           href={`/country/[countryid]${
@@ -61,7 +44,7 @@ const CuratedCountries = ({ className }) => {
           </Button>
         </NextLink>
       ))}
-    </section>
+    </>
   );
 };
 

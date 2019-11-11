@@ -11,24 +11,31 @@ import {
   Box,
   Paper,
   IconButton,
-  Link
+  Link,
+  Badge
 } from "@material-ui/core";
 import {
   ArrowUpward as UpvoteIcon,
   Bookmark as UnsaveIcon,
   BookmarkBorder as SaveIcon
 } from "@material-ui/icons";
+import Database from "../services/Database";
 import { default as NextLink } from "next/link";
 import { NextPage } from "next";
 import { Talk } from "../schema";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "./context-providers/UserContextProvider";
+import DistinctiveTooltip from "./DistinctiveTooltip";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    badge: { width: "100%" },
     card: {
-      height: "100%",
+      flex: 1,
       backgroundColor: "transparent"
+    },
+    content: {
+      padding: theme.spacing(2, 0.5, 2, 2)
     },
     curated: {
       position: "absolute",
@@ -63,83 +70,152 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
   talk: Talk;
   showCuration?: boolean;
-  className?: string;
 }
 
-const TalkCard: NextPage<Props> = ({ talk, showCuration, className }) => {
+const TalkCard: NextPage<Props> = ({ talk, showCuration }) => {
+  const [optimisticTalkState, setOptimisticTalkState] = useState<
+    "saved" | "unsaved" | "liked" | "disliked" | ""
+  >("");
   const { state: stateUser, dispatch } = useContext(UserContext);
   const classes = useStyles({});
 
   const talkTime = (talk: Talk) => {
-    return `${talk.times.h ? `${talk.times.h}:` : ""}
-                        ${talk.times.m}${talk.times.m < 10 ? "0" : ""}:${
-      talk.times.s
-    }${talk.times.s < 10 ? "0" : ""}`;
+    let h = null;
+    let m = 0;
+    let s = 0;
+    if (talk.start) {
+      h = Math.round((talk.end - talk.start) / 60 / 60);
+      m = Math.round((talk.end - talk.start) / 60);
+      s = (talk.end - talk.start) % 60;
+    } else {
+      h = talk.times.h;
+      m = talk.times.m;
+      s = talk.times.s;
+    }
+    return `${h ? `${h}:` : ""} ${m}${m < 10 ? "0" : ""}:${s}${
+      s < 10 ? "0" : ""
+    }`;
   };
 
-  return (
-    <Card className={classes.card} elevation={0}>
-      <NextLink
-        href={`/[eventid]/[editionid]/[talkslug]`}
-        as={`/${talk.eventId}/${talk.editionId}/${talk.slug}`}
-      >
-        <a className={classes.link}>
+  const saveTalk = async () => {
+    try {
+      setOptimisticTalkState("saved");
+      const updatedUser = await Database.saveTalkInUserProfile(talk.id);
+      dispatch({
+        type: "HYDRATE_FROM_DB",
+        payload: { ...updatedUser }
+      });
+    } catch (error) {
+    } finally {
+      setOptimisticTalkState("");
+    }
+  };
+
+  const unsaveTalk = async () => {
+    try {
+      setOptimisticTalkState("unsaved");
+      const updatedUser = await Database.unsaveTalkInUserProfile(talk.id);
+      dispatch({
+        type: "HYDRATE_FROM_DB",
+        payload: { ...updatedUser }
+      });
+    } catch (error) {
+    } finally {
+      setOptimisticTalkState("");
+    }
+  };
+
+  const isTalkSaved = (): boolean =>
+    (stateUser.savedTalks.filter(savedTalk => savedTalk.id === talk.id).length >
+      0 ||
+      optimisticTalkState === "saved") &&
+    optimisticTalkState !== "unsaved";
+
+  const TalkCardMedia = () => (
+    <NextLink
+      href={`/[eventid]/[editionid]/[talkslug]`}
+      as={`/${talk.eventId}/${talk.editionId}/${talk.slug}`}
+    >
+      <a className={classes.link}>
+        <DistinctiveTooltip
+          title="Editor's choice"
+          disableFocusListener={!talk.isCurated}
+          disableHoverListener={!talk.isCurated}
+          disableTouchListener={!talk.isCurated}
+        >
           <CardActionArea>
             <CardMedia
               className={classes.media}
               image={`https://i.ytimg.com/vi/${talk.youtubeId ||
                 talk.id}/sddefault.jpg`}
             >
-              {talk.isCurated && (
-                <Paper className={classes.curated}>
-                  <Box m={0.5} marginLeft={1} marginRight={1}>
-                    <Typography variant="caption">Editor's choice</Typography>
-                  </Box>
-                </Paper>
-              )}
               <Typography variant="caption" className={classes.time}>
                 {talkTime(talk)}
               </Typography>
             </CardMedia>
           </CardActionArea>
-        </a>
-      </NextLink>
-      <CardContent>
-        <Grid container wrap="nowrap" spacing={1}>
-          <Grid item>
-            <Box display="flex" flexDirection="column" alignItems="center">
-              <UpvoteIcon />
-              <Typography variant="caption">{talk.likes}</Typography>
-            </Box>
-          </Grid>
-          <Grid item className={classes.fill}>
-            <Typography variant="subtitle2">{talk.title}</Typography>
-            <Typography variant="body2" color="textSecondary">
-              {talk.eventTitle} {talk.editionTitle}
-            </Typography>
-            {talk.tags && <TalkCardTags tags={talk.tags} />}
-          </Grid>
-          <Grid item hidden>
-            {stateUser.savedTalks.find(
-              savedTalk => savedTalk.id === talk.id
-            ) ? (
-              <IconButton title="Talk is saved for later. Click to unsave.">
+        </DistinctiveTooltip>
+      </a>
+    </NextLink>
+  );
+
+  const TalkCardContent = () => (
+    <CardContent className={classes.content}>
+      <Grid container wrap="nowrap" spacing={1}>
+        <Grid item>
+          <Box display="flex" flexDirection="column" alignItems="center">
+            <UpvoteIcon />
+            <Typography variant="caption">{talk.likes}</Typography>
+          </Box>
+        </Grid>
+        <Grid item className={classes.fill}>
+          <Typography variant="subtitle2">{talk.title}</Typography>
+          <Typography variant="body2" color="textSecondary">
+            {talk.eventTitle} {talk.editionTitle}
+          </Typography>
+          {talk.tags && <TalkCardTags tags={talk.tags} />}
+        </Grid>
+        <Grid item>
+          <Typography color="textSecondary">
+            {isTalkSaved() ? (
+              <IconButton
+                onClick={_ => unsaveTalk()}
+                title="Talk is saved for later. Click to unsave."
+              >
                 <UnsaveIcon color="secondary" />
               </IconButton>
             ) : (
-              <IconButton title="Save for later">
+              <IconButton
+                onClick={_ => saveTalk()}
+                title="Save for later"
+                color="inherit"
+              >
                 <SaveIcon />
               </IconButton>
             )}
-          </Grid>
+          </Typography>
         </Grid>
-        {showCuration && talk.isCurated && (
-          <>
-            <Typography variant="body2">{talk.curationDescription}</Typography>
-          </>
-        )}
-      </CardContent>
-    </Card>
+      </Grid>
+      {showCuration && talk.isCurated && (
+        <>
+          <Typography variant="body2">{talk.curationDescription}</Typography>
+        </>
+      )}
+    </CardContent>
+  );
+
+  return (
+    <Badge
+      className={classes.badge}
+      color="secondary"
+      variant="dot"
+      invisible={!talk.isCurated}
+    >
+      <Card className={classes.card} elevation={0}>
+        <TalkCardMedia />
+        <TalkCardContent />
+      </Card>
+    </Badge>
   );
 };
 

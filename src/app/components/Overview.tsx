@@ -4,12 +4,11 @@ import {
   createStyles,
   Theme,
   Container,
-  Box
+  Box,
+  Typography
 } from "@material-ui/core";
 import { Talk, EventEdition } from "../schema";
-import CuratedTalks from "./CuratedTalks";
 import UpcomingEditions from "./UpcomingEditions";
-import CuratedTags from "./CuratedTags";
 import CuratedCountries from "./CuratedCountries";
 import CuratedYears from "./CuratedYears";
 import Welcome from "./Welcome";
@@ -23,27 +22,25 @@ import HotTalks from "./HotTalks";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      marginTop: theme.spacing(8)
+      marginTop: theme.spacing(4)
     },
     section: {
-      marginBottom: theme.spacing(8)
+      marginBottom: theme.spacing(8),
+      maxWidth: `calc(100vw - ${theme.spacing(6)}px)`
+    },
+    sectionTitle: {
+      fontWeight: "bold"
     }
   })
 );
 
 interface Props {
-  curatedTalks?: Talk[];
   hotTalks?: Talk[];
   recentEditions?: EventEdition[];
   upcomingEditions?: EventEdition[];
 }
 
-const Overview = ({
-  curatedTalks,
-  hotTalks,
-  recentEditions,
-  upcomingEditions
-}: Props) => {
+const Overview = ({ hotTalks, recentEditions, upcomingEditions }: Props) => {
   const { state: stateStack } = useContext(StackContext);
   const classes = useStyles({});
   const { state, dispatch } = useContext(UserContext);
@@ -54,28 +51,64 @@ const Overview = ({
       description={`The single source of truth for ${stateStack.contextTitle} developer conferences & talks.`}
     >
       {!state.signedIn && <Welcome />}
-      <Box paddingTop={4} paddingBottom={4}>
-        <Container>
-          <Stacks />
-        </Container>
-      </Box>
       <Container className={classes.container}>
-        {hotTalks && <HotTalks talks={hotTalks} className={classes.section} />}
-        {stateStack.isCurated && (
-          <CuratedTalks talks={curatedTalks} className={classes.section} />
+        <OverviewSection
+          title={`Recent ${stateStack.contextTitle} conferences`}
+        >
+          <RecentEditions editions={recentEditions} />
+        </OverviewSection>
+        {hotTalks && (
+          <OverviewSection title={`Hot ${stateStack.contextTitle} talks`}>
+            <HotTalks talks={hotTalks} />
+          </OverviewSection>
         )}
-        <RecentEditions editions={recentEditions} className={classes.section} />
-        {upcomingEditions.length > 0 && (
-          <UpcomingEditions
-            editions={upcomingEditions}
-            className={classes.section}
-          />
+        <OverviewSection title={`Hot ${stateStack.contextTitle} topics`}>
+          <Stacks />
+        </OverviewSection>
+        {upcomingEditions && (
+          <OverviewSection
+            title={`Upcoming ${stateStack.contextTitle} conferences`}
+          >
+            <UpcomingEditions editions={upcomingEditions} />
+          </OverviewSection>
         )}
-        {stateStack.hasHotTopics && <CuratedTags className={classes.section} />}
-        <CuratedCountries className={classes.section} />
-        <CuratedYears className={classes.section} />
+        <OverviewSection
+          title={`${stateStack.contextTitle} conferences by country`}
+        >
+          <CuratedCountries />
+        </OverviewSection>
+        <OverviewSection
+          title={`${stateStack.contextTitle} conferences by year`}
+        >
+          <CuratedYears />
+        </OverviewSection>
       </Container>
     </Layout>
+  );
+};
+
+const OverviewSection = ({
+  title,
+  children
+}: {
+  title?: string;
+  children: any;
+}) => {
+  const classes = useStyles({});
+  return (
+    <section className={classes.section}>
+      {title && (
+        <Typography
+          className={classes.sectionTitle}
+          variant="overline"
+          component="h2"
+          gutterBottom
+        >
+          {title}
+        </Typography>
+      )}
+      {children}
+    </section>
   );
 };
 

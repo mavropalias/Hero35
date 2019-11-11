@@ -37,7 +37,7 @@ const Footer = ({ path }) => {
       )}
       <Typography variant="caption" color="textSecondary">
         <Grid container spacing={2} justify="center" alignItems="center">
-          <Grid item>&copy; Heroes, all rights reserved.</Grid>
+          <Grid item>&copy; Hero35, all rights reserved.</Grid>
           <Grid item>
             <Box display="flex" alignItems="center">
               <TwitterIcon fontSize="small" />

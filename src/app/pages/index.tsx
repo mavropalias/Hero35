@@ -4,20 +4,17 @@ import { NextPage } from "next";
 import Overview from "../components/Overview";
 
 interface Props {
-  curatedTalks?: Talk[];
   hotTalks?: Talk[];
   recentEditions?: EventEdition[];
   upcomingEditions?: EventEdition[];
 }
 
 const Home: NextPage<Props> = ({
-  curatedTalks,
   hotTalks,
   recentEditions,
   upcomingEditions
 }) => (
   <Overview
-    curatedTalks={curatedTalks}
     hotTalks={hotTalks}
     recentEditions={recentEditions}
     upcomingEditions={upcomingEditions}
@@ -25,18 +22,12 @@ const Home: NextPage<Props> = ({
 );
 
 Home.getInitialProps = async () => {
-  const [
-    curatedTalks,
-    hotTalks,
-    recentEditions,
-    upcomingEditions
-  ] = await Promise.all([
-    Database.getCuratedTalks(),
+  const [hotTalks, recentEditions, upcomingEditions] = await Promise.all([
     Database.getHotTalks(),
     Database.getRecentEditions(),
     Database.getUpcomingEditions()
   ]);
-  return { curatedTalks, hotTalks, recentEditions, upcomingEditions };
+  return { hotTalks, recentEditions, upcomingEditions };
 };
 
 export default Home;
