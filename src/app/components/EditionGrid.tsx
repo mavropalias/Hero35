@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme: Theme) =>
     card: { flex: 1 },
     container: {
       scrollSnapType: "x mandatory",
-      overflowY: "auto"
+      // overflowY: "auto"
+      overflow: "hidden"
     },
     content: { flex: 1 },
     item: {

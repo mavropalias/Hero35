@@ -9,10 +9,10 @@ interface Props {
 
 const HotTalks = ({ talks }: Props) => (
   <>
-    <Hidden smDown>
+    <Hidden xsDown>
       <TalkGrid talks={talks} />
     </Hidden>
-    <Hidden mdUp>
+    <Hidden smUp>
       <TalkList talks={talks.slice(0, 6)} />
     </Hidden>
   </>
