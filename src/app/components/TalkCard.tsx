@@ -175,26 +175,28 @@ const TalkCard: NextPage<Props> = ({ talk, showCuration }) => {
           </Typography>
           {talk.tags && <TalkCardTags tags={talk.tags} />}
         </Grid>
-        <Grid item>
-          <Typography>
-            {isTalkSaved() ? (
-              <IconButton
-                onClick={_ => unsaveTalk()}
-                title="Talk is saved for later. Click to unsave."
-              >
-                <UnsaveIcon color="secondary" />
-              </IconButton>
-            ) : (
-              <IconButton
-                onClick={_ => saveTalk()}
-                title="Save for later"
-                color="secondary"
-              >
-                <SaveIcon />
-              </IconButton>
-            )}
-          </Typography>
-        </Grid>
+        {stateUser.signedIn && (
+          <Grid item>
+            <Typography>
+              {isTalkSaved() ? (
+                <IconButton
+                  onClick={_ => unsaveTalk()}
+                  title="Talk is saved for later. Click to unsave."
+                >
+                  <UnsaveIcon color="secondary" />
+                </IconButton>
+              ) : (
+                <IconButton
+                  onClick={_ => saveTalk()}
+                  title="Save for later"
+                  color="secondary"
+                >
+                  <SaveIcon />
+                </IconButton>
+              )}
+            </Typography>
+          </Grid>
+        )}
       </Grid>
       {showCuration && talk.isCurated && (
         <>
