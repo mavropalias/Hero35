@@ -23,7 +23,7 @@ import TalkList from "./TalkList";
 
 const algoliaClient = algoliasearch(
   "B9STNN0U9I",
-  "ee9b0c6e71cc5f9e80605e9a8bbb711c"
+  "a2195aae7008bee1020765ade21b0bae"
 );
 
 const searchClient = {
