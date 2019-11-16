@@ -226,9 +226,7 @@ const STACKS: Stack[] = [
     slug: "flow"
   },
   {
-    categories: ["-1"],
     color: "#00569E",
-    featured: true,
     label: "Flutter",
     slug: "flutter"
   },
@@ -780,8 +778,6 @@ const STACKS: Stack[] = [
     slug: "wordpress"
   },
   {
-    categories: ["-1", "1", "4"],
-    featured: true,
     color: "#2D2E47",
     label: "Xstate",
     slug: "xstate"

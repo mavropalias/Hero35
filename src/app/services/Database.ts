@@ -77,6 +77,13 @@ class Database {
     return ((await res.json()) as unknown) as EventEdition[];
   };
 
+  getJustAddedEditions = async (
+    stackid: string = "-1"
+  ): Promise<EventEdition[]> => {
+    const res = await fetch(`${API}justAddedEditions?stackid=${stackid}`);
+    return ((await res.json()) as unknown) as EventEdition[];
+  };
+
   getUpcomingEditions = async (
     stackid: string = "-1"
   ): Promise<EventEdition[]> => {
@@ -95,8 +102,18 @@ class Database {
     return ((await res.json()) as unknown) as Talk;
   };
 
-  getRecentTalks = async (): Promise<Talk[]> => {
-    const res = await fetch(`${API}recentTalks`);
+  getRecentTalks = async (stackid: string = "-1"): Promise<Talk[]> => {
+    const res = await fetch(`${API}recentTalks?stackid=${stackid}`);
+    return ((await res.json()) as unknown) as Talk[];
+  };
+
+  getRisingTalks = async (stackid: string = "-1"): Promise<Talk[]> => {
+    const res = await fetch(`${API}risingTalks?stackid=${stackid}`);
+    return ((await res.json()) as unknown) as Talk[];
+  };
+
+  getAddedTalks = async (stackid: string = "-1"): Promise<Talk[]> => {
+    const res = await fetch(`${API}justAddedTalks?stackid=${stackid}`);
     return ((await res.json()) as unknown) as Talk[];
   };
 
@@ -112,6 +129,11 @@ class Database {
 
   getHotTalks = async (stackid: string = "-1"): Promise<Talk[]> => {
     const res = await fetch(`${API}hotTalks?stackid=${stackid}`);
+    return ((await res.json()) as unknown) as Talk[];
+  };
+
+  getTopTalks = async (stackid: string = "-1"): Promise<Talk[]> => {
+    const res = await fetch(`${API}topTalks?stackid=${stackid}`);
     return ((await res.json()) as unknown) as Talk[];
   };
 
@@ -148,6 +170,7 @@ class Database {
 
   saveTalkInUserProfile = async (talkId: string) => {
     const token = await this.token();
+    if (!token || !talkId) return Promise.reject();
     const res = await fetch(
       `${API}saveTalkInUserProfile?talkId=${talkId}&accessToken=${token}`
     );
@@ -156,6 +179,7 @@ class Database {
 
   unsaveTalkInUserProfile = async (talkId: string) => {
     const token = await this.token();
+    if (!token || !talkId) return Promise.reject();
     const res = await fetch(
       `${API}unsaveTalkInUserProfile?talkId=${talkId}&accessToken=${token}`
     );
@@ -164,6 +188,7 @@ class Database {
 
   likeTalk = async (talkId: string) => {
     const token = await this.token();
+    if (!token || !talkId) return Promise.reject();
     const res = await fetch(
       `${API}likeTalk?talkId=${talkId}&accessToken=${token}`
     );
@@ -172,6 +197,7 @@ class Database {
 
   dislikeTalk = async (talkId: string) => {
     const token = await this.token();
+    if (!token || !talkId) return Promise.reject();
     const res = await fetch(
       `${API}dislikeTalk?talkId=${talkId}&accessToken=${token}`
     );

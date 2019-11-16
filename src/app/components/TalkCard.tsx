@@ -12,12 +12,16 @@ import {
   Paper,
   IconButton,
   Link,
-  Badge
+  Badge,
+  Button,
+  CardHeader,
+  CardActions
 } from "@material-ui/core";
 import {
   ArrowUpward as UpvoteIcon,
   Bookmark as UnsaveIcon,
-  BookmarkBorder as SaveIcon
+  BookmarkBorder as SaveIcon,
+  Stars as CuratedIcon
 } from "@material-ui/icons";
 import Database from "../services/Database";
 import { default as NextLink } from "next/link";
@@ -29,13 +33,17 @@ import DistinctiveTooltip from "./DistinctiveTooltip";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    badge: { width: "100%" },
+    badge: { width: "100%", height: "100%" },
     card: {
       flex: 1,
+      display: "flex",
+      flexDirection: "column",
       backgroundColor: "transparent"
     },
     content: {
-      padding: theme.spacing(2, 0.5, 2, 2)
+      flex: 1,
+      paddingTop: 0,
+      paddingBottom: 4
     },
     curated: {
       position: "absolute",
@@ -44,19 +52,20 @@ const useStyles = makeStyles((theme: Theme) =>
       background: `linear-gradient(35deg, ${theme.palette.secondary.dark} 0%, ${theme.palette.secondary.light} 100%)`,
       color: theme.palette.background.default
     },
-    fill: {
-      flex: 1,
-      overflow: "hidden"
+    disabledButton: { pointerEvents: "none" },
+    header: {
+      paddingBottom: 0
     },
     link: {
       textDecoration: "none",
       color: "inherit"
     },
     media: {
-      paddingBottom: "56.25%" /* maintain 16:9 aspect ratio */,
+      paddingBottom: "56.25%" /* 16:9 aspect ratio */,
       height: 0,
       position: "relative"
     },
+    tag: { marginRight: theme.spacing(1) },
     time: {
       position: "absolute",
       right: theme.spacing(2),
@@ -74,7 +83,7 @@ interface Props {
 
 const TalkCard: NextPage<Props> = ({ talk, showCuration }) => {
   const [optimisticTalkState, setOptimisticTalkState] = useState<
-    "saved" | "unsaved" | "liked" | "disliked" | ""
+    "saved" | "unsaved" | "liked" | ""
   >("");
   const { state: stateUser, dispatch } = useContext(UserContext);
   const classes = useStyles({});
@@ -95,6 +104,20 @@ const TalkCard: NextPage<Props> = ({ talk, showCuration }) => {
     return `${h ? `${h}:` : ""} ${m}${m < 10 ? "0" : ""}:${s}${
       s < 10 ? "0" : ""
     }`;
+  };
+
+  const likeTalk = async () => {
+    try {
+      setOptimisticTalkState("liked");
+      const updatedUser = await Database.likeTalk(talk.id);
+      dispatch({
+        type: "HYDRATE_FROM_DB",
+        payload: { ...updatedUser }
+      });
+    } catch (error) {
+    } finally {
+      setOptimisticTalkState("");
+    }
   };
 
   const saveTalk = async () => {
@@ -125,11 +148,22 @@ const TalkCard: NextPage<Props> = ({ talk, showCuration }) => {
     }
   };
 
+  const isTalkLiked = (talkId: string): boolean =>
+    stateUser.likedTalks.includes(talkId) || optimisticTalkState === "liked";
+
   const isTalkSaved = (): boolean =>
     (stateUser.savedTalks.filter(savedTalk => savedTalk.id === talk.id).length >
       0 ||
       optimisticTalkState === "saved") &&
     optimisticTalkState !== "unsaved";
+
+  const TalkCardHeader = () => (
+    <CardHeader
+      title={talk.title}
+      subheader={<TalkCardTags tags={talk.tags} />}
+      className={classes.header}
+    />
+  );
 
   const TalkCardMedia = () => (
     <NextLink
@@ -147,7 +181,7 @@ const TalkCard: NextPage<Props> = ({ talk, showCuration }) => {
             <CardMedia
               className={classes.media}
               image={`https://i.ytimg.com/vi/${talk.youtubeId ||
-                talk.id}/sddefault.jpg`}
+                talk.id}/hqdefault.jpg`}
             >
               <Typography variant="caption" className={classes.time}>
                 {talkTime(talk)}
@@ -161,49 +195,64 @@ const TalkCard: NextPage<Props> = ({ talk, showCuration }) => {
 
   const TalkCardContent = () => (
     <CardContent className={classes.content}>
-      <Grid container wrap="nowrap" spacing={1}>
-        <Grid item>
-          <Box display="flex" flexDirection="column" alignItems="center">
-            <UpvoteIcon />
-            <Typography variant="caption">{talk.likes}</Typography>
-          </Box>
-        </Grid>
-        <Grid item className={classes.fill}>
-          <Typography variant="subtitle2">{talk.title}</Typography>
-          <Typography variant="body2" color="textSecondary">
-            {talk.eventTitle} {talk.editionTitle}
+      {talk.isCurated && (
+        <Box marginTop={1}>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            title="Editor's choice"
+          >
+            <CuratedIcon fontSize="inherit" color="action" />
+            &nbsp;
+            {talk.curationDescription}
           </Typography>
-          {talk.tags && <TalkCardTags tags={talk.tags} />}
-        </Grid>
-        {stateUser.signedIn && (
-          <Grid item>
-            <Typography>
-              {isTalkSaved() ? (
-                <IconButton
-                  onClick={_ => unsaveTalk()}
-                  title="Talk is saved for later. Click to unsave."
-                >
-                  <UnsaveIcon color="secondary" />
-                </IconButton>
-              ) : (
-                <IconButton
-                  onClick={_ => saveTalk()}
-                  title="Save for later"
-                  color="secondary"
-                >
-                  <SaveIcon />
-                </IconButton>
-              )}
-            </Typography>
-          </Grid>
-        )}
-      </Grid>
-      {showCuration && talk.isCurated && (
-        <>
-          <Typography variant="body2">{talk.curationDescription}</Typography>
-        </>
+        </Box>
       )}
     </CardContent>
+  );
+
+  const TalkCardActions = () => (
+    <CardActions>
+      <Button
+        title={isTalkLiked(talk.id) ? "Liked" : "Like this talk"}
+        className={!stateUser.signedIn ? classes.disabledButton : null}
+        color="secondary"
+        variant={isTalkLiked(talk.id) ? "contained" : "text"}
+        size="small"
+        onClick={_ => {
+          talk.likes ? talk.likes++ : (talk.likes = 1);
+          likeTalk();
+        }}
+        startIcon={<UpvoteIcon />}
+      >
+        {talk.likes || 0}
+      </Button>
+      {isTalkSaved() ? (
+        <Button
+          title="Talk is saved for later. Click to unsave."
+          color="secondary"
+          variant="contained"
+          size="small"
+          onClick={_ => unsaveTalk()}
+          startIcon={<UnsaveIcon />}
+        >
+          Saved
+        </Button>
+      ) : (
+        <Button
+          disabled={!stateUser.signedIn}
+          title={
+            stateUser.signedIn ? "Save for later" : "Sign in to save talks"
+          }
+          color="secondary"
+          size="small"
+          onClick={_ => saveTalk()}
+          startIcon={<SaveIcon />}
+        >
+          Save
+        </Button>
+      )}
+    </CardActions>
   );
 
   return (
@@ -215,27 +264,30 @@ const TalkCard: NextPage<Props> = ({ talk, showCuration }) => {
     >
       <Card className={classes.card} elevation={0}>
         <TalkCardMedia />
-        <TalkCardContent />
+        <TalkCardHeader />
+        {/* <TalkCardContent /> */}
+        <TalkCardActions />
       </Card>
     </Badge>
   );
 };
 
-const TalkCardTags = ({ tags }: { tags: string[] }) => (
-  <div style={{ overflow: "hidden", textOverflow: "ellipsis" }}>
-    <Typography variant="body2" noWrap color="textSecondary">
+const TalkCardTags = ({ tags }: { tags: string[] }) => {
+  const classes = useStyles({});
+
+  return (
+    <Grid container>
       {tags.map(tag => (
-        <NextLink
-          href={`/topic/[topicid]`}
-          as={`/topic/${tag}`}
-          key={tag}
-          passHref
-        >
-          <Link>#{tag} </Link>
-        </NextLink>
+        <Grid key={tag} item>
+          <NextLink href={`/topic/[topicid]`} as={`/topic/${tag}`} passHref>
+            <Link color="textSecondary" className={classes.tag}>
+              #{tag}
+            </Link>
+          </NextLink>
+        </Grid>
       ))}
-    </Typography>
-  </div>
-);
+    </Grid>
+  );
+};
 
 export default TalkCard;

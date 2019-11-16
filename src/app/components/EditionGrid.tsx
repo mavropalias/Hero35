@@ -23,15 +23,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     badge: { height: "100%", width: "100%" },
     card: { flex: 1 },
-    container: {
-      scrollSnapType: "x mandatory",
-      // overflowY: "auto"
-      overflow: "hidden"
-    },
+    container: { overflow: "hidden" },
     content: { flex: 1 },
     item: {
-      flexShrink: 0,
-      scrollSnapAlign: "start"
+      flexShrink: 0
     },
     link: { textDecoration: "none" },
     logo: {
@@ -50,10 +45,18 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-  editions?: EventEdition[];
+  editions: EventEdition[];
+  variant?: "horizontal" | "vertical";
+  hideDate?: boolean;
+  hideTalkCount?: boolean;
 }
 
-const EditionGrid = ({ editions }) => {
+const EditionGrid = ({
+  editions,
+  variant = "vertical",
+  hideDate,
+  hideTalkCount
+}: Props) => {
   const classes = useStyles({});
 
   const editionDateStart = (edition: EventEdition) => {
@@ -68,16 +71,21 @@ const EditionGrid = ({ editions }) => {
 
   return (
     <>
-      <Grid className={classes.container} container wrap="nowrap" spacing={4}>
+      <Grid
+        className={classes.container}
+        container
+        spacing={variant === "horizontal" ? 4 : 1}
+        wrap={variant === "horizontal" ? "nowrap" : "wrap"}
+      >
         {editions.map(edition => (
           <Grid
             className={classes.item}
             key={`${edition.eventId}${edition.id}`}
             item
             xs={12}
-            sm={6}
-            md={4}
-            lg={3}
+            sm={variant === "horizontal" ? 6 : 12}
+            md={variant === "horizontal" ? 4 : 12}
+            lg={variant === "horizontal" ? 3 : 12}
           >
             <NextLink
               href={`/[eventid]/[editionid]`}
@@ -111,7 +119,11 @@ const EditionGrid = ({ editions }) => {
                             {edition.eventTitle} {edition.title}
                           </Typography>
                           <Typography variant="caption" color="textSecondary">
-                            {editionDateStart(edition)}, {edition.country}
+                            {!hideTalkCount && edition.talks && (
+                              <>{edition.talks.length} talks, </>
+                            )}
+                            {!hideDate && <>{editionDateStart(edition)}, </>}
+                            {edition.country}
                           </Typography>
                         </CardContent>
                       </CardActionArea>

@@ -30,11 +30,14 @@ const Footer = ({ path }) => {
 
   return (
     <Container className={classes.container}>
-      {!state.signedIn && path !== ROUTES.HOME && path !== ROUTES.ACCOUNT && (
-        <Box marginBottom={4}>
-          <Welcome />
-        </Box>
-      )}
+      {!state.signedIn &&
+        path !== ROUTES.HOME &&
+        path !== ROUTES.ACCOUNT &&
+        !path.includes("stack") && (
+          <Box marginBottom={4}>
+            <Welcome />
+          </Box>
+        )}
       <Typography variant="caption" color="textSecondary">
         <Grid container spacing={2} justify="center" alignItems="center">
           <Grid item>&copy; Hero35, all rights reserved.</Grid>

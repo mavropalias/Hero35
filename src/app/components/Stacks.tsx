@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
     cardContent: {
       height: "100%",
       textAlign: "center",
-      padding: theme.spacing(2, 1, 1, 1)
+      padding: theme.spacing(0.5, 1)
     },
     stackLogo: {
       height: "56px",
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Stacks = () => {
+const Stacks = ({ bSmall }: { bSmall?: boolean }) => {
   const classes = useStyles({});
   const { state: stateStack } = useContext(StackContext);
 
@@ -67,7 +67,7 @@ const Stacks = () => {
           stack =>
             stack.featured &&
             stack.categories.includes(stateStack.id) && (
-              <Grid item xs={4} sm={3} md={2} lg={2} key={stack.slug}>
+              <Grid item xs={4} sm={3} md={bSmall ? 3 : 2} key={stack.slug}>
                 <Card
                   className={classes.card}
                   raised={stack.isCategory ? true : false}
@@ -95,7 +95,7 @@ const Stacks = () => {
                     >
                       <CardActionArea className={classes.cardActionArea}>
                         <CardContent className={classes.cardContent}>
-                          <Box paddingBottom={1}>
+                          <Box paddingBottom={bSmall ? 0 : 1}>
                             <img
                               src={`/static/stacks/${stack.slug}${
                                 stack.isCategory ? "-inverse" : ""
@@ -104,10 +104,12 @@ const Stacks = () => {
                               alt={`${stack.label}`}
                             />
                           </Box>
-                          <Typography variant="body2">
-                            {stack.label}
-                            {stack.isCategory && " hub"}
-                          </Typography>
+                          {!bSmall && (
+                            <Typography variant="body2">
+                              {stack.label}
+                              {stack.isCategory && " hub"}
+                            </Typography>
+                          )}
                         </CardContent>
                       </CardActionArea>
                     </a>

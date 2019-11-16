@@ -18,8 +18,7 @@ import {
   Bookmark as BookmarkIcon,
   BookmarkBorder as BookmarkOutlinedIcon,
   Stars as CuratedIcon,
-  ThumbUp as VoteUp,
-  ThumbDown as VoteDown
+  ArrowUpward as VoteUp
 } from "@material-ui/icons";
 import { Talk } from "../../../schema";
 import Database from "../../../services/Database";
@@ -339,7 +338,7 @@ const TalkVideo = ({ videoid, start, end }: TalkVideo) => {
 const TalkControls = ({ talkId }: { talkId: string }) => {
   const { state, dispatch } = useContext(UserContext);
   const [optimisticTalkState, setOptimisticTalkState] = useState<
-    "saved" | "unsaved" | "liked" | "disliked" | ""
+    "saved" | "unsaved" | "liked" | ""
   >("");
   const [error, setError] = useState("");
 
@@ -348,22 +347,6 @@ const TalkControls = ({ talkId }: { talkId: string }) => {
       setError("");
       setOptimisticTalkState("liked");
       const updatedUser = await Database.likeTalk(talkId);
-      dispatch({
-        type: "HYDRATE_FROM_DB",
-        payload: { ...updatedUser }
-      });
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setOptimisticTalkState("");
-    }
-  };
-
-  const dislikeTalk = async () => {
-    try {
-      setError("");
-      setOptimisticTalkState("disliked");
-      const updatedUser = await Database.dislikeTalk(talkId);
       dispatch({
         type: "HYDRATE_FROM_DB",
         payload: { ...updatedUser }
@@ -392,13 +375,7 @@ const TalkControls = ({ talkId }: { talkId: string }) => {
   };
 
   const isTalkLiked = (talkId: string): boolean =>
-    (state.likedTalks.includes(talkId) || optimisticTalkState === "liked") &&
-    optimisticTalkState !== "disliked";
-
-  const isTalkDisliked = (talkId: string): boolean =>
-    (state.dislikedTalks.includes(talkId) ||
-      optimisticTalkState === "disliked") &&
-    optimisticTalkState !== "liked";
+    state.likedTalks.includes(talkId) || optimisticTalkState === "liked";
 
   const isTalkSaved = (talkId: string): boolean =>
     (state.savedTalks.filter(savedTalk => savedTalk.id === talkId).length > 0 ||
@@ -426,24 +403,14 @@ const TalkControls = ({ talkId }: { talkId: string }) => {
       <Grid container spacing={2} alignItems="center">
         <Grid item>
           <Button
-            color={isTalkLiked(talkId) ? "secondary" : "default"}
-            variant="outlined"
+            color="secondary"
+            variant={isTalkLiked(talkId) ? "contained" : "outlined"}
+            size="large"
             disabled={!state.signedIn}
             startIcon={<VoteUp />}
             onClick={_ => likeTalk()}
           >
-            Like
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button
-            color={isTalkDisliked(talkId) ? "secondary" : "default"}
-            variant="outlined"
-            disabled={!state.signedIn}
-            startIcon={<VoteDown />}
-            onClick={_ => dislikeTalk()}
-          >
-            Dislike
+            {isTalkLiked(talkId) ? "Upvoted" : "Upvote"}
           </Button>
         </Grid>
         <Grid item>

@@ -22,9 +22,9 @@ const middleware = (
   // Disallow requests from foreign origins
   let approved = false;
   if (
-    !["hero35.com", "heroes-9c313.web.app", "localhost"].includes(req.headers[
-      "x-forwarded-host"
-    ] as string)
+    !["hero35.com", "heroes-9c313.web.app", "localhost"].includes(
+      req.headers["x-forwarded-host"] as string
+    )
   ) {
     res.set("Access-Control-Allow-Origin", "https://hero35.com");
   } else {
@@ -333,6 +333,28 @@ const recentEditions = functions.https.onRequest(async (req, res) => {
 });
 
 /**
+ * Get just added Editions
+ */
+const justAddedEditions = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  let query = db
+    .collectionGroup("editions")
+    .where("status", "==", "published")
+    .orderBy("dateAddedTimestamp", "desc");
+  if (request.query.stackid > 0) {
+    query = query.where("categories", "array-contains", request.query.stackid);
+  }
+  query = query.limit(4);
+  const docSnap = await query.get();
+  let editions = [];
+  docSnap.forEach(doc => {
+    editions.push(doc.data());
+  });
+  response.json(editions);
+});
+
+/**
  * Get upcoming Editions
  */
 const upcomingEditions = functions.https.onRequest(async (req, res) => {
@@ -407,17 +429,81 @@ const filterTalks = functions.https.onRequest(async (req, res) => {
 
 /**
  * Get recent Talks
- * TODO
  */
 const recentTalks = functions.https.onRequest(async (req, res) => {
   const [request, response, approved] = middleware(req, res);
   if (!approved) return response.send();
-  const docSnap = await db
-    .collectionGroup("talks")
-    .where("type", "==", "2")
+  let query = db.collectionGroup("talks").where("type", "==", "2");
+  if (request.query.stackid > 0) {
+    query = query.where("categories", "array-contains", request.query.stackid);
+  }
+  const docSnap = await query
     .orderBy("dateTimestamp", "desc")
-    .orderBy("order", "desc")
-    .limit(6)
+    .limit(30)
+    .get();
+  let talks = [];
+  docSnap.forEach(doc => {
+    talks.push(doc.data());
+  });
+  response.json(talks);
+});
+
+/**
+ * Get just added Talks
+ */
+const justAddedTalks = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  let query = db.collectionGroup("talks").where("type", "==", "2");
+  if (request.query.stackid > 0) {
+    query = query.where("categories", "array-contains", request.query.stackid);
+  }
+  const docSnap = await query
+    .orderBy("dateAddedTimestamp", "desc")
+    .limit(30)
+    .get();
+  let talks = [];
+  docSnap.forEach(doc => {
+    talks.push(doc.data());
+  });
+  response.json(talks);
+});
+
+/**
+ * Get top Talks
+ */
+const topTalks = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  let query = db.collectionGroup("talks").where("type", "==", "2");
+  if (request.query.stackid > 0) {
+    query = query.where("categories", "array-contains", request.query.stackid);
+  }
+  const docSnap = await query
+    .orderBy("likes", "desc")
+    .limit(30)
+    .get();
+  let talks = [];
+  docSnap.forEach(doc => {
+    talks.push(doc.data());
+  });
+  response.json(talks);
+});
+
+/**
+ * Get rising Talks
+ */
+const risingTalks = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = middleware(req, res);
+  if (!approved) return response.send();
+  let query = db.collectionGroup("talks").where("type", "==", "2");
+  if (request.query.stackid > 0) {
+    query = query.where("categories", "array-contains", request.query.stackid);
+  }
+  const docSnap = await query
+    .where("hasLikes", "==", true)
+    .orderBy("dateAddedTimestamp", "desc")
+    .limit(30)
     .get();
   let talks = [];
   docSnap.forEach(doc => {
@@ -469,14 +555,13 @@ const heroTalks = functions.https.onRequest(async (req, res) => {
 const curatedTalks = functions.https.onRequest(async (req, res) => {
   const [request, response, approved] = middleware(req, res);
   if (!approved) return response.send();
-  let query = await db.collectionGroup("talks").where("isCurated", "==", true);
+  let query = db.collectionGroup("talks").where("isCurated", "==", true);
   if (request.query.stackid > 0) {
     query = query.where("categories", "array-contains", request.query.stackid);
   }
   const docSnap = await query
-    .orderBy("dateTimestamp", "desc")
-    .orderBy("order", "desc")
-    .limit(80)
+    .orderBy("dateAddedTimestamp", "desc")
+    .limit(30)
     .get();
   let talks = [];
   docSnap.forEach(doc => {
@@ -491,13 +576,13 @@ const curatedTalks = functions.https.onRequest(async (req, res) => {
 const hotTalks = functions.https.onRequest(async (req, res) => {
   const [request, response, approved] = middleware(req, res);
   if (!approved) return response.send();
-  let query = await db.collectionGroup("talks");
+  let query = db.collectionGroup("talks");
   if (request.query.stackid > 0) {
     query = query.where("categories", "array-contains", request.query.stackid);
   }
   const docSnap = await query
     .where("hasLikes", "==", true)
-    .orderBy("dateTimestamp", "desc")
+    .orderBy("dateAddedTimestamp", "desc")
     .limit(50)
     .get();
   let talks = [];
@@ -507,12 +592,14 @@ const hotTalks = functions.https.onRequest(async (req, res) => {
   talks.forEach(talk => {
     const score = talk.likes;
     const order = Math.log10(score);
-    const seconds = Math.round(talk.dateTimestamp.toDate().getTime() / 1000);
+    const seconds = Math.round(
+      talk.dateAddedTimestamp.toDate().getTime() / 1000
+    );
     // talks 30 days older will need 10x the amount of likes:
     talk.score = order + seconds / 2592000;
   });
   talks.sort((a, b) => b.score - a.score);
-  talks = talks.slice(0, 12);
+  talks = talks.slice(0, 30);
   response.json(talks);
 });
 
@@ -568,9 +655,8 @@ const likeTalk = functions.https.onRequest(async (req, res) => {
   }
   const likes = talk.likesUIDs
     ? talk.likesUIDs
-        .map(
-          likeUid =>
-            likeUid !== uid && determineVotesForTalkFromUser(likeUid, talk)
+        .map(likeUid =>
+          likeUid !== uid ? determineVotesForTalkFromUser(likeUid, talk) : 0
         )
         .reduce((prev, curr) => prev + curr, 0) +
       determineVotesForTalkFromUser(uid, talk) +
@@ -740,9 +826,12 @@ const heroes = {
   heroTalks,
   hotTalks,
   indexTalk,
+  justAddedEditions,
+  justAddedTalks,
   likeTalk,
   recentEditions,
   recentTalks,
+  risingTalks,
   saveTalkInUserProfile,
   ssrIndex,
   ssrAccount,
@@ -759,6 +848,7 @@ const heroes = {
   ssrYear,
   talk,
   talksByTopic,
+  topTalks,
   unsaveTalkInUserProfile,
   upcomingEditions
 };

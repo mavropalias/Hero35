@@ -1,6 +1,6 @@
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 
-const theme = responsiveFontSizes(
+const appTheme = responsiveFontSizes(
   createMuiTheme({
     palette: {
       type: "dark",
@@ -15,14 +15,24 @@ const theme = responsiveFontSizes(
         default: "#121212"
       }
     },
+    overrides: {
+      MuiCardHeader: {
+        title: {
+          fontSize: "16px"
+        },
+        subheader: {
+          fontSize: "14px"
+        }
+      }
+    },
     props: {
-      MuiTextField: {
-        variant: "outlined"
-      },
       MuiTab: {
         style: {
-          minWidth: "135px"
+          minWidth: "50px"
         }
+      },
+      MuiTextField: {
+        variant: "outlined"
       }
     },
     typography: {
@@ -38,4 +48,4 @@ const theme = responsiveFontSizes(
   })
 );
 
-export default theme;
+export default appTheme;

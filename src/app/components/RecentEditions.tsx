@@ -10,7 +10,7 @@ interface Props {
 const RecentEditions = ({ editions }: Props) => (
   <>
     <Hidden xsDown>
-      <EditionGrid editions={editions} />
+      <EditionGrid editions={editions} hideTalkCount={true} />
     </Hidden>
     <Hidden smUp>
       <EditionList editions={editions} />

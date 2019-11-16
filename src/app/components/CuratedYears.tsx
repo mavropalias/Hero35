@@ -35,12 +35,7 @@ const CuratedYears = () => {
           key={item}
           passHref
         >
-          <Button
-            variant="outlined"
-            size="large"
-            color="primary"
-            className={classes.item}
-          >
+          <Button size="small" color="primary" className={classes.item}>
             {item}
           </Button>
         </NextLink>

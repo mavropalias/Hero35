@@ -54,6 +54,14 @@
         "function": "heroes-hotTalks"
       },
       {
+        "source": "/api/justAddedEditions",
+        "function": "heroes-justAddedEditions"
+      },
+      {
+        "source": "/api/justAddedTalks",
+        "function": "heroes-justAddedTalks"
+      },
+      {
         "source": "/api/likeTalk",
         "function": "heroes-likeTalk"
       },
@@ -66,6 +74,10 @@
         "function": "heroes-recentTalks"
       },
       {
+        "source": "/api/risingTalks",
+        "function": "heroes-risingTalks"
+      },
+      {
         "source": "/api/saveTalkInUserProfile",
         "function": "heroes-saveTalkInUserProfile"
       },
@@ -76,6 +88,10 @@
       {
         "source": "/api/talksByTopic",
         "function": "heroes-talksByTopic"
+      },
+      {
+        "source": "/api/topTalks",
+        "function": "heroes-topTalks"
       },
       {
         "source": "/api/unsaveTalkInUserProfile",

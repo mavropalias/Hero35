@@ -34,8 +34,7 @@ const CuratedCountries = () => {
           passHref
         >
           <Button
-            variant="outlined"
-            size="large"
+            size="small"
             title={`React developer conferences in ${item}`}
             color="primary"
             className={classes.item}

@@ -178,3 +178,12 @@ export type UserReducerAction = {
   type: "LOGIN" | "LOGOUT" | "HYDRATE_FROM_DB";
   payload?: UserContextProps;
 };
+
+export type ContentState = {
+  hotTalks: Talk[];
+  upcomingTalks: Talk[];
+  curatedTalks: Talk[];
+  risingTalks: Talk[];
+  newTalks: Talk[];
+  topTalks: Talk[];
+};
