@@ -60,9 +60,9 @@ const HubFeed = ({
   const tabs = [
     [<HotIcon fontSize="small" />, "Hot"],
     [<CuratedIcon fontSize="small" />, "Curated"],
-    [<RecentIcon fontSize="small" />, "Recent"],
     [<TopIcon fontSize="small" />, "Top"],
     [<RisingIcon fontSize="small" />, "Rising"],
+    [<RecentIcon fontSize="small" />, "Recent"],
     [<JustAddedIcon fontSize="small" />, "Added", "Just added"]
   ];
 
