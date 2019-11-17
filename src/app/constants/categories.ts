@@ -20,6 +20,7 @@ const CATEGORIES: Category[] = [
       "Korea",
       "Netherlands",
       "Poland",
+      "Singapore",
       "Slovakia",
       "Spain",
       "UK",
@@ -41,7 +42,9 @@ const CATEGORIES: Category[] = [
       "Germany",
       "Hungary",
       "Korea",
+      "Singapore",
       "Slovakia",
+      "Spain",
       "UK",
       "USA"
     ],
