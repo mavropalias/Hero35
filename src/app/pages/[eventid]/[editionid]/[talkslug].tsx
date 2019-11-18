@@ -123,10 +123,18 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
             <Typography variant="h5" component="h1">
               {talk.title}
             </Typography>
-            <Typography variant="subtitle2" color="textSecondary" paragraph>
+            <Typography variant="subtitle2" color="textSecondary">
               Speaker{speakers.length > 1 && "s"}:{" "}
               <TalkSpeakers speakers={speakers} />
             </Typography>
+          </Grid>
+          <Grid item xs={12} md={8}>
+            <TalkControls talkId={talk.id} />
+          </Grid>
+          <Grid item xs={12} md={8}>
+            <Divider />
+          </Grid>
+          <Grid item xs={12} md={8}>
             <Grid container spacing={2} alignItems="center">
               <Grid item>
                 <Avatar
@@ -153,12 +161,6 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
                 </Typography>
               </Grid>
             </Grid>
-          </Grid>
-          <Grid item xs={12} md={8}>
-            <TalkControls talkId={talk.id} />
-          </Grid>
-          <Grid item xs={12} md={8}>
-            <Divider />
           </Grid>
           {talk.curationDescription && (
             <>
@@ -227,7 +229,7 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
                   component="h2"
                   color="textSecondary"
                   style={{ lineHeight: 1 }}
-                  paragraph
+                  gutterBottom
                 >
                   Description:
                 </Typography>
