@@ -9,8 +9,6 @@ import {
   Theme,
   Typography,
   Box,
-  Paper,
-  IconButton,
   Link,
   Badge,
   Button,
@@ -33,7 +31,10 @@ import DistinctiveTooltip from "./DistinctiveTooltip";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    badge: { width: "100%", height: "100%" },
+    badge: {
+      width: "100%",
+      height: "100%"
+    },
     card: {
       flex: 1,
       display: "flex",
@@ -72,6 +73,9 @@ const useStyles = makeStyles((theme: Theme) =>
       bottom: theme.spacing(2),
       backgroundColor: theme.palette.background.default,
       padding: theme.spacing(0, 0.5)
+    },
+    tooltip: {
+      transform: "translate(8px, 25px) !important"
     }
   })
 );
@@ -172,7 +176,11 @@ const TalkCard: NextPage<Props> = ({ talk, showCuration }) => {
     >
       <a className={classes.link}>
         <DistinctiveTooltip
-          title="Editor's choice"
+          title="Curated talk"
+          placement="top-end"
+          classes={{
+            tooltip: classes.tooltip
+          }}
           disableFocusListener={!talk.isCurated}
           disableHoverListener={!talk.isCurated}
           disableTouchListener={!talk.isCurated}
@@ -259,8 +267,8 @@ const TalkCard: NextPage<Props> = ({ talk, showCuration }) => {
     <Badge
       className={classes.badge}
       color="secondary"
-      variant="dot"
       invisible={!talk.isCurated}
+      variant="dot"
     >
       <Card className={classes.card} elevation={0}>
         <TalkCardMedia />
