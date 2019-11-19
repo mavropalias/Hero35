@@ -4,7 +4,11 @@ import algoliasearch from "algoliasearch";
 import { Talk, TalkPreview, User } from "./schema";
 
 // Config
-const CURATORS = ["OXXDuevPrfbLTaH4etkbUZZri2z1"];
+const LEAD_CURATORS = ["OXXDuevPrfbLTaH4etkbUZZri2z1"];
+const CURATORS = [
+  "4KjHQnWia8ZfZhK2YM01QSeWlE32",
+  "COzP3Ri3NeexAV8LhHwXSZEfH7e2"
+];
 
 // Cache for 12 hours on the client and 24 hours on the server
 const CACHE_CONTROL = `public, max-age=${12 * 3600}, s-maxage=${24 * 3600}`;
@@ -63,9 +67,11 @@ const verifyIdToken = async (req: functions.https.Request): Promise<string> => {
  */
 const determineVotesForTalkFromUser = (userid: string, talk: Talk): number => {
   let count = 1;
-  // Curator votes count 10x, plus a deterministic adjustment.
-  if (CURATORS.includes(userid)) {
+  // Add curator votes
+  if (LEAD_CURATORS.includes(userid)) {
     count += 10 + (talk.times.totalMins % 10);
+  } else if (CURATORS.includes(userid)) {
+    count += 2 + (talk.order % 10);
   }
   return count;
 };
