@@ -63,7 +63,7 @@ const CuratedPage: NextPage<Props> = ({ talks }) => {
             <Grid item xs={12} md={8}>
               <Grid container spacing={1}>
                 <Grid item>
-                  <Avatar src="/static/kostas.png" />
+                  <Avatar src="/kostas.png" />
                 </Grid>
                 <Grid item xs>
                   <Typography variant="body1">

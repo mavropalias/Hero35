@@ -14,7 +14,7 @@ import {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     ticket: {
-      background: `url("/static/HERO35-logo-tagline.svg")`,
+      background: `url("/HERO35-logo-tagline.svg")`,
       backgroundSize: "contain",
       borderRadius: 0,
       backgroundAttachment: "fixed",

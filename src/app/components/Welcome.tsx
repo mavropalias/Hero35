@@ -53,7 +53,7 @@ const Welcome = () => {
               <Box textAlign="center" marginTop={8} marginBottom={6}>
                 <Typography variant="h1" gutterBottom>
                   <img
-                    src="/static/HERO35-logo-tagline.svg"
+                    src="/HERO35-logo-tagline.svg"
                     className={classes.logo}
                   />
                 </Typography>

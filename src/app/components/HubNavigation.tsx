@@ -121,7 +121,7 @@ const HubNavigation = ({
                   <Icon classes={{ root: classes.iconRoot }}>
                     <img
                       className={classes.imageIcon}
-                      src={`/static/stacks/${cat.slug}.svg`}
+                      src={`/stacks/${cat.slug}.svg`}
                     />
                   </Icon>
                 </ListItemIcon>

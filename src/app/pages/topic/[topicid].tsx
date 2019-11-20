@@ -98,7 +98,7 @@ const TopicDetails: NextPage<Props> = ({ title, talks }) => {
             <Grid item xs={12} md={8}>
               {stack ? (
                 <img
-                  src={`/static/stacks/${stack.slug}.svg`}
+                  src={`/stacks/${stack.slug}.svg`}
                   className={classes.stackLogo}
                   alt={`${stack.label} logo`}
                   title={`${stack.label} conference talks`}

@@ -92,7 +92,7 @@ const Navigation = () => {
           href={stateStack.slug ? `/stack/[stackid]` : ROUTES.HOME}
           as={stateStack.slug ? `/stack/${stateStack.slug}` : ROUTES.HOME}
         >
-          <img src="/static/HERO35-logo.svg" className={classes.logo} />
+          <img src="/HERO35-logo.svg" className={classes.logo} />
         </MenuLink>
       </Toolbar>
       <Drawer open={drawer} onClose={toggleDrawer(false)}>
@@ -120,7 +120,7 @@ const Navigation = () => {
               as={stateStack.slug ? `/stack/${stateStack.slug}` : ROUTES.HOME}
             >
               <a className={classes.home}>
-                <img src="/static/HERO35-logo.svg" className={classes.logo} />
+                <img src="/HERO35-logo.svg" className={classes.logo} />
               </a>
             </NextLink>
             <SearchInput className={classes.search} />

@@ -211,7 +211,7 @@ const CustomHits = ({
               )}
               {hits.length > 0 && (
                 <img
-                  src="/static/search-by-algolia-dark-background.svg"
+                  src="/search-by-algolia-dark-background.svg"
                   height="14"
                 ></img>
               )}

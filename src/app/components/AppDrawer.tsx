@@ -58,10 +58,7 @@ const AppDrawer = () => {
     <ListItem disabled title="Coming soon">
       <ListItemIcon>
         <Icon classes={{ root: classes.iconRoot }}>
-          <img
-            className={classes.imageIcon}
-            src={`/static/stacks/${slug}.svg`}
-          />
+          <img className={classes.imageIcon} src={`/stacks/${slug}.svg`} />
         </Icon>
       </ListItemIcon>
       <ListItemText primary={label} />
@@ -78,10 +75,7 @@ const AppDrawer = () => {
         <ListItem selected={true} component="a" button>
           <ListItemIcon>
             <Icon classes={{ root: classes.iconRoot }}>
-              <img
-                className={classes.imageIcon}
-                src="/static/stacks/react.svg"
-              />
+              <img className={classes.imageIcon} src="/stacks/react.svg" />
             </Icon>
           </ListItemIcon>
           <ListItemText primary="React" />

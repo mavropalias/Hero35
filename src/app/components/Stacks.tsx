@@ -97,7 +97,7 @@ const Stacks = ({ bSmall }: { bSmall?: boolean }) => {
                         <CardContent className={classes.cardContent}>
                           <Box paddingBottom={bSmall ? 0 : 1}>
                             <img
-                              src={`/static/stacks/${stack.slug}${
+                              src={`/stacks/${stack.slug}${
                                 stack.isCategory ? "-inverse" : ""
                               }.svg`}
                               className={classes.stackLogo}
