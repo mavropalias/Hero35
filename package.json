@@ -49,7 +49,7 @@
     "deploy": "node_modules/.bin/firebase deploy",
     "clean": "rimraf \"dist/functions\" && rimraf \"dist/public\"",
     "build-public": "cpx \"src/app/public/**/*.*\" \"dist/public\" && cpx \"src/functions/public/**/*.*\" \"dist/public\"",
-    "build-app-static": "cpx \"dist/functions/next/public/**/*.*\" \"dist/public/_next/public\" -C",
+    "build-app-static": "cpx \"dist/functions/next/static/**/*.*\" \"dist/public/_next/static\" -C",
     "build-app": "next build \"src/app\"",
     "build-funcs": "./node_modules/.bin/tsc --project src/functions",
     "copy-deps": "cpx \"*{package.json,package-lock.json}\" \"dist/functions\"",
