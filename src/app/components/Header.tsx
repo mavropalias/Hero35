@@ -24,7 +24,7 @@ import HubNavigation from "./HubNavigation";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     account: {
-      width: "300px",
+      width: "250px",
       marginLeft: theme.spacing(8),
       textAlign: "right"
     },

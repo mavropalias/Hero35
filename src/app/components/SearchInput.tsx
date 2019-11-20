@@ -81,14 +81,11 @@ const useStyles = makeStyles((theme: Theme) =>
     searchResults: {
       position: "absolute",
       left: 0,
+      top: "48px",
       width: "100%",
-      margin: theme.spacing(0.5, 0, 0, 0),
+      margin: theme.spacing(0),
       maxHeight: "90vh",
-      overflow: "auto",
-      [theme.breakpoints.up("lg")]: {
-        left: "initial",
-        width: "700px"
-      }
+      overflow: "auto"
     }
   })
 );
