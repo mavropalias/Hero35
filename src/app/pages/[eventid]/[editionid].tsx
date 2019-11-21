@@ -77,6 +77,7 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
   const classes = useStyles({});
 
   const showTickets = (): boolean => {
+    if (!edition.ticketsUrl) return false;
     if (edition.status !== "published-notalks") return false;
     const currentDate = new Date();
     const editionDate = new Date(edition.startDate);
@@ -152,7 +153,9 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
                   {edition.categories
                     .map(cat => (
                       <span key={cat}>
-                        {CATEGORIES.find(category => cat === category.id).title}
+                        {CATEGORIES.find(category => cat === category.id) &&
+                          CATEGORIES.find(category => cat === category.id)
+                            .title}
                       </span>
                     ))
                     .reduce((previous, current) => (
