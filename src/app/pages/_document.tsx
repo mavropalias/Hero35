@@ -85,10 +85,10 @@ class MyDocument extends Document {
           />
           <meta
             name="msapplication-TileColor"
-            content={theme.palette.primary.main}
+            content={theme.palette.background.default}
           />
           <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
-          <meta name="theme-color" content={theme.palette.primary.main} />
+          <meta name="theme-color" content={theme.palette.background.default} />
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           <script
             async
