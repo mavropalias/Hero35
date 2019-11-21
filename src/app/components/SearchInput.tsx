@@ -20,6 +20,8 @@ import {
 import { Search as SearchIcon } from "@material-ui/icons";
 import { TalkPreview } from "../schema";
 import TalkList from "./TalkList";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 
 const algoliaClient = algoliasearch(
   "B9STNN0U9I",
@@ -123,6 +125,11 @@ const MaterialUiSearchBox = ({
   onBlur
 }) => {
   const classes = useStyles({});
+  const theme = useTheme();
+  const placeholder = useMediaQuery(theme.breakpoints.down("xs"))
+    ? "Learn…"
+    : "What do you want to learn today?";
+
   return (
     <div className={`${classes.search} ${className}`}>
       <div className={classes.searchIcon}>
@@ -133,7 +140,7 @@ const MaterialUiSearchBox = ({
         onChange={e => refine(e.target.value)}
         onFocus={onFocus}
         onBlur={onBlur}
-        placeholder="Search 1700+ talks & topics"
+        placeholder={placeholder}
         fullWidth={true}
         classes={{
           root: classes.inputRoot,
@@ -185,8 +192,6 @@ const CustomHits = ({
                 <Typography variant="body1">- graphql</Typography>
                 <Typography variant="body1">- redux vs mobx</Typography>
                 <Typography variant="body1">- a11y</Typography>
-                <Typography variant="body1">- ReactEurope 2019</Typography>
-                <Typography variant="body1">- Dan Abramov</Typography>
               </Box>
             )}
             <Box
