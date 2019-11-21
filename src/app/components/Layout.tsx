@@ -16,6 +16,7 @@ type LayoutType = {
   title?: string;
   description?: string;
   keywords?: string;
+  image?: string;
   showDrawer?: boolean;
 };
 
@@ -24,6 +25,7 @@ const Layout = ({
   title,
   description,
   keywords,
+  image,
   showDrawer
 }: LayoutType) => {
   const classes = useStyles({});
@@ -38,23 +40,26 @@ const Layout = ({
         <meta property="og:title" content={headTitle} />
         <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary" />
+        <meta
+          name="twitter:card"
+          content={image ? "summary_large_image" : "summary"}
+        />
         <meta name="twitter:site" content="@hero35official" />
         <meta name="twitter:title" content={headTitle} />
         <meta name="twitter:description" content={description} />
         <meta
           data-react-helmet="true"
           name="twitter-image"
-          content="https://hero35.com/social-media-square.png"
+          content={image ? image : "https://hero35.com/social-media-square.png"}
         />
         <meta name="og:image:type" content="image/jpeg" />
         <meta
           name="og:image"
-          content="https://hero35.com/social-media-square.png"
+          content={image ? image : "https://hero35.com/social-media-square.png"}
         />
         <meta
           name="og:image:secure_url"
-          content="https://hero35.com/social-media-square.png"
+          content={image ? image : "https://hero35.com/social-media-square.png"}
         />
       </Head>
       <Header />

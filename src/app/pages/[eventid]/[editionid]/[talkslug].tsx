@@ -105,6 +105,8 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
       title={`${talk.title} - ${talk.speaker} - ${talk.eventTitle} ${talk.editionTitle}`}
       description={talk.curationDescription || talk.description}
       keywords={talk.tags.join(",")}
+      image={`https://i.ytimg.com/vi/${talk.youtubeId ||
+        talk.id}/hqdefault.jpg`}
     >
       <Breadcrumbs items={breadcrumbs} />
       <Container className={classes.containerVideo}>
