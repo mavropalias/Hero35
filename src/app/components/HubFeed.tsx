@@ -135,7 +135,7 @@ const HubFeed = ({
           </Tabs>
         </Box>
         <LinearProgress style={loading ? {} : { visibility: "hidden" }} />
-        <TalkGrid talks={talks} />
+        <TalkGrid talks={talks} showCuration={tabValue === 1 && !loading} />
       </Box>
     </main>
   );
