@@ -202,21 +202,23 @@ const TalkCard: NextPage<Props> = ({ talk, showCuration }) => {
   );
 
   const TalkCardContent = () => (
-    <CardContent className={classes.content}>
+    <>
       {talk.isCurated && (
-        <Box marginTop={1}>
-          <Typography
-            variant="body2"
-            color="textSecondary"
-            title="Editor's choice"
-          >
-            <CuratedIcon fontSize="inherit" color="action" />
-            &nbsp;
-            {talk.curationDescription}
-          </Typography>
-        </Box>
+        <CardContent className={classes.content}>
+          <Box marginTop={1}>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              title="Editor's choice"
+            >
+              <CuratedIcon fontSize="inherit" color="action" />
+              &nbsp;
+              {talk.curationDescription}
+            </Typography>
+          </Box>
+        </CardContent>
       )}
-    </CardContent>
+    </>
   );
 
   const TalkCardActions = () => (
@@ -273,7 +275,7 @@ const TalkCard: NextPage<Props> = ({ talk, showCuration }) => {
       <Card className={classes.card} elevation={0}>
         <TalkCardMedia />
         <TalkCardHeader />
-        {/* <TalkCardContent /> */}
+        {showCuration && <TalkCardContent />}
         <TalkCardActions />
       </Card>
     </Badge>
