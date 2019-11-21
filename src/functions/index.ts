@@ -21,7 +21,7 @@ const db = admin.firestore();
 const middleware = (
   req: functions.https.Request,
   res: functions.Response,
-  cacheControl?: boolean
+  noCache?: boolean
 ): [functions.https.Request, functions.Response, boolean] => {
   // Disallow requests from foreign origins
   let approved = false;
@@ -36,7 +36,7 @@ const middleware = (
     res.set({
       "Access-Control-Allow-Origin": "*"
     });
-    if (cacheControl) {
+    if (!noCache) {
       res.set({
         "Cache-control": CACHE_CONTROL
       });
@@ -640,7 +640,7 @@ const talksByTopic = functions.https.onRequest(async (req, res) => {
  * Like talk
  */
 const likeTalk = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res, false);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   let uid: string;
   try {
@@ -699,7 +699,7 @@ const likeTalk = functions.https.onRequest(async (req, res) => {
  * Dislike talk
  */
 const dislikeTalk = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res, false);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   let uid: string;
   try {
@@ -748,7 +748,7 @@ const dislikeTalk = functions.https.onRequest(async (req, res) => {
  * Save talk
  */
 const saveTalkInUserProfile = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res, false);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   let uid;
   try {
@@ -797,7 +797,7 @@ const saveTalkInUserProfile = functions.https.onRequest(async (req, res) => {
  * Unsave talk
  */
 const unsaveTalkInUserProfile = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res, false);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   let uid;
   try {
