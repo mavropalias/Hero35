@@ -10,8 +10,8 @@ const CURATORS = [
   "COzP3Ri3NeexAV8LhHwXSZEfH7e2"
 ];
 
-// Cache for 12 hours on the client and 24 hours on the server
-const CACHE_CONTROL = `public, max-age=${12 * 3600}, s-maxage=${24 * 3600}`;
+// Cache for 12 hours on the client and 3 hours on the server
+const CACHE_CONTROL = `public, max-age=${12 * 3600}, s-maxage=${3 * 3600}`;
 
 // Init Firebase
 admin.initializeApp();
@@ -21,7 +21,7 @@ const db = admin.firestore();
 const middleware = (
   req: functions.https.Request,
   res: functions.Response,
-  noCache?: boolean
+  cacheResponse?: boolean
 ): [functions.https.Request, functions.Response, boolean] => {
   // Disallow requests from foreign origins
   let approved = false;
@@ -36,7 +36,7 @@ const middleware = (
     res.set({
       "Access-Control-Allow-Origin": "*"
     });
-    if (!noCache) {
+    if (cacheResponse) {
       res.set({
         "Cache-control": CACHE_CONTROL
       });
@@ -80,7 +80,7 @@ const determineVotesForTalkFromUser = (userid: string, talk: Talk): number => {
  * SSR /index
  */
 const ssrIndex = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   const page = require("./next/serverless/pages/index");
   return page.render(request, response);
@@ -90,7 +90,7 @@ const ssrIndex = functions.https.onRequest(async (req, res) => {
  * SSR /account
  */
 const ssrAccount = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   response.sendFile(`${__dirname}/next/serverless/pages/account.html`);
 });
@@ -99,7 +99,7 @@ const ssrAccount = functions.https.onRequest(async (req, res) => {
  * SSR /curated
  */
 const ssrCurated = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   const page = require("./next/serverless/pages/curated-conference-talks");
   return page.render(request, response);
@@ -109,7 +109,7 @@ const ssrCurated = functions.https.onRequest(async (req, res) => {
  * SSR /country
  */
 const ssrCountry = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   const page = require("./next/serverless/pages/country/[countryid]");
   return page.render(request, response);
@@ -119,7 +119,7 @@ const ssrCountry = functions.https.onRequest(async (req, res) => {
  * SSR /event
  */
 const ssrEvent = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   const page = require("./next/serverless/pages/[eventid]");
   return page.render(request, response);
@@ -129,7 +129,7 @@ const ssrEvent = functions.https.onRequest(async (req, res) => {
  * SSR /edition
  */
 const ssrEdition = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   const page = require("./next/serverless/pages/[eventid]/[editionid]");
   return page.render(request, response);
@@ -139,7 +139,7 @@ const ssrEdition = functions.https.onRequest(async (req, res) => {
  * SSR /hero
  */
 const ssrHero = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   const page = require("./next/serverless/pages/hero/[heroid]");
   return page.render(request, response);
@@ -149,7 +149,7 @@ const ssrHero = functions.https.onRequest(async (req, res) => {
  * SSR /privacy-policy
  */
 const ssrPrivacyPolicy = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   response.sendFile(`${__dirname}/next/serverless/pages/privacy-policy.html`);
 });
@@ -158,7 +158,7 @@ const ssrPrivacyPolicy = functions.https.onRequest(async (req, res) => {
  * SSR /stack
  */
 const ssrStack = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   const page = require("./next/serverless/pages/stack/[stackid]");
   return page.render(request, response);
@@ -168,7 +168,7 @@ const ssrStack = functions.https.onRequest(async (req, res) => {
  * SSR /terms-of-service
  */
 const ssrTermsOfService = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   response.sendFile(`${__dirname}/next/serverless/pages/terms-of-service.html`);
 });
@@ -177,7 +177,7 @@ const ssrTermsOfService = functions.https.onRequest(async (req, res) => {
  * SSR /talk
  */
 const ssrTalk = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   const page = require("./next/serverless/pages/[eventid]/[editionid]/[talkslug]");
   return page.render(request, response);
@@ -187,7 +187,7 @@ const ssrTalk = functions.https.onRequest(async (req, res) => {
  * SSR /topic
  */
 const ssrTopic = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   const page = require("./next/serverless/pages/topic/[topicid]");
   return page.render(request, response);
@@ -197,7 +197,7 @@ const ssrTopic = functions.https.onRequest(async (req, res) => {
  * SSR /year
  */
 const ssrYear = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   const page = require("./next/serverless/pages/year/[yearid]");
   return page.render(request, response);
@@ -231,7 +231,7 @@ const indexTalk = functions.firestore
  * Get Event
  */
 const event = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   const eventId = request.query.id;
   if (!eventId) response.send("event id is required");
@@ -253,7 +253,7 @@ const event = functions.https.onRequest(async (req, res) => {
  * Get Edition
  */
 const edition = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   const eventId = request.query.eventId;
   const editionId = request.query.editionId;
@@ -273,7 +273,7 @@ const edition = functions.https.onRequest(async (req, res) => {
  * Get editions by country
  */
 const editionsByCountry = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   let query = db
     .collectionGroup("editions")
@@ -296,7 +296,7 @@ const editionsByCountry = functions.https.onRequest(async (req, res) => {
  * Get editions by year
  */
 const editionsByYear = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   let query = db
     .collectionGroup("editions")
@@ -320,7 +320,7 @@ const editionsByYear = functions.https.onRequest(async (req, res) => {
  * Get recent Editions
  */
 const recentEditions = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   let query = db
     .collectionGroup("editions")
@@ -342,7 +342,7 @@ const recentEditions = functions.https.onRequest(async (req, res) => {
  * Get just added Editions
  */
 const justAddedEditions = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   let query = db
     .collectionGroup("editions")
@@ -364,7 +364,7 @@ const justAddedEditions = functions.https.onRequest(async (req, res) => {
  * Get upcoming Editions
  */
 const upcomingEditions = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   let query = db
     .collectionGroup("editions")
@@ -388,7 +388,7 @@ const upcomingEditions = functions.https.onRequest(async (req, res) => {
  * Get Talk
  */
 const talk = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   const eventId = request.query.eventId;
   const editionId = request.query.editionId;
@@ -416,7 +416,7 @@ const talk = functions.https.onRequest(async (req, res) => {
  * TODO
  */
 const filterTalks = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   const docSnap = await db
     .collectionGroup("talks")
@@ -437,7 +437,7 @@ const filterTalks = functions.https.onRequest(async (req, res) => {
  * Get recent Talks
  */
 const recentTalks = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   let query = db.collectionGroup("talks").where("type", "==", "2");
   if (request.query.stackid > 0) {
@@ -458,7 +458,7 @@ const recentTalks = functions.https.onRequest(async (req, res) => {
  * Get just added Talks
  */
 const justAddedTalks = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   let query = db.collectionGroup("talks").where("type", "==", "2");
   if (request.query.stackid > 0) {
@@ -479,7 +479,7 @@ const justAddedTalks = functions.https.onRequest(async (req, res) => {
  * Get top Talks
  */
 const topTalks = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   let query = db.collectionGroup("talks").where("type", "==", "2");
   if (request.query.stackid > 0) {
@@ -500,7 +500,7 @@ const topTalks = functions.https.onRequest(async (req, res) => {
  * Get rising Talks
  */
 const risingTalks = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   let query = db.collectionGroup("talks").where("type", "==", "2");
   if (request.query.stackid > 0) {
@@ -522,7 +522,7 @@ const risingTalks = functions.https.onRequest(async (req, res) => {
  * Get user
  */
 const getUser = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, false);
   if (!approved) return response.send();
   let uid;
   try {
@@ -541,7 +541,7 @@ const getUser = functions.https.onRequest(async (req, res) => {
  * Get hero Talks
  */
 const heroTalks = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   const docSnap = await db
     .collectionGroup("talks")
@@ -559,7 +559,7 @@ const heroTalks = functions.https.onRequest(async (req, res) => {
  * Get curated Talks
  */
 const curatedTalks = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   let query = db.collectionGroup("talks").where("isCurated", "==", true);
   if (request.query.stackid > 0) {
@@ -580,7 +580,7 @@ const curatedTalks = functions.https.onRequest(async (req, res) => {
  * Get hot Talks
  */
 const hotTalks = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   let query = db.collectionGroup("talks");
   if (request.query.stackid > 0) {
@@ -613,7 +613,7 @@ const hotTalks = functions.https.onRequest(async (req, res) => {
  * Get talks by topic
  */
 const talksByTopic = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = middleware(req, res);
+  const [request, response, approved] = middleware(req, res, true);
   if (!approved) return response.send();
   const docSnap = await db
     .collectionGroup("talks")
