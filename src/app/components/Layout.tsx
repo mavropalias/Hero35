@@ -29,7 +29,7 @@ const Layout = ({
   showDrawer
 }: LayoutType) => {
   const classes = useStyles({});
-  const headTitle = title ? `${title} - Hero35` : "Hero35";
+  const headTitle = title ? title : "Hero35";
 
   return (
     <>
