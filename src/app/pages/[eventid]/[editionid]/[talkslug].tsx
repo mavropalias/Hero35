@@ -131,7 +131,7 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
             </Typography>
           </Grid>
           <Grid item xs={12} md={8}>
-            <TalkControls talkId={talk.id} />
+            <TalkControls talkId={talk.id} upvotes={talk.likes} />
           </Grid>
           <Grid item xs={12} md={8}>
             <Divider />
@@ -339,7 +339,13 @@ const TalkVideo = ({ videoid, start, end }: TalkVideo) => {
   );
 };
 
-const TalkControls = ({ talkId }: { talkId: string }) => {
+const TalkControls = ({
+  talkId,
+  upvotes
+}: {
+  talkId: string;
+  upvotes: number;
+}) => {
   const { state, dispatch } = useContext(UserContext);
   const [optimisticTalkState, setOptimisticTalkState] = useState<
     "saved" | "unsaved" | "liked" | ""
@@ -411,7 +417,12 @@ const TalkControls = ({ talkId }: { talkId: string }) => {
             variant={isTalkLiked(talkId) ? "contained" : "outlined"}
             size="large"
             disabled={!state.signedIn}
-            startIcon={<VoteUp />}
+            startIcon={
+              <>
+                <VoteUp />
+                {upvotes}
+              </>
+            }
             onClick={_ => likeTalk()}
           >
             {isTalkLiked(talkId) ? "Upvoted" : "Upvote"}
