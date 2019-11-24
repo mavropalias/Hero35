@@ -14,7 +14,10 @@ import {
 } from "@material-ui/core";
 import ROUTES from "../constants/routes";
 import SearchInput from "./SearchInput";
-import { Menu as MenuIcon } from "@material-ui/icons/";
+import {
+  Menu as MenuIcon,
+  AccountCircle as AccountIcon
+} from "@material-ui/icons/";
 import { default as NextLink } from "next/link";
 import { useContext, useState } from "react";
 import { UserContext } from "./context-providers/UserContextProvider";
@@ -128,11 +131,15 @@ const Navigation = () => {
               <NextLink href={ROUTES.ACCOUNT} as={ROUTES.ACCOUNT} passHref>
                 {stateUser.signedIn ? (
                   <a>
-                    <Avatar
-                      alt={stateUser.name}
-                      src={stateUser.picture}
-                      style={{ float: "right" }}
-                    />
+                    {stateUser.picture ? (
+                      <Avatar
+                        alt={stateUser.name}
+                        src={stateUser.picture}
+                        style={{ float: "right" }}
+                      />
+                    ) : (
+                      <AccountIcon color="action" fontSize="large" />
+                    )}
                   </a>
                 ) : (
                   <Button variant="contained" color="primary">
