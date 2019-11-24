@@ -56,9 +56,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     disabledButton: { pointerEvents: "none" },
     header: {
-      paddingBottom: 0,
-      paddingLeft: 0,
-      paddingRight: 0
+      padding: theme.spacing(1, 0, 0, 0)
     },
     link: {
       textDecoration: "none",
