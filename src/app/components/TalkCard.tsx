@@ -31,6 +31,9 @@ import DistinctiveTooltip from "./DistinctiveTooltip";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    actions: {
+      padding: theme.spacing(1, 0, 0, 0)
+    },
     badge: {
       width: "100%",
       height: "100%"
@@ -42,9 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: "transparent"
     },
     content: {
-      flex: 1,
-      paddingTop: 0,
-      paddingBottom: 4
+      padding: theme.spacing(0)
     },
     curated: {
       position: "absolute",
@@ -55,7 +56,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     disabledButton: { pointerEvents: "none" },
     header: {
-      paddingBottom: 0
+      paddingBottom: 0,
+      paddingLeft: 0,
+      paddingRight: 0
     },
     link: {
       textDecoration: "none",
@@ -222,7 +225,7 @@ const TalkCard: NextPage<Props> = ({ talk, showCuration }) => {
   );
 
   const TalkCardActions = () => (
-    <CardActions>
+    <CardActions className={classes.actions}>
       <Button
         title={isTalkLiked(talk.id) ? "Liked" : "Like this talk"}
         className={!stateUser.signedIn ? classes.disabledButton : null}
