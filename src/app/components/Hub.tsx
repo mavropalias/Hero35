@@ -61,7 +61,7 @@ const Hub = ({
 
   return (
     <Layout
-      title={`${stateStack.contextTitle} Techtalks`}
+      title={`${stateStack.contextTitle} Hero35`}
       description={`The single source of truth for ${stateStack.contextTitle} developer conferences & talks.`}
     >
       {!state.signedIn && <Welcome />}
