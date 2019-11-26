@@ -1,21 +1,23 @@
 import { Grid } from "@material-ui/core";
 import { NextPage } from "next";
-import { Talk } from "../schema";
+import { TalkPreview } from "../schema";
 import TalkCard from "./TalkCard";
 import CuratorCard from "./CuratorCard";
 
 interface Props {
-  talks?: Talk[];
+  talks?: TalkPreview[];
   showCuration?: boolean;
   showTopics?: boolean;
   showVotes?: boolean;
+  showSaveButton?: boolean;
 }
 
 const TalkGrid: NextPage<Props> = ({
   talks,
   showCuration,
   showTopics = true,
-  showVotes = true
+  showVotes = true,
+  showSaveButton = true
 }) => (
   <Grid container spacing={3}>
     {showCuration && (
@@ -30,6 +32,7 @@ const TalkGrid: NextPage<Props> = ({
           showCuration={showCuration}
           showTopics={showTopics}
           showVotes={showVotes}
+          showSaveButton={showSaveButton}
         ></TalkCard>
       </Grid>
     ))}

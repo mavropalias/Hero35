@@ -24,7 +24,7 @@ import {
 import Database from "../services/Database";
 import { default as NextLink } from "next/link";
 import { NextPage } from "next";
-import { Talk } from "../schema";
+import { TalkPreview } from "../schema";
 import { useContext, useState } from "react";
 import { UserContext } from "./context-providers/UserContextProvider";
 import DistinctiveTooltip from "./DistinctiveTooltip";
@@ -82,17 +82,19 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-  talk: Talk;
+  talk: TalkPreview;
   showCuration?: boolean;
   showTopics?: boolean;
   showVotes?: boolean;
+  showSaveButton?: boolean;
 }
 
 const TalkCard: NextPage<Props> = ({
   talk,
   showCuration,
   showTopics = true,
-  showVotes = true
+  showVotes = true,
+  showSaveButton = true
 }) => {
   const [optimisticTalkState, setOptimisticTalkState] = useState<
     "saved" | "unsaved" | "liked" | ""
@@ -100,7 +102,7 @@ const TalkCard: NextPage<Props> = ({
   const { state: stateUser, dispatch } = useContext(UserContext);
   const classes = useStyles({});
 
-  const talkTime = (talk: Talk) => {
+  const talkTime = (talk: TalkPreview) => {
     let h = null;
     let m = 0;
     let s = 0;
@@ -172,7 +174,7 @@ const TalkCard: NextPage<Props> = ({
   const TalkCardHeader = () => (
     <CardHeader
       title={
-        showVotes ? (
+        showVotes || !showSaveButton ? (
           talk.title
         ) : (
           <Box display="flex" alignItems="flex-start">
@@ -256,7 +258,7 @@ const TalkCard: NextPage<Props> = ({
       >
         {talk.likes || 0}
       </Button>
-      <SaveButton />
+      {showSaveButton && <SaveButton />}
     </CardActions>
   );
 

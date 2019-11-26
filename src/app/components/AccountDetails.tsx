@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import { Bookmarks as BookmarksIcon } from "@material-ui/icons";
 import { useContext } from "react";
-import TalkList from "./TalkList";
+import TalkGrid from "./TalkGrid";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,7 +45,11 @@ const AccountDetails = () => {
           Saved talks:
         </Typography>
       </Box>
-      <TalkList talks={savedTalks()} showEvent={true}></TalkList>
+      <TalkGrid
+        talks={savedTalks()}
+        showVotes={false}
+        showSaveButton={false}
+      ></TalkGrid>
       <Box marginTop={3}>
         <Button
           variant="outlined"
