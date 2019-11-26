@@ -34,6 +34,7 @@ import { useState, useContext } from "react";
 import CATEGORIES from "../../constants/categories";
 import { StackContext } from "../../components/context-providers/StackContextProvider";
 import StackTabs from "../../components/StackTabs";
+import TalkGrid from "../../components/TalkGrid";
 
 const drawerWidth = 240;
 
@@ -122,9 +123,11 @@ const TopicDetails: NextPage<Props> = ({ title, talks }) => {
           <>
             <Grid container spacing={4}>
               <Grid item xs={12}>
-                <Paper>
-                  <TalkList talks={filteredTalks} showEvent={true} />
-                </Paper>
+                <TalkGrid
+                  talks={filteredTalks}
+                  showTopics={false}
+                  showVotes={false}
+                />
               </Grid>
               {/* <Grid item xs={12} sm={4} md={3}>
                 <Filters />

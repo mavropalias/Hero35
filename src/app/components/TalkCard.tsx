@@ -84,9 +84,16 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
   talk: Talk;
   showCuration?: boolean;
+  showTopics?: boolean;
+  showVotes?: boolean;
 }
 
-const TalkCard: NextPage<Props> = ({ talk, showCuration }) => {
+const TalkCard: NextPage<Props> = ({
+  talk,
+  showCuration,
+  showTopics = true,
+  showVotes = true
+}) => {
   const [optimisticTalkState, setOptimisticTalkState] = useState<
     "saved" | "unsaved" | "liked" | ""
   >("");
@@ -164,8 +171,19 @@ const TalkCard: NextPage<Props> = ({ talk, showCuration }) => {
 
   const TalkCardHeader = () => (
     <CardHeader
-      title={talk.title}
-      subheader={<TalkCardTags tags={talk.tags} />}
+      title={
+        showVotes ? (
+          talk.title
+        ) : (
+          <Box display="flex" alignItems="flex-start">
+            <Box flex="1" marginRight={2}>
+              {talk.title}
+            </Box>
+            <SaveButton showLabel={false} />
+          </Box>
+        )
+      }
+      subheader={showTopics && <TalkCardTags tags={talk.tags} />}
       className={classes.header}
     />
   );
@@ -238,6 +256,12 @@ const TalkCard: NextPage<Props> = ({ talk, showCuration }) => {
       >
         {talk.likes || 0}
       </Button>
+      <SaveButton />
+    </CardActions>
+  );
+
+  const SaveButton = ({ showLabel = true }: { showLabel?: boolean }) => (
+    <>
       {isTalkSaved() ? (
         <Button
           title="Talk is saved for later. Click to unsave."
@@ -263,7 +287,7 @@ const TalkCard: NextPage<Props> = ({ talk, showCuration }) => {
           Save
         </Button>
       )}
-    </CardActions>
+    </>
   );
 
   return (
@@ -277,7 +301,7 @@ const TalkCard: NextPage<Props> = ({ talk, showCuration }) => {
         <TalkCardMedia />
         <TalkCardHeader />
         {showCuration && <TalkCardContent />}
-        <TalkCardActions />
+        {showVotes && <TalkCardActions />}
       </Card>
     </Badge>
   );
