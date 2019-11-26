@@ -73,10 +73,10 @@ const useStyles = makeStyles((theme: Theme) =>
       background: `linear-gradient(0deg, ${fade(
         theme.palette.background.default,
         1
-      )} 11%, ${fade(theme.palette.background.default, 0)} 30%, ${fade(
+      )} 14%, ${fade(theme.palette.background.default, 0)} 30%, ${fade(
         theme.palette.background.default,
         0
-      )} 65%, ${fade(theme.palette.background.default, 1)} 85%)`,
+      )} 70%, ${fade(theme.palette.background.default, 1)} 81%)`,
       zIndex: 1
     },
     youtubePlayer: {
