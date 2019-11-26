@@ -113,9 +113,9 @@ const TalkCard: NextPage<Props> = ({
       m = talk.times.m;
       s = talk.times.s;
     }
-    return `${h ? `${h}:` : ""} ${m}${m < 10 ? "0" : ""}:${s}${
+    return `${h ? `${h}:` : ""} ${m < 10 ? "0" : ""}${m}:${
       s < 10 ? "0" : ""
-    }`;
+    }${s}`;
   };
 
   const likeTalk = async () => {
