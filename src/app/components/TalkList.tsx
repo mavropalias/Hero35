@@ -162,7 +162,7 @@ const TalkListItem = ({
                     &hellip;
                   </Typography>
                 )}
-              {talk.curationDescription && (
+              {talk.isCurated && (
                 <Typography
                   component="span"
                   className={classes.textBlock}
