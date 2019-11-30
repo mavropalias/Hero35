@@ -44,6 +44,7 @@ const CATEGORIES: Category[] = [
       "Hungary",
       "Korea",
       "Lithuania",
+      "Netherlands",
       "Singapore",
       "Slovakia",
       "Spain",
