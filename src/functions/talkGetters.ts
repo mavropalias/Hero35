@@ -1,4 +1,4 @@
-import { db } from "admin";
+import { db } from "./admin";
 import { TalkBasic, Talk, TALK_TYPE } from "schema";
 import util from "./util";
 

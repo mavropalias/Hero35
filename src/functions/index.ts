@@ -9,8 +9,8 @@ import {
   getTalksTop,
   getTalksNew,
   getTalksByFilter
-} from "talkGetters";
-import { db } from "admin";
+} from "./talkGetters";
+import { db } from "./admin";
 
 // Config
 const LEAD_CURATORS = ["OXXDuevPrfbLTaH4etkbUZZri2z1"];
