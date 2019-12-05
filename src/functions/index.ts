@@ -601,8 +601,8 @@ const hotTalks = functions.https.onRequest(async (req, res) => {
     const seconds = Math.round(
       talk.dateAddedTimestamp.toDate().getTime() / 1000
     );
-    // talks 30 days older will need 10x the amount of likes:
-    talk.score = order + seconds / 2592000;
+    // talks 10 days older will need 10x the amount of upvotes:
+    talk.score = order + seconds / (10 * 24 * 60 * 60);
   });
   talks.sort((a, b) => b.score - a.score);
   talks = talks.slice(0, 30);
