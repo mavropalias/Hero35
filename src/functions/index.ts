@@ -1,7 +1,16 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import algoliasearch from "algoliasearch";
-import { Talk, TalkPreview, User } from "./schema";
+import { Talk, TalkPreview, User, TalkBasic, TALK_TYPE } from "./schema";
+import {
+  getTalksCurated,
+  getTalksHot,
+  getTalksRising,
+  getTalksTop,
+  getTalksNew,
+  getTalksByFilter
+} from "talkGetters";
+import { db } from "admin";
 
 // Config
 const LEAD_CURATORS = ["OXXDuevPrfbLTaH4etkbUZZri2z1"];
@@ -12,10 +21,6 @@ const CURATORS = [
 
 // Cache for 12 hours on the client and 3 hours on the server
 const CACHE_CONTROL = `public, max-age=${12 * 3600}, s-maxage=${3 * 3600}`;
-
-// Init Firebase
-admin.initializeApp();
-const db = admin.firestore();
 
 // Middleware
 const middleware = (
@@ -820,6 +825,54 @@ const unsaveTalkInUserProfile = functions.https.onRequest(async (req, res) => {
   response.json(user.data());
 });
 
+/**
+ * Get hub content
+ */
+const hubContent = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = middleware(req, res, true);
+  if (!approved) return response.send();
+  const stack = request.query.stack;
+  const topic = request.query.topic;
+  const [
+    curatedTalks,
+    hotTalks,
+    risingTalks,
+    topTalks,
+    newTalks,
+    recentlyAddedTalks,
+    keynotes,
+    lightningTalks,
+    qaSessions,
+    workshops,
+    interviews
+  ] = await Promise.all([
+    getTalksCurated(topic, stack),
+    getTalksHot(topic, stack),
+    getTalksRising(topic, stack),
+    getTalksTop(topic, stack),
+    getTalksNew(topic, stack),
+    getTalksByFilter(topic, stack, TALK_TYPE.Talk),
+    getTalksByFilter(topic, stack, TALK_TYPE.Keynote),
+    getTalksByFilter(topic, stack, TALK_TYPE.LightningTalk),
+    getTalksByFilter(topic, stack, TALK_TYPE.QA),
+    getTalksByFilter(topic, stack, TALK_TYPE.Workshop),
+    getTalksByFilter(topic, stack, TALK_TYPE.Interview)
+  ]);
+  response.json({
+    curatedTalks,
+    hotTalks,
+    risingTalks,
+    topTalks,
+    newTalks,
+    recentlyAddedTalks,
+    keynotes,
+    lightningTalks,
+    qaSessions,
+    workshops,
+    interviews
+  });
+});
+
 const heroes = {
   curatedTalks,
   dislikeTalk,
@@ -831,6 +884,7 @@ const heroes = {
   getUser,
   heroTalks,
   hotTalks,
+  hubContent,
   indexTalk,
   justAddedEditions,
   justAddedTalks,

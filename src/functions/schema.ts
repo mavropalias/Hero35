@@ -42,6 +42,19 @@ export type Tag = {
   count: number;
 };
 
+export type TalkBasic = {
+  categories: string[];
+  editionId?: string;
+  editionTitle?: string;
+  eventId?: string;
+  eventTitle?: string;
+  id: string;
+  isCurated?: boolean;
+  slug?: string;
+  tags?: string[];
+  title: string;
+};
+
 export type TalkPreview = {
   _highlightResult?: any;
   categories: string[];
@@ -93,6 +106,7 @@ export type Talk = {
   logo: string;
   objectID?: string;
   order: number;
+  score?: number;
   slug: string;
   speaker: string;
   start?: number;
@@ -102,12 +116,6 @@ export type Talk = {
   track?: string;
   type: string;
   youtubeId: string;
-};
-
-export type TalkType = {
-  id: string;
-  title: string;
-  titlePlural: string;
 };
 
 export type Category = {
@@ -134,3 +142,15 @@ export type User = {
   dislikedTalks?: string[];
   role?: string;
 };
+
+export enum TALK_TYPE {
+  Keynote = 1,
+  Talk,
+  LightningTalk,
+  Panel,
+  QA,
+  Sponsor,
+  Workshop,
+  Interview,
+  Highlights
+}

@@ -54,6 +54,10 @@
         "function": "heroes-hotTalks"
       },
       {
+        "source": "/api/hubContent",
+        "function": "heroes-hubContent"
+      },
+      {
         "source": "/api/justAddedEditions",
         "function": "heroes-justAddedEditions"
       },
