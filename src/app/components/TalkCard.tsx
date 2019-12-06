@@ -58,6 +58,11 @@ const useStyles = makeStyles((theme: Theme) =>
     header: {
       padding: theme.spacing(1, 0, 0, 0)
     },
+    headerTitle: {
+      maxHeight: "2.66em",
+      overflow: "hidden",
+      textOverflow: "ellipsis"
+    },
     link: {
       textDecoration: "none",
       color: "inherit"
@@ -187,6 +192,7 @@ const TalkCard: NextPage<Props> = ({
       }
       subheader={showTopics && <TalkCardTags tags={talk.tags} />}
       className={classes.header}
+      classes={{ title: classes.headerTitle }}
     />
   );
 
