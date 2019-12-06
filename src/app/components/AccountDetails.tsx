@@ -13,6 +13,7 @@ import {
 import { Bookmarks as BookmarksIcon } from "@material-ui/icons";
 import { useContext } from "react";
 import TalkGrid from "./TalkGrid";
+import { TalkPreview } from "../schema";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,7 +30,9 @@ const AccountDetails = () => {
   const classes = useStyles({});
 
   const savedTalks = () => {
-    return state.savedTalks.sort((a, b) => (a.date < b.date ? 1 : 0));
+    return state.savedTalks.sort((a: TalkPreview, b: TalkPreview) =>
+      a.date < b.date ? 1 : 0
+    );
   };
 
   return (
