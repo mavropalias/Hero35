@@ -4,14 +4,14 @@ import util from "./util";
 
 export const getTalksCurated = async (
   topic?: string,
-  stack?: string
+  stackid?: string
 ): Promise<TalkBasic[]> => {
   let query = db.collectionGroup("talks");
   if (topic) {
     query = query.where("tags", "array-contains", topic);
   }
-  if (stack) {
-    query = query.where(`stacks.${stack}`, "==", "true");
+  if (!!stackid) {
+    query = query.where(`stacks.${stackid}`, "==", "true");
   }
   const docSnap = await query
     .where("isCurated", "==", true)
@@ -23,14 +23,14 @@ export const getTalksCurated = async (
 
 export const getTalksHot = async (
   topic?: string,
-  stack?: string
+  stackid?: string
 ): Promise<TalkBasic[]> => {
   let query = db.collectionGroup("talks");
   if (topic) {
     query = query.where("tags", "array-contains", topic);
   }
-  if (stack) {
-    query = query.where(`stacks.${stack}`, "==", "true");
+  if (!!stackid) {
+    query = query.where(`stacks.${stackid}`, "==", "true");
   }
   const docSnap = await query
     .where("hasLikes", "==", true)
@@ -54,14 +54,14 @@ export const getTalksHot = async (
 
 export const getTalksRising = async (
   topic?: string,
-  stack?: string
+  stackid?: string
 ): Promise<TalkBasic[]> => {
   let query = db.collectionGroup("talks");
   if (topic) {
     query = query.where("tags", "array-contains", topic);
   }
-  if (stack) {
-    query = query.where(`stacks.${stack}`, "==", "true");
+  if (!!stackid) {
+    query = query.where(`stacks.${stackid}`, "==", "true");
   }
   const docSnap = await query
     .where("hasLikes", "==", true)
@@ -73,14 +73,14 @@ export const getTalksRising = async (
 
 export const getTalksTop = async (
   topic?: string,
-  stack?: string
+  stackid?: string
 ): Promise<TalkBasic[]> => {
   let query = db.collectionGroup("talks");
   if (topic) {
     query = query.where("tags", "array-contains", topic);
   }
-  if (stack) {
-    query = query.where(`stacks.${stack}`, "==", "true");
+  if (!!stackid) {
+    query = query.where(`stacks.${stackid}`, "==", "true");
   }
   const docSnap = await query
     .orderBy("likes", "desc")
@@ -91,14 +91,14 @@ export const getTalksTop = async (
 
 export const getTalksNew = async (
   topic?: string,
-  stack?: string
+  stackid?: string
 ): Promise<TalkBasic[]> => {
   let query = db.collectionGroup("talks");
   if (topic) {
     query = query.where("tags", "array-contains", topic);
   }
-  if (stack) {
-    query = query.where(`stacks.${stack}`, "==", "true");
+  if (!!stackid) {
+    query = query.where(`stacks.${stackid}`, "==", "true");
   }
   const docSnap = await query
     .orderBy("dateTimestamp", "desc")
@@ -109,15 +109,15 @@ export const getTalksNew = async (
 
 export const getTalksByFilter = async (
   topic?: string,
-  stack?: string,
+  stackid?: string,
   type?: TALK_TYPE
 ): Promise<TalkBasic[]> => {
   let query = db.collectionGroup("talks");
   if (topic) {
     query = query.where("tags", "array-contains", topic);
   }
-  if (stack) {
-    query = query.where(`stacks.${stack}`, "==", "true");
+  if (!!stackid) {
+    query = query.where(`stacks.${stackid}`, "==", "true");
   }
   if (type) {
     query = query.where("type", "==", type);
