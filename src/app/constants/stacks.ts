@@ -35,7 +35,7 @@ const STACKS: Stack[] = [
     slug: "app-store"
   },
   {
-    color: "#000000",
+    color: "#FFFFFF",
     label: "Apple",
     slug: "apple"
   },
@@ -77,7 +77,7 @@ const STACKS: Stack[] = [
     slug: "babel"
   },
   {
-    color: "#000000",
+    color: "#FFFFFF",
     label: "Bem",
     slug: "bem"
   },
@@ -204,7 +204,7 @@ const STACKS: Stack[] = [
     slug: "expo"
   },
   {
-    color: "#000000",
+    color: "#FFFFFF",
     label: "Express",
     slug: "express"
   },
@@ -265,7 +265,7 @@ const STACKS: Stack[] = [
     slug: "git"
   },
   {
-    color: "#000000",
+    color: "#FFFFFF",
     label: "GitHub",
     slug: "github"
   },
@@ -364,7 +364,7 @@ const STACKS: Stack[] = [
     slug: "ionic"
   },
   {
-    color: "#000000",
+    color: "#FFFFFF",
     label: "iOS",
     slug: "ios"
   },
@@ -399,7 +399,7 @@ const STACKS: Stack[] = [
     slug: "jest"
   },
   {
-    color: "#000000",
+    color: "#FFFFFF",
     label: "JSON",
     slug: "json"
   },
@@ -429,7 +429,7 @@ const STACKS: Stack[] = [
     slug: "logstash"
   },
   {
-    color: "#000000",
+    color: "#FFFFFF",
     label: "Markdown",
     slug: "markdown"
   },
@@ -472,7 +472,7 @@ const STACKS: Stack[] = [
   },
   {
     categories: ["-1", "4"],
-    color: "#000000",
+    color: "#FFFFFF",
     featured: true,
     label: "NextJS",
     slug: "nextjs"
@@ -703,7 +703,7 @@ const STACKS: Stack[] = [
     slug: "tensorflow"
   },
   {
-    color: "#000000",
+    color: "#FFFFFF",
     label: "Terminal",
     slug: "terminal"
   },

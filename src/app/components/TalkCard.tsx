@@ -24,7 +24,7 @@ import {
 import Database from "../services/Database";
 import { default as NextLink } from "next/link";
 import { NextPage } from "next";
-import { TalkPreview } from "../schema";
+import { TalkPreview, TalkBasic } from "../schema";
 import { useContext, useState } from "react";
 import { UserContext } from "./context-providers/UserContextProvider";
 import DistinctiveTooltip from "./DistinctiveTooltip";
@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-  talk: TalkPreview;
+  talk: TalkPreview | TalkBasic;
   showCuration?: boolean;
   showTopics?: boolean;
   showVotes?: boolean;
@@ -106,6 +106,12 @@ const TalkCard: NextPage<Props> = ({
   >("");
   const { state: stateUser, dispatch } = useContext(UserContext);
   const classes = useStyles({});
+
+  const isTalkPreview = (
+    talk: TalkPreview | TalkBasic
+  ): talk is TalkPreview => {
+    return (talk as TalkPreview).likes !== undefined;
+  };
 
   const talkTime = (talk: TalkPreview) => {
     let h = null;
@@ -216,11 +222,13 @@ const TalkCard: NextPage<Props> = ({
             <CardMedia
               className={classes.media}
               image={`https://i.ytimg.com/vi/${talk.youtubeId ||
-                talk.id}/hqdefault.jpg`}
+                talk.id}/hq${talk.coverImage || "default"}.jpg`}
             >
-              <Typography variant="caption" className={classes.time}>
-                {talkTime(talk)}
-              </Typography>
+              {isTalkPreview(talk) && (
+                <Typography variant="caption" className={classes.time}>
+                  {talkTime(talk)}
+                </Typography>
+              )}
             </CardMedia>
           </CardActionArea>
         </DistinctiveTooltip>
@@ -249,23 +257,27 @@ const TalkCard: NextPage<Props> = ({
   );
 
   const TalkCardActions = () => (
-    <CardActions className={classes.actions}>
-      <Button
-        title={isTalkLiked(talk.id) ? "Liked" : "Like this talk"}
-        className={!stateUser.signedIn ? classes.disabledButton : null}
-        color="secondary"
-        variant={isTalkLiked(talk.id) ? "contained" : "text"}
-        size="small"
-        onClick={_ => {
-          talk.likes ? talk.likes++ : (talk.likes = 1);
-          likeTalk();
-        }}
-        startIcon={<UpvoteIcon />}
-      >
-        {talk.likes || 0}
-      </Button>
-      {showSaveButton && <SaveButton />}
-    </CardActions>
+    <>
+      {isTalkPreview(talk) && (
+        <CardActions className={classes.actions}>
+          <Button
+            title={isTalkLiked(talk.id) ? "Liked" : "Like this talk"}
+            className={!stateUser.signedIn ? classes.disabledButton : null}
+            color="secondary"
+            variant={isTalkLiked(talk.id) ? "contained" : "text"}
+            size="small"
+            onClick={_ => {
+              talk.likes ? talk.likes++ : (talk.likes = 1);
+              likeTalk();
+            }}
+            startIcon={<UpvoteIcon />}
+          >
+            {talk.likes || 0}
+          </Button>
+          {showSaveButton && <SaveButton />}
+        </CardActions>
+      )}
+    </>
   );
 
   const SaveButton = ({ showLabel = true }: { showLabel?: boolean }) => (

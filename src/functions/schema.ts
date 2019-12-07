@@ -44,20 +44,24 @@ export type Tag = {
 
 export type TalkBasic = {
   categories: string[];
-  editionId?: string;
-  editionTitle?: string;
-  eventId?: string;
-  eventTitle?: string;
+  coverImage?: string;
+  curationDescription: string;
+  editionId: string;
+  editionTitle: string;
+  eventId: string;
+  eventTitle: string;
   id: string;
   isCurated?: boolean;
-  slug?: string;
-  tags?: string[];
+  slug: string;
+  tags: string[];
   title: string;
+  youtubeId: string;
 };
 
 export type TalkPreview = {
   _highlightResult?: any;
   categories: string[];
+  coverImage?: string;
   curationDescription?: string;
   date: string;
   description?: string;
@@ -86,6 +90,7 @@ export type TalkPreview = {
 
 export type Talk = {
   categories: string[];
+  coverImage?: string;
   curationDescription?: string;
   date: string;
   dateTimestamp?: any;
@@ -144,13 +149,13 @@ export type User = {
 };
 
 export enum TALK_TYPE {
-  Keynote = 1,
-  Talk,
-  LightningTalk,
-  Panel,
-  QA,
-  Sponsor,
-  Workshop,
-  Interview,
-  Highlights
+  Keynote = "1",
+  Talk = "2",
+  LightningTalk = "3",
+  Panel = "4",
+  QA = "5",
+  Sponsor = "6",
+  Workshop = "7",
+  Interview = "8",
+  Highlights = "9"
 }

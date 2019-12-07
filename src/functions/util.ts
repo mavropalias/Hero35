@@ -5,6 +5,8 @@ const queryDocumentSnapshotToTalkBasic = (
 ): TalkBasic => {
   const {
     categories,
+    coverImage,
+    curationDescription,
     editionId,
     editionTitle,
     eventId,
@@ -13,10 +15,13 @@ const queryDocumentSnapshotToTalkBasic = (
     isCurated,
     slug,
     tags,
-    title
+    title,
+    youtubeId
   } = (docSnapshot.data() as unknown) as Talk;
   return {
     categories,
+    coverImage,
+    curationDescription,
     editionId,
     editionTitle,
     eventId,
@@ -25,13 +30,16 @@ const queryDocumentSnapshotToTalkBasic = (
     isCurated,
     slug,
     tags,
-    title
+    title,
+    youtubeId
   };
 };
 
 const talkToTalkBasic = (talk: Talk): TalkBasic => {
   const {
     categories,
+    coverImage,
+    curationDescription,
     editionId,
     editionTitle,
     eventId,
@@ -40,10 +48,13 @@ const talkToTalkBasic = (talk: Talk): TalkBasic => {
     isCurated,
     slug,
     tags,
-    title
+    title,
+    youtubeId
   } = talk;
   return {
     categories,
+    coverImage,
+    curationDescription,
     editionId,
     editionTitle,
     eventId,
@@ -52,7 +63,8 @@ const talkToTalkBasic = (talk: Talk): TalkBasic => {
     isCurated,
     slug,
     tags,
-    title
+    title,
+    youtubeId
   };
 };
 
@@ -71,7 +83,7 @@ const querySnapshotToTalkArray = (
 ): Talk[] => {
   let talks: Talk[] = [];
   snapshot.forEach(doc => {
-    talks.push((doc as unknown) as Talk);
+    talks.push((doc.data() as unknown) as Talk);
   });
   return talks;
 };
@@ -81,7 +93,7 @@ const talkArrayToTalkBasicArray = (talks: Talk[]): TalkBasic[] => {
   talks.forEach(talk => {
     talksBasic.push(talkToTalkBasic(talk));
   });
-  return [];
+  return talksBasic;
 };
 
 export default {

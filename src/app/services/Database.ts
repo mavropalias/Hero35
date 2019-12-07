@@ -1,6 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/auth";
-import { Event, EventEdition, Talk, User } from "../schema";
+import { Event, EventEdition, Talk, User, HubContent } from "../schema";
 import fetch from "isomorphic-unfetch";
 
 // Use Firebase internal network address for SSR
@@ -158,6 +158,16 @@ class Database {
       `${API}filterTalks?topic=${topic}&curated=${curated}&type=${type}&orderBy=${orderBy}&sortOrder=${sortOrder}`
     );
     return ((await res.json()) as unknown) as Talk[];
+  };
+
+  getHubContent = async (
+    topic: string,
+    stack?: string
+  ): Promise<HubContent> => {
+    const res = await fetch(
+      `${API}hubContent?topic=${topic}&stack=${stack || ""}`
+    );
+    return ((await res.json()) as unknown) as HubContent;
   };
 
   // User API ------------------------------------------------------------------

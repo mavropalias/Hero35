@@ -24,7 +24,7 @@ import {
   ListSubheader,
   LinearProgress
 } from "@material-ui/core";
-import { Talk } from "../../schema";
+import { Talk, HubContent } from "../../schema";
 import Database from "../../services/Database";
 import { NextPage, NextPageContext } from "next";
 import TalkList from "../../components/TalkList";
@@ -35,6 +35,7 @@ import CATEGORIES from "../../constants/categories";
 import { StackContext } from "../../components/context-providers/StackContextProvider";
 import StackTabs from "../../components/StackTabs";
 import TalkGrid from "../../components/TalkGrid";
+import Hub from "../../components/hub/Hub";
 
 const drawerWidth = 240;
 
@@ -63,13 +64,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
   title: string;
-  talks: Talk[];
+  content: HubContent;
 }
 
-const TopicDetails: NextPage<Props> = ({ title, talks }) => {
+const TopicDetails: NextPage<Props> = ({ title, content }) => {
   const { state: stateStack } = useContext(StackContext);
   const classes = useStyles({});
-  const [filteredTalks, setFilteredTalks] = useState(talks);
+  // const [filteredTalks, setFilteredTalks] = useState(talks);
   const [isLoading, setIsLoading] = useState();
   const stack = STACKS.filter(stack => stack.slug === title)[0];
   let style = {
@@ -87,37 +88,71 @@ const TopicDetails: NextPage<Props> = ({ title, talks }) => {
   const fetchData = async (stackid: string) => {
     setIsLoading(true);
     const resTalks = await Database.getTalksByTopic(title, stackid);
-    setFilteredTalks(resTalks);
+    // setFilteredTalks(resTalks);
     setIsLoading(false);
+  };
+
+  const s = (array: any[]): any[] => {
+    return [...array.sort(() => Math.random() - 0.5)];
   };
 
   return (
     <Layout title={`Developer conference talks about ${titleParsed}`}>
-      <Paper className={classes.paper} style={style} square>
-        <Container className={classes.container}>
-          <Grid container spacing={1}>
-            <Grid item xs={12} md={8}>
-              {stack ? (
-                <img
-                  src={`/stacks/${stack.slug}.svg`}
-                  className={classes.stackLogo}
-                  alt={`${stack.label} logo`}
-                  title={`${stack.label} conference talks`}
-                />
-              ) : (
-                <Typography variant="h1">{titleParsed}</Typography>
-              )}
-            </Grid>
-            <Grid item xs={12} md={8}>
-              <Typography variant="caption" color="textSecondary" paragraph>
-                {talks.length} developer conference talks about {titleParsed}
-                {stateStack.slug && ` in ${stateStack.contextTitle}`}
-              </Typography>
-            </Grid>
-          </Grid>
-        </Container>
-      </Paper>
-      <Container>
+      <Hub
+        title={title}
+        logo={stack && `/stacks/${stack.slug}.svg`}
+        color={stack && stack.color}
+        talkGroups={[
+          {
+            title: `Hot in ${(stack && stack.label) || title}`,
+            talks: content.hotTalks
+          },
+          {
+            title: "Recently added",
+            talks: content.recentlyAddedTalks
+          },
+          {
+            title: "All time best",
+            talks: content.topTalks
+          },
+          {
+            title: "New talks",
+            talks: content.newTalks
+          },
+          {
+            title: "Rising in popularity",
+            talks: content.risingTalks
+          },
+          {
+            title: "Lightning talks",
+            talks: content.lightningTalks
+          },
+          {
+            title: "Panel discussions",
+            talks: content.panels
+          },
+          {
+            title: "Q&A sessions",
+            talks: content.qaSessions
+          },
+          {
+            title: "Workshops",
+            talks: content.workshops
+          },
+          {
+            title: "Interviews",
+            talks: content.interviews
+          }
+        ]}
+        coverTalks={
+          content.curatedTalks.length > 0
+            ? content.curatedTalks
+            : content.topTalks.length > 0
+            ? content.topTalks
+            : content.newTalks
+        }
+      />
+      {/* <Container hidden>
         <StackTabs fetch={fetchData} isLoading={isLoading} />
         {filteredTalks.length > 0 ? (
           <>
@@ -129,9 +164,9 @@ const TopicDetails: NextPage<Props> = ({ title, talks }) => {
                   showVotes={false}
                 />
               </Grid>
-              {/* <Grid item xs={12} sm={4} md={3}>
+               <Grid item xs={12} sm={4} md={3}>
                 <Filters />
-              </Grid> */}
+              </Grid>
             </Grid>
           </>
         ) : (
@@ -139,7 +174,7 @@ const TopicDetails: NextPage<Props> = ({ title, talks }) => {
             <Typography variant="body1">No talks found.</Typography>
           </Box>
         )}
-      </Container>
+      </Container> */}
     </Layout>
   );
 };
@@ -241,14 +276,10 @@ interface QueryProps {
   stack?: string;
 }
 TopicDetails.getInitialProps = async (ctx: NextPageContext) => {
-  const {
-    topicid: title,
-    stack: stackSlug
-  } = (ctx.query as unknown) as QueryProps;
-  const stack = CATEGORIES.find(cat => cat.slug === stackSlug);
-  const stackid = stack ? stack.id : null;
-  const talks = await Database.getTalksByTopic(title, stackid);
-  return { title, talks };
+  const { topicid: title, stack } = (ctx.query as unknown) as QueryProps;
+  // TODO add stack
+  const content: HubContent = await Database.getHubContent(title);
+  return { title, content };
 };
 
 export default TopicDetails;

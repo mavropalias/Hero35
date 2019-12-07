@@ -842,6 +842,7 @@ const hubContent = functions.https.onRequest(async (req, res) => {
     recentlyAddedTalks,
     keynotes,
     lightningTalks,
+    panels,
     qaSessions,
     workshops,
     interviews
@@ -854,6 +855,7 @@ const hubContent = functions.https.onRequest(async (req, res) => {
     getTalksByFilter(topic, stack, TALK_TYPE.Talk),
     getTalksByFilter(topic, stack, TALK_TYPE.Keynote),
     getTalksByFilter(topic, stack, TALK_TYPE.LightningTalk),
+    getTalksByFilter(topic, stack, TALK_TYPE.Panel),
     getTalksByFilter(topic, stack, TALK_TYPE.QA),
     getTalksByFilter(topic, stack, TALK_TYPE.Workshop),
     getTalksByFilter(topic, stack, TALK_TYPE.Interview)
@@ -867,6 +869,7 @@ const hubContent = functions.https.onRequest(async (req, res) => {
     recentlyAddedTalks,
     keynotes,
     lightningTalks,
+    panels,
     qaSessions,
     workshops,
     interviews

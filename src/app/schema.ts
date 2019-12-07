@@ -44,9 +44,31 @@ export type Tag = {
   count: number;
 };
 
+export type TalkBasic = {
+  categories: string[];
+  coverImage?: string;
+  curationDescription?: string;
+  editionId: string;
+  editionTitle: string;
+  eventId: string;
+  eventTitle: string;
+  id: string;
+  isCurated?: boolean;
+  slug: string;
+  tags: string[];
+  title: string;
+  youtubeId: string;
+};
+
+export type TalkGroup = {
+  title: string;
+  talks: TalkBasic[];
+};
+
 export type TalkPreview = {
   _highlightResult?: any;
   categories: string[];
+  coverImage?: string;
   curationDescription?: string;
   date: string;
   description?: string;
@@ -75,6 +97,7 @@ export type TalkPreview = {
 
 export type Talk = {
   categories: string[];
+  coverImage?: string;
   curationDescription?: string;
   date: string;
   dateTimestamp?: any;
@@ -186,4 +209,19 @@ export type ContentState = {
   risingTalks: Talk[];
   newTalks: Talk[];
   topTalks: Talk[];
+};
+
+export type HubContent = {
+  curatedTalks: TalkBasic[];
+  hotTalks: TalkBasic[];
+  risingTalks: TalkBasic[];
+  topTalks: TalkBasic[];
+  newTalks: TalkBasic[];
+  recentlyAddedTalks: TalkBasic[];
+  keynotes: TalkBasic[];
+  lightningTalks: TalkBasic[];
+  panels: TalkBasic[];
+  qaSessions: TalkBasic[];
+  workshops: TalkBasic[];
+  interviews: TalkBasic[];
 };
