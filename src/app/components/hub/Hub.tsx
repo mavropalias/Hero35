@@ -1,21 +1,8 @@
-import {
-  makeStyles,
-  createStyles,
-  Theme,
-  Container,
-  Hidden,
-  Typography,
-  Box
-} from "@material-ui/core";
-import { TalkPreview, EventEdition, TalkGroup, TalkBasic } from "../../schema";
-import { useContext } from "react";
-import { UserContext } from "./../context-providers/UserContextProvider";
-import { StackContext } from "./../context-providers/StackContextProvider";
+import { makeStyles, createStyles, Theme, Box } from "@material-ui/core";
+import { TalkGroup, TalkBasic } from "../../schema";
 import HubCover from "./HubCover";
 import HubTalkGroup from "../HubTalkGroup";
 import HubInterstitialTalk from "./HubInterstitialTalk";
-
-const useStyles = makeStyles((theme: Theme) => createStyles({}));
 
 interface Props {
   color?: string;
@@ -47,7 +34,9 @@ const Hub = ({ coverTalks, talkGroups, logo, title, color }: Props) => {
           </section>
         ))}
         {coverTalks.length > 1 && (
-          <HubInterstitialTalk talk={coverTalks[1]} color={color} />
+          <Box marginBottom={8}>
+            <HubInterstitialTalk talk={coverTalks[1]} color={color} />
+          </Box>
         )}
         {talkGroups.slice(3, 6).map(group => (
           <section key={group.title}>
@@ -59,7 +48,9 @@ const Hub = ({ coverTalks, talkGroups, logo, title, color }: Props) => {
           </section>
         ))}
         {coverTalks.length > 2 && (
-          <HubInterstitialTalk talk={coverTalks[2]} color={color} />
+          <Box marginBottom={8}>
+            <HubInterstitialTalk talk={coverTalks[2]} color={color} />
+          </Box>
         )}
         {talkGroups.slice(6).map(group => (
           <section key={group.title}>
