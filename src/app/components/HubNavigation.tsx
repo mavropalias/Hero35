@@ -14,7 +14,7 @@ import {
   Box,
   Link
 } from "@material-ui/core";
-import { Twitter as TwitterIcon } from "@material-ui/icons";
+import { Twitter as TwitterIcon, Home as HomeIcon } from "@material-ui/icons";
 import { Bookmarks as BookmarksIcon } from "@material-ui/icons";
 import { useContext } from "react";
 import { StackContext } from "./context-providers/StackContextProvider";
@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme: Theme) =>
     appBar: {
       zIndex: theme.zIndex.drawer + 1
     },
-    iconRoot: {},
     imageIcon: {
       display: "block",
       height: "100%",
@@ -116,16 +115,18 @@ const HubNavigation = ({
                 dispatchStack({ type: "ROUTE_TO_STACK", stack_slug: cat.slug })
               }
             >
-              {cat.slug !== "" && (
-                <ListItemIcon>
-                  <Icon classes={{ root: classes.iconRoot }}>
+              <ListItemIcon>
+                {cat.slug !== "" ? (
+                  <Icon>
                     <img
                       className={classes.imageIcon}
                       src={`/stacks/${cat.slug}.svg`}
                     />
                   </Icon>
-                </ListItemIcon>
-              )}
+                ) : (
+                  <HomeIcon />
+                )}
+              </ListItemIcon>
               <ListItemText
                 primary={`${cat.title}${cat.id !== "-1" ? " hub" : ""}`}
               />
