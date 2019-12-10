@@ -84,15 +84,19 @@ const EventDetails: NextPage<Props> = ({ event }) => {
                   {event.title}
                 </Typography>
                 {event.categories.map(cat => (
-                  <Chip
-                    color="default"
-                    variant="default"
-                    key={cat}
-                    label={
-                      CATEGORIES.find(category => category.id === cat).title
-                    }
-                    className={classes.chip}
-                  />
+                  <>
+                    {CATEGORIES.find(category => category.id === cat) && (
+                      <Chip
+                        color="default"
+                        variant="default"
+                        key={cat}
+                        label={
+                          CATEGORIES.find(category => category.id === cat).title
+                        }
+                        className={classes.chip}
+                      />
+                    )}
+                  </>
                 ))}
                 <Typography variant="body1" className={classes.description}>
                   {event.description}
