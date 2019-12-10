@@ -8,6 +8,7 @@ const CATEGORIES: Category[] = [
     contextTitle: "",
     countries: [
       "Australia",
+      "Belarus",
       "Bulgaria",
       "Czech Republic",
       "Finland",
@@ -39,6 +40,7 @@ const CATEGORIES: Category[] = [
     colorText: "#000000",
     contextTitle: "JavaScript",
     countries: [
+      "Belarus",
       "Czech Republic",
       "Germany",
       "Hungary",
