@@ -59,7 +59,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     groupTitle: {
       margin: theme.spacing(0, 0, 2, 2),
-      fontWeight: 700,
       color: theme.palette.text.secondary,
       lineHeight: 1,
       [theme.breakpoints.up("sm")]: {

@@ -38,6 +38,9 @@ const appTheme = responsiveFontSizes(
     typography: {
       fontFamily:
         "-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol",
+      h4: {
+        fontWeight: 700
+      },
       h5: {
         fontWeight: 700
       },

@@ -8,11 +8,11 @@ import {
   Box,
   Typography,
   Container,
-  Avatar,
   Grid,
   Button,
   Link,
-  Divider
+  Divider,
+  Paper
 } from "@material-ui/core";
 import {
   Bookmark as BookmarkIcon,
@@ -46,9 +46,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     description: {
       whiteSpace: "pre-line"
-    },
-    eventTitle: {
-      lineHeight: 1.2
     },
     youtubePlayer: {
       position: "absolute",
@@ -119,15 +116,8 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
       <Container className={classes.container}>
         <Grid container spacing={2} direction="column">
           <Grid item xs={12} md={8}>
-            <Typography variant="body1" color="textSecondary" component="div">
-              <TalkTags tags={talk.tags} />
-            </Typography>
-            <Typography variant="h5" component="h1">
+            <Typography variant="h4" component="h1">
               {talk.title}
-            </Typography>
-            <Typography variant="subtitle2" color="textSecondary">
-              Speaker{speakers.length > 1 && "s"}:{" "}
-              <TalkSpeakers speakers={speakers} />
             </Typography>
           </Grid>
           <Grid item xs={12} md={8}>
@@ -137,110 +127,107 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
             <Divider />
           </Grid>
           <Grid item xs={12} md={8}>
-            <Grid container spacing={2} alignItems="center">
+            <Grid container spacing={1}>
               <Grid item>
-                <Avatar
-                  component="span"
-                  alt={`${talk.eventTitle} ${talk.editionTitle} logo`}
-                  src={`${process.env.STORAGE_PATH}${encodeURIComponent(
-                    talk.logo
-                  )}?alt=media`}
-                />
-              </Grid>
-              <Grid item>
-                <Typography variant="subtitle1" className={classes.eventTitle}>
-                  Event:&nbsp;
+                <Typography variant="body2" color="textSecondary">
+                  Event:{" "}
                   <NextLink
                     passHref
                     href={`/[eventid]/[editionid]`}
                     as={`/${talk.eventId}/${talk.editionId}`}
                   >
                     <Link>{`${talk.eventTitle} ${talk.editionTitle}`}</Link>
-                  </NextLink>{" "}
+                  </NextLink>
                 </Typography>
-                <Typography variant="caption" color="textSecondary">
-                  {shortDate(talk.date)}
+              </Grid>
+              <Grid item>
+                <Typography variant="body2" color="textSecondary">
+                  Speaker{speakers.length > 1 && "s"}:{" "}
+                  <TalkSpeakers speakers={speakers} />
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography variant="body2" color="textSecondary">
+                  Date: {shortDate(talk.date)}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography variant="body2" color="textSecondary">
+                  Topics: <TalkTags tags={talk.tags} />
                 </Typography>
               </Grid>
             </Grid>
           </Grid>
-          {talk.curationDescription && (
+          {talk.isCurated && (
             <>
               <Grid item xs={12} md={8}>
-                <Grid container alignItems="baseline" justify="space-between">
-                  <Grid item>
-                    <Grid container alignItems="center" spacing={1}>
+                <Paper>
+                  <Box padding={2}>
+                    <Grid
+                      container
+                      alignItems="baseline"
+                      justify="space-between"
+                    >
                       <Grid item>
-                        <Typography
-                          variant="overline"
-                          color="textSecondary"
-                          style={{ lineHeight: 1 }}
-                          component="h2"
-                        >
-                          Curated talk
-                        </Typography>
+                        <Grid container alignItems="center" spacing={1}>
+                          <Grid item>
+                            <Typography
+                              variant="overline"
+                              color="textSecondary"
+                              style={{ lineHeight: 1 }}
+                              component="h2"
+                            >
+                              Curated talk
+                            </Typography>
+                          </Grid>
+                          <Grid item>
+                            <CuratedIcon
+                              color="secondary"
+                              fontSize="inherit"
+                              style={{ verticalAlign: "text-bottom" }}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <Typography
+                              style={{ lineHeight: 1 }}
+                              variant="caption"
+                              color="textSecondary"
+                            >
+                              Editor's note:
+                            </Typography>
+                          </Grid>
+                        </Grid>
                       </Grid>
                       <Grid item>
-                        <CuratedIcon
-                          color="secondary"
-                          fontSize="inherit"
-                          style={{ verticalAlign: "text-bottom" }}
-                        />
-                      </Grid>
-                      <Grid item>
-                        <Typography
-                          style={{ lineHeight: 1 }}
-                          variant="caption"
-                          color="textSecondary"
-                        >
-                          Editor's note:
+                        <Typography variant="overline">
+                          <NextLink
+                            passHref
+                            href={`/curated-conference-talks${
+                              stateStack.slug ? `?stack=${stateStack.slug}` : ""
+                            }`}
+                            as={`/curated-conference-talks${
+                              stateStack.slug ? `?stack=${stateStack.slug}` : ""
+                            }`}
+                          >
+                            <Link color="primary">More curated talks</Link>
+                          </NextLink>
                         </Typography>
                       </Grid>
                     </Grid>
-                  </Grid>
-                  <Grid item>
-                    <Typography variant="overline">
-                      <NextLink
-                        passHref
-                        href={`/curated-conference-talks${
-                          stateStack.slug ? `?stack=${stateStack.slug}` : ""
-                        }`}
-                        as={`/curated-conference-talks${
-                          stateStack.slug ? `?stack=${stateStack.slug}` : ""
-                        }`}
-                      >
-                        <Link color="primary">More curated talks</Link>
-                      </NextLink>
+                    <Typography variant="body1" gutterBottom>
+                      {talk.curationDescription}
                     </Typography>
-                  </Grid>
-                </Grid>
-                <Typography variant="body1" gutterBottom>
-                  {talk.curationDescription}
-                </Typography>
-              </Grid>
-              <Grid item xs={12} md={8}>
-                <Divider />
+                  </Box>
+                </Paper>
               </Grid>
             </>
           )}
           {talk.description && (
             <>
               <Grid item xs={12} md={8}>
-                <Typography
-                  variant="overline"
-                  component="h2"
-                  color="textSecondary"
-                  style={{ lineHeight: 1 }}
-                  gutterBottom
-                >
-                  Description:
-                </Typography>
                 <Typography variant="body1" className={classes.description}>
                   {talk.description}
                 </Typography>
-              </Grid>
-              <Grid item xs={12} md={8}>
-                <Divider />
               </Grid>
             </>
           )}
@@ -420,7 +407,6 @@ const TalkControls = ({
             startIcon={
               <>
                 <VoteUp />
-                {upvotes}
               </>
             }
             onClick={_ => likeTalk()}
@@ -460,6 +446,12 @@ const TalkControls = ({
           )}
         </Grid>
       </Grid>
+      <Box marginTop={1}>
+        <Typography variant="caption" color="textSecondary">
+          Remember to upvote the talks that you like! It allows us to recommend
+          better talks to you and the community.
+        </Typography>
+      </Box>
     </>
   );
 };
