@@ -1,14 +1,14 @@
 import { makeStyles, createStyles, Theme, Box } from "@material-ui/core";
-import { TalkGroup, TalkBasic } from "../../schema";
+import { TalkGroupContents, TalkBasic } from "../../schema";
 import HubCover from "./HubCover";
-import HubTalkGroup from "../HubTalkGroup";
+import HubTalkGroup from "../TalkGroup";
 import HubInterstitialTalk from "./HubInterstitialTalk";
 
 interface Props {
   color?: string;
   coverTalks?: TalkBasic[];
   logo?: string;
-  talkGroups: TalkGroup[];
+  talkGroups: TalkGroupContents[];
   title?: string;
 }
 

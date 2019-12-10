@@ -5,7 +5,7 @@ import {
   Theme,
   createStyles
 } from "@material-ui/core";
-import { TalkGroup } from "../schema";
+import { TalkGroupContents } from "../schema";
 import TalkCard from "./TalkCard";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -75,14 +75,14 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-  talkGroup: TalkGroup;
+  talkGroup: TalkGroupContents;
   showCuration?: boolean;
   showTopics?: boolean;
   showVotes?: boolean;
   showSaveButton?: boolean;
 }
 
-const HubTalkGroup = ({
+const TalkGroup = ({
   talkGroup,
   showCuration = false,
   showTopics = false,
@@ -126,4 +126,4 @@ const HubTalkGroup = ({
   );
 };
 
-export default HubTalkGroup;
+export default TalkGroup;

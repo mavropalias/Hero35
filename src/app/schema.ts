@@ -60,7 +60,7 @@ export type TalkBasic = {
   youtubeId: string;
 };
 
-export type TalkGroup = {
+export type TalkGroupContents = {
   title: string;
   talks: TalkBasic[];
 };

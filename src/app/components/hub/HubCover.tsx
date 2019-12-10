@@ -1,15 +1,5 @@
-import {
-  makeStyles,
-  createStyles,
-  Theme,
-  Container,
-  Hidden,
-  Typography
-} from "@material-ui/core";
-import { TalkPreview, EventEdition, TalkGroup, TalkBasic } from "../../schema";
-import { useContext } from "react";
-import { UserContext } from "./../context-providers/UserContextProvider";
-import { StackContext } from "./../context-providers/StackContextProvider";
+import { makeStyles, createStyles, Theme } from "@material-ui/core";
+import { TalkBasic } from "../../schema";
 import HubCoverImage from "./HubCoverImage";
 import HubCoverText from "./HubCoverText";
 
