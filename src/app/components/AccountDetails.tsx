@@ -41,27 +41,33 @@ const AccountDetails = () => {
       <Typography color="textSecondary" paragraph>
         {state.name || state.email}
       </Typography>
-      <Box display="flex" alignItems="center" marginBottom={1}>
-        <BookmarksIcon fontSize="small" />
+      <Box display="flex" alignItems="center" marginBottom={2} paddingTop={3}>
+        <BookmarksIcon />
         &nbsp;
-        <Typography variant="h5" component="h2">
-          Saved talks:
+        <Typography variant="h4" component="h2">
+          Saved talks
         </Typography>
       </Box>
-      <TalkGrid
-        talks={savedTalks()}
-        showVotes={false}
-        showSaveButton={false}
-      ></TalkGrid>
-      <Box marginTop={3}>
-        <Button
-          variant="outlined"
-          color="secondary"
-          onClick={() => Database.auth.signOut()}
-        >
-          Sign out
-        </Button>
+      <Box marginBottom={9}>
+        {state.savedTalks.length > 0 ? (
+          <TalkGrid
+            talks={savedTalks()}
+            showVotes={false}
+            showSaveButton={false}
+          ></TalkGrid>
+        ) : (
+          <Typography color="textSecondary">
+            You haven't saved any talks, yet.
+          </Typography>
+        )}
       </Box>
+      <Button
+        variant="outlined"
+        color="secondary"
+        onClick={() => Database.auth.signOut()}
+      >
+        Sign out
+      </Button>
     </Container>
   );
 };
