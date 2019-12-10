@@ -60,11 +60,6 @@ export type TalkBasic = {
   youtubeId: string;
 };
 
-export type TalkGroupContents = {
-  title: string;
-  talks: TalkBasic[];
-};
-
 export type TalkPreview = {
   _highlightResult?: any;
   categories: string[];
@@ -73,21 +68,21 @@ export type TalkPreview = {
   date: string;
   description?: string;
   dislikes?: number;
-  editionId?: string;
-  editionTitle?: string;
+  editionId: string;
+  editionTitle: string;
   end?: number;
-  eventId?: string;
-  eventTitle?: string;
+  eventId: string;
+  eventTitle: string;
   id: string;
   isCurated?: boolean;
   likes?: number;
   logo?: string;
   order?: number;
-  slug?: string;
+  slug: string;
   _snippetResult?: any;
   speaker: string;
   start?: number;
-  tags?: string[];
+  tags: string[];
   times?: Times;
   title: string;
   track?: string;
@@ -131,6 +126,11 @@ export type TalkType = {
   id: string;
   title: string;
   titlePlural: string;
+};
+
+export type TalkGroupContents = {
+  title: string;
+  talks: TalkBasic[] | TalkPreview[];
 };
 
 export type Category = {

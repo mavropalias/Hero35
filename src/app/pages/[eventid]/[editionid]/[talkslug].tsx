@@ -20,7 +20,7 @@ import {
   Stars as CuratedIcon,
   ArrowUpward as VoteUp
 } from "@material-ui/icons";
-import { Talk } from "../../../schema";
+import { Talk, TalkGroupContents } from "../../../schema";
 import Database from "../../../services/Database";
 import { NextPage, NextPageContext } from "next";
 import Breadcrumbs from "../../../components/Breadcrumbs";
@@ -28,6 +28,7 @@ import { UserContext } from "../../../components/context-providers/UserContextPr
 import { useContext, useState } from "react";
 import Stacks from "../../../components/Stacks";
 import { StackContext } from "../../../components/context-providers/StackContextProvider";
+import TalkGroup from "../../../components/TalkGroup";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -67,7 +68,13 @@ interface Props {
 
 const TalkDetails: NextPage<Props> = ({ talk }) => {
   const { state: stateStack } = useContext(StackContext);
+  const { state: stateUser } = useContext(UserContext);
   const classes = useStyles({});
+
+  const savedTalksGroup: TalkGroupContents = {
+    title: "My saved talks",
+    talks: stateUser.savedTalks
+  };
 
   const speakers = talk.speaker
     .split(/ *(,| and | & ) */g)
@@ -231,19 +238,21 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
               </Grid>
             </>
           )}
-          <Grid item xs={12}>
-            <Typography
-              variant="overline"
-              component="h2"
-              color="textSecondary"
-              style={{ lineHeight: 1 }}
-              paragraph
-            >
-              Explore more stacks:
-            </Typography>
-            <Stacks />
-          </Grid>
         </Grid>
+      </Container>
+      <Box marginBottom={4} marginTop={4}>
+        <Divider />
+      </Box>
+      {savedTalksGroup.talks.length > 0 && (
+        <>
+          <TalkGroup talkGroup={savedTalksGroup} />
+          <Box marginBottom={4} marginTop={4}>
+            <Divider />
+          </Box>
+        </>
+      )}
+      <Container>
+        <Stacks />
       </Container>
     </Layout>
   );

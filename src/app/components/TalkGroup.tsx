@@ -5,7 +5,7 @@ import {
   Theme,
   createStyles
 } from "@material-ui/core";
-import { TalkGroupContents } from "../schema";
+import { TalkGroupContents, TalkPreview, TalkBasic } from "../schema";
 import TalkCard from "./TalkCard";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -99,6 +99,9 @@ const TalkGroup = ({
     return false;
   };
 
+  let talks: TalkBasic[] = [];
+  talkGroup.talks.forEach(talk => talks.push(talkToTalkBasic(talk)));
+
   return (
     <>
       <Typography className={classes.groupTitle} variant="h4">
@@ -110,7 +113,7 @@ const TalkGroup = ({
         className={classes.group}
         wrap={isWindows() ? "wrap" : "nowrap"}
       >
-        {talkGroup.talks.map(talk => (
+        {talks.map(talk => (
           <Grid className={classes.groupItem} key={talk.id} item>
             <TalkCard
               talk={talk}
@@ -124,6 +127,39 @@ const TalkGroup = ({
       </Grid>
     </>
   );
+};
+
+const talkToTalkBasic = (talk: TalkBasic | TalkPreview): TalkBasic => {
+  const {
+    categories,
+    coverImage,
+    curationDescription,
+    editionId,
+    editionTitle,
+    eventId,
+    eventTitle,
+    id,
+    isCurated,
+    slug,
+    tags,
+    title,
+    youtubeId
+  } = talk;
+  return {
+    categories,
+    coverImage,
+    curationDescription,
+    editionId,
+    editionTitle,
+    eventId,
+    eventTitle,
+    id,
+    isCurated,
+    slug,
+    tags,
+    title,
+    youtubeId
+  };
 };
 
 export default TalkGroup;
