@@ -75,7 +75,7 @@ const Welcome = () => {
                 </Grid>
                 <Grid item>
                   <Typography variant="h6" className={classes.success}>
-                    1700+ educational talks on React, JavaScript, and their
+                    2000+ educational talks on React, JavaScript, and their
                     ecosystems
                   </Typography>
                 </Grid>
