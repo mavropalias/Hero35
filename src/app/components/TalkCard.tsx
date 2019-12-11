@@ -13,7 +13,8 @@ import {
   Badge,
   Button,
   CardHeader,
-  CardActions
+  CardActions,
+  Paper
 } from "@material-ui/core";
 import {
   ArrowUpward as UpvoteIcon,
@@ -24,7 +25,7 @@ import {
 import Database from "../services/Database";
 import { default as NextLink } from "next/link";
 import { NextPage } from "next";
-import { TalkPreview, TalkBasic } from "../schema";
+import { TalkPreview, TalkBasic, Talk } from "../schema";
 import { useContext, useState } from "react";
 import { UserContext } from "./context-providers/UserContextProvider";
 import DistinctiveTooltip from "./DistinctiveTooltip";
@@ -70,7 +71,17 @@ const useStyles = makeStyles((theme: Theme) =>
     media: {
       paddingBottom: "56.25%" /* 16:9 aspect ratio */,
       height: 0,
-      position: "relative"
+      overflow: "hidden",
+      position: "relative",
+      "& .description": {
+        opacity: 0,
+        transition: theme.transitions.create("opacity")
+      },
+      "&:hover": {
+        "& .description": {
+          opacity: 1
+        }
+      }
     },
     tag: { marginRight: theme.spacing(1) },
     time: {
@@ -229,11 +240,22 @@ const TalkCard: NextPage<Props> = ({
                   {talkTime(talk)}
                 </Typography>
               )}
+              {talk.curationDescription && <TalkInfo talk={talk} />}
             </CardMedia>
           </CardActionArea>
         </DistinctiveTooltip>
       </a>
     </NextLink>
+  );
+
+  const TalkInfo = ({ talk }: { talk: TalkBasic | TalkPreview }) => (
+    <Box padding={0.5} className="description">
+      <Paper elevation={0}>
+        <Box padding={1}>
+          <Typography variant="caption">{talk.curationDescription}</Typography>
+        </Box>
+      </Paper>
+    </Box>
   );
 
   const TalkCardContent = () => (
