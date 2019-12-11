@@ -46,7 +46,20 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(1)
     },
     description: {
+      maxHeight: "4.5em",
+      overflow: "hidden"
+    },
+    descriptionExpanded: {
       whiteSpace: "pre-line"
+    },
+    showMoreDescription: {
+      color: theme.palette.text.secondary,
+      padding: 0,
+      marginTop: theme.spacing(0.5)
+    },
+    tag: {
+      marginRight: theme.spacing(1),
+      marginBottom: theme.spacing(1)
     },
     youtubePlayer: {
       position: "absolute",
@@ -54,10 +67,6 @@ const useStyles = makeStyles((theme: Theme) =>
       left: 0,
       width: "100%",
       height: "100%"
-    },
-    tag: {
-      marginRight: theme.spacing(1),
-      marginBottom: theme.spacing(1)
     }
   })
 );
@@ -67,6 +76,7 @@ interface Props {
 }
 
 const TalkDetails: NextPage<Props> = ({ talk }) => {
+  const [expandDescription, setExpandDescription] = useState();
   const { state: stateStack } = useContext(StackContext);
   const { state: stateUser } = useContext(UserContext);
   const classes = useStyles({});
@@ -232,9 +242,25 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
           {talk.description && (
             <>
               <Grid item xs={12} md={8}>
-                <Typography variant="body1" className={classes.description}>
+                <Typography
+                  variant="body1"
+                  className={
+                    expandDescription
+                      ? classes.descriptionExpanded
+                      : classes.description
+                  }
+                >
                   {talk.description}
                 </Typography>
+                {!expandDescription && (
+                  <Button
+                    variant="text"
+                    className={classes.showMoreDescription}
+                    onClick={_ => setExpandDescription(true)}
+                  >
+                    Show more
+                  </Button>
+                )}
               </Grid>
             </>
           )}
