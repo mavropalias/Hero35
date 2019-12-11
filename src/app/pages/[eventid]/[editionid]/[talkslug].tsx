@@ -20,7 +20,7 @@ import {
   Stars as CuratedIcon,
   ArrowUpward as VoteUp
 } from "@material-ui/icons";
-import { Talk, TalkGroupContents } from "../../../schema";
+import { Talk, TalkGroupContents, Stack } from "../../../schema";
 import Database from "../../../services/Database";
 import { NextPage, NextPageContext } from "next";
 import Breadcrumbs from "../../../components/Breadcrumbs";
@@ -29,6 +29,7 @@ import { useContext, useState } from "react";
 import Stacks from "../../../components/Stacks";
 import { StackContext } from "../../../components/context-providers/StackContextProvider";
 import TalkGroup from "../../../components/TalkGroup";
+import STACKS from "../../../constants/stacks";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -80,6 +81,13 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
   const { state: stateStack } = useContext(StackContext);
   const { state: stateUser } = useContext(UserContext);
   const classes = useStyles({});
+
+  const talkStacks: Stack[] = STACKS.filter(stack =>
+    talk.tags.includes(stack.slug)
+  );
+  const talkTopics: string[] = talk.tags.filter(
+    tag => !talkStacks.find(stack => stack.slug === tag)
+  );
 
   const savedTalksGroup: TalkGroupContents = {
     title: "My saved talks",
@@ -168,13 +176,20 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
                   Date: {shortDate(talk.date)}
                 </Typography>
               </Grid>
-              <Grid item>
-                <Typography variant="body2" color="textSecondary">
-                  Topics: <TalkTags tags={talk.tags} />
-                </Typography>
-              </Grid>
             </Grid>
+            {(talkTopics.length > 0 || talkStacks.length > 0) && (
+              <Box marginTop={0.5}>
+                <Typography variant="body2" color="textSecondary">
+                  Talk topics: <TalkTags tags={talkTopics} />
+                </Typography>
+              </Box>
+            )}
           </Grid>
+          {talkStacks.length > 0 && (
+            <Grid item xs={12}>
+              <Stacks customStacks={talkStacks} showOutlines={true} />
+            </Grid>
+          )}
           {talk.isCurated && (
             <>
               <Grid item xs={12} md={8}>
@@ -239,7 +254,7 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
               </Grid>
             </>
           )}
-          {talk.description && (
+          {(talk.description || talk.curationDescription) && (
             <>
               <Grid item xs={12} md={8}>
                 <Typography
@@ -250,9 +265,10 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
                       : classes.description
                   }
                 >
-                  {talk.description}
+                  {talk.description ||
+                    (!talk.isCurated && talk.curationDescription)}
                 </Typography>
-                {!expandDescription && (
+                {talk.description && !expandDescription && (
                   <Button
                     variant="text"
                     className={classes.showMoreDescription}

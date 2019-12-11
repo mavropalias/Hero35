@@ -19,6 +19,9 @@ import { Stack } from "../schema";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     card: { height: "100%", background: "transparent" },
+    cardOutlined: {
+      height: "100%"
+    },
     cardActionArea: {
       height: "100%",
       display: "flex",
@@ -44,9 +47,18 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Stacks = ({ bSmall }: { bSmall?: boolean }) => {
+const Stacks = ({
+  bSmall,
+  customStacks,
+  showOutlines
+}: {
+  bSmall?: boolean;
+  customStacks?: Stack[];
+  showOutlines?: boolean;
+}) => {
   const classes = useStyles({});
   const { state: stateStack } = useContext(StackContext);
+  const stacksToShow = customStacks || STACKS;
 
   const stackHref = (stack: Stack) =>
     stack.isCategory
@@ -63,13 +75,13 @@ const Stacks = ({ bSmall }: { bSmall?: boolean }) => {
   return (
     <>
       <Grid container spacing={1}>
-        {STACKS.map(
+        {stacksToShow.map(
           stack =>
-            stack.featured &&
-            stack.categories.includes(stateStack.id) && (
+            ((stack.featured && stack.categories.includes(stateStack.id)) ||
+              customStacks) && (
               <Grid item xs={4} sm={3} md={bSmall ? 3 : 2} key={stack.slug}>
                 <Card
-                  className={classes.card}
+                  className={showOutlines ? classes.cardOutlined : classes.card}
                   raised={stack.isCategory ? true : false}
                   elevation={stack.isCategory ? 4 : 0}
                   style={
