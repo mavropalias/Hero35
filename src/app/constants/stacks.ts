@@ -337,6 +337,11 @@ const STACKS: Stack[] = [
     slug: "hasura"
   },
   {
+    color: "#277A9F",
+    label: "Helm",
+    slug: "helm"
+  },
+  {
     color: "#430098",
     label: "Heroku",
     slug: "heroku"
