@@ -10,10 +10,10 @@ import {
   Typography,
   Badge
 } from "@material-ui/core";
-import { default as NextLink } from "next/link";
 import { EventEdition } from "../schema";
 import React from "react";
 import DistinctiveTooltip from "./DistinctiveTooltip";
+import LinkPrefetch from "./LinkPrefetch";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -87,7 +87,7 @@ const EditionGrid = ({
             md={variant === "horizontal" ? 4 : 12}
             lg={variant === "horizontal" ? 3 : 12}
           >
-            <NextLink
+            <LinkPrefetch
               href={`/[eventid]/[editionid]`}
               as={`/${edition.eventId}/${edition.id}`}
             >
@@ -131,7 +131,7 @@ const EditionGrid = ({
                   </DistinctiveTooltip>
                 </Badge>
               </a>
-            </NextLink>
+            </LinkPrefetch>
           </Grid>
         ))}
       </Grid>

@@ -1,4 +1,4 @@
-import { default as NextLink } from "next/link";
+import LinkPrefetch from "../../../components/LinkPrefetch";
 import Layout from "../../../components/Layout";
 import YouTube from "react-youtube";
 import {
@@ -156,13 +156,13 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
               <Grid item>
                 <Typography variant="body2" color="textSecondary">
                   Event:{" "}
-                  <NextLink
+                  <LinkPrefetch
                     passHref
                     href={`/[eventid]/[editionid]`}
                     as={`/${talk.eventId}/${talk.editionId}`}
                   >
                     <Link>{`${talk.eventTitle} ${talk.editionTitle}`}</Link>
-                  </NextLink>
+                  </LinkPrefetch>
                 </Typography>
               </Grid>
               <Grid item>
@@ -232,7 +232,7 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
                       </Grid>
                       <Grid item>
                         <Typography variant="overline">
-                          <NextLink
+                          <LinkPrefetch
                             passHref
                             href={`/curated-conference-talks${
                               stateStack.slug ? `?stack=${stateStack.slug}` : ""
@@ -242,7 +242,7 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
                             }`}
                           >
                             <Link color="primary">More curated talks</Link>
-                          </NextLink>
+                          </LinkPrefetch>
                         </Typography>
                       </Grid>
                     </Grid>
@@ -305,7 +305,7 @@ const TalkSpeakers = ({ speakers }: { speakers: string[] }) => {
   return (
     <>
       {speakers.map((speaker, index) => (
-        <NextLink
+        <LinkPrefetch
           key={index}
           passHref
           href={`/hero/[heroid]`}
@@ -315,7 +315,7 @@ const TalkSpeakers = ({ speakers }: { speakers: string[] }) => {
             {speaker}
             {index + 1 < speakers.length && ", "}
           </Link>
-        </NextLink>
+        </LinkPrefetch>
       ))}
     </>
   );
@@ -327,7 +327,7 @@ const TalkTags = ({ tags }: { tags: string[] }) => {
   return (
     <>
       {tags.sort().map(tag => (
-        <NextLink
+        <LinkPrefetch
           key={tag}
           href={`/topic/[topicid]${
             stateStack.slug ? `?stack=${stateStack.slug}` : ""
@@ -338,7 +338,7 @@ const TalkTags = ({ tags }: { tags: string[] }) => {
           passHref
         >
           <Link className={classes.tag}>#{tag}</Link>
-        </NextLink>
+        </LinkPrefetch>
       ))}
     </>
   );
@@ -490,9 +490,9 @@ const TalkControls = ({
         <Grid item>
           {!state.signedIn && (
             <Typography variant="overline">
-              <NextLink href={`/account`} as={`/account`} passHref>
+              <LinkPrefetch href={`/account`} as={`/account`} passHref>
                 <Link color="secondary">Sign in to vote & save talks</Link>
-              </NextLink>
+              </LinkPrefetch>
             </Typography>
           )}
         </Grid>

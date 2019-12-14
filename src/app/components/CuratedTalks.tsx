@@ -1,5 +1,4 @@
 import { Grid, Typography, Link } from "@material-ui/core";
-import { default as NextLink } from "next/link";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { NextPage } from "next";
@@ -7,6 +6,7 @@ import { Talk } from "../schema";
 import CuratedTalk from "./CuratedTalk";
 import { useContext } from "react";
 import { StackContext } from "./context-providers/StackContextProvider";
+import LinkPrefetch from "./LinkPrefetch";
 
 interface Props {
   talks?: Talk[];
@@ -21,14 +21,14 @@ const CuratedTalks: NextPage<Props> = ({ talks, className }) => {
   return (
     <section className={className}>
       <Typography variant="h2">
-        <NextLink
+        <LinkPrefetch
           href={`/curated-conference-talks${
             stateStack.slug ? `?stack=${stateStack.slug}` : ""
           }`}
           passHref
         >
           <Link>Curated {stateStack.contextTitle} talks</Link>
-        </NextLink>
+        </LinkPrefetch>
       </Typography>
       <Typography variant="body2" color="textSecondary" paragraph>
         Must-watch {stateStack.contextTitle} talks from developer conferences

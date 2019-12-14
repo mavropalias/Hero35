@@ -9,12 +9,12 @@ import {
   CardActionArea,
   CardContent
 } from "@material-ui/core";
-import { default as NextLink } from "next/link";
 import STACKS from "../constants/stacks";
 import { useContext } from "react";
 import { StackContext } from "./context-providers/StackContextProvider";
 import CATEGORIES from "../constants/categories";
 import { Stack } from "../schema";
+import LinkPrefetch from "./LinkPrefetch";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -96,7 +96,7 @@ const Stacks = ({
                       : {}
                   }
                 >
-                  <NextLink href={stackHref(stack)} as={stackAs(stack)}>
+                  <LinkPrefetch href={stackHref(stack)} as={stackAs(stack)}>
                     <a
                       className={classes.link}
                       title={
@@ -125,7 +125,7 @@ const Stacks = ({
                         </CardContent>
                       </CardActionArea>
                     </a>
-                  </NextLink>
+                  </LinkPrefetch>
                 </Card>
               </Grid>
             )

@@ -1,4 +1,3 @@
-import { default as NextLink } from "next/link";
 import Layout from "../../components/Layout";
 import {
   makeStyles,
@@ -16,7 +15,6 @@ import {
 import { Face as HeroIcon } from "@material-ui/icons";
 import Database from "../../services/Database";
 import { NextPage, NextPageContext } from "next";
-import Breadcrumbs from "../../components/Breadcrumbs";
 import { Talk } from "../../schema";
 import TalkList from "../../components/TalkList";
 

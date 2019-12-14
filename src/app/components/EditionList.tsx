@@ -10,8 +10,8 @@ import {
   ListItemAvatar,
   Avatar
 } from "@material-ui/core";
-import { default as NextLink } from "next/link";
-import { Talk, EventEdition } from "../schema";
+import { EventEdition } from "../schema";
+import LinkPrefetch from "./LinkPrefetch";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -61,7 +61,7 @@ const EditionList = ({
       component="nav"
     >
       {editions.map(edition => (
-        <NextLink
+        <LinkPrefetch
           href={`/[eventid]/[editionid]`}
           as={`/${edition.eventId}/${edition.id}`}
           passHref
@@ -126,7 +126,7 @@ const EditionList = ({
               }
             />
           </ListItem>
-        </NextLink>
+        </LinkPrefetch>
       ))}
     </List>
   );

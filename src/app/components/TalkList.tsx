@@ -13,10 +13,10 @@ import {
   Avatar,
   IconButton
 } from "@material-ui/core";
-import { default as NextLink } from "next/link";
 import { Stars as CuratedIcon } from "@material-ui/icons";
 import { TalkPreview } from "../schema";
 import TALK_TYPES from "../constants/talkTypes";
+import LinkPrefetch from "./LinkPrefetch";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -98,7 +98,7 @@ const TalkListItem = ({
     TALK_TYPES.filter(type => type.id === id)[0].title.toLowerCase();
 
   return (
-    <NextLink
+    <LinkPrefetch
       href={`/[eventid]/[editionid]/[talkslug]`}
       as={`/${talk.eventId}/${talk.editionId}/${talk.slug}`}
       passHref
@@ -176,7 +176,7 @@ const TalkListItem = ({
           }
         />
       </ListItem>
-    </NextLink>
+    </LinkPrefetch>
   );
 };
 

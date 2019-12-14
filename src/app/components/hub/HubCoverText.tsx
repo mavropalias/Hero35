@@ -1,4 +1,3 @@
-import { default as NextLink } from "next/link";
 import {
   makeStyles,
   createStyles,
@@ -16,6 +15,7 @@ import { TalkBasic } from "../../schema";
 import { useContext, useState } from "react";
 import { UserContext } from "../context-providers/UserContextProvider";
 import Database from "../../services/Database";
+import LinkPrefetch from "../LinkPrefetch";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -116,7 +116,7 @@ const HubCoverText = ({ talk, logo, title, color }: Props) => {
             </Typography>
           </Box>
         )}
-        <NextLink
+        <LinkPrefetch
           href={`/[eventid]/[editionid]/[talkslug]`}
           as={`/${talk.eventId}/${talk.editionId}/${talk.slug}`}
           passHref
@@ -128,7 +128,7 @@ const HubCoverText = ({ talk, logo, title, color }: Props) => {
           >
             {talk.title}
           </Link>
-        </NextLink>
+        </LinkPrefetch>
         <Typography variant="h4" className={classes.description} gutterBottom>
           {talk.curationDescription}
         </Typography>

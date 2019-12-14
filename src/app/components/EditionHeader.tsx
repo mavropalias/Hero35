@@ -1,4 +1,3 @@
-import { default as NextLink } from "next/link";
 import YouTube from "react-youtube";
 import { EventEdition } from "../schema";
 import {
@@ -10,8 +9,7 @@ import {
   Box,
   Link,
   Divider,
-  Chip,
-  Paper
+  Chip
 } from "@material-ui/core";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import {
@@ -22,6 +20,7 @@ import {
 import CATEGORIES from "../constants/categories";
 import { useContext, useState } from "react";
 import { StackContext } from "./context-providers/StackContextProvider";
+import LinkPrefetch from "./LinkPrefetch";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -119,9 +118,9 @@ const EditionHeader = ({ edition }: { edition: EventEdition }) => {
           {shortDate(edition.endDate)} | {edition.state || edition.city},{" "}
           {edition.country}
         </Typography>
-        <NextLink href="/[eventid]" as={`/${edition.eventId}`} passHref>
+        <LinkPrefetch href="/[eventid]" as={`/${edition.eventId}`} passHref>
           <Link color="primary">View all {edition.eventTitle} events</Link>
-        </NextLink>
+        </LinkPrefetch>
         {showTickets() && (
           <Box m={4}>
             <Button
@@ -281,7 +280,7 @@ const EditionContentDetails = ({ edition }: { edition: EventEdition }) => {
           {edition.tags.map(
             (tag, index) =>
               tag.count > 1 && (
-                <NextLink
+                <LinkPrefetch
                   key={index}
                   passHref
                   href={`/topic/[topicid]${
@@ -300,7 +299,7 @@ const EditionContentDetails = ({ edition }: { edition: EventEdition }) => {
                     label={tag.label}
                     className={classes.chip}
                   />
-                </NextLink>
+                </LinkPrefetch>
               )
           )}
         </>

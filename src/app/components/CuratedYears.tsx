@@ -1,13 +1,7 @@
-import {
-  createStyles,
-  makeStyles,
-  Theme,
-  Typography,
-  Button
-} from "@material-ui/core";
-import { default as NextLink } from "next/link";
+import { createStyles, makeStyles, Theme, Button } from "@material-ui/core";
 import { useContext } from "react";
 import { StackContext } from "./context-providers/StackContextProvider";
+import LinkPrefetch from "./LinkPrefetch";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,7 +19,7 @@ const CuratedYears = () => {
   return (
     <>
       {items.map(item => (
-        <NextLink
+        <LinkPrefetch
           href={`/year/[yearid]${
             stateStack.slug ? `?stack=${stateStack.slug}` : ""
           }`}
@@ -38,7 +32,7 @@ const CuratedYears = () => {
           <Button size="small" color="primary" className={classes.item}>
             {item}
           </Button>
-        </NextLink>
+        </LinkPrefetch>
       ))}
     </>
   );

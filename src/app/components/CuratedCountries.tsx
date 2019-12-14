@@ -1,9 +1,9 @@
 import { createStyles, makeStyles, Theme, Button } from "@material-ui/core";
 import { Flag as ItemIcon } from "@material-ui/icons";
-import { default as NextLink } from "next/link";
 import { useContext } from "react";
 import { StackContext } from "./context-providers/StackContextProvider";
 import CATEGORIES from "../constants/categories";
+import LinkPrefetch from "./LinkPrefetch";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,7 +23,7 @@ const CuratedCountries = () => {
   return (
     <>
       {CATEGORIES.find(cat => cat.id === stateStack.id).countries.map(item => (
-        <NextLink
+        <LinkPrefetch
           href={`/country/[countryid]${
             stateStack.slug ? `?stack=${stateStack.slug}` : ""
           }`}
@@ -41,7 +41,7 @@ const CuratedCountries = () => {
           >
             <ItemIcon className={classes.icon} /> {item}
           </Button>
-        </NextLink>
+        </LinkPrefetch>
       ))}
     </>
   );

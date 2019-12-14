@@ -18,11 +18,11 @@ import {
   Menu as MenuIcon,
   AccountCircle as AccountIcon
 } from "@material-ui/icons/";
-import { default as NextLink } from "next/link";
 import { useContext, useState } from "react";
 import { UserContext } from "./context-providers/UserContextProvider";
 import { StackContext } from "./context-providers/StackContextProvider";
 import HubNavigation from "./HubNavigation";
+import LinkPrefetch from "./LinkPrefetch";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -118,17 +118,17 @@ const Navigation = () => {
             disableGutters={true}
             variant="dense"
           >
-            <NextLink
+            <LinkPrefetch
               href={stateStack.slug ? `/stack/[stackid]` : ROUTES.HOME}
               as={stateStack.slug ? `/stack/${stateStack.slug}` : ROUTES.HOME}
             >
               <a className={classes.home}>
                 <img src="/HERO35-logo.svg" className={classes.logo} />
               </a>
-            </NextLink>
+            </LinkPrefetch>
             <SearchInput className={classes.search} />
             <span className={classes.account}>
-              <NextLink href={ROUTES.ACCOUNT} as={ROUTES.ACCOUNT} passHref>
+              <LinkPrefetch href={ROUTES.ACCOUNT} as={ROUTES.ACCOUNT} passHref>
                 {stateUser.signedIn ? (
                   <a>
                     {stateUser.picture ? (
@@ -146,7 +146,7 @@ const Navigation = () => {
                     Sign in
                   </Button>
                 )}
-              </NextLink>
+              </LinkPrefetch>
             </span>
           </Toolbar>
         </Hidden>
@@ -172,9 +172,9 @@ const MenuLink = ({
   const classes = useStyles({});
 
   return (
-    <NextLink href={href} as={as || href} passHref>
+    <LinkPrefetch href={href} as={as || href} passHref>
       <Button className={className}>{children}</Button>
-    </NextLink>
+    </LinkPrefetch>
   );
 };
 

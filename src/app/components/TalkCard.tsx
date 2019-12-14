@@ -23,12 +23,12 @@ import {
   Stars as CuratedIcon
 } from "@material-ui/icons";
 import Database from "../services/Database";
-import { default as NextLink } from "next/link";
 import { NextPage } from "next";
 import { TalkPreview, TalkBasic, Talk } from "../schema";
 import { useContext, useState } from "react";
 import { UserContext } from "./context-providers/UserContextProvider";
 import DistinctiveTooltip from "./DistinctiveTooltip";
+import LinkPrefetch from "./LinkPrefetch";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -214,7 +214,7 @@ const TalkCard: NextPage<Props> = ({
   );
 
   const TalkCardMedia = () => (
-    <NextLink
+    <LinkPrefetch
       href={`/[eventid]/[editionid]/[talkslug]`}
       as={`/${talk.eventId}/${talk.editionId}/${talk.slug}`}
     >
@@ -245,7 +245,7 @@ const TalkCard: NextPage<Props> = ({
           </CardActionArea>
         </DistinctiveTooltip>
       </a>
-    </NextLink>
+    </LinkPrefetch>
   );
 
   const TalkInfo = ({ talk }: { talk: TalkBasic | TalkPreview }) => (
@@ -356,11 +356,11 @@ const TalkCardTags = ({ tags }: { tags: string[] }) => {
     <Grid container>
       {tags.map(tag => (
         <Grid key={tag} item>
-          <NextLink href={`/topic/[topicid]`} as={`/topic/${tag}`} passHref>
+          <LinkPrefetch href={`/topic/[topicid]`} as={`/topic/${tag}`} passHref>
             <Link color="textSecondary" className={classes.tag}>
               #{tag}
             </Link>
-          </NextLink>
+          </LinkPrefetch>
         </Grid>
       ))}
     </Grid>

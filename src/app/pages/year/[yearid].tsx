@@ -1,5 +1,4 @@
 import Layout from "../../components/Layout";
-import NextLink from "next/link";
 import theme from "../../appTheme";
 import {
   makeStyles,
@@ -20,6 +19,7 @@ import CATEGORIES from "../../constants/categories";
 import { useContext, useState, useEffect } from "react";
 import { StackContext } from "../../components/context-providers/StackContextProvider";
 import StackTabs from "../../components/StackTabs";
+import LinkPrefetch from "../../components/LinkPrefetch";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -94,7 +94,7 @@ const YearPage: NextPage<Props> = ({ year, editions }) => {
             More years:
           </Typography>
           {years.map(item => (
-            <NextLink
+            <LinkPrefetch
               href={`/year/[yearid]${
                 stateStack.slug ? `?stack=${stateStack.slug}` : ""
               }`}
@@ -107,7 +107,7 @@ const YearPage: NextPage<Props> = ({ year, editions }) => {
               <Button size="small" color="primary" disabled={year === item}>
                 {item}
               </Button>
-            </NextLink>
+            </LinkPrefetch>
           ))}
         </Box>
       </Container>

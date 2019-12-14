@@ -28,6 +28,7 @@ import RecentEditions from "./RecentEditions";
 import Stacks from "./Stacks";
 import CuratedCountries from "./CuratedCountries";
 import CuratedYears from "./CuratedYears";
+import LinkPrefetch from "./LinkPrefetch";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -86,7 +87,7 @@ const HubNavigation = ({
             </ListSubheader>
           }
         >
-          <NextLink href={ROUTES.ACCOUNT} as={ROUTES.ACCOUNT}>
+          <LinkPrefetch href={ROUTES.ACCOUNT} as={ROUTES.ACCOUNT}>
             <ListItem button component="a">
               {stateUser.signedIn && (
                 <ListItemIcon>
@@ -97,7 +98,7 @@ const HubNavigation = ({
                 primary={stateUser.signedIn ? "My saved talks" : "Sign in"}
               />
             </ListItem>
-          </NextLink>
+          </LinkPrefetch>
         </List>
         <Divider />
         <List

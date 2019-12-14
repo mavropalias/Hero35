@@ -9,8 +9,8 @@ import {
   Typography
 } from "@material-ui/core";
 import { fade } from "@material-ui/core/styles/colorManipulator";
-import { default as NextLink } from "next/link";
 import { Talk } from "../schema";
+import LinkPrefetch from "./LinkPrefetch";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -65,7 +65,7 @@ const CuratedTalk = ({ talk }: { talk: Talk }) => {
 
   return (
     <Card className={classes.card} elevation={5}>
-      <NextLink
+      <LinkPrefetch
         href={`/[eventid]/[editionid]/[talkslug]`}
         as={`/${talk.eventId}/${talk.editionId}/${talk.slug}`}
       >
@@ -102,7 +102,7 @@ const CuratedTalk = ({ talk }: { talk: Talk }) => {
             </CardContent>
           </CardActionArea>
         </a>
-      </NextLink>
+      </LinkPrefetch>
     </Card>
   );
 };
