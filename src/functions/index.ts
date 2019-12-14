@@ -74,9 +74,9 @@ const determineVotesForTalkFromUser = (userid: string, talk: Talk): number => {
   let count = 1;
   // Add curator votes
   if (LEAD_CURATORS.includes(userid)) {
-    count += 10 + (talk.times.totalMins % 10);
+    count += 10 + (talk.times.totalMins % 10) + (talk.order % 10);
   } else if (CURATORS.includes(userid)) {
-    count += 2 + (talk.order % 10);
+    count += 4 + (talk.order % 10);
   }
   return count;
 };
