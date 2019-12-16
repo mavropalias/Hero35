@@ -19,8 +19,8 @@ const CURATORS = [
   "COzP3Ri3NeexAV8LhHwXSZEfH7e2"
 ];
 
-// Cache for 12 hours on the client and 3 hours on the server
-const CACHE_CONTROL = `public, max-age=${12 * 3600}, s-maxage=${3 * 3600}`;
+// Cache for 12 hours on the client and 6 hours on the server
+const CACHE_CONTROL = `public, max-age=${12 * 3600}, s-maxage=${6 * 3600}`;
 
 // Middleware
 const middleware = (
