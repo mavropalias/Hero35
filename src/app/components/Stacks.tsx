@@ -61,16 +61,10 @@ const Stacks = ({
   const stacksToShow = customStacks || STACKS;
 
   const stackHref = (stack: Stack) =>
-    stack.isCategory
-      ? `/stack/[stackid]`
-      : `/topic/[topicid]${stateStack.slug ? `?stack=${stateStack.slug}` : ""}`;
+    `/topic/[topicid]${stateStack.slug ? `?stack=${stateStack.slug}` : ""}`;
 
   const stackAs = (stack: Stack) =>
-    stack.isCategory
-      ? `/stack/${stack.slug}`
-      : `/topic/${stack.slug}${
-          stateStack.slug ? `?stack=${stateStack.slug}` : ""
-        }`;
+    `/topic/${stack.slug}${stateStack.slug ? `?stack=${stateStack.slug}` : ""}`;
 
   return (
     <>
@@ -119,7 +113,6 @@ const Stacks = ({
                           {!bSmall && (
                             <Typography variant="body2">
                               {stack.label}
-                              {stack.isCategory && " hub"}
                             </Typography>
                           )}
                         </CardContent>
