@@ -40,6 +40,7 @@ const CATEGORIES: Category[] = [
     colorText: "#000000",
     contextTitle: "JavaScript",
     countries: [
+      "Australia",
       "Belarus",
       "Czech Republic",
       "Germany",
