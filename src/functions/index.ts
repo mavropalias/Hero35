@@ -10,14 +10,8 @@ import {
   getTalksNew,
   getTalksByFilter
 } from "./talkGetters";
+import { newsletterSubscribe } from "./newsletter";
 import { db } from "./admin";
-
-// Config
-const LEAD_CURATORS = ["OXXDuevPrfbLTaH4etkbUZZri2z1"];
-const CURATORS = [
-  "4KjHQnWia8ZfZhK2YM01QSeWlE32",
-  "COzP3Ri3NeexAV8LhHwXSZEfH7e2"
-];
 
 // Cache for 12 hours on the client and 6 hours on the server
 const CACHE_CONTROL = `public, max-age=${12 * 3600}, s-maxage=${6 * 3600}`;
@@ -71,6 +65,11 @@ const verifyIdToken = async (req: functions.https.Request): Promise<string> => {
  * Determine talk vote count
  */
 const determineVotesForTalkFromUser = (userid: string, talk: Talk): number => {
+  const LEAD_CURATORS = ["OXXDuevPrfbLTaH4etkbUZZri2z1"];
+  const CURATORS = [
+    "4KjHQnWia8ZfZhK2YM01QSeWlE32",
+    "COzP3Ri3NeexAV8LhHwXSZEfH7e2"
+  ];
   let count = 1;
   // Add curator votes
   if (LEAD_CURATORS.includes(userid)) {
@@ -892,6 +891,7 @@ const heroes = {
   justAddedEditions,
   justAddedTalks,
   likeTalk,
+  newsletterSubscribe,
   recentEditions,
   recentTalks,
   risingTalks,
