@@ -25,11 +25,13 @@ import Database from "../../../services/Database";
 import { NextPage, NextPageContext } from "next";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import { UserContext } from "../../../components/context-providers/UserContextProvider";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect, useLayoutEffect } from "react";
 import Stacks from "../../../components/Stacks";
 import { StackContext } from "../../../components/context-providers/StackContextProvider";
 import TalkGroup from "../../../components/TalkGroup";
 import STACKS from "../../../constants/stacks";
+
+declare const _carbonads: any;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -81,6 +83,29 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
   const { state: stateStack } = useContext(StackContext);
   const { state: stateUser } = useContext(UserContext);
   const classes = useStyles({});
+
+  const [renderAd, setRenderAd] = useState();
+  const [adScripLoaded, setAdScriptLoaded] = useState();
+  useEffect(() => {
+    // Render ad only after client has been hydrated
+    setRenderAd(true);
+  }, []);
+  useLayoutEffect(() => {
+    if (adScripLoaded && typeof _carbonads !== "undefined")
+      _carbonads.refresh();
+    else {
+      const carbon_wrapper = document.querySelector(".carbon-adds-wrapper");
+      if (carbon_wrapper) {
+        const script = document.createElement("script");
+        script.src =
+          "//cdn.carbonads.com/carbon.js?serve=CK7DK5QY&placement=hero35com";
+        script.async = true;
+        script.id = "_carbonads_js";
+        carbon_wrapper.appendChild(script);
+        setAdScriptLoaded(true);
+      }
+    }
+  }, [talk.id, renderAd]);
 
   const talkStacks: Stack[] = STACKS.filter(stack =>
     talk.tags.includes(stack.slug)
@@ -140,13 +165,24 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
       </Container>
       <Container className={classes.container}>
         <Grid container spacing={2} direction="column">
-          <Grid item xs={12} md={8}>
-            <Typography variant="h4" component="h1">
-              {talk.title}
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={8}>
-            <TalkControls talkId={talk.id} upvotes={talk.likes} />
+          <Grid item xs={12}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={8}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <Typography variant="h4" component="h1">
+                      {talk.title}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TalkControls talkId={talk.id} upvotes={talk.likes} />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                {renderAd && <div className={`carbon-adds-wrapper`}></div>}
+              </Grid>
+            </Grid>
           </Grid>
           <Grid item xs={12} md={8}>
             <Divider />

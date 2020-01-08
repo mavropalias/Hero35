@@ -77,3 +77,46 @@
 .firebaseui-container .firebaseui-tos {
   margin-bottom: 0;
 }
+
+/* Carbon ads */
+#carbonads {
+  display: block;
+  padding: 8px 8px 8px 142px;
+  overflow: hidden;
+  max-width: 346px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+}
+#carbonads .carbon-img {
+  float: left;
+  width: 130px;
+  height: 100px;
+  margin-left: -130px;
+  margin-right: 12px;
+  background-color: hsl(0, 0%, 98%);
+}
+#carbonads img {
+  vertical-align: middle;
+}
+#carbonads a,
+#carbonads a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+#carbonads .carbon-text {
+  display: block;
+  font-size: 0.875rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+}
+#carbonads .carbon-poweredby {
+  color: rgba(255, 255, 255, 0.7);
+  display: block;
+  font-size: 0.75rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.66;
+  letter-spacing: 0.03333em;
+}
