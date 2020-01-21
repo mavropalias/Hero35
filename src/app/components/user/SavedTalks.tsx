@@ -1,18 +1,6 @@
-import Database from "../../services/Database";
-import {
-  makeStyles,
-  createStyles,
-  Theme,
-  Box,
-  Container,
-  Button,
-  Avatar,
-  Typography
-} from "@material-ui/core";
+import { Box, Container, Typography } from "@material-ui/core";
 import { Bookmarks as BookmarksIcon } from "@material-ui/icons";
-import { useContext } from "react";
 import TalkGrid from "../TalkGrid";
-import { TalkPreview } from "../../schema";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../../stores/useStores";
 
