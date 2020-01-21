@@ -90,7 +90,7 @@ class MyDocument extends Document {
           <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
           <meta name="theme-color" content={theme.palette.background.default} />
           {/* Global Site Tag (gtag.js) - Google Analytics */}
-          {/* <script
+          <script
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
           />
@@ -104,10 +104,10 @@ class MyDocument extends Document {
                 gtag('config', '${GA_TRACKING_ID}');
           `
             }}
-          /> */}
+          />
           {/* Full story snippet */}
-          {/* <script
-          async
+          <script
+            async
             dangerouslySetInnerHTML={{
               __html: `
                 window['_fs_debug'] = false;
@@ -129,7 +129,7 @@ class MyDocument extends Document {
                 })(window,document,window['_fs_namespace'],'script','user');
           `
             }}
-          /> */}
+          />
         </Head>
         <body>
           <Main />
