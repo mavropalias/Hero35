@@ -1,53 +1,18 @@
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import { fade } from "@material-ui/core/styles/colorManipulator";
 import firebase from "firebase/app";
 import {
-  Typography,
-  Paper,
-  Box,
-  makeStyles,
-  Theme,
-  createStyles,
-  Grid
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  CircularProgress
 } from "@material-ui/core";
+import { useStores } from "../stores/useStores";
+import { observer } from "mobx-react-lite";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    ticket: {
-      background: `url("/HERO35-logo-tagline.svg")`,
-      backgroundSize: "contain",
-      borderRadius: 0,
-      backgroundAttachment: "fixed",
-      backgroundColor: theme.palette.background.default,
-      [theme.breakpoints.up("sm")]: {
-        border: "11px solid rgba(0,0,0,.85)"
-      }
-    },
-    ticketInner: {
-      padding: theme.spacing(1),
-      background: `${fade(theme.palette.background.default, 0.98)}`,
-      [theme.breakpoints.up("sm")]: {
-        padding: theme.spacing(4, 4, 1, 4)
-      }
-    },
-    ticketTitle: {
-      background: `linear-gradient(35deg, ${theme.palette.secondary.main} 35%, ${theme.palette.secondary.contrastText} 140%)`,
-      ["-webkit-background-clip"]: "text",
-      ["background-clip"]: "text",
-      ["text-fill-color"]: "transparent"
-    },
-    ticketCaptionContainer: {
-      textAlign: "center"
-    },
-    ticketCaption: {
-      lineHeight: "1"
-    }
-  })
-);
-
-const SignIn = () => {
-  const classes = useStyles({});
-  if (!firebase.auth) return <></>;
+const SignIn = observer(() => {
+  const { userStore } = useStores();
 
   // Configure FirebaseUI.
   const uiConfig = {
@@ -65,38 +30,34 @@ const SignIn = () => {
     privacyPolicyUrl: "/privacy-policy"
   };
 
+  const handleClose = () => {
+    userStore.setShouldSignIn(false);
+  };
+
   return (
-    <Paper elevation={8} className={classes.ticket}>
-      <Grid container spacing={2} className={classes.ticketInner}>
-        <Grid item xs={12} md={7}>
-          <Typography
-            variant="h1"
-            color="secondary"
-            className={classes.ticketTitle}
-          >
-            Sign up now & get free lifetime benefits*
-          </Typography>
-        </Grid>
-        <Grid item xs={12} md={5}>
+    <Dialog
+      onClose={handleClose}
+      aria-labelledby="simple-dialog-title"
+      open={userStore.shouldSignIn}
+    >
+      <DialogTitle id="simple-dialog-title">Sign in</DialogTitle>
+      <DialogContent>
+        {firebase.auth ? (
           <StyledFirebaseAuth
             uiConfig={uiConfig}
             firebaseAuth={firebase.auth()}
           />
-        </Grid>
-        <Grid item xs={12} className={classes.ticketCaptionContainer}>
-          <Typography
-            variant="overline"
-            color="textSecondary"
-            className={classes.ticketCaption}
-          >
-            * All members that sign up during our ALPHA, or BETA, will be
-            eligible for free, lifetime account benefits post-BETA. Details will
-            be announced during BETA.
-          </Typography>
-        </Grid>
-      </Grid>
-    </Paper>
+        ) : (
+          <CircularProgress />
+        )}
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose} color="default">
+          Cancel
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
-};
+});
 
 export default SignIn;

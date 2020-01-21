@@ -58,6 +58,10 @@
         "function": "heroes-hubContent"
       },
       {
+        "source": "/api/hub",
+        "function": "heroes-hub"
+      },
+      {
         "source": "/api/justAddedEditions",
         "function": "heroes-justAddedEditions"
       },

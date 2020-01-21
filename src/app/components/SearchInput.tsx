@@ -20,7 +20,6 @@ import {
 import { Search as SearchIcon } from "@material-ui/icons";
 import { TalkPreview } from "../schema";
 import TalkList from "./TalkList";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 
 const algoliaClient = algoliasearch(
@@ -126,9 +125,6 @@ const MaterialUiSearchBox = ({
 }) => {
   const classes = useStyles({});
   const theme = useTheme();
-  const placeholder = useMediaQuery(theme.breakpoints.down("xs"))
-    ? "Learn…"
-    : "What do you want to learn today?";
 
   return (
     <div className={`${classes.search} ${className}`}>
@@ -140,7 +136,7 @@ const MaterialUiSearchBox = ({
         onChange={e => refine(e.target.value)}
         onFocus={onFocus}
         onBlur={onBlur}
-        placeholder={placeholder}
+        placeholder="Search…"
         fullWidth={true}
         classes={{
           root: classes.inputRoot,

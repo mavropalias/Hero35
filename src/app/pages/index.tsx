@@ -1,42 +1,24 @@
-import { Talk, EventEdition } from "../schema";
+import { HubContent } from "../schema";
 import Database from "../services/Database";
 import { NextPage } from "next";
-import Hub from "../components/Hub";
+import Hub from "../components/hub/Hub";
+import Layout from "../components/Layout";
 
 interface Props {
-  hotTalks?: Talk[];
-  justAddedEditions?: EventEdition[];
-  recentEditions?: EventEdition[];
-  upcomingEditions?: EventEdition[];
+  hubContent: HubContent;
 }
 
-const Home: NextPage<Props> = ({
-  hotTalks,
-  justAddedEditions,
-  recentEditions,
-  upcomingEditions
-}) => (
-  <Hub
-    hotTalks={hotTalks}
-    justAddedEditions={justAddedEditions}
-    recentEditions={recentEditions}
-    upcomingEditions={upcomingEditions}
-  />
+const Home: NextPage<Props> = ({ hubContent }) => (
+  <Layout>
+    <Hub content={hubContent} showSavedTalks={true} />
+  </Layout>
 );
 
 Home.getInitialProps = async () => {
-  const [
-    hotTalks,
-    justAddedEditions,
-    recentEditions,
-    upcomingEditions
-  ] = await Promise.all([
-    Database.getHotTalks(),
-    Database.getJustAddedEditions(),
-    Database.getRecentEditions(),
-    Database.getUpcomingEditions()
-  ]);
-  return { hotTalks, justAddedEditions, recentEditions, upcomingEditions };
+  const hubContent = await Database.getHub();
+  return {
+    hubContent
+  };
 };
 
 export default Home;

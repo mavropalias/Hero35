@@ -12,13 +12,15 @@ import {
   BookmarkBorder as BookmarkOutlinedIcon
 } from "@material-ui/icons";
 import { TalkBasic } from "../../schema";
-import { useContext, useState } from "react";
-import { UserContext } from "../context-providers/UserContextProvider";
-import Database from "../../services/Database";
 import LinkPrefetch from "../LinkPrefetch";
+import { useStores } from "../../stores/useStores";
+import { observer } from "mobx-react-lite";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    description: {
+      fontWeight: 600
+    },
     hubLogo: {
       maxWidth: theme.spacing(8),
       maxHeight: theme.spacing(8),
@@ -35,9 +37,6 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       [theme.breakpoints.up("md")]: {
         margin: theme.spacing(0, 4)
-      },
-      [theme.breakpoints.up("lg")]: {
-        margin: theme.spacing(0, 8)
       }
     },
     textInner: {},
@@ -45,9 +44,6 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: "bolder",
       paddingBottom: theme.spacing(2),
       display: "inline-block"
-    },
-    description: {
-      fontWeight: 600
     }
   })
 );
@@ -59,52 +55,9 @@ interface Props {
   title?: string;
 }
 
-const HubCoverText = ({ talk, logo, title, color }: Props) => {
+const HubCoverText = observer(({ talk, logo, title, color }: Props) => {
   const classes = useStyles({});
-  const { state: stateUser, dispatch } = useContext(UserContext);
-  const [optimisticTalkState, setOptimisticTalkState] = useState<
-    "saved" | "unsaved" | "liked" | ""
-  >("");
-  const [error, setError] = useState("");
-
-  const saveTalk = async () => {
-    try {
-      setError("");
-      setOptimisticTalkState("saved");
-      const updatedUser = await Database.saveTalkInUserProfile(talk.id);
-      dispatch({
-        type: "HYDRATE_FROM_DB",
-        payload: { ...updatedUser }
-      });
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setOptimisticTalkState("");
-    }
-  };
-
-  const unsaveTalk = async () => {
-    try {
-      setError("");
-      setOptimisticTalkState("unsaved");
-      const updatedUser = await Database.unsaveTalkInUserProfile(talk.id);
-      dispatch({
-        type: "HYDRATE_FROM_DB",
-        payload: { ...updatedUser }
-      });
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setOptimisticTalkState("");
-    }
-  };
-
-  const isTalkSaved = (talkId: string): boolean =>
-    (stateUser.savedTalks.filter(savedTalk => savedTalk.id === talkId).length >
-      0 ||
-      optimisticTalkState === "saved") &&
-    optimisticTalkState !== "unsaved";
-
+  const { userStore } = useStores();
   return (
     <div className={classes.text}>
       <div className={classes.textInner}>
@@ -132,13 +85,12 @@ const HubCoverText = ({ talk, logo, title, color }: Props) => {
         <Typography variant="h4" className={classes.description} gutterBottom>
           {talk.curationDescription}
         </Typography>
-        {isTalkSaved(talk.id) ? (
+        {userStore.isTalkSaved(talk.id) ? (
           <Button
             size="large"
             color="secondary"
-            disabled={!stateUser.signedIn}
-            title="Remove this saved talk"
-            onClick={_ => unsaveTalk()}
+            title="Click to unsave this talk"
+            onClick={_ => userStore.unsaveTalk(talk)}
             startIcon={<BookmarkIcon color="secondary" />}
           >
             Saved
@@ -147,9 +99,8 @@ const HubCoverText = ({ talk, logo, title, color }: Props) => {
           <Button
             size="large"
             color="secondary"
-            disabled={!stateUser.signedIn}
-            title="Save this talk in your Saved Talks"
-            onClick={_ => saveTalk()}
+            title="Save this talk in My Saved Talks"
+            onClick={_ => userStore.saveTalk(talk)}
             startIcon={<BookmarkOutlinedIcon color="secondary" />}
           >
             Save for later
@@ -158,10 +109,6 @@ const HubCoverText = ({ talk, logo, title, color }: Props) => {
       </div>
     </div>
   );
-};
-
-const LogoAndTitle = ({ logo, title }: { logo: string; title: string }) => (
-  <>{title}</>
-);
+});
 
 export default HubCoverText;

@@ -131,6 +131,7 @@ export type TalkType = {
 export type TalkGroupContents = {
   title: string;
   talks: TalkBasic[] | TalkPreview[];
+  slug?: string;
 };
 
 export type Category = {
@@ -150,7 +151,9 @@ export type Stack = {
   color: string;
   featured?: boolean;
   isCategory?: boolean;
+  isPrime?: boolean;
   label: string;
+  order?: number;
   slug: string;
 };
 
@@ -202,26 +205,8 @@ export type UserReducerAction = {
   payload?: UserContextProps;
 };
 
-export type ContentState = {
-  hotTalks: Talk[];
-  upcomingTalks: Talk[];
-  curatedTalks: Talk[];
-  risingTalks: Talk[];
-  newTalks: Talk[];
-  topTalks: Talk[];
-};
-
 export type HubContent = {
-  curatedTalks: TalkBasic[];
-  hotTalks: TalkBasic[];
-  risingTalks: TalkBasic[];
-  topTalks: TalkBasic[];
-  newTalks: TalkBasic[];
-  recentlyAddedTalks: TalkBasic[];
-  keynotes: TalkBasic[];
-  lightningTalks: TalkBasic[];
-  panels: TalkBasic[];
-  qaSessions: TalkBasic[];
-  workshops: TalkBasic[];
-  interviews: TalkBasic[];
+  coverTalks?: TalkBasic[];
+  talkGroups: TalkGroupContents[];
+  editions?: EventEdition[];
 };

@@ -57,19 +57,18 @@
   margin-bottom: 16px !important;
 }
 .firebaseui-container .firebaseui-idp-button {
-  background: #121212;
-  border-radius: 0;
-  border: 1px solid #444;
+  border-radius: 4px;
   max-width: none;
-  padding: 8px 16px;
   min-height: 64px;
-  text-align: center;
+  border: 2px solid transparent;
 }
 .firebaseui-container .firebaseui-idp-button:hover {
-  background: #444;
+  border-color: white;
+}
+.firebaseui-container .firebaseui-idp-button:hover .firebaseui-idp-text {
+  font-weight: 700;
 }
 .firebaseui-container .firebaseui-idp-button .firebaseui-idp-text {
-  color: #eeeeee;
   text-transform: uppercase;
   font-weight: 400;
   font-size: 16px;

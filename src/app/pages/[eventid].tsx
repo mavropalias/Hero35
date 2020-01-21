@@ -16,6 +16,7 @@ import Database from "../services/Database";
 import { NextPage, NextPageContext } from "next";
 import Breadcrumbs from "../components/Breadcrumbs";
 import CATEGORIES from "../constants/categories";
+import React from "react";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -84,7 +85,7 @@ const EventDetails: NextPage<Props> = ({ event }) => {
                   {event.title}
                 </Typography>
                 {event.categories.map(cat => (
-                  <>
+                  <React.Fragment key={cat}>
                     {CATEGORIES.find(category => category.id === cat) && (
                       <Chip
                         color="default"
@@ -96,7 +97,7 @@ const EventDetails: NextPage<Props> = ({ event }) => {
                         className={classes.chip}
                       />
                     )}
-                  </>
+                  </React.Fragment>
                 ))}
                 <Typography variant="body1" className={classes.description}>
                   {event.description}

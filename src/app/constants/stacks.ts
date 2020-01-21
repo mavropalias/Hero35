@@ -16,8 +16,15 @@ const STACKS: Stack[] = [
     slug: "angular"
   },
   {
+    categories: ["-1", "1", "4"],
+    color: "#9FA8DA",
+    featured: true,
+    label: "Animation",
+    slug: "animation"
+  },
+  {
     categories: ["-1", "4"],
-    color: "#3FC8F2",
+    color: "#2FA8CC",
     featured: true,
     label: "Architecture",
     slug: "architecture"
@@ -133,9 +140,11 @@ const STACKS: Stack[] = [
   },
   {
     categories: ["-1", "1", "4"],
-    color: "#264DE4",
+    color: "#2965F1",
     featured: true,
+    isPrime: true,
     label: "CSS",
+    order: 3,
     slug: "css"
   },
   {
@@ -149,6 +158,14 @@ const STACKS: Stack[] = [
     featured: true,
     label: "D3",
     slug: "d3"
+  },
+
+  {
+    categories: ["-1", "1", "4"],
+    color: "#F89E00",
+    featured: true,
+    label: "Design",
+    slug: "design"
   },
   {
     color: "#2396ED",
@@ -175,9 +192,7 @@ const STACKS: Stack[] = [
     slug: "elm"
   },
   {
-    categories: ["-1", "1"],
     color: "#E24B31",
-    featured: true,
     label: "Ember",
     slug: "ember"
   },
@@ -197,9 +212,7 @@ const STACKS: Stack[] = [
     slug: "ethereum"
   },
   {
-    categories: ["-1"],
     color: "#1173B6",
-    featured: true,
     label: "Expo",
     slug: "expo"
   },
@@ -298,7 +311,9 @@ const STACKS: Stack[] = [
     categories: ["-1", "1", "4"],
     color: "#E535AB",
     featured: true,
+    isPrime: true,
     label: "GraphQL",
+    order: 4,
     slug: "graphql"
   },
   {
@@ -393,13 +408,13 @@ const STACKS: Stack[] = [
     color: "#F7DF1E",
     featured: true,
     isCategory: true,
+    isPrime: true,
     label: "JavaScript",
+    order: 1,
     slug: "javascript"
   },
   {
-    categories: ["-1"],
     color: "#99425B",
-    featured: true,
     label: "Jest",
     slug: "jest"
   },
@@ -432,6 +447,14 @@ const STACKS: Stack[] = [
     color: "#343741",
     label: "Logstash",
     slug: "logstash"
+  },
+
+  {
+    categories: ["-1", "1"],
+    color: "#7984EB",
+    featured: true,
+    label: "Machine Learning",
+    slug: "machine-learning"
   },
   {
     color: "#FFFFFF",
@@ -526,7 +549,7 @@ const STACKS: Stack[] = [
   },
   {
     categories: ["-1", "1", "4"],
-    color: "#617186",
+    color: "#FF5249",
     featured: true,
     label: "Performance",
     slug: "performance"
@@ -588,7 +611,9 @@ const STACKS: Stack[] = [
     color: "#00D8FF",
     featured: true,
     isCategory: true,
+    isPrime: true,
     label: "React",
+    order: 2,
     slug: "react"
   },
   {
@@ -691,9 +716,7 @@ const STACKS: Stack[] = [
     slug: "storybook"
   },
   {
-    categories: ["-1"],
     color: "#FFB13B",
-    featured: true,
     label: "SVG",
     slug: "svg"
   },
@@ -711,6 +734,13 @@ const STACKS: Stack[] = [
     color: "#FFFFFF",
     label: "Terminal",
     slug: "terminal"
+  },
+  {
+    categories: ["-1", "1", "4"],
+    color: "#C9FFF7",
+    featured: true,
+    label: "Testing",
+    slug: "testing"
   },
   {
     color: "#93232C",
@@ -733,6 +763,14 @@ const STACKS: Stack[] = [
     color: "#222C37",
     label: "Unity",
     slug: "unity"
+  },
+
+  {
+    categories: ["-1", "1", "4"],
+    color: "#EAC6BB",
+    featured: true,
+    label: "User Experience",
+    slug: "user-experience"
   },
   {
     color: "#019833",

@@ -1,6 +1,6 @@
-import { db } from "./admin";
-import { TalkBasic, Talk, TALK_TYPE } from "./schema";
-import util from "./util";
+import { db } from "../admin";
+import { TalkBasic, Talk, TALK_TYPE } from "../schema";
+import util from "../util/util";
 
 export const getTalksCurated = async (
   topic?: string,
@@ -18,7 +18,7 @@ export const getTalksCurated = async (
     .orderBy("dateAddedTimestamp", "desc")
     .limit(30)
     .get();
-  return util.querySnapshotToTalkBasicArray(docSnap);
+  return util.shuffleArray(util.querySnapshotToTalkBasicArray(docSnap));
 };
 
 export const getTalksHot = async (
@@ -49,7 +49,7 @@ export const getTalksHot = async (
   });
   talks.sort((a, b) => b.score - a.score);
   talks = talks.slice(0, 30);
-  return util.talkArrayToTalkBasicArray(talks);
+  return util.shuffleArray(util.talkArrayToTalkBasicArray(talks));
 };
 
 export const getTalksRising = async (

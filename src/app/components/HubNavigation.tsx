@@ -1,8 +1,4 @@
 import {
-  makeStyles,
-  createStyles,
-  Theme,
-  Typography,
   List,
   ListItem,
   ListItemText,
@@ -10,204 +6,118 @@ import {
   ListItemIcon,
   Icon,
   ListSubheader,
-  Paper,
-  Box,
-  Link
+  Paper
 } from "@material-ui/core";
-import { Twitter as TwitterIcon, Home as HomeIcon } from "@material-ui/icons";
-import { Bookmarks as BookmarksIcon } from "@material-ui/icons";
-import { useContext } from "react";
-import { StackContext } from "./context-providers/StackContextProvider";
-import { UserContext } from "./context-providers/UserContextProvider";
-import CATEGORIES from "../constants/categories";
+import { Home as HomeIcon } from "@material-ui/icons";
+import {
+  Bookmarks as BookmarksIcon,
+  Event as EventIcon
+} from "@material-ui/icons";
 import ROUTES from "../constants/routes";
-import { default as NextLink } from "next/link";
-import { EventEdition } from "../schema";
-import UpcomingEditions from "./UpcomingEditions";
-import RecentEditions from "./RecentEditions";
-import Stacks from "./Stacks";
-import CuratedCountries from "./CuratedCountries";
-import CuratedYears from "./CuratedYears";
+import { Stack } from "../schema";
 import LinkPrefetch from "./LinkPrefetch";
+import STACKS from "../constants/stacks";
+import { useStores } from "../stores/useStores";
+import { observer } from "mobx-react-lite";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    alphaIcon: {
-      marginLeft: theme.spacing(1)
-    },
-    appBar: {
-      zIndex: theme.zIndex.drawer + 1
-    },
-    imageIcon: {
-      display: "block",
-      height: "100%",
-      width: "100%"
-    },
-    logo: {
-      maxHeight: "30px"
-    },
-    menuLink: {
-      whiteSpace: "nowrap"
-    },
-    search: {
-      maxWidth: "350px",
-      margin: "0"
-    },
-    section: {
-      marginBottom: theme.spacing(4)
-    }
-  })
-);
-
-const HubNavigation = ({
-  className,
-  recentEditions,
-  upcomingEditions
-}: {
-  className?: string;
-  recentEditions?: EventEdition[];
-  upcomingEditions?: EventEdition[];
-}) => {
-  const { state: stateStack, dispatch: dispatchStack } = useContext(
-    StackContext
-  );
-  const { state: stateUser } = useContext(UserContext);
-  const classes = useStyles({});
-
+const HubNavigation = ({ className }: { className?: string }) => {
+  const { userStore } = useStores();
   return (
     <nav className={className}>
-      <Paper className={classes.section} elevation={4}>
+      <Paper elevation={4}>
         <List
           aria-labelledby="account-list-subheader"
           subheader={
             <ListSubheader id="account-list-subheader">
-              {stateUser.signedIn
-                ? stateUser.name || stateUser.email
+              {userStore.isSignedIn
+                ? userStore.name || userStore.email
                 : "Account"}
             </ListSubheader>
           }
         >
           <LinkPrefetch href={ROUTES.ACCOUNT} as={ROUTES.ACCOUNT}>
             <ListItem button component="a">
-              {stateUser.signedIn && (
+              {userStore.isSignedIn && (
                 <ListItemIcon>
-                  <BookmarksIcon color="secondary" />
+                  <BookmarksIcon />
                 </ListItemIcon>
               )}
               <ListItemText
-                primary={stateUser.signedIn ? "My saved talks" : "Sign in"}
+                primary={
+                  userStore.isSignedIn ? "My saved talks" : "Sign up / in"
+                }
               />
+            </ListItem>
+          </LinkPrefetch>
+          <LinkPrefetch href="/year/[yearid]" as="/year/2020">
+            <ListItem button component="a">
+              {userStore.isSignedIn && (
+                <ListItemIcon>
+                  <EventIcon />
+                </ListItemIcon>
+              )}
+              <ListItemText primary="Conferences" />
             </ListItem>
           </LinkPrefetch>
         </List>
         <Divider />
         <List
-          aria-labelledby="stack-list-subheader"
+          aria-labelledby="stack-list-subheader-stacks"
           subheader={
-            <ListSubheader id="stack-list-subheader">Stacks</ListSubheader>
+            <ListSubheader id="stack-list-subheader-stacks">
+              Stacks
+            </ListSubheader>
           }
         >
-          {CATEGORIES.map(cat => (
-            <ListItem
-              key={cat.id}
-              button
-              selected={cat.id === stateStack.id}
-              onClick={event =>
-                dispatchStack({ type: "ROUTE_TO_STACK", stack_slug: cat.slug })
-              }
-            >
-              <ListItemIcon>
-                {cat.slug !== "" ? (
-                  <Icon>
-                    <img
-                      className={classes.imageIcon}
-                      src={`/stacks/${cat.slug}.svg`}
-                    />
-                  </Icon>
-                ) : (
-                  <HomeIcon />
-                )}
-              </ListItemIcon>
-              <ListItemText
-                primary={`${cat.title}${cat.id !== "-1" ? " hub" : ""}`}
-              />
-            </ListItem>
+          {STACKS.filter(stack => stack.isPrime === true).map(stack => (
+            <StackLink stack={stack} />
+          ))}
+        </List>
+        <Divider />
+        <List
+          aria-labelledby="stack-list-subheader-morestacks"
+          subheader={
+            <ListSubheader id="stack-list-subheader-morestacks">
+              More Stacks
+            </ListSubheader>
+          }
+        >
+          {STACKS.filter(stack => stack.featured === true).map(stack => (
+            <StackLink stack={stack} />
           ))}
         </List>
       </Paper>
-
-      <Box marginTop={1}>
-        {recentEditions && (
-          <SidebarSection
-            title={`Recent ${stateStack.contextTitle} conferences`}
-          >
-            <RecentEditions editions={recentEditions} />
-          </SidebarSection>
-        )}
-        {upcomingEditions && (
-          <SidebarSection
-            title={`Upcoming ${stateStack.contextTitle} conferences`}
-          >
-            <UpcomingEditions editions={upcomingEditions} />
-          </SidebarSection>
-        )}
-        <SidebarSection title={`Hot ${stateStack.contextTitle} topics`}>
-          <Stacks bSmall={true} />
-        </SidebarSection>
-        <SidebarSection
-          title={`${stateStack.contextTitle} conferences by country`}
-        >
-          <CuratedCountries />
-        </SidebarSection>
-        <SidebarSection
-          title={`${stateStack.contextTitle} conferences by year`}
-        >
-          <CuratedYears />
-        </SidebarSection>
-      </Box>
-
-      <Typography variant="caption" color="textSecondary">
-        <Box display="flex" alignItems="center" padding={2}>
-          <TwitterIcon fontSize="inherit" />
-          &nbsp;
-          <NextLink
-            href="https://twitter.com/Hero35Official"
-            passHref
-            prefetch={false}
-          >
-            <Link target="_blank" color="inherit">
-              Follow us on Twitter
-            </Link>
-          </NextLink>
-        </Box>
-      </Typography>
     </nav>
   );
 };
 
-const SidebarSection = ({
-  title,
-  children
-}: {
-  title?: string;
-  children: any;
-}) => {
-  const classes = useStyles({});
-  return (
-    <section className={classes.section}>
-      {title && (
-        <Typography
-          variant="overline"
-          color="textSecondary"
-          component="h2"
-          gutterBottom
-        >
-          {title}
-        </Typography>
-      )}
-      {children}
-    </section>
-  );
-};
+const StackLink = ({ stack }: { stack: Stack }) => (
+  <LinkPrefetch
+    href={`/topic/[topicid]`}
+    as={`/topic/${stack.slug}`}
+    passHref
+    key={stack.slug}
+  >
+    <ListItem button>
+      <ListItemIcon>
+        {stack.slug !== "" ? (
+          <Icon>
+            <img
+              src={`/stacks/${stack.slug}.svg`}
+              style={{
+                display: "block",
+                height: "100%",
+                width: "100%"
+              }}
+            />
+          </Icon>
+        ) : (
+          <HomeIcon />
+        )}
+      </ListItemIcon>
+      <ListItemText primary={`${stack.label}`} />
+    </ListItem>
+  </LinkPrefetch>
+);
 
 export default HubNavigation;

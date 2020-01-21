@@ -10,10 +10,10 @@ import {
   Grid,
   Box
 } from "@material-ui/core";
-import { useContext } from "react";
-import { UserContext } from "./context-providers/UserContextProvider";
 import Welcome from "../components/Welcome";
 import ROUTES from "../constants/routes";
+import { useStores } from "../stores/useStores";
+import { observer } from "mobx-react-lite";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,20 +24,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Footer = ({ path }) => {
+const Footer = observer(() => {
   const classes = useStyles({});
-  const { state, dispatch } = useContext(UserContext);
-
+  const { userStore } = useStores();
   return (
-    <Container className={classes.container}>
-      {!state.signedIn &&
-        path !== ROUTES.HOME &&
-        path !== ROUTES.ACCOUNT &&
-        !path.includes("stack") && (
-          <Box marginBottom={4}>
-            <Welcome />
-          </Box>
-        )}
+    <Container className={classes.container} component="footer">
+      {!userStore.isSignedIn && (
+        <Box marginBottom={4}>
+          <Welcome />
+        </Box>
+      )}
       <Typography variant="caption" color="textSecondary">
         <Grid container spacing={2} justify="center" alignItems="center">
           <Grid item>&copy; Hero35, all rights reserved.</Grid>
@@ -80,6 +76,6 @@ const Footer = ({ path }) => {
       </Typography>
     </Container>
   );
-};
+});
 
 export default Footer;

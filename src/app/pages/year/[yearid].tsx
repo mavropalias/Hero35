@@ -24,7 +24,7 @@ import LinkPrefetch from "../../components/LinkPrefetch";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      paddingTop: theme.spacing(8)
+      paddingTop: theme.spacing(3)
     },
     paper: {
       marginBottom: theme.spacing(4)
@@ -65,6 +65,26 @@ const YearPage: NextPage<Props> = ({ year, editions }) => {
       description={`All ${stateStack.contextTitle} developer conferences for the year ${year}.`}
       keywords={`${year},conferences,developer conference,year ${year},developers,event`}
     >
+      <Container>
+        <Box marginTop={2} marginBottom={2} alignItems="center">
+          {years.map(item => (
+            <LinkPrefetch
+              href={`/year/[yearid]${
+                stateStack.slug ? `?stack=${stateStack.slug}` : ""
+              }`}
+              as={`/year/${item}${
+                stateStack.slug ? `?stack=${stateStack.slug}` : ""
+              }`}
+              key={item}
+              passHref
+            >
+              <Button size="large" color="primary" disabled={year === item}>
+                {item}
+              </Button>
+            </LinkPrefetch>
+          ))}
+        </Box>
+      </Container>
       <Paper className={classes.paper} style={style} square>
         <Container className={classes.container}>
           <Grid container spacing={1}>
@@ -89,27 +109,6 @@ const YearPage: NextPage<Props> = ({ year, editions }) => {
             No {stateStack.contextTitle} developer conferences found in {year}.
           </Typography>
         )}
-        <Box marginTop={4} alignItems="center">
-          <Typography variant="caption" color="textSecondary">
-            More years:
-          </Typography>
-          {years.map(item => (
-            <LinkPrefetch
-              href={`/year/[yearid]${
-                stateStack.slug ? `?stack=${stateStack.slug}` : ""
-              }`}
-              as={`/year/${item}${
-                stateStack.slug ? `?stack=${stateStack.slug}` : ""
-              }`}
-              key={item}
-              passHref
-            >
-              <Button size="small" color="primary" disabled={year === item}>
-                {item}
-              </Button>
-            </LinkPrefetch>
-          ))}
-        </Box>
       </Container>
     </Layout>
   );

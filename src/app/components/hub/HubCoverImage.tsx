@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme: Theme) =>
       maxHeight: `calc(95vh - 48px)`,
       position: "relative",
       backgroundSize: "cover",
-      backgroundPosition: "center"
+      backgroundPosition: "center",
+      opacity: 0.5
     },
     shadowLR: {
       display: "block",
@@ -23,11 +24,11 @@ const useStyles = makeStyles((theme: Theme) =>
       top: 0,
       left: 0,
       width: "100%",
-      maxWidth: "72rem",
+      maxWidth: "80rem",
       height: "100%",
       zIndex: 2,
       background:
-        "linear-gradient(90deg, rgba(18,18,18,1) 0%, rgba(18,18,18,0.75) 70%, rgba(18,18,18,0) 100%)"
+        "linear-gradient(90deg, rgba(18,18,18,1) 0%, rgba(18,18,18,0.9) 50%, rgba(18,18,18,0.75) 70%, rgba(18,18,18,0) 100%)"
     },
     shadowBT: {
       display: "block",
@@ -35,10 +36,10 @@ const useStyles = makeStyles((theme: Theme) =>
       bottom: 0,
       left: 0,
       width: "100%",
-      height: theme.spacing(8),
+      height: theme.spacing(24),
       zIndex: 2,
       background:
-        "linear-gradient(0deg, rgba(18,18,18,1) 0%, rgba(18,18,18,0) 100%)"
+        "linear-gradient(0deg, rgba(18,18,18,1) 0%, rgba(18,18,18,0.70) 50%, rgba(18,18,18,0) 100%)"
     }
   })
 );

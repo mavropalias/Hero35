@@ -1,7 +1,7 @@
 import Header from "./Header";
 import Head from "next/head";
-import AppDrawer from "./AppDrawer";
-import { Box, makeStyles, Theme, createStyles } from "@material-ui/core";
+import { makeStyles, Theme, createStyles } from "@material-ui/core";
+import SignIn from "./SignIn";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,7 +17,6 @@ type LayoutType = {
   description?: string;
   keywords?: string;
   image?: string;
-  showDrawer?: boolean;
 };
 
 const Layout = ({
@@ -25,8 +24,7 @@ const Layout = ({
   title,
   description,
   keywords,
-  image,
-  showDrawer
+  image
 }: LayoutType) => {
   const classes = useStyles({});
   const headTitle = title ? title : "Hero35";
@@ -63,10 +61,8 @@ const Layout = ({
         />
       </Head>
       <Header />
-      <Box display="flex">
-        {showDrawer && <AppDrawer />}
-        <main className={classes.main}>{children}</main>
-      </Box>
+      <SignIn />
+      <main className={classes.main}>{children}</main>
     </>
   );
 };

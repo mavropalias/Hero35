@@ -20,16 +20,17 @@ import {
   Stars as CuratedIcon,
   ArrowUpward as VoteUp
 } from "@material-ui/icons";
-import { Talk, TalkGroupContents, Stack } from "../../../schema";
+import { Talk, TalkGroupContents, Stack, TalkPreview } from "../../../schema";
 import Database from "../../../services/Database";
 import { NextPage, NextPageContext } from "next";
 import Breadcrumbs from "../../../components/Breadcrumbs";
-import { UserContext } from "../../../components/context-providers/UserContextProvider";
 import { useContext, useState, useEffect, useLayoutEffect } from "react";
 import Stacks from "../../../components/Stacks";
 import { StackContext } from "../../../components/context-providers/StackContextProvider";
 import TalkGroup from "../../../components/TalkGroup";
 import STACKS from "../../../constants/stacks";
+import { observer } from "mobx-react-lite";
+import { useStores } from "../../../stores/useStores";
 
 declare const _carbonads: any;
 
@@ -78,10 +79,10 @@ interface Props {
   talk: Talk;
 }
 
-const TalkDetails: NextPage<Props> = ({ talk }) => {
+const TalkDetails: NextPage<Props> = observer(({ talk }) => {
   const [expandDescription, setExpandDescription] = useState();
   const { state: stateStack } = useContext(StackContext);
-  const { state: stateUser } = useContext(UserContext);
+  const { userStore } = useStores();
   const classes = useStyles({});
 
   const [renderAd, setRenderAd] = useState();
@@ -116,7 +117,7 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
 
   const savedTalksGroup: TalkGroupContents = {
     title: "My saved talks",
-    talks: stateUser.savedTalks
+    talks: userStore.savedTalks
   };
 
   const speakers = talk.speaker
@@ -175,7 +176,7 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
                     </Typography>
                   </Grid>
                   <Grid item xs={12}>
-                    <TalkControls talkId={talk.id} upvotes={talk.likes} />
+                    <TalkControls talk={talk} />
                   </Grid>
                 </Grid>
               </Grid>
@@ -334,28 +335,25 @@ const TalkDetails: NextPage<Props> = ({ talk }) => {
       </Container>
     </Layout>
   );
-};
+});
 
-const TalkSpeakers = ({ speakers }: { speakers: string[] }) => {
-  const classes = useStyles({});
-  return (
-    <>
-      {speakers.map((speaker, index) => (
-        <LinkPrefetch
-          key={index}
-          passHref
-          href={`/hero/[heroid]`}
-          as={`/hero/${encodeURIComponent(speaker)}`}
-        >
-          <Link>
-            {speaker}
-            {index + 1 < speakers.length && ", "}
-          </Link>
-        </LinkPrefetch>
-      ))}
-    </>
-  );
-};
+const TalkSpeakers = ({ speakers }: { speakers: string[] }) => (
+  <>
+    {speakers.map((speaker, index) => (
+      <LinkPrefetch
+        key={index}
+        passHref
+        href={`/hero/[heroid]`}
+        as={`/hero/${encodeURIComponent(speaker)}`}
+      >
+        <Link>
+          {speaker}
+          {index + 1 < speakers.length && ", "}
+        </Link>
+      </LinkPrefetch>
+    ))}
+  </>
+);
 
 const TalkTags = ({ tags }: { tags: string[] }) => {
   const { state: stateStack } = useContext(StackContext);
@@ -393,7 +391,6 @@ const TalkVideo = ({ videoid, start, end }: TalkVideo) => {
     width: "100%",
     playerVars: { end, modestbranding: true, playsinline: true, rel: 0, start }
   };
-
   return (
     <Box
       marginBottom={2}
@@ -413,74 +410,8 @@ const TalkVideo = ({ videoid, start, end }: TalkVideo) => {
   );
 };
 
-const TalkControls = ({
-  talkId,
-  upvotes
-}: {
-  talkId: string;
-  upvotes: number;
-}) => {
-  const { state, dispatch } = useContext(UserContext);
-  const [optimisticTalkState, setOptimisticTalkState] = useState<
-    "saved" | "unsaved" | "liked" | ""
-  >("");
-  const [error, setError] = useState("");
-
-  const likeTalk = async () => {
-    try {
-      setError("");
-      setOptimisticTalkState("liked");
-      const updatedUser = await Database.likeTalk(talkId);
-      dispatch({
-        type: "HYDRATE_FROM_DB",
-        payload: { ...updatedUser }
-      });
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setOptimisticTalkState("");
-    }
-  };
-
-  const saveTalk = async () => {
-    try {
-      setError("");
-      setOptimisticTalkState("saved");
-      const updatedUser = await Database.saveTalkInUserProfile(talkId);
-      dispatch({
-        type: "HYDRATE_FROM_DB",
-        payload: { ...updatedUser }
-      });
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setOptimisticTalkState("");
-    }
-  };
-
-  const isTalkLiked = (talkId: string): boolean =>
-    state.likedTalks.includes(talkId) || optimisticTalkState === "liked";
-
-  const isTalkSaved = (talkId: string): boolean =>
-    (state.savedTalks.filter(savedTalk => savedTalk.id === talkId).length > 0 ||
-      optimisticTalkState === "saved") &&
-    optimisticTalkState !== "unsaved";
-
-  const unsaveTalk = async () => {
-    try {
-      setError("");
-      setOptimisticTalkState("unsaved");
-      const updatedUser = await Database.unsaveTalkInUserProfile(talkId);
-      dispatch({
-        type: "HYDRATE_FROM_DB",
-        payload: { ...updatedUser }
-      });
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setOptimisticTalkState("");
-    }
-  };
+const TalkControls = ({ talk }: { talk: TalkPreview }) => {
+  const { userStore } = useStores();
 
   return (
     <>
@@ -488,48 +419,35 @@ const TalkControls = ({
         <Grid item>
           <Button
             color="secondary"
-            variant={isTalkLiked(talkId) ? "contained" : "outlined"}
+            variant={userStore.isTalkLiked(talk.id) ? "contained" : "outlined"}
             size="large"
-            disabled={!state.signedIn}
             startIcon={
               <>
                 <VoteUp />
               </>
             }
-            onClick={_ => likeTalk()}
+            onClick={_ => userStore.likeTalk(talk.id)}
           >
-            {isTalkLiked(talkId) ? "Upvoted" : "Upvote"}
+            {userStore.isTalkLiked(talk.id) ? "Upvoted" : "Upvote"}
           </Button>
         </Grid>
         <Grid item>
-          {isTalkSaved(talkId) ? (
+          {userStore.isTalkSaved(talk.id) ? (
             <Button
-              disabled={!state.signedIn}
               title="Remove this saved talk"
-              onClick={_ => unsaveTalk()}
+              onClick={_ => userStore.unsaveTalk(talk)}
               startIcon={<BookmarkIcon color="secondary" />}
             >
               Saved
             </Button>
           ) : (
             <Button
-              disabled={!state.signedIn}
               title="Save this talk in your Saved Talks"
-              onClick={_ => saveTalk()}
+              onClick={_ => userStore.saveTalk(talk)}
               startIcon={<BookmarkOutlinedIcon color="secondary" />}
             >
-              Save talk for later
+              Save for later
             </Button>
-          )}
-          <span>{error}</span>
-        </Grid>
-        <Grid item>
-          {!state.signedIn && (
-            <Typography variant="overline">
-              <LinkPrefetch href={`/account`} as={`/account`} passHref>
-                <Link color="secondary">Sign in to vote & save talks</Link>
-              </LinkPrefetch>
-            </Typography>
           )}
         </Grid>
       </Grid>

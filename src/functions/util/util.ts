@@ -1,4 +1,41 @@
+import * as functions from "firebase-functions";
 import { TalkBasic, Talk } from "schema";
+
+// Cache for 12 hours on the client and 6 hours on the server
+const CACHE_CONTROL = `public, max-age=${12 * 3600}, s-maxage=${6 * 3600}`;
+
+// Cache for 24 hours on the client and 18 hours on the server
+const CACHE_CONTROL_LONG = `public, max-age=${24 * 3600}, s-maxage=${18 *
+  3600}`;
+
+// Middleware
+const middleware = (
+  req: functions.https.Request,
+  res: functions.Response,
+  cacheResponse?: boolean,
+  longCache?: boolean
+): [functions.https.Request, functions.Response, boolean] => {
+  // Disallow requests from foreign origins
+  let approved = false;
+  if (
+    !["hero35.com", "heroes-9c313.web.app", "localhost"].includes(
+      req.headers["x-forwarded-host"] as string
+    )
+  ) {
+    res.set("Access-Control-Allow-Origin", "https://hero35.com");
+  } else {
+    approved = true;
+    res.set({
+      "Access-Control-Allow-Origin": "*"
+    });
+    if (cacheResponse) {
+      res.set({
+        "Cache-control": longCache ? CACHE_CONTROL_LONG : CACHE_CONTROL
+      });
+    }
+  }
+  return [req, res, approved];
+};
 
 const queryDocumentSnapshotToTalkBasic = (
   docSnapshot: FirebaseFirestore.QueryDocumentSnapshot
@@ -96,8 +133,13 @@ const talkArrayToTalkBasicArray = (talks: Talk[]): TalkBasic[] => {
   return talksBasic;
 };
 
+const shuffleArray = (array: any[]): any[] =>
+  [...array].sort(() => Math.random() - 0.5);
+
 export default {
   querySnapshotToTalkArray,
   querySnapshotToTalkBasicArray,
+  middleware,
+  shuffleArray,
   talkArrayToTalkBasicArray
 };

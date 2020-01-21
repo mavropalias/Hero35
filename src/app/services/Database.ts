@@ -160,6 +160,13 @@ class Database {
     return ((await res.json()) as unknown) as Talk[];
   };
 
+  getHub = async (topic?: string, stack?: string): Promise<HubContent> => {
+    const res = await fetch(
+      `${API}hub?topic=${topic || ""}&stack=${stack || ""}`
+    );
+    return ((await res.json()) as unknown) as HubContent;
+  };
+
   getHubContent = async (
     topic: string,
     stack?: string

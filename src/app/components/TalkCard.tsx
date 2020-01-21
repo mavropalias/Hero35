@@ -26,9 +26,10 @@ import Database from "../services/Database";
 import { NextPage } from "next";
 import { TalkPreview, TalkBasic, Talk } from "../schema";
 import { useContext, useState } from "react";
-import { UserContext } from "./context-providers/UserContextProvider";
 import DistinctiveTooltip from "./DistinctiveTooltip";
 import LinkPrefetch from "./LinkPrefetch";
+import { observer } from "mobx-react-lite";
+import { useStores } from "../stores/useStores";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -98,256 +99,142 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-  talk: TalkPreview | TalkBasic;
+  talk: TalkBasic;
   showCuration?: boolean;
   showTopics?: boolean;
-  showVotes?: boolean;
   showSaveButton?: boolean;
 }
 
-const TalkCard: NextPage<Props> = ({
-  talk,
-  showCuration,
-  showTopics = true,
-  showVotes = true,
-  showSaveButton = true
-}) => {
-  const [optimisticTalkState, setOptimisticTalkState] = useState<
-    "saved" | "unsaved" | "liked" | ""
-  >("");
-  const { state: stateUser, dispatch } = useContext(UserContext);
-  const classes = useStyles({});
+const TalkCard = observer(
+  ({ talk, showCuration, showTopics = true, showSaveButton = true }: Props) => {
+    const { userStore } = useStores();
+    const classes = useStyles({});
 
-  const isTalkPreview = (
-    talk: TalkPreview | TalkBasic
-  ): talk is TalkPreview => {
-    return (talk as TalkPreview).likes !== undefined;
-  };
-
-  const talkTime = (talk: TalkPreview) => {
-    let h = null;
-    let m = 0;
-    let s = 0;
-    if (talk.start) {
-      h = Math.round((talk.end - talk.start) / 60 / 60);
-      m = Math.round((talk.end - talk.start) / 60);
-      s = (talk.end - talk.start) % 60;
-    } else {
-      h = talk.times.h;
-      m = talk.times.m;
-      s = talk.times.s;
-    }
-    return `${h ? `${h}:` : ""} ${m < 10 ? "0" : ""}${m}:${
-      s < 10 ? "0" : ""
-    }${s}`;
-  };
-
-  const likeTalk = async () => {
-    try {
-      setOptimisticTalkState("liked");
-      const updatedUser = await Database.likeTalk(talk.id);
-      dispatch({
-        type: "HYDRATE_FROM_DB",
-        payload: { ...updatedUser }
-      });
-    } catch (error) {
-    } finally {
-      setOptimisticTalkState("");
-    }
-  };
-
-  const saveTalk = async () => {
-    try {
-      setOptimisticTalkState("saved");
-      const updatedUser = await Database.saveTalkInUserProfile(talk.id);
-      dispatch({
-        type: "HYDRATE_FROM_DB",
-        payload: { ...updatedUser }
-      });
-    } catch (error) {
-    } finally {
-      setOptimisticTalkState("");
-    }
-  };
-
-  const unsaveTalk = async () => {
-    try {
-      setOptimisticTalkState("unsaved");
-      const updatedUser = await Database.unsaveTalkInUserProfile(talk.id);
-      dispatch({
-        type: "HYDRATE_FROM_DB",
-        payload: { ...updatedUser }
-      });
-    } catch (error) {
-    } finally {
-      setOptimisticTalkState("");
-    }
-  };
-
-  const isTalkLiked = (talkId: string): boolean =>
-    stateUser.likedTalks.includes(talkId) || optimisticTalkState === "liked";
-
-  const isTalkSaved = (): boolean =>
-    (stateUser.savedTalks.filter(savedTalk => savedTalk.id === talk.id).length >
-      0 ||
-      optimisticTalkState === "saved") &&
-    optimisticTalkState !== "unsaved";
-
-  const TalkCardHeader = () => (
-    <CardHeader
-      title={
-        showVotes || !showSaveButton ? (
-          talk.title
-        ) : (
-          <Box display="flex" alignItems="flex-start">
-            <Box flex="1" marginRight={2}>
-              {talk.title}
+    const TalkCardHeader = () => (
+      <CardHeader
+        title={
+          !showSaveButton ? (
+            talk.title
+          ) : (
+            <Box display="flex" alignItems="flex-start">
+              <Box flex="1" marginRight={2}>
+                {talk.title}
+              </Box>
+              <SaveButton showLabel={false} />
             </Box>
-            <SaveButton showLabel={false} />
-          </Box>
-        )
-      }
-      subheader={showTopics && <TalkCardTags tags={talk.tags} />}
-      className={classes.header}
-      classes={{ title: classes.headerTitle }}
-    />
-  );
+          )
+        }
+        subheader={showTopics && <TalkCardTags tags={talk.tags} />}
+        className={classes.header}
+        classes={{ title: classes.headerTitle }}
+      />
+    );
 
-  const TalkCardMedia = () => (
-    <LinkPrefetch
-      href={`/[eventid]/[editionid]/[talkslug]`}
-      as={`/${talk.eventId}/${talk.editionId}/${talk.slug}`}
-    >
-      <a className={classes.link}>
-        <DistinctiveTooltip
-          title="Curated talk"
-          placement="top-end"
-          classes={{
-            tooltip: classes.tooltip
-          }}
-          disableFocusListener={!talk.isCurated}
-          disableHoverListener={!talk.isCurated}
-          disableTouchListener={!talk.isCurated}
-        >
-          <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={`https://i.ytimg.com/vi/${talk.youtubeId ||
-                talk.id}/hq${talk.coverImage || "default"}.jpg`}
-            >
-              {isTalkPreview(talk) && (
-                <Typography variant="caption" className={classes.time}>
-                  {talkTime(talk)}
-                </Typography>
-              )}
-              {talk.curationDescription && <TalkInfo talk={talk} />}
-            </CardMedia>
-          </CardActionArea>
-        </DistinctiveTooltip>
-      </a>
-    </LinkPrefetch>
-  );
+    const TalkCardMedia = () => (
+      <LinkPrefetch
+        href={`/[eventid]/[editionid]/[talkslug]`}
+        as={`/${talk.eventId}/${talk.editionId}/${talk.slug}`}
+      >
+        <a className={classes.link}>
+          <DistinctiveTooltip
+            title="Curated talk"
+            placement="top-end"
+            classes={{
+              tooltip: classes.tooltip
+            }}
+            disableFocusListener={!talk.isCurated}
+            disableHoverListener={!talk.isCurated}
+            disableTouchListener={!talk.isCurated}
+          >
+            <CardActionArea>
+              <CardMedia
+                className={classes.media}
+                image={`https://i.ytimg.com/vi/${talk.youtubeId ||
+                  talk.id}/hq${talk.coverImage || "default"}.jpg`}
+              >
+                {talk.curationDescription && <TalkInfo talk={talk} />}
+              </CardMedia>
+            </CardActionArea>
+          </DistinctiveTooltip>
+        </a>
+      </LinkPrefetch>
+    );
 
-  const TalkInfo = ({ talk }: { talk: TalkBasic | TalkPreview }) => (
-    <Box padding={0.5} className="description">
-      <Paper elevation={0}>
-        <Box padding={1}>
-          <Typography variant="caption">{talk.curationDescription}</Typography>
-        </Box>
-      </Paper>
-    </Box>
-  );
-
-  const TalkCardContent = () => (
-    <>
-      {talk.isCurated && (
-        <CardContent className={classes.content}>
-          <Box marginTop={1}>
-            <Typography
-              variant="body2"
-              color="textSecondary"
-              title="Editor's choice"
-            >
-              <CuratedIcon fontSize="inherit" color="action" />
-              &nbsp;
+    const TalkInfo = ({ talk }: { talk: TalkBasic }) => (
+      <Box padding={0.5} className="description">
+        <Paper elevation={0}>
+          <Box padding={1}>
+            <Typography variant="caption">
               {talk.curationDescription}
             </Typography>
           </Box>
-        </CardContent>
-      )}
-    </>
-  );
+        </Paper>
+      </Box>
+    );
 
-  const TalkCardActions = () => (
-    <>
-      {isTalkPreview(talk) && (
-        <CardActions className={classes.actions}>
+    const TalkCardContent = () => (
+      <>
+        {talk.isCurated && (
+          <CardContent className={classes.content}>
+            <Box marginTop={1}>
+              <Typography
+                variant="body2"
+                color="textSecondary"
+                title="Editor's choice"
+              >
+                <CuratedIcon fontSize="inherit" color="action" />
+                &nbsp;
+                {talk.curationDescription}
+              </Typography>
+            </Box>
+          </CardContent>
+        )}
+      </>
+    );
+
+    const SaveButton = ({ showLabel = true }: { showLabel?: boolean }) => (
+      <>
+        {userStore.isTalkSaved(talk.id) ? (
           <Button
-            title={isTalkLiked(talk.id) ? "Liked" : "Like this talk"}
-            className={!stateUser.signedIn ? classes.disabledButton : null}
+            title="Talk is saved for later. Click to unsave."
             color="secondary"
-            variant={isTalkLiked(talk.id) ? "contained" : "text"}
+            variant="contained"
             size="small"
-            onClick={_ => {
-              talk.likes ? talk.likes++ : (talk.likes = 1);
-              likeTalk();
-            }}
-            startIcon={<UpvoteIcon />}
+            onClick={_ => userStore.unsaveTalk(talk)}
+            startIcon={<UnsaveIcon />}
           >
-            {talk.likes || 0}
+            Saved
           </Button>
-          {showSaveButton && <SaveButton />}
-        </CardActions>
-      )}
-    </>
-  );
+        ) : (
+          <Button
+            title={"Save for later"}
+            color="secondary"
+            size="small"
+            onClick={_ => userStore.saveTalk(talk)}
+            startIcon={<SaveIcon />}
+          >
+            Save
+          </Button>
+        )}
+      </>
+    );
 
-  const SaveButton = ({ showLabel = true }: { showLabel?: boolean }) => (
-    <>
-      {isTalkSaved() ? (
-        <Button
-          title="Talk is saved for later. Click to unsave."
-          color="secondary"
-          variant="contained"
-          size="small"
-          onClick={_ => unsaveTalk()}
-          startIcon={<UnsaveIcon />}
-        >
-          Saved
-        </Button>
-      ) : (
-        <Button
-          disabled={!stateUser.signedIn}
-          title={
-            stateUser.signedIn ? "Save for later" : "Sign in to save talks"
-          }
-          color="secondary"
-          size="small"
-          onClick={_ => saveTalk()}
-          startIcon={<SaveIcon />}
-        >
-          Save
-        </Button>
-      )}
-    </>
-  );
-
-  return (
-    <Badge
-      className={classes.badge}
-      color="secondary"
-      invisible={!talk.isCurated}
-      variant="dot"
-    >
-      <Card className={classes.card} elevation={0}>
-        <TalkCardMedia />
-        <TalkCardHeader />
-        {showCuration && <TalkCardContent />}
-        {showVotes && <TalkCardActions />}
-      </Card>
-    </Badge>
-  );
-};
+    return (
+      <Badge
+        className={classes.badge}
+        color="secondary"
+        invisible={!talk.isCurated}
+        variant="dot"
+      >
+        <Card className={classes.card} elevation={0}>
+          <TalkCardMedia />
+          <TalkCardHeader />
+          {showCuration && <TalkCardContent />}
+        </Card>
+      </Badge>
+    );
+  }
+);
 
 const TalkCardTags = ({ tags }: { tags: string[] }) => {
   const classes = useStyles({});

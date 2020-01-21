@@ -5,15 +5,16 @@ import {
   Theme,
   createStyles
 } from "@material-ui/core";
-import { TalkGroupContents, TalkBasic } from "../schema";
+import { TalkGroupContents, TalkPreview, TalkBasic } from "../schema";
 import TalkCardBasic from "./TalkCardBasic";
 import STACKS from "../constants/stacks";
-import { useEffect, useState } from "react";
+import { FixedSizeList as List } from "react-window";
+import AutoSizer from "react-virtualized-auto-sizer";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     group: {
-      width: "100%",
+      width: "100vw",
       overflow: "auto",
       paddingLeft: theme.spacing(2),
       scrollSnapType: "x mandatory",
@@ -81,20 +82,15 @@ interface Props {
 }
 
 const TalkGroup = ({ talkGroup }: Props) => {
-  const [isWindows, setIsWindows] = useState(false);
   const classes = useStyles({});
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const platform = window.navigator.platform;
-      if (["Win32", "Win64", "Windows", "WinCE"].includes(platform)) {
-        setIsWindows(true);
-      } else {
-        setIsWindows(false);
-      }
+  const isWindows = (): boolean => {
+    if (typeof window === "undefined") return false;
+    const platform = window.navigator.platform;
+    if (["Win32", "Win64", "Windows", "WinCE"].includes(platform)) {
+      return true;
     }
-  }, [typeof window !== "undefined"]);
-
+    return false;
+  };
   const groupIcon = (slug?: string) => {
     const iconSlug = STACKS.find(stack => stack.slug === slug)?.slug;
     if (iconSlug) {
@@ -109,20 +105,38 @@ const TalkGroup = ({ talkGroup }: Props) => {
       return <></>;
     }
   };
-
+  const Talk = ({ index, style }) => (
+    <article style={style} className={classes.groupItem}>
+      <TalkCardBasic talk={talkGroup.talks[index]}></TalkCardBasic>
+    </article>
+  );
   return (
     <>
       <Typography className={classes.groupTitle} variant="h4">
         {groupIcon(talkGroup.slug)}
         {talkGroup.title}
       </Typography>
-      <Grid
+      <AutoSizer>
+        {({ height, width }) => (
+          <List
+            height={200}
+            itemCount={talkGroup.talks.length}
+            itemSize={200}
+            layout="horizontal"
+            width={width}
+            className={classes.group}
+          >
+            {Talk}
+          </List>
+        )}
+      </AutoSizer>
+      {/* <Grid
         container
         spacing={1}
         className={classes.group}
-        wrap={isWindows ? "wrap" : "nowrap"}
-      >
-        {((talkGroup.talks as unknown) as TalkBasic[]).map(talk => (
+        wrap={isWindows() ? "wrap" : "nowrap"}
+      > */}
+      {/* {((talkGroup.talks as unknown) as TalkBasic[]).map(talk => (
           <Grid
             className={classes.groupItem}
             key={talk.id}
@@ -131,8 +145,8 @@ const TalkGroup = ({ talkGroup }: Props) => {
           >
             <TalkCardBasic talk={talk}></TalkCardBasic>
           </Grid>
-        ))}
-      </Grid>
+        ))} */}
+      {/* </Grid> */}
     </>
   );
 };

@@ -159,3 +159,15 @@ export enum TALK_TYPE {
   Interview = "8",
   Highlights = "9"
 }
+
+export type TalkGroupContents = {
+  title: string;
+  talks: TalkBasic[] | TalkPreview[];
+  slug?: string;
+};
+
+export type HubContent = {
+  coverTalks?: TalkBasic[];
+  talkGroups: TalkGroupContents[];
+  editions?: EventEdition[];
+};

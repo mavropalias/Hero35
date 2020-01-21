@@ -4,7 +4,6 @@ import {
   Theme,
   Typography,
   Button,
-  Box,
   Link
 } from "@material-ui/core";
 import {
@@ -12,10 +11,10 @@ import {
   BookmarkBorder as BookmarkOutlinedIcon
 } from "@material-ui/icons";
 import { TalkBasic } from "../../schema";
-import { useContext, useState } from "react";
-import { UserContext } from "../context-providers/UserContextProvider";
-import Database from "../../services/Database";
+import { useState } from "react";
 import LinkPrefetch from "../LinkPrefetch";
+import { useStores } from "../../stores/useStores";
+import { observer } from "mobx-react-lite";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,6 +22,11 @@ const useStyles = makeStyles((theme: Theme) =>
       position: "relative",
       padding: theme.spacing(12, 2),
       maxWidth: "48rem",
+      minHeight: "500px",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "flex-start",
+      justifyContent: "center",
       zIndex: 1,
       [theme.breakpoints.up("sm")]: {
         padding: theme.spacing(12, 3)
@@ -50,52 +54,9 @@ interface Props {
   color?: string;
 }
 
-const HubInterstitialTalkText = ({ talk, color }: Props) => {
+const HubInterstitialTalkText = observer(({ talk, color }: Props) => {
   const classes = useStyles({});
-  const { state: stateUser, dispatch } = useContext(UserContext);
-  const [optimisticTalkState, setOptimisticTalkState] = useState<
-    "saved" | "unsaved" | "liked" | ""
-  >("");
-  const [error, setError] = useState("");
-
-  const saveTalk = async () => {
-    try {
-      setError("");
-      setOptimisticTalkState("saved");
-      const updatedUser = await Database.saveTalkInUserProfile(talk.id);
-      dispatch({
-        type: "HYDRATE_FROM_DB",
-        payload: { ...updatedUser }
-      });
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setOptimisticTalkState("");
-    }
-  };
-
-  const unsaveTalk = async () => {
-    try {
-      setError("");
-      setOptimisticTalkState("unsaved");
-      const updatedUser = await Database.unsaveTalkInUserProfile(talk.id);
-      dispatch({
-        type: "HYDRATE_FROM_DB",
-        payload: { ...updatedUser }
-      });
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setOptimisticTalkState("");
-    }
-  };
-
-  const isTalkSaved = (talkId: string): boolean =>
-    (stateUser.savedTalks.filter(savedTalk => savedTalk.id === talkId).length >
-      0 ||
-      optimisticTalkState === "saved") &&
-    optimisticTalkState !== "unsaved";
-
+  const { userStore } = useStores();
   return (
     <div className={classes.text}>
       <LinkPrefetch
@@ -114,13 +75,12 @@ const HubInterstitialTalkText = ({ talk, color }: Props) => {
       <Typography variant="h5" className={classes.description} gutterBottom>
         {talk.curationDescription}
       </Typography>
-      {isTalkSaved(talk.id) ? (
+      {userStore.isTalkSaved(talk.id) ? (
         <Button
           size="large"
           color="secondary"
-          disabled={!stateUser.signedIn}
           title="Remove this saved talk"
-          onClick={_ => unsaveTalk()}
+          onClick={_ => userStore.unsaveTalk(talk)}
           startIcon={<BookmarkIcon color="secondary" />}
         >
           Saved
@@ -129,20 +89,15 @@ const HubInterstitialTalkText = ({ talk, color }: Props) => {
         <Button
           size="large"
           color="secondary"
-          disabled={!stateUser.signedIn}
           title="Save this talk in your Saved Talks"
-          onClick={_ => saveTalk()}
+          onClick={_ => userStore.saveTalk(talk)}
           startIcon={<BookmarkOutlinedIcon color="secondary" />}
         >
-          Save talk for later
+          Save for later
         </Button>
       )}
     </div>
   );
-};
-
-const LogoAndTitle = ({ logo, title }: { logo: string; title: string }) => (
-  <>{title}</>
-);
+});
 
 export default HubInterstitialTalkText;

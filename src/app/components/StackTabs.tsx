@@ -44,8 +44,8 @@ const StackTabs = ({
     <>
       <Tabs
         value={tab}
-        indicatorColor="primary"
-        textColor="primary"
+        indicatorColor="secondary"
+        textColor="secondary"
         variant="scrollable"
         scrollButtons="auto"
         onChange={handleChange}

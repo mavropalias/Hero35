@@ -1,7 +1,4 @@
 import {
-  createStyles,
-  makeStyles,
-  Theme,
   BottomNavigation,
   BottomNavigationAction,
   AppBar,
@@ -15,37 +12,15 @@ import {
   AccountBox as AccountIcon,
   CardMembership as CuratedIcon
 } from "@material-ui/icons/";
-import { useContext, useState } from "react";
-import { UserContext } from "./context-providers/UserContextProvider";
+import { useState } from "react";
+import { useStores } from "../stores/useStores";
+import { observer } from "mobx-react-lite";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    alphaIcon: {
-      marginLeft: theme.spacing(1)
-    },
-    appBar: {
-      zIndex: theme.zIndex.drawer + 1
-    },
-    logo: {
-      maxHeight: "30px"
-    },
-    menuLink: {
-      whiteSpace: "nowrap"
-    },
-    search: {
-      maxWidth: "350px",
-      margin: "0"
-    }
-  })
-);
-
-const NavigationBottom = () => {
-  const { state, dispatch } = useContext(UserContext);
+const NavigationBottom = observer(() => {
+  const { userStore } = useStores();
   const [value, setValue] = useState(0);
-  const classes = useStyles({});
   const theme = useTheme();
   const showNav = useMediaQuery(theme.breakpoints.down("xs"));
-
   return (
     <>
       {showNav && (
@@ -69,7 +44,7 @@ const NavigationBottom = () => {
               icon={<CuratedIcon />}
             />
             <BottomNavigationAction
-              label={state.signedIn ? "Account" : "Sign in"}
+              label={userStore.isSignedIn ? "Account" : "Sign in"}
               value={ROUTES.ACCOUNT}
               icon={<AccountIcon />}
             />
@@ -78,6 +53,6 @@ const NavigationBottom = () => {
       )}
     </>
   );
-};
+});
 
 export default NavigationBottom;

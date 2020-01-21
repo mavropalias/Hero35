@@ -77,18 +77,7 @@ const Stacks = ({
                 <Card
                   className={showOutlines ? classes.cardOutlined : classes.card}
                   raised={stack.isCategory ? true : false}
-                  elevation={stack.isCategory ? 4 : 0}
-                  style={
-                    stack.isCategory
-                      ? {
-                          backgroundColor: CATEGORIES.find(
-                            cat => cat.slug === stack.slug
-                          ).colorBackground,
-                          color: CATEGORIES.find(cat => cat.slug === stack.slug)
-                            .colorText
-                        }
-                      : {}
-                  }
+                  elevation={0}
                 >
                   <LinkPrefetch href={stackHref(stack)} as={stackAs(stack)}>
                     <a
@@ -103,9 +92,7 @@ const Stacks = ({
                         <CardContent className={classes.cardContent}>
                           <Box paddingBottom={bSmall ? 0 : 1}>
                             <img
-                              src={`/stacks/${stack.slug}${
-                                stack.isCategory ? "-inverse" : ""
-                              }.svg`}
+                              src={`/stacks/${stack.slug}.svg`}
                               className={classes.stackLogo}
                               alt={`${stack.label}`}
                             />
