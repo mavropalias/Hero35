@@ -33,13 +33,13 @@ export class UserStore {
 
   isTalkLiked(talkId: string) {
     return computed(
-      () => !!this.likedTalks.find(likedTalkId => likedTalkId === talkId)
+      () => !!this.likedTalks?.find(likedTalkId => likedTalkId === talkId)
     ).get();
   }
 
   isTalkSaved(talkId: string) {
     return computed(
-      () => !!this.savedTalks.find(talk => talk.id === talkId)
+      () => !!this.savedTalks?.find(talk => talk.id === talkId)
     ).get();
   }
 
@@ -71,7 +71,7 @@ export class UserStore {
             }
           }
           const updatedUser = await Database.getUser();
-          this.savedTalks = updatedUser.savedTalks;
+          this.savedTalks = updatedUser.savedTalks || [];
           this.likedTalks = updatedUser.likedTalks || [];
           this.dislikedTalks = updatedUser.dislikedTalks || [];
         } else {

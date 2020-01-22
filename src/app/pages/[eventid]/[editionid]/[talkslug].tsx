@@ -91,7 +91,7 @@ const TalkDetails: NextPage<Props> = observer(({ talk }) => {
     // Render ad only after client has been hydrated
     setRenderAd(true);
   }, []);
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (adScripLoaded && typeof _carbonads !== "undefined")
       _carbonads.refresh();
     else {
@@ -322,7 +322,7 @@ const TalkDetails: NextPage<Props> = observer(({ talk }) => {
       <Box marginBottom={4} marginTop={4}>
         <Divider />
       </Box>
-      {savedTalksGroup.talks.length > 0 && (
+      {savedTalksGroup.talks?.length > 0 && (
         <>
           <TalkGroup talkGroup={savedTalksGroup} />
           <Box marginBottom={4} marginTop={4}>
@@ -410,7 +410,7 @@ const TalkVideo = ({ videoid, start, end }: TalkVideo) => {
   );
 };
 
-const TalkControls = ({ talk }: { talk: TalkPreview }) => {
+const TalkControls = observer(({ talk }: { talk: TalkPreview }) => {
   const { userStore } = useStores();
 
   return (
@@ -459,7 +459,7 @@ const TalkControls = ({ talk }: { talk: TalkPreview }) => {
       </Box>
     </>
   );
-};
+});
 
 interface QueryProps {
   eventid: string;
