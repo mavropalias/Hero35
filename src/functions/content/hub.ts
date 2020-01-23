@@ -15,21 +15,26 @@ import { getHotEditions } from "./editions";
  * Get hub contents
  */
 export const hub = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = util.middleware(req, res, true, true);
-  if (!approved) return response.send(null);
-  const topic = request.query.topic;
-  console.info(`hub-${topic ? topic : "home"}`);
-  let hubContent: HubContent = null;
-  if (!topic) {
-    hubContent = await hubHome();
-  } else if (topic === "react") {
-    hubContent = await hubReact();
-  } else if (topic === "javascript") {
-    hubContent = await hubJavascript();
-  } else {
-    hubContent = await hubTopic(topic);
+  try {
+    const [request, response, approved] = util.middleware(req, res, true, true);
+    if (!approved) return response.send(null);
+    const topic = request.query.topic;
+    console.info(`hub-${topic ? topic : "home"}`);
+    let hubContent: HubContent = null;
+    if (!topic) {
+      hubContent = await hubHome();
+    } else if (topic === "react") {
+      hubContent = await hubReact();
+    } else if (topic === "javascript") {
+      hubContent = await hubJavascript();
+    } else {
+      hubContent = await hubTopic(topic);
+    }
+    res.json(hubContent);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
   }
-  res.json(hubContent);
 });
 
 /**
