@@ -1,11 +1,8 @@
 import * as functions from "firebase-functions";
 import { TalkBasic, Talk } from "schema";
 
-// Cache for 12 hours on the client and 6 hours on the server
-const CACHE_CONTROL = `public, max-age=${12 * 3600}, s-maxage=${6 * 3600}`;
-
-// Cache for 24 hours on the client and 18 hours on the server
-const CACHE_CONTROL_LONG = `public, max-age=${24 * 3600}, s-maxage=${18 *
+const CACHE_CONTROL = `public, max-age=${12 * 3600}, s-maxage=${12 * 3600}`;
+const CACHE_CONTROL_LONG = `public, max-age=${24 * 3600}, s-maxage=${24 *
   3600}`;
 
 // Middleware
