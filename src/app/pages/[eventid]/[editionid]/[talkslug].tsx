@@ -24,7 +24,7 @@ import { Talk, TalkGroupContents, Stack, TalkPreview } from "../../../schema";
 import Database from "../../../services/Database";
 import { NextPage, NextPageContext } from "next";
 import Breadcrumbs from "../../../components/Breadcrumbs";
-import { useContext, useState, useEffect, useLayoutEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import Stacks from "../../../components/Stacks";
 import { StackContext } from "../../../components/context-providers/StackContextProvider";
 import TalkGroup from "../../../components/TalkGroup";
