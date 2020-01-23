@@ -375,6 +375,7 @@ const talk = functions.https.onRequest(async (req, res) => {
   const eventId = request.query.eventId;
   const editionId = request.query.editionId;
   const talkSlug = request.query.talkSlug;
+  console.log(talkSlug);
   if (!eventId) response.send("eventId is required");
   if (!editionId) response.send("editionId is required");
   if (!talkSlug) response.send("talkSlug is required");
