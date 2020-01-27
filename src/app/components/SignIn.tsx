@@ -24,6 +24,7 @@ const SignIn = observer(() => {
       firebase.auth.EmailAuthProvider.PROVIDER_ID
     ],
     callbacks: {
+      // Do not redirect after sign-in
       signInSuccessWithAuthResult: _ => false
     },
     tosUrl: "/terms-of-service",

@@ -1,14 +1,7 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import algoliasearch from "algoliasearch";
-import {
-  Talk,
-  TalkPreview,
-  User,
-  TALK_TYPE,
-  HubContent,
-  TalkBasic
-} from "./schema";
+import { Talk, TalkPreview, User, TALK_TYPE, TalkBasic } from "./schema";
 import {
   getTalksCurated,
   getTalksHot,
