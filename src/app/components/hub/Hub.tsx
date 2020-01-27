@@ -29,12 +29,14 @@ const Hub = observer(
     const { userStore } = useStores();
     return (
       <>
-        <HubCover
-          talk={content.coverTalks[0]}
-          logo={logo}
-          title={title}
-          color={color}
-        />
+        {content.coverTalks[0] && (
+          <HubCover
+            talk={content.coverTalks[0]}
+            logo={logo}
+            title={title}
+            color={color}
+          />
+        )}
         <main style={{ position: "relative" }}>
           {showSavedTalks && <SavedTalks />}
           {content.editions && <HubEditions editions={content.editions} />}

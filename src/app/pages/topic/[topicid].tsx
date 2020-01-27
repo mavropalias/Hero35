@@ -1,11 +1,8 @@
 import Layout from "../../components/Layout";
-import { makeStyles, createStyles, Theme } from "@material-ui/core";
 import { HubContent } from "../../schema";
 import Database from "../../services/Database";
 import { NextPage, NextPageContext } from "next";
 import STACKS from "../../constants/stacks";
-import theme from "../../appTheme";
-import { useState, useContext } from "react";
 import Hub from "../../components/hub/Hub";
 
 interface Props {
@@ -19,8 +16,8 @@ const TopicDetails: NextPage<Props> = ({ title, content }) => {
     <Layout title={`Developer conference talks about ${title}`}>
       <Hub
         title={title}
-        logo={stack && `/stacks/${stack.slug}.svg`}
-        color={stack && stack.color}
+        logo={`/stacks/${stack?.slug}.svg`}
+        color={stack?.color}
         content={content}
       />
     </Layout>
