@@ -8,7 +8,6 @@ import theme from "../appTheme";
 import * as ga from "../services/GA";
 import "../style.css";
 import NProgress from "nprogress";
-import NavigationBottom from "../components/NavigationBottom";
 import Footer from "../components/Footer";
 import { StackContextProvider } from "../components/context-providers/StackContextProvider";
 
@@ -56,7 +55,6 @@ export default class MyApp extends App {
             <CssBaseline />
             <Component {...pageProps} />
             <Footer />
-            <NavigationBottom />
           </ThemeProvider>
         </StackContextProvider>
       </>
