@@ -22,7 +22,7 @@ const Account = observer(() => {
   return (
     <Layout title="Account">
       <Container className={classes.container}>
-        {!userStore.isSignedIn ? <SignIn /> : <AccountDetails />}
+        {userStore.isSignedIn && <AccountDetails />}
       </Container>
     </Layout>
   );
