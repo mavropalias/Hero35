@@ -21,7 +21,7 @@ import {
   AccountCircle as AccountIcon
 } from "@material-ui/icons/";
 import { useState } from "react";
-import HubNavigation from "./HubNavigation";
+import Sidebar from "./Sidebar";
 import LinkPrefetch from "./LinkPrefetch";
 import STACKS from "../constants/stacks";
 import StacksMenu from "./StacksMenu";
@@ -159,7 +159,7 @@ const Header = observer(() => {
         onClose={toggleDrawer(false)}
         onClick={toggleDrawer(false)}
       >
-        <HubNavigation className={classes.drawerNavigation} />
+        <Sidebar className={classes.drawerNavigation} />
       </Drawer>
     </>
   );

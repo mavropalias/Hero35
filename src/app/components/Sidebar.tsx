@@ -11,6 +11,7 @@ import {
 import { Home as HomeIcon } from "@material-ui/icons";
 import {
   Bookmarks as BookmarksIcon,
+  AccountCircle as AccountIcon,
   Event as EventIcon
 } from "@material-ui/icons";
 import ROUTES from "../constants/routes";
@@ -20,7 +21,7 @@ import STACKS from "../constants/stacks";
 import { useStores } from "../stores/useStores";
 import { observer } from "mobx-react-lite";
 
-const HubNavigation = ({ className }: { className?: string }) => {
+const Sidebar = observer(({ className }: { className?: string }) => {
   const { userStore } = useStores();
   return (
     <nav className={className}>
@@ -35,7 +36,17 @@ const HubNavigation = ({ className }: { className?: string }) => {
             </ListSubheader>
           }
         >
-          <LinkPrefetch href={ROUTES.ACCOUNT} as={ROUTES.ACCOUNT}>
+          {userStore.isSignedIn && (
+            <LinkPrefetch href={ROUTES.ACCOUNT} as={ROUTES.ACCOUNT}>
+              <ListItem button component="a">
+                <ListItemIcon>
+                  <AccountIcon />
+                </ListItemIcon>
+                <ListItemText primary="My account" />
+              </ListItem>
+            </LinkPrefetch>
+          )}
+          <LinkPrefetch href={ROUTES.SAVED_TALKS} as={ROUTES.SAVED_TALKS}>
             <ListItem button component="a">
               {userStore.isSignedIn && (
                 <ListItemIcon>
@@ -70,7 +81,7 @@ const HubNavigation = ({ className }: { className?: string }) => {
           }
         >
           {STACKS.filter(stack => stack.isPrime === true).map(stack => (
-            <StackLink stack={stack} />
+            <StackLink key={stack.slug} stack={stack} />
           ))}
         </List>
         <Divider />
@@ -83,13 +94,13 @@ const HubNavigation = ({ className }: { className?: string }) => {
           }
         >
           {STACKS.filter(stack => stack.featured === true).map(stack => (
-            <StackLink stack={stack} />
+            <StackLink key={stack.slug} stack={stack} />
           ))}
         </List>
       </Paper>
     </nav>
   );
-};
+});
 
 const StackLink = ({ stack }: { stack: Stack }) => (
   <LinkPrefetch
@@ -120,4 +131,4 @@ const StackLink = ({ stack }: { stack: Stack }) => (
   </LinkPrefetch>
 );
 
-export default HubNavigation;
+export default Sidebar;
