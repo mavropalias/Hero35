@@ -47,7 +47,9 @@ const getJustAddedEditions = async stackid => {
   const docSnap = await query.get();
   let editions: EventEdition[] = [];
   docSnap.forEach(doc => {
-    editions.push((doc.data() as unknown) as EventEdition);
+    const edition = (doc.data() as unknown) as EventEdition;
+    edition.isJustAdded = true;
+    editions.push(edition);
   });
   return editions;
 };
@@ -67,7 +69,9 @@ const getRecentEditions = async stackid => {
   const docSnap = await query.get();
   let editions: EventEdition[] = [];
   docSnap.forEach(doc => {
-    editions.push((doc.data() as unknown) as EventEdition);
+    const edition = (doc.data() as unknown) as EventEdition;
+    edition.isRecent = true;
+    editions.push(edition);
   });
   return editions;
 };
@@ -87,7 +91,9 @@ const getUpcomingEditions = async stackid => {
   const docSnap = await query.get();
   let editions: EventEdition[] = [];
   docSnap.forEach(doc => {
-    editions.push((doc.data() as unknown) as EventEdition);
+    const edition = (doc.data() as unknown) as EventEdition;
+    edition.isUpcoming = true;
+    editions.push(edition);
   });
   return editions;
 };

@@ -22,6 +22,9 @@ export type EventEdition = {
   eventId?: string;
   eventTitle?: string;
   isDistinctive?: boolean;
+  isJustAdded?: boolean;
+  isRecent?: boolean;
+  isUpcoming?: boolean;
   issues?: string[];
   logo?: string;
   id?: string;

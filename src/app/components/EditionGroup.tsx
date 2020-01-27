@@ -97,6 +97,7 @@ const EditionGroup = ({ editions }: Props) => {
           <Grid
             className={classes.edition}
             key={`${edition.eventId}${edition.id}`}
+            component="article"
             item
           >
             <LinkPrefetch
@@ -129,6 +130,10 @@ const EditionGroup = ({ editions }: Props) => {
                         <CardContent className={classes.content}>
                           <Typography className={classes.title}>
                             {edition.eventTitle}
+                          </Typography>
+                          <Typography variant="caption" color="textSecondary">
+                            {edition.isJustAdded && "Just added"}
+                            {edition.isUpcoming && "Upcoming"}
                           </Typography>
                         </CardContent>
                       </CardActionArea>
