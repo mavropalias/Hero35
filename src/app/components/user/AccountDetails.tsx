@@ -10,7 +10,6 @@ import {
   Link,
   Box
 } from "@material-ui/core";
-import { useContext } from "react";
 import LinkPrefetch from "../LinkPrefetch";
 import ROUTES from "../../constants/routes";
 import { observer } from "mobx-react-lite";
