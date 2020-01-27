@@ -126,7 +126,9 @@ const EditionHeader = ({ edition }: { edition: EventEdition }) => {
             <Button
               variant="contained"
               color="secondary"
-              href={edition.ticketsUrl}
+              href={`${edition.ticketsUrl}${
+                edition.ticketsUrl.includes("?") ? "&ref=hero35" : "?ref=hero35"
+              }`}
               target="_blank"
               rel="noopener"
               startIcon={<TicketIcon />}
@@ -148,7 +150,7 @@ const EditionHeader = ({ edition }: { edition: EventEdition }) => {
       </Typography>
       <p>
         <Link
-          href={edition.website}
+          href={`${edition.website}?ref=hero35`}
           color="textSecondary"
           target="_blank"
           variant="body2"

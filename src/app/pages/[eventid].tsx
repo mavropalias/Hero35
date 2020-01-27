@@ -103,7 +103,11 @@ const EventDetails: NextPage<Props> = ({ event }) => {
                   {event.description}
                 </Typography>
                 <p>
-                  <Link href={event.website} target="_blank" variant="body2">
+                  <Link
+                    href={`${event.website}?ref=hero35`}
+                    target="_blank"
+                    variant="body2"
+                  >
                     Official website{" "}
                     <LinkIcon className={classes.externalLinkIcon} />
                   </Link>
