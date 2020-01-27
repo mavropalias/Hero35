@@ -1,5 +1,8 @@
 import { default as NextLink } from "next/link";
-import { Twitter as TwitterIcon } from "@material-ui/icons";
+import {
+  Twitter as TwitterIcon,
+  Facebook as FacebookIcon
+} from "@material-ui/icons";
 import {
   makeStyles,
   createStyles,
@@ -47,7 +50,22 @@ const Footer = observer(() => {
                 prefetch={false}
               >
                 <Link target="_blank" color="inherit">
-                  Follow us on Twitter
+                  Hero35 on Twitter
+                </Link>
+              </NextLink>
+            </Box>
+          </Grid>
+          <Grid item>
+            <Box display="flex" alignItems="center">
+              <FacebookIcon fontSize="small" />
+              &nbsp;
+              <NextLink
+                href="https://www.facebook.com/hero35official/"
+                passHref
+                prefetch={false}
+              >
+                <Link target="_blank" color="inherit">
+                  Hero35 on Facebook
                 </Link>
               </NextLink>
             </Box>
