@@ -1,11 +1,6 @@
-import { makeStyles, createStyles, Theme, Box } from "@material-ui/core";
-import {
-  TalkGroupContents,
-  TalkBasic,
-  EventEdition,
-  HubContent
-} from "../../schema";
-import HubCover from "./HubCover";
+import { Box } from "@material-ui/core";
+import { TalkGroupContents, TalkBasic, HubContent } from "../../schema";
+import TalkCover from "../TalkCover";
 import HubTalkGroup from "../TalkGroup";
 import HubInterstitialTalk from "./HubInterstitialTalk";
 import HubEditions from "./HubEditions";
@@ -30,7 +25,7 @@ const Hub = observer(
     return (
       <>
         {content.coverTalks[0] && (
-          <HubCover
+          <TalkCover
             talk={content.coverTalks[0]}
             logo={logo}
             title={title}

@@ -1,7 +1,7 @@
 import { makeStyles, createStyles, Theme } from "@material-ui/core";
-import { TalkBasic } from "../../schema";
-import HubCoverImage from "./HubCoverImage";
-import HubCoverText from "./HubCoverText";
+import { TalkBasic } from "../schema";
+import TalkCoverImage from "./TalkCoverImage";
+import TalkCoverText from "./TalkCoverText";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,24 +15,32 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const HubCover = ({
+const TalkCover = ({
   color,
   logo,
+  shouldLinkTitle = true,
   talk,
   title
 }: {
   color?: string;
   logo?: string;
+  shouldLinkTitle?: boolean;
   talk: TalkBasic;
   title?: string;
 }) => {
   const classes = useStyles({});
   return (
     <header className={classes.header}>
-      <HubCoverImage talk={talk} />
-      <HubCoverText talk={talk} logo={logo} title={title} color={color} />
+      <TalkCoverImage talk={talk} />
+      <TalkCoverText
+        talk={talk}
+        logo={logo}
+        title={title}
+        color={color}
+        shouldLinkTitle={shouldLinkTitle}
+      />
     </header>
   );
 };
 
-export default HubCover;
+export default TalkCover;

@@ -20,6 +20,7 @@ export class UserStore {
   // ---------------------------------------------------------------------------
   @observable email: string = "";
   @observable dislikedTalks: string[] = [];
+  @observable isAboutToPlayTalk: boolean = false;
   @observable isSignedIn: boolean = false;
   @observable isHydrated: boolean = false;
   @observable likedTalks: string[] = [];
@@ -27,6 +28,7 @@ export class UserStore {
   @observable picture: string = "";
   @observable savedTalks: TalkBasic[] = [];
   @observable shouldSignIn: boolean = false;
+  @observable shouldAutoPlayNextTalk: boolean = false;
 
   // Computed properties
   // ---------------------------------------------------------------------------
@@ -34,6 +36,13 @@ export class UserStore {
   isTalkLiked(talkId: string) {
     return computed(
       () => !!this.likedTalks?.find(likedTalkId => likedTalkId === talkId)
+    ).get();
+  }
+
+  isTalkDisliked(talkId: string) {
+    return computed(
+      () =>
+        !!this.dislikedTalks?.find(dislikedTalkId => dislikedTalkId === talkId)
     ).get();
   }
 
@@ -102,8 +111,16 @@ export class UserStore {
     this.name = name;
   }
 
+  @action setIsAboutToPlayTalk(status: boolean) {
+    this.isAboutToPlayTalk = status;
+  }
+
   @action setShouldSignIn(status: boolean) {
     this.shouldSignIn = status;
+  }
+
+  @action setShouldAutoPlayNextTalk(status: boolean) {
+    this.shouldAutoPlayNextTalk = status;
   }
 
   @action async likeTalk(talkId: string) {
@@ -116,11 +133,35 @@ export class UserStore {
     }
     try {
       this.likedTalks.push(talkId);
+      const index = this.dislikedTalks.findIndex(t => t === talkId);
+      this.dislikedTalks.splice(index, 1);
       const updatedUser = await Database.likeTalk(talkId);
       this.likedTalks = updatedUser.likedTalks;
+      this.dislikedTalks = updatedUser.dislikedTalks;
     } catch (e) {
       const index = this.likedTalks.findIndex(t => t === talkId);
       this.likedTalks.splice(index, 1);
+    }
+  }
+
+  @action async dislikeTalk(talkId: string) {
+    if (!this.isSignedIn) {
+      this.shouldSignIn = true;
+      return;
+    }
+    if (this.isTalkDisliked(talkId)) {
+      return;
+    }
+    try {
+      this.dislikedTalks.push(talkId);
+      const index = this.likedTalks.findIndex(t => t === talkId);
+      this.likedTalks.splice(index, 1);
+      const updatedUser = await Database.dislikeTalk(talkId);
+      this.likedTalks = updatedUser.likedTalks;
+      this.dislikedTalks = updatedUser.dislikedTalks;
+    } catch (e) {
+      const index = this.dislikedTalks.findIndex(t => t === talkId);
+      this.dislikedTalks.splice(index, 1);
     }
   }
 
