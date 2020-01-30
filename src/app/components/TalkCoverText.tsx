@@ -98,9 +98,9 @@ const TalkCoverText = observer(
     return (
       <div className={classes.text}>
         <div className={classes.textInner}>
-          {logo && title && (
+          {title && (
             <Box display="flex" alignItems="center" marginBottom={2}>
-              <img src={logo} className={classes.hubLogo} />
+              {logo && <img src={logo} className={classes.hubLogo} />}
               <Typography variant="h4" className={classes.hubTitle}>
                 {title}
               </Typography>

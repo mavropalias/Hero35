@@ -16,7 +16,7 @@ const TopicDetails: NextPage<Props> = ({ title, content }) => {
     <Layout title={`Developer conference talks about ${title}`}>
       <Hub
         title={title}
-        logo={`/stacks/${stack?.slug}.svg`}
+        logo={stack?.slug && `/stacks/${stack?.slug}.svg`}
         color={stack?.color}
         content={content}
       />
