@@ -41,7 +41,7 @@ const AccountDetails = observer(() => {
       </Typography>
       <Box marginBottom={8}>
         <Typography variant="subtitle1" paragraph>
-          Congratulations! Since you're registered during our Alpha, you're
+          Congratulations! Since you registered during our Alpha, you're
           entitled to free lifetime benefits on Hero35. We'll announce details
           during our Beta phase.
         </Typography>

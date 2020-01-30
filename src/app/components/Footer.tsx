@@ -50,7 +50,7 @@ const Footer = observer(() => {
                 prefetch={false}
               >
                 <Link target="_blank" color="inherit">
-                  Hero35 on Twitter
+                  Twitter
                 </Link>
               </NextLink>
             </Box>
@@ -65,7 +65,7 @@ const Footer = observer(() => {
                 prefetch={false}
               >
                 <Link target="_blank" color="inherit">
-                  Hero35 on Facebook
+                  Facebook
                 </Link>
               </NextLink>
             </Box>
