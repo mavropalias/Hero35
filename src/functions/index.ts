@@ -209,7 +209,7 @@ const event = functions.https.onRequest(async (req, res) => {
   const [request, response, approved] = util.middleware(req, res, true);
   if (!approved) return response.send();
   const eventId = request.query.id;
-  if (!eventId) response.send("event id is required");
+  if (!eventId) return response.send("event id is required");
   const docRef = await db.collection("events").doc(eventId);
   const docSnap = await docRef.get();
   let event = docSnap.data();
@@ -232,8 +232,8 @@ const edition = functions.https.onRequest(async (req, res) => {
   if (!approved) return response.send();
   const eventId = request.query.eventId;
   const editionId = request.query.editionId;
-  if (!eventId) response.send("eventId is required");
-  if (!editionId) response.send("editionId is required");
+  if (!eventId) return response.send("eventId is required");
+  if (!editionId) return response.send("editionId is required");
   const docSnap = await db
     .collection("events")
     .doc(eventId)
@@ -369,9 +369,9 @@ const talk = functions.https.onRequest(async (req, res) => {
   const editionId = request.query.editionId;
   const talkSlug = request.query.talkSlug;
   console.log(talkSlug);
-  if (!eventId) response.send("eventId is required");
-  if (!editionId) response.send("editionId is required");
-  if (!talkSlug) response.send("talkSlug is required");
+  if (!eventId) return response.send("eventId is required");
+  if (!editionId) return response.send("editionId is required");
+  if (!talkSlug) return response.send("talkSlug is required");
   const docSnap = await db
     .collectionGroup("talks")
     .where("eventId", "==", eventId)
@@ -504,7 +504,7 @@ const getUser = functions.https.onRequest(async (req, res) => {
   try {
     uid = await verifyIdToken(request);
   } catch (e) {
-    response.send(e);
+    return response.send(e);
   }
   const user = await db
     .collection("users")
@@ -622,7 +622,7 @@ const likeTalk = functions.https.onRequest(async (req, res) => {
   try {
     uid = await verifyIdToken(request);
   } catch (e) {
-    response.send(e);
+    return response.send(e);
   }
   const userDocRef = await db.collection("users").doc(uid);
   const talkDocSnap = await db
@@ -633,7 +633,7 @@ const likeTalk = functions.https.onRequest(async (req, res) => {
     ? ((talkDocSnap.docs[0].data() as unknown) as Talk)
     : null;
   if (!talk) {
-    response.send(null);
+    return response.send(null);
   }
   const likes = talk.likesUIDs
     ? talk.likesUIDs
@@ -681,7 +681,7 @@ const dislikeTalk = functions.https.onRequest(async (req, res) => {
   try {
     uid = await verifyIdToken(request);
   } catch (e) {
-    response.send(e);
+    return response.send(e);
   }
   const userDocRef = await db.collection("users").doc(uid);
   const talkDocSnap = await db
@@ -692,7 +692,7 @@ const dislikeTalk = functions.https.onRequest(async (req, res) => {
     ? ((talkDocSnap.docs[0].data() as unknown) as Talk)
     : null;
   if (!talk) {
-    response.send(null);
+    return response.send(null);
   }
   await db
     .collection("events")
@@ -730,7 +730,7 @@ const saveTalkInUserProfile = functions.https.onRequest(async (req, res) => {
   try {
     uid = await verifyIdToken(request);
   } catch (e) {
-    response.send(e);
+    return response.send(e);
   }
   const userDocRef = await db.collection("users").doc(uid);
   const talkDocSnap = await db
@@ -739,7 +739,7 @@ const saveTalkInUserProfile = functions.https.onRequest(async (req, res) => {
     .get();
   const talk: any = talkDocSnap.docs[0] ? talkDocSnap.docs[0].data() : null;
   if (!talk) {
-    response.send(null);
+    return response.send(null);
   }
   const savedTalk: TalkBasic = {
     categories: talk.categories,
@@ -776,7 +776,7 @@ const unsaveTalkInUserProfile = functions.https.onRequest(async (req, res) => {
   try {
     uid = await verifyIdToken(request);
   } catch (e) {
-    response.send(e);
+    return response.send(e);
   }
   const userDocRef = await db.collection("users").doc(uid);
   const userDocSnap = await userDocRef.get();
