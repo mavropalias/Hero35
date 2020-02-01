@@ -33,16 +33,18 @@ type TalkVideo = {
 };
 const TalkVideo = ({ videoid, start, end }: TalkVideo) => {
   const classes = useStyles({});
+
   const opts = {
     height: "100%",
     width: "100%",
     playerVars: { end, modestbranding: true, playsinline: true, rel: 0, start }
   };
+
   const onPlayerReady = event => {
-    console.log("ready");
-    console.log(event);
     event.target.playVideo();
+    const player = document.getElementById("widget2");
   };
+
   return (
     <Box marginBottom={2} className={classes.container}>
       <YouTube
