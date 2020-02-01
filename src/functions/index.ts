@@ -326,7 +326,7 @@ const justAddedEditions = functions.https.onRequest(async (req, res) => {
   if (request.query.stackid > 0) {
     query = query.where("categories", "array-contains", request.query.stackid);
   }
-  query = query.limit(3);
+  query = query.limit(4);
   const docSnap = await query.get();
   let editions = [];
   docSnap.forEach(doc => {

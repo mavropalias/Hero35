@@ -74,7 +74,7 @@ const EditionGrid = ({
       <Grid
         className={classes.container}
         container
-        spacing={variant === "horizontal" ? 4 : 1}
+        spacing={2}
         wrap={variant === "horizontal" ? "nowrap" : "wrap"}
       >
         {editions.map(edition => (
@@ -83,9 +83,9 @@ const EditionGrid = ({
             key={`${edition.eventId}${edition.id}`}
             item
             xs={12}
-            sm={variant === "horizontal" ? 6 : 12}
-            md={variant === "horizontal" ? 4 : 12}
-            lg={variant === "horizontal" ? 3 : 12}
+            sm={6}
+            md={4}
+            lg={3}
           >
             <LinkPrefetch
               href={`/[eventid]/[editionid]`}

@@ -43,7 +43,7 @@ const getJustAddedEditions = async stackid => {
   if (stackid > 0) {
     query = query.where("categories", "array-contains", stackid);
   }
-  query = query.limit(3);
+  query = query.limit(4);
   const docSnap = await query.get();
   let editions: EventEdition[] = [];
   docSnap.forEach(doc => {
