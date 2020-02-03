@@ -4,7 +4,7 @@ import {
   connectSearchBox,
   connectInfiniteHits
 } from "react-instantsearch/connectors";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import {
   InputBase,
@@ -15,12 +15,12 @@ import {
   Paper,
   Typography,
   Box,
-  ClickAwayListener
+  IconButton
 } from "@material-ui/core";
-import { Search as SearchIcon } from "@material-ui/icons";
+import { Search as SearchIcon, Clear as ClearIcon } from "@material-ui/icons";
 import { TalkPreview } from "../schema";
 import TalkList from "./TalkList";
-import { useTheme } from "@material-ui/core/styles";
+import { APP_BAR_HEIGHT } from "../constants/sizes";
 
 const algoliaClient = algoliasearch(
   "B9STNN0U9I",
@@ -49,13 +49,15 @@ const useStyles = makeStyles((theme: Theme) =>
       position: "relative",
       borderRadius: theme.shape.borderRadius,
       backgroundColor: fade(theme.palette.common.white, 0.15),
-      "&:hover": {
-        backgroundColor: fade(theme.palette.common.white, 0.25)
-      },
+      display: "flex",
       marginRight: theme.spacing(2),
       marginLeft: 0,
       width: "100%",
       flexGrow: 1,
+      transition: theme.transitions.create("background-color"),
+      "&:hover": {
+        backgroundColor: fade(theme.palette.common.white, 0.25)
+      },
       [theme.breakpoints.up("sm")]: {
         marginLeft: theme.spacing(3),
         width: "auto"
@@ -80,12 +82,12 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%"
     },
     searchResults: {
-      position: "absolute",
+      position: "fixed",
       left: 0,
-      top: "48px",
+      top: APP_BAR_HEIGHT,
       width: "100%",
       margin: theme.spacing(0),
-      maxHeight: "90vh",
+      height: `calc(100vh - ${APP_BAR_HEIGHT})`,
       overflow: "auto"
     }
   })
@@ -105,7 +107,7 @@ const SearchInput: React.FC<React.HTMLAttributes<HTMLDivElement>> = props => {
       indexName="talks"
       onSearchStateChange={state => onSearchStateChange(state)}
     >
-      <Configure hitsPerPage={7} />
+      <Configure hitsPerPage={10} />
       <ConnectedSearchBox
         className={props.className}
         onBlur={_ => setFocused(false)}
@@ -124,7 +126,6 @@ const MaterialUiSearchBox = ({
   onBlur
 }) => {
   const classes = useStyles({});
-  const theme = useTheme();
 
   return (
     <div className={`${classes.search} ${className}`}>
@@ -143,6 +144,15 @@ const MaterialUiSearchBox = ({
           input: classes.inputInput
         }}
       />
+      {currentRefinement && (
+        <IconButton
+          size="small"
+          aria-label="close search"
+          onClick={_ => refine("")}
+        >
+          <ClearIcon />
+        </IconButton>
+      )}
     </div>
   );
 };
@@ -159,67 +169,66 @@ const CustomHits = ({
   visible: boolean;
 }) => {
   const classes = useStyles({});
-  const [clickedAway, setClickedAway] = useState(false);
+  const [clickedOnResult, setClickedOnResult] = useState(false);
+
+  useEffect(() => {
+    if (visible) setClickedOnResult(false);
+  }, [visible]);
 
   return (
     <>
-      {(!clickedAway || visible) && (
-        <ClickAwayListener onClickAway={() => setClickedAway(true)}>
-          <Paper className={classes.searchResults} elevation={8}>
-            {hits.length > 0 ? (
-              <TalkList
-                talks={hits}
-                onClick={_ => setClickedAway(true)}
-                showEvent={true}
-              />
-            ) : (
-              <Box m={3}>
-                <Typography variant="h5" paragraph>
-                  <code>🧐🤞 results.length === 0 😤👎</code>
-                </Typography>
-                <Typography variant="subtitle1">
-                  You can search by event/talk title, speaker, description, tag,
-                  and year. Try these:
-                </Typography>
-                <Typography variant="body1">- hooks 2019</Typography>
-                <Typography variant="body1">
-                  - react native performance
-                </Typography>
-                <Typography variant="body1">- graphql</Typography>
-                <Typography variant="body1">- redux vs mobx</Typography>
-                <Typography variant="body1">- a11y</Typography>
-              </Box>
-            )}
-            <Box
-              m={1}
-              marginRight={3}
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
+      <Paper
+        className={classes.searchResults}
+        elevation={8}
+        hidden={clickedOnResult && !visible}
+      >
+        {hits.length > 0 ? (
+          <TalkList
+            talks={hits}
+            onClick={_ => setClickedOnResult(true)}
+            showEvent={true}
+          />
+        ) : (
+          <Box m={3}>
+            <Typography variant="h5" paragraph>
+              <code>🧐🤞 results.length === 0 😤👎</code>
+            </Typography>
+            <Typography variant="subtitle1">
+              You can search by event/talk title, speaker, description, tag, and
+              year. Try these:
+            </Typography>
+            <Typography variant="body1">- hooks 2019</Typography>
+            <Typography variant="body1">- react native performance</Typography>
+            <Typography variant="body1">- graphql</Typography>
+            <Typography variant="body1">- redux vs mobx</Typography>
+            <Typography variant="body1">- a11y</Typography>
+          </Box>
+        )}
+        <Box
+          m={1}
+          marginRight={3}
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          {hasMore && (
+            <Button
+              onClick={() => {
+                if (hasMore) {
+                  refine();
+                }
+              }}
+              variant="outlined"
+              disabled={!hasMore}
             >
-              {hasMore && (
-                <Button
-                  onClick={() => {
-                    if (hasMore) {
-                      refine();
-                    }
-                  }}
-                  variant="outlined"
-                  disabled={!hasMore}
-                >
-                  Load more
-                </Button>
-              )}
-              {hits.length > 0 && (
-                <img
-                  src="/search-by-algolia-dark-background.svg"
-                  height="14"
-                ></img>
-              )}
-            </Box>
-          </Paper>
-        </ClickAwayListener>
-      )}
+              Load more
+            </Button>
+          )}
+          {hits.length > 0 && (
+            <img src="/search-by-algolia-dark-background.svg" height="14"></img>
+          )}
+        </Box>
+      </Paper>
     </>
   );
 };

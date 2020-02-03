@@ -23,12 +23,6 @@ const useStyles = makeStyles((theme: Theme) =>
     curatedAvatar: {
       backgroundColor: theme.palette.secondary.main
     },
-    curatedTalk: {
-      backgroundColor: theme.palette.background.paper,
-      border: "1px solid",
-      borderColor: theme.palette.secondary.main,
-      borderRadius: theme.shape.borderRadius
-    },
     list: {
       width: "100%"
     },
@@ -103,13 +97,7 @@ const TalkListItem = ({
       as={`/${talk.eventId}/${talk.editionId}/${talk.slug}`}
       passHref
     >
-      <ListItem
-        divider
-        button
-        onClick={onClick}
-        component="a"
-        className={talk.isCurated ? classes.curatedTalk : ""}
-      >
+      <ListItem divider button onClick={onClick} component="a">
         <ListItemAvatar>
           {talk.isCurated ? (
             <Avatar className={classes.curatedAvatar}>
