@@ -107,9 +107,9 @@ const hubHome = async (): Promise<HubContent> => {
   const editions = await getHotEditions();
   const hubContent: HubContent = {
     editions,
-    coverTalks: curatedTalks,
+    coverTalks: [hotTalks[0], ...curatedTalks],
     talkGroups: [
-      { title: "Hot talks", talks: hotTalks },
+      { title: "Hot talks", talks: hotTalks.slice(1) },
       { title: "Just added", talks: recentlyAddedTalks },
       { title: "React", talks: topicReact, slug: "react" },
       { title: "JavaScript", talks: topicJavascript, slug: "javascript" },
@@ -320,9 +320,9 @@ const hubReact = async () => {
   const editions = await getHotEditions("4");
   const hubContent: HubContent = {
     editions,
-    coverTalks: curatedTalks,
+    coverTalks: [hotTalks[0], ...curatedTalks],
     talkGroups: [
-      { title: `Hot ${topic} talks`, talks: hotTalks },
+      { title: `Hot ${topic} talks`, talks: hotTalks.slice(1) },
       { title: `Just added in ${topic}`, talks: recentlyAddedTalks },
       { title: `GraphQL + ${topic}`, talks: topicGraphql, slug: "graphql" },
       { title: "CSS", talks: topicCss, slug: "css" },
@@ -449,9 +449,9 @@ const hubJavascript = async () => {
   const editions = await getHotEditions("1");
   const hubContent: HubContent = {
     editions,
-    coverTalks: curatedTalks,
+    coverTalks: [hotTalks[0], ...curatedTalks],
     talkGroups: [
-      { title: `Hot ${topic} talks`, talks: hotTalks },
+      { title: `Hot ${topic} talks`, talks: hotTalks.slice(1) },
       { title: `Just added in ${topic}`, talks: recentlyAddedTalks },
       { title: `GraphQL + ${topic}`, talks: topicGraphql, slug: "graphql" },
       { title: "CSS", talks: topicCss, slug: "css" },
