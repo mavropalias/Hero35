@@ -221,7 +221,10 @@ const hubTopic = async topic => {
   newTalks.length > 0 &&
     hubContent.talkGroups.push({ title: "New talks", talks: newTalks });
   curatedTalks.length > 0 &&
-    hubContent.talkGroups.push({ title: "Editor's Choice", talks: curatedTalks });
+    hubContent.talkGroups.push({
+      title: "Editor's Choice",
+      talks: curatedTalks
+    });
   risingTalks.length > 0 &&
     hubContent.talkGroups.push({
       title: "Rising in popularity",
@@ -559,8 +562,8 @@ const hubCSS = async () => {
       { title: "New talks", talks: newTalks },
       { title: "Rising in popularity", talks: risingTalks },
       { title: "Editor's Choice", talks: curatedTalks },
-      { title: "Design", talks: topicDesign, slug: "design" }
-      { title: "Lightning talks", talks: lightningTalks },
+      { title: "Design", talks: topicDesign, slug: "design" },
+      { title: "Lightning talks", talks: lightningTalks }
     ]
   };
   return hubContent;
