@@ -27,6 +27,8 @@ export const hub = functions.https.onRequest(async (req, res) => {
       hubContent = await hubReact();
     } else if (topic === "javascript") {
       hubContent = await hubJavascript();
+    } else if (topic === "css") {
+      hubContent = await hubCSS();
     } else {
       hubContent = await hubTopic(topic);
     }
@@ -143,7 +145,7 @@ const hubHome = async (): Promise<HubContent> => {
         talks: topicMachineLearning,
         slug: "machine-learning"
       },
-      { title: "Curated talks", talks: curatedTalks },
+      { title: "Editor's Choice", talks: curatedTalks },
       { title: "Redux", talks: topicRedux, slug: "redux" },
       { title: "Panel discussions", talks: panels },
       {
@@ -219,7 +221,7 @@ const hubTopic = async topic => {
   newTalks.length > 0 &&
     hubContent.talkGroups.push({ title: "New talks", talks: newTalks });
   curatedTalks.length > 0 &&
-    hubContent.talkGroups.push({ title: "Curated talks", talks: curatedTalks });
+    hubContent.talkGroups.push({ title: "Editor's Choice", talks: curatedTalks });
   risingTalks.length > 0 &&
     hubContent.talkGroups.push({
       title: "Rising in popularity",
@@ -354,7 +356,7 @@ const hubReact = async () => {
         talks: topicMachineLearning,
         slug: "machine-learning"
       },
-      { title: `Curated ${topic} talks`, talks: curatedTalks },
+      { title: "Editor's Choice", talks: curatedTalks },
       { title: "Animation", talks: topicAnimation, slug: "animation" },
       { title: `Redux + ${topic}`, talks: topicRedux, slug: "redux" },
       { title: "Panel discussions", talks: panels },
@@ -483,7 +485,7 @@ const hubJavascript = async () => {
         talks: topicMachineLearning,
         slug: "machine-learning"
       },
-      { title: `Curated ${topic} talks`, talks: curatedTalks },
+      { title: "Editor's Choice", talks: curatedTalks },
       { title: "Animation", talks: topicAnimation, slug: "animation" },
       { title: `Redux + ${topic}`, talks: topicRedux, slug: "redux" },
       { title: "Panel discussions", talks: panels },
@@ -506,6 +508,59 @@ const hubJavascript = async () => {
         talks: topicProgressiveWebApps,
         slug: "progressive-web-apps"
       }
+    ]
+  };
+  return hubContent;
+};
+
+/**
+ * Get hub contents for CSS
+ */
+const hubCSS = async () => {
+  const topic = "CSS";
+  const topicSlug = "css";
+  const [
+    curatedTalks,
+    hotTalks,
+    risingTalks,
+    topTalks,
+    newTalks,
+    recentlyAddedTalks,
+    lightningTalks,
+    topicAnimation,
+    topicDesign,
+    topicDesignSystem
+  ] = await Promise.all([
+    getTalksCurated(topicSlug),
+    getTalksHot(topicSlug),
+    getTalksRising(topicSlug),
+    getTalksTop(topicSlug),
+    getTalksNew(topicSlug),
+    getTalksByFilter(topicSlug, null, TALK_TYPE.Talk),
+    getTalksByFilter(topicSlug, null, TALK_TYPE.LightningTalk),
+    getTalksHot("animation"),
+    getTalksHot("design"),
+    getTalksHot("design-system")
+  ]);
+  const editions = await getHotEditions("2");
+  const hubContent: HubContent = {
+    editions,
+    coverTalks: [hotTalks[0], ...curatedTalks],
+    talkGroups: [
+      { title: `Hot ${topic} talks`, talks: hotTalks.slice(1) },
+      { title: `Just added in ${topic}`, talks: recentlyAddedTalks },
+      { title: "Animation", talks: topicAnimation, slug: "animation" },
+      {
+        title: "Design systems",
+        talks: topicDesignSystem,
+        slug: "design-system"
+      },
+      { title: `All-time best in ${topic}`, talks: topTalks },
+      { title: "New talks", talks: newTalks },
+      { title: "Rising in popularity", talks: risingTalks },
+      { title: "Editor's Choice", talks: curatedTalks },
+      { title: "Design", talks: topicDesign, slug: "design" }
+      { title: "Lightning talks", talks: lightningTalks },
     ]
   };
   return hubContent;
