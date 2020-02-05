@@ -35,15 +35,15 @@ const getHotEditions = async (stackid?: string): Promise<EventEdition[]> => {
 /**
  * Get just added Editions
  */
-const getJustAddedEditions = async stackid => {
+const getJustAddedEditions = async (stackid?: string) => {
   let query = db
     .collectionGroup("editions")
     .where("status", "==", "published")
     .orderBy("dateAddedTimestamp", "desc");
-  if (stackid > 0) {
+  if (stackid) {
     query = query.where("categories", "array-contains", stackid);
   }
-  query = query.limit(4);
+  query = query.limit(3);
   const docSnap = await query.get();
   let editions: EventEdition[] = [];
   docSnap.forEach(doc => {
@@ -57,12 +57,12 @@ const getJustAddedEditions = async stackid => {
 /**
  * Get recent Editions
  */
-const getRecentEditions = async stackid => {
+const getRecentEditions = async (stackid?: string) => {
   let query = db
     .collectionGroup("editions")
     .where("status", "==", "published")
     .orderBy("dateTimestamp", "desc");
-  if (stackid > 0) {
+  if (stackid) {
     query = query.where("categories", "array-contains", stackid);
   }
   query = query.limit(10);
@@ -79,12 +79,12 @@ const getRecentEditions = async stackid => {
 /**
  * Get upcoming Editions
  */
-const getUpcomingEditions = async stackid => {
+const getUpcomingEditions = async (stackid?: string) => {
   let query = db
     .collectionGroup("editions")
     .where("status", "==", "published-notalks")
     .where("dateTimestamp", ">", admin.firestore.Timestamp.now());
-  if (stackid > 0) {
+  if (stackid) {
     query = query.where("categories", "array-contains", stackid);
   }
   query = query.limit(3);
