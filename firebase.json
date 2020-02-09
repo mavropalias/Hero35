@@ -138,6 +138,10 @@
         "function": "heroes-ssrPrivacyPolicy"
       },
       {
+        "source": "/saved",
+        "function": "heroes-ssrSaved"
+      },
+      {
         "source": "/stack/:stackid",
         "function": "heroes-ssrStack"
       },
