@@ -1,4 +1,4 @@
-import { makeStyles, createStyles, Theme } from "@material-ui/core";
+import { makeStyles, createStyles, Theme, Divider } from "@material-ui/core";
 import { TalkBasic } from "../../schema";
 import HubInterstitialTalkText from "./HubInterstitialTalkText";
 import HubInterstitialTalkImage from "./HubInterstitialTalkImage";
@@ -7,7 +7,9 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     interstitial: {
       width: "100%",
-      position: "relative"
+      position: "relative",
+      borderTop: `1px solid ${theme.palette.divider}`,
+      borderBottom: `1px solid ${theme.palette.divider}`
     }
   })
 );

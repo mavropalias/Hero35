@@ -55,7 +55,6 @@ const useStyles = makeStyles((theme: Theme) =>
         margin: theme.spacing(0, 4)
       }
     },
-    textInner: {},
     title: {
       fontWeight: 800,
       paddingBottom: theme.spacing(2),
@@ -97,105 +96,101 @@ const TalkCoverText = observer(
 
     return (
       <div className={classes.text}>
-        <div className={classes.textInner}>
-          {title && (
-            <Box display="flex" alignItems="center" marginBottom={2}>
-              {logo && <img src={logo} className={classes.hubLogo} />}
-              <Typography variant="h4" className={classes.hubTitle}>
-                {title}
-              </Typography>
-            </Box>
-          )}
-          {talk.isCurated && (
-            <Typography
-              variant="overline"
-              color="textSecondary"
-              style={color ? { color } : {}}
-              component="p"
-            >
-              Editor's Choice
+        {title && (
+          <Box display="flex" alignItems="center" marginBottom={2}>
+            {logo && <img src={logo} className={classes.hubLogo} />}
+            <Typography variant="h4" className={classes.hubTitle}>
+              {title}
             </Typography>
-          )}
-          {shouldLinkTitle ? (
-            <LinkPrefetch
-              href={`/[eventid]/[editionid]/[talkslug]`}
-              as={`/${talk.eventId}/${talk.editionId}/${talk.slug}`}
-              passHref
-            >
-              <Link
-                variant="h2"
-                className={classes.title}
-                style={color ? { color } : {}}
-              >
-                {talk.title}
-              </Link>
-            </LinkPrefetch>
-          ) : (
-            <Typography variant="h2" className={classes.title}>
-              {talk.title}
-            </Typography>
-          )}
+          </Box>
+        )}
+        {talk.isCurated && (
           <Typography
-            variant="h4"
+            variant="overline"
+            color="textSecondary"
+            style={color ? { color } : {}}
             component="p"
-            className={classes.description}
-            color={shouldLinkTitle ? "textPrimary" : "textSecondary"}
           >
-            {talk.curationDescription}
+            Editor's Choice
           </Typography>
+        )}
+        {shouldLinkTitle ? (
+          <LinkPrefetch
+            href={`/[eventid]/[editionid]/[talkslug]`}
+            as={`/${talk.eventId}/${talk.editionId}/${talk.slug}`}
+            passHref
+          >
+            <Link
+              variant="h2"
+              className={classes.title}
+              style={color ? { color } : {}}
+            >
+              {talk.title}
+            </Link>
+          </LinkPrefetch>
+        ) : (
+          <Typography variant="h2" className={classes.title}>
+            {talk.title}
+          </Typography>
+        )}
+        <Typography
+          variant="h4"
+          component="p"
+          className={classes.description}
+          color={shouldLinkTitle ? "textPrimary" : "textSecondary"}
+        >
+          {talk.curationDescription}
+        </Typography>
+        <Button
+          size="large"
+          color="secondary"
+          variant="contained"
+          className={classes.button}
+          classes={{ iconSizeLarge: classes.buttonIcon }}
+          onClick={handlePlay}
+          onMouseOver={handleMouseOver}
+          onMouseOut={handleMouseOut}
+          startIcon={<PlayIcon />}
+        >
+          Play
+        </Button>
+        {userStore.isTalkSaved(talk.id) ? (
           <Button
             size="large"
             color="secondary"
-            variant="contained"
+            variant="outlined"
             className={classes.button}
             classes={{ iconSizeLarge: classes.buttonIcon }}
-            onClick={handlePlay}
-            onMouseOver={handleMouseOver}
-            onMouseOut={handleMouseOut}
-            startIcon={<PlayIcon />}
+            title="Unsave this talk"
+            onClick={_ => userStore.unsaveTalk(talk)}
+            startIcon={<BookmarkIcon />}
           >
-            Play
+            Saved
           </Button>
-          {userStore.isTalkSaved(talk.id) ? (
-            <Button
-              size="large"
-              color="secondary"
-              variant="outlined"
-              className={classes.button}
-              classes={{ iconSizeLarge: classes.buttonIcon }}
-              title="Click to unsave this talk"
-              onClick={_ => userStore.unsaveTalk(talk)}
-              startIcon={<BookmarkIcon />}
-            >
-              Saved
-            </Button>
-          ) : (
-            <Button
-              size="large"
-              color="secondary"
-              className={classes.button}
-              classes={{ iconSizeLarge: classes.buttonIcon }}
-              title="Save this talk in My Saved Talks"
-              onClick={_ => userStore.saveTalk(talk)}
-              startIcon={<BookmarkOutlinedIcon color="secondary" />}
-            >
-              Save
-            </Button>
-          )}
+        ) : (
           <Button
+            size="large"
             color="secondary"
-            variant={userStore.isTalkLiked(talk.id) ? "outlined" : "text"}
             className={classes.button}
             classes={{ iconSizeLarge: classes.buttonIcon }}
-            size="large"
-            startIcon={
-              userStore.isTalkLiked(talk.id) ? <VotedUp /> : <VoteUp />
-            }
-            onClick={_ => userStore.likeTalk(talk.id)}
+            title="Save this talk in My Saved Talks"
+            onClick={_ => userStore.saveTalk(talk)}
+            startIcon={<BookmarkOutlinedIcon color="secondary" />}
           >
-            {userStore.isTalkLiked(talk.id) ? "Liked" : "Like"}
+            Save
           </Button>
-        </div>
+        )}
+        <Button
+          color="secondary"
+          variant={userStore.isTalkLiked(talk.id) ? "outlined" : "text"}
+          className={classes.button}
+          classes={{ iconSizeLarge: classes.buttonIcon }}
+          size="large"
+          startIcon={userStore.isTalkLiked(talk.id) ? <VotedUp /> : <VoteUp />}
+          onClick={_ => userStore.likeTalk(talk.id)}
+        >
+          {userStore.isTalkLiked(talk.id) ? "Liked" : "Like"}
+        </Button>
       </div>
     );
   }
