@@ -179,11 +179,7 @@ const Header = observer(() => {
             </a>
           </LinkPrefetch>
           {userStore.isSignedIn ? (
-            <LinkPrefetch
-              href={ROUTES.SAVED_TALKS}
-              as={ROUTES.SAVED_TALKS}
-              passHref
-            >
+            <LinkPrefetch href={ROUTES.SAVED_TALKS} as={ROUTES.SAVED_TALKS}>
               <a className={classes.headerLink}>My saved talks</a>
             </LinkPrefetch>
           ) : (
@@ -208,7 +204,7 @@ const Header = observer(() => {
           <Divider orientation="vertical" className={classes.headerDivider} />
           <SearchInput className={classes.search} />
           {userStore.isSignedIn && (
-            <LinkPrefetch href={ROUTES.ACCOUNT} as={ROUTES.ACCOUNT} passHref>
+            <LinkPrefetch href={ROUTES.ACCOUNT} as={ROUTES.ACCOUNT}>
               <a className={classes.userPicture}>
                 {userStore.picture ? (
                   <Avatar alt={userStore.name} src={userStore.picture} />

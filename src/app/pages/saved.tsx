@@ -20,7 +20,7 @@ const PageSavedTalks = observer(() => {
   const classes = useStyles({});
 
   return (
-    <Layout title="Account">
+    <Layout title="My saved talks">
       <Container className={classes.container}>
         {!userStore.isSignedIn ? <SignIn /> : <SavedTalks />}
       </Container>

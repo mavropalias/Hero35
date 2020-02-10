@@ -130,6 +130,15 @@ const ssrPrivacyPolicy = functions.https.onRequest(async (req, res) => {
 });
 
 /**
+ * SSR /saved
+ */
+const ssrSaved = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = util.middleware(req, res, true);
+  if (!approved) return response.send();
+  response.sendFile(`${__dirname}/next/serverless/pages/saved.html`);
+});
+
+/**
  * SSR /stack
  */
 const ssrStack = functions.https.onRequest(async (req, res) => {
@@ -874,6 +883,7 @@ const heroes = {
   ssrEvent,
   ssrHero,
   ssrPrivacyPolicy,
+  ssrSaved,
   ssrStack,
   ssrTalk,
   ssrTermsOfService,
