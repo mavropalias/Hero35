@@ -142,11 +142,12 @@ const SaveButton = observer(({ talk }: { talk: TalkBasic }) => {
       ) : (
         <Button
           color="secondary"
+          variant="outlined"
           size="small"
           onClick={_ => userStore.saveTalk(talk)}
           startIcon={<SaveIcon />}
         >
-          Save for later
+          Save
         </Button>
       )}
     </>

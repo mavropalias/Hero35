@@ -180,7 +180,7 @@ const Header = observer(() => {
           </LinkPrefetch>
           {userStore.isSignedIn ? (
             <LinkPrefetch href={ROUTES.SAVED_TALKS} as={ROUTES.SAVED_TALKS}>
-              <a className={classes.headerLink}>My saved talks</a>
+              <a className={classes.headerLink}>Saved</a>
             </LinkPrefetch>
           ) : (
             <Button

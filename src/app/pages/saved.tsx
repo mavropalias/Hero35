@@ -10,7 +10,7 @@ const SignIn = dynamic(() => import("../components/SignIn"));
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      marginTop: theme.spacing(2)
+      marginTop: theme.spacing(6)
     }
   })
 );
@@ -20,7 +20,7 @@ const PageSavedTalks = observer(() => {
   const classes = useStyles({});
 
   return (
-    <Layout title="My saved talks">
+    <Layout title="Saved talks">
       <Container className={classes.container}>
         {!userStore.isSignedIn ? <SignIn /> : <SavedTalks />}
       </Container>
