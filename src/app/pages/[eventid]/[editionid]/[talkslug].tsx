@@ -9,8 +9,8 @@ import TalkGroup from "../../../components/TalkGroup";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../../../stores/useStores";
 import TalkCover from "../../../components/TalkCover";
-import TalkVideo from "../../../components/talk/TalkVideo";
-import TalkInfo from "../../../components/talk/TalkInfo";
+import TalkVideo from "../../../components/page-talk/TalkVideo";
+import TalkInfo from "../../../components/page-talk/TalkInfo";
 
 interface Props {
   talk: Talk;

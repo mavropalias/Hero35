@@ -1,4 +1,4 @@
-import LinkPrefetch from "../../components/LinkPrefetch";
+import LinkPrefetch from "../LinkPrefetch";
 import {
   makeStyles,
   createStyles,
@@ -23,6 +23,7 @@ import { useState } from "react";
 import STACKS from "../../constants/stacks";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../../stores/useStores";
+import TalkShareButton from "./TalkShareButton";
 
 declare const _carbonads: any;
 
@@ -267,6 +268,9 @@ const TalkControls = observer(({ talk }: { talk: TalkPreview }) => {
               Save
             </Button>
           )}
+        </Grid>
+        <Grid item>
+          <TalkShareButton talk={talk} />
         </Grid>
       </Grid>
     </>
