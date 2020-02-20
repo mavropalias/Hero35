@@ -35,7 +35,10 @@ const Hub = observer(
         <main style={{ position: "relative" }}>
           {showSavedTalks && <SavedTalks />}
           {content.editions && (
-            <HubEditions title={title} editions={content.editions} />
+            <HubEditions
+              title={`Hot ${title ? title : ""} conferences`}
+              editions={content.editions}
+            />
           )}
           {content.talkGroups.slice(0, 1).map(group => (
             <HubSection key={group.title} content={group} />

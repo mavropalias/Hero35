@@ -65,7 +65,6 @@ const EditionGrid = ({
       month: "short",
       year: "numeric"
     };
-
     return startDate.toLocaleDateString(undefined, options);
   };
 

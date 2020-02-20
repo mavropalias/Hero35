@@ -1,5 +1,4 @@
 import Layout from "../../components/Layout";
-import theme from "../../appTheme";
 import { Typography, Container, Box, Button, Divider } from "@material-ui/core";
 import { EventEdition } from "../../schema";
 import Database from "../../services/Database";
@@ -10,14 +9,23 @@ import { StackContext } from "../../components/context-providers/StackContextPro
 import StackTabs from "../../components/StackTabs";
 import LinkPrefetch from "../../components/LinkPrefetch";
 import EditionGrid from "../../components/EditionGrid";
+import HubEditions from "../../components/hub/HubEditions";
 
 interface Props {
   year: string;
   editions: EventEdition[];
   justAddedEditions: EventEdition[];
+  recentEditions: EventEdition[];
+  upcomingEditions: EventEdition[];
 }
 
-const YearPage: NextPage<Props> = ({ year, editions, justAddedEditions }) => {
+const YearPage: NextPage<Props> = ({
+  year,
+  editions,
+  justAddedEditions,
+  recentEditions,
+  upcomingEditions
+}) => {
   const { state: stateStack } = useContext(StackContext);
   const [filteredEditions, setFilteredEditions] = useState(editions);
   const [isLoading, setIsLoading] = useState();
@@ -41,13 +49,20 @@ const YearPage: NextPage<Props> = ({ year, editions, justAddedEditions }) => {
       description={`All ${stateStack.contextTitle} developer conferences for the year ${year}.`}
       keywords={`${year},conferences,developer conference,year ${year},developers,event`}
     >
-      <Container>
-        <Box marginTop={4} marginBottom={4} alignItems="center">
-          <Typography variant="overline">Just added</Typography>
-          <EditionGrid editions={justAddedEditions} variant="horizontal" />
-        </Box>
-      </Container>
-      <Divider />
+      <Box marginTop={8} marginBottom={8}>
+        <HubEditions
+          title="Just added conferences"
+          editions={justAddedEditions}
+          showEditionTitle={true}
+        />
+        <HubEditions title="Recent conferences" editions={recentEditions} />
+        <HubEditions
+          title="Upcoming conferences"
+          editions={upcomingEditions}
+          showDate={true}
+        />
+        <Divider />
+      </Box>
       <Container>
         <Box marginTop={2} marginBottom={2} alignItems="center">
           {years.map(item => (
@@ -89,7 +104,15 @@ YearPage.getInitialProps = async (ctx: NextPageContext) => {
   const stackid = stack ? CATEGORIES.find(cat => cat.slug === stack).id : null;
   const editions = await Database.getEditionsByYear(year, stackid);
   const justAddedEditions = await Database.getJustAddedEditions(stackid);
-  return { year, editions, justAddedEditions };
+  const recentEditions = await Database.getRecentEditions(stackid);
+  const upcomingEditions = await Database.getUpcomingEditions(stackid);
+  return {
+    year,
+    editions,
+    justAddedEditions,
+    recentEditions,
+    upcomingEditions
+  };
 };
 
 export default YearPage;

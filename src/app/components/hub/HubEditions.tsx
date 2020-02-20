@@ -26,18 +26,26 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const HubEditions = ({
   editions,
+  showDate,
+  showEditionTitle,
   title
 }: {
   editions: EventEdition[];
+  showDate?: boolean;
+  showEditionTitle?: boolean;
   title?: string;
 }) => {
   const classes = useStyles({});
   return (
     <Box marginBottom={8} component="section">
       <Typography className={classes.title} variant="h4">
-        Hot {title} Conferences
+        {title}
       </Typography>
-      <EditionGroup editions={editions} />
+      <EditionGroup
+        editions={editions}
+        showDate={showDate}
+        showEditionTitle={showEditionTitle}
+      />
     </Box>
   );
 };

@@ -68,9 +68,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
   editions: EventEdition[];
+  showDate?: boolean;
+  showEditionTitle?: boolean;
 }
 
-const EditionGroup = ({ editions }: Props) => {
+const EditionGroup = ({ editions, showDate, showEditionTitle }: Props) => {
   const [isWindows, setIsWindows] = useState(false);
   const classes = useStyles({});
 
@@ -134,6 +136,12 @@ const EditionGroup = ({ editions }: Props) => {
                           <Typography variant="caption" color="textSecondary">
                             {edition.isJustAdded && "Just added"}
                             {edition.isUpcoming && "Upcoming"}
+                            {showDate && editionDate(edition)}
+                            {showEditionTitle && edition.title}
+                            {!showDate &&
+                              !edition.isUpcoming &&
+                              edition.status === "published-notalks" &&
+                              "No talks"}
                           </Typography>
                         </CardContent>
                       </CardActionArea>
@@ -147,6 +155,15 @@ const EditionGroup = ({ editions }: Props) => {
       </Grid>
     </>
   );
+};
+
+const editionDate = (edition: EventEdition) => {
+  const startDate = new Date(edition.startDate);
+  var options = {
+    day: "numeric",
+    month: "short"
+  };
+  return startDate.toLocaleDateString(undefined, options);
 };
 
 export default EditionGroup;

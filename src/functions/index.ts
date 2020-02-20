@@ -308,12 +308,13 @@ const recentEditions = functions.https.onRequest(async (req, res) => {
   if (!approved) return response.send();
   let query = db
     .collectionGroup("editions")
-    .where("status", "==", "published")
+    .where("status", "in", ["published", "published-notalks"])
+    .where("dateTimestamp", "<", admin.firestore.Timestamp.now())
     .orderBy("dateTimestamp", "desc");
   if (request.query.stackid > 0) {
     query = query.where("categories", "array-contains", request.query.stackid);
   }
-  query = query.limit(6);
+  query = query.limit(20);
   const docSnap = await query.get();
   let editions = [];
   docSnap.forEach(doc => {
@@ -335,7 +336,7 @@ const justAddedEditions = functions.https.onRequest(async (req, res) => {
   if (request.query.stackid > 0) {
     query = query.where("categories", "array-contains", request.query.stackid);
   }
-  query = query.limit(4);
+  query = query.limit(20);
   const docSnap = await query.get();
   let editions = [];
   docSnap.forEach(doc => {
@@ -359,7 +360,7 @@ const upcomingEditions = functions.https.onRequest(async (req, res) => {
   }
   const docSnap = await query
     .orderBy("dateTimestamp", "asc")
-    .limit(10)
+    .limit(20)
     .get();
   let editions = [];
   docSnap.forEach(doc => {
