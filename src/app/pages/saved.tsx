@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const PageSavedTalks = observer(() => {
   const { userStore } = useStores();
   const classes = useStyles({});
-
   return (
     <Layout title="Saved talks">
       <Container className={classes.container}>

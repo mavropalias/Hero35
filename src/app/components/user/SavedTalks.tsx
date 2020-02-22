@@ -20,10 +20,9 @@ const SavedTalks = observer(() => {
   return (
     <>
       <Box display="flex" alignItems="center" marginBottom={4}>
-        <BookmarksIcon />
-        &nbsp;
-        <Typography variant="h4" component="h1">
-          Saved talks
+        <Typography variant="h3" component="h1">
+          <BookmarksIcon fontSize="large" />
+          &nbsp; Saved talks
         </Typography>
       </Box>
       <Box marginBottom={20}>

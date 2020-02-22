@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(1),
       width: 100,
       height: 100
+    },
+    container: {
+      marginTop: theme.spacing(6)
     }
   })
 );
@@ -30,7 +33,7 @@ const AccountDetails = observer(() => {
   const classes = useStyles({});
 
   return (
-    <Container>
+    <Container className={classes.container}>
       <Avatar
         alt={userStore.name}
         src={userStore.picture}
@@ -40,10 +43,15 @@ const AccountDetails = observer(() => {
         {userStore.name || userStore.email}
       </Typography>
       <Box marginBottom={8}>
+        <Typography variant="h6">Welcome!</Typography>
+        <Typography variant="subtitle1">
+          Since you registered during our Alpha, you're entitled to free
+          lifetime benefits on Hero35. We'll announce details during our Beta
+          phase.
+        </Typography>
         <Typography variant="subtitle1" paragraph>
-          Congratulations! Since you registered during our Alpha, you're
-          entitled to free lifetime benefits on Hero35. We'll announce details
-          during our Beta phase.
+          All members have unrestricted access to all site features, during the
+          Alpha.
         </Typography>
         <Typography variant="subtitle1" paragraph>
           <LinkPrefetch

@@ -30,7 +30,7 @@ const Welcome = () => {
         <Typography variant="h4">
           Watch the best developer talks,
           <br />
-          follow the latest trends,
+          discover top conferences,
           <br />
           elevate your skills
         </Typography>
@@ -44,7 +44,7 @@ const Welcome = () => {
           Sign Up
         </Button>
         <Typography variant="subtitle1" color="secondary">
-          Free lifetime benefits for Alpha & Beta members
+          It's free. Sign up with your Github/Twitter/Google/Email.
         </Typography>
       </Box>
     </>
