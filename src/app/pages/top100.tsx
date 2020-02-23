@@ -44,8 +44,8 @@ const Charts: NextPage<Props> = observer(({ talks }) => {
           Top 100 talks
         </Typography>
         <Typography variant="subtitle1" color="textSecondary" paragraph>
-          In React, JavaScript, and CSS, for the past 365 days, as voted by the
-          community. This is a live list, and your vote counts.
+          From React/JavaScript/CSS conferences, over the past 365 days. Sorted
+          by number of likes.
         </Typography>
         {userStore.isSignedIn ? (
           <TalkChart talks={talks} />
