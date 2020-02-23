@@ -98,8 +98,8 @@
         "function": "heroes-talksByTopic"
       },
       {
-        "source": "/api/topTalks",
-        "function": "heroes-topTalks"
+        "source": "/api/talksTop",
+        "function": "heroes-talksTop"
       },
       {
         "source": "/api/unsaveTalkInUserProfile",
@@ -116,6 +116,10 @@
       {
         "source": "/account",
         "function": "heroes-ssrAccount"
+      },
+      {
+        "source": "/top100",
+        "function": "heroes-ssrTop100"
       },
       {
         "source": "/country/:countryid",

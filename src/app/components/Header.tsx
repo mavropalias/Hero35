@@ -190,6 +190,14 @@ const Header = observer(() => {
               Sign up / in
             </Button>
           )}
+          <LinkPrefetch href="/top100" as="/top100">
+            <a
+              className={`${classes.headerLink} ${false &&
+                classes.headerLinkActive}`}
+            >
+              Top 100
+            </a>
+          </LinkPrefetch>
           <LinkPrefetch href="/year/[yearid]" as="/year/2020">
             <a
               className={`${classes.headerLink} ${false &&
@@ -198,6 +206,7 @@ const Header = observer(() => {
               Conferences
             </a>
           </LinkPrefetch>
+
           <Divider orientation="vertical" className={classes.headerDivider} />
           <FeaturedStacks />
           <StacksMenu />

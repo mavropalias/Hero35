@@ -6,7 +6,7 @@ import {
   getTalksTop,
   getTalksNew,
   getTalksByFilter
-} from "./talks";
+} from "./talk-getters";
 import util from "../util/util";
 import { TALK_TYPE, HubContent } from "../schema";
 import { getHotEditions } from "./editions";

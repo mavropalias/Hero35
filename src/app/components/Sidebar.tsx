@@ -12,7 +12,8 @@ import { Home as HomeIcon } from "@material-ui/icons";
 import {
   Bookmarks as BookmarksIcon,
   AccountCircle as AccountIcon,
-  Event as EventIcon
+  Event as EventIcon,
+  FormatListNumbered as ChartIcon
 } from "@material-ui/icons";
 import ROUTES from "../constants/routes";
 import { Stack } from "../schema";
@@ -58,6 +59,16 @@ const Sidebar = observer(({ className }: { className?: string }) => {
                   userStore.isSignedIn ? "My saved talks" : "Sign up / in"
                 }
               />
+            </ListItem>
+          </LinkPrefetch>
+          <LinkPrefetch href="/top100" as="/top100">
+            <ListItem button component="a">
+              {userStore.isSignedIn && (
+                <ListItemIcon>
+                  <ChartIcon />
+                </ListItemIcon>
+              )}
+              <ListItemText primary="Top 100 talks" />
             </ListItem>
           </LinkPrefetch>
           <LinkPrefetch href="/year/[yearid]" as="/year/2020">

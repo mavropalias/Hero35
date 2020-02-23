@@ -7,11 +7,17 @@ import {
   DialogActions
 } from "@material-ui/core";
 import { Share as ShareIcon } from "@material-ui/icons";
-import { TalkPreview } from "../../schema";
+import { TalkPreview, TalkBasic } from "../schema";
 import { useState } from "react";
-import STACKS from "../../constants/stacks";
+import STACKS from "../constants/stacks";
 
-const TalkShareButton = ({ talk }: { talk: TalkPreview }) => {
+const TalkShareButton = ({
+  talk,
+  size = "large"
+}: {
+  talk: TalkPreview | TalkBasic;
+  size?: "small" | "medium" | "large";
+}) => {
   const [showShareDialog, setShowShareDialog] = useState(false);
 
   const talkUrl = `https://hero35.com/${talk.eventId}/${talk.editionId}/${talk.slug}`;
@@ -51,7 +57,7 @@ const TalkShareButton = ({ talk }: { talk: TalkPreview }) => {
     <>
       <Button
         title="Share this talk"
-        size="large"
+        size={size}
         onClick={handleOpen}
         startIcon={<ShareIcon color="secondary" />}
       >

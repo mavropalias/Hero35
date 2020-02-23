@@ -1,6 +1,13 @@
 import firebase from "firebase/app";
 import "firebase/auth";
-import { Event, EventEdition, Talk, User, HubContent } from "../schema";
+import {
+  Event,
+  EventEdition,
+  Talk,
+  User,
+  HubContent,
+  TalkBasic
+} from "../schema";
 import fetch from "isomorphic-unfetch";
 
 // Use Firebase internal network address for SSR
@@ -132,9 +139,9 @@ class Database {
     return ((await res.json()) as unknown) as Talk[];
   };
 
-  getTopTalks = async (stackid: string = "-1"): Promise<Talk[]> => {
-    const res = await fetch(`${API}topTalks?stackid=${stackid}`);
-    return ((await res.json()) as unknown) as Talk[];
+  getTopTalks = async (stackid: string = "-1"): Promise<TalkBasic[]> => {
+    const res = await fetch(`${API}talksTop`);
+    return ((await res.json()) as unknown) as TalkBasic[];
   };
 
   getTalksByTopic = async (

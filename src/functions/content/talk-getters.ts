@@ -1,6 +1,7 @@
 import { db } from "../admin";
 import { TalkBasic, Talk, TALK_TYPE } from "../schema";
 import util from "../util/util";
+import admin = require("firebase-admin");
 
 export const getTalksCurated = async (
   topic?: string,
@@ -87,6 +88,21 @@ export const getTalksTop = async (
     .limit(30)
     .get();
   return util.querySnapshotToTalkBasicArray(docSnap);
+};
+
+export const getTalksTopYear = async (): Promise<TalkBasic[]> => {
+  let oneYearAgo: Date = new Date();
+  oneYearAgo.setFullYear(new Date().getFullYear() - 1);
+  let query = db.collectionGroup("talks");
+  const docSnap = await query
+    .where("hasLikes", "==", true)
+    .where("dateTimestamp", ">", admin.firestore.Timestamp.fromDate(oneYearAgo))
+    .get();
+  const talks: Talk[] = util
+    .querySnapshotToTalkArray(docSnap)
+    .sort((a, b) => b.likes - a.likes)
+    .slice(0, 100);
+  return util.talkArrayToTalkBasicArray(talks);
 };
 
 export const getTalksNew = async (

@@ -48,6 +48,7 @@ const queryDocumentSnapshotToTalkBasic = (
     id,
     isCurated,
     slug,
+    speaker,
     tags,
     title,
     youtubeId
@@ -63,6 +64,7 @@ const queryDocumentSnapshotToTalkBasic = (
     id,
     isCurated,
     slug,
+    speaker,
     tags,
     title,
     youtubeId
@@ -81,6 +83,7 @@ const talkToTalkBasic = (talk: Talk): TalkBasic => {
     id,
     isCurated,
     slug,
+    speaker,
     tags,
     title,
     youtubeId
@@ -96,6 +99,7 @@ const talkToTalkBasic = (talk: Talk): TalkBasic => {
     id,
     isCurated,
     slug,
+    speaker,
     tags,
     title,
     youtubeId

@@ -5,25 +5,13 @@ import {
   Theme,
   Box,
   Typography,
-  Grid,
   Button,
-  Link,
-  ButtonGroup
+  Link
 } from "@material-ui/core";
-import {
-  Bookmark as BookmarkIcon,
-  BookmarkBorder as BookmarkOutlinedIcon,
-  ThumbUp as VotedUp,
-  ThumbUpOutlined as VoteUp,
-  ThumbDown as VotedDown,
-  ThumbDownOutlined as VoteDown
-} from "@material-ui/icons";
-import { Talk, TalkPreview } from "../../schema";
+import { Talk } from "../../schema";
 import { useState } from "react";
 import STACKS from "../../constants/stacks";
-import { observer } from "mobx-react-lite";
-import { useStores } from "../../stores/useStores";
-import TalkShareButton from "./TalkShareButton";
+import TalkControls from "../TalkControls";
 
 declare const _carbonads: any;
 
@@ -121,7 +109,7 @@ const TalkInfo = ({
             {talk.title}
           </Typography>
           <Box marginTop={2} marginBottom={2}>
-            <TalkControls talk={talk} />
+            <TalkControls talk={talk} size="large" />
           </Box>
         </header>
       )}
@@ -219,62 +207,5 @@ const TalkTags = ({
     </Box>
   );
 };
-
-const TalkControls = observer(({ talk }: { talk: TalkPreview }) => {
-  const { userStore } = useStores();
-  return (
-    <>
-      <Grid container spacing={2} alignItems="center">
-        <Grid item>
-          <ButtonGroup size="large" color="secondary">
-            <Button
-              variant={
-                userStore.isTalkLiked(talk.id) ? "contained" : "outlined"
-              }
-              startIcon={
-                userStore.isTalkLiked(talk.id) ? <VotedUp /> : <VoteUp />
-              }
-              onClick={_ => userStore.likeTalk(talk.id)}
-            >
-              {userStore.isTalkLiked(talk.id) ? "Liked" : "Like"}
-            </Button>
-            <Button
-              variant={
-                userStore.isTalkDisliked(talk.id) ? "contained" : "outlined"
-              }
-              onClick={_ => userStore.dislikeTalk(talk.id)}
-            >
-              {userStore.isTalkDisliked(talk.id) ? <VotedDown /> : <VoteDown />}
-            </Button>
-          </ButtonGroup>
-        </Grid>
-        <Grid item>
-          {userStore.isTalkSaved(talk.id) ? (
-            <Button
-              title="Remove this saved talk"
-              size="large"
-              onClick={_ => userStore.unsaveTalk(talk)}
-              startIcon={<BookmarkIcon color="secondary" />}
-            >
-              Saved
-            </Button>
-          ) : (
-            <Button
-              title="Save this talk in My Saved Talks"
-              size="large"
-              onClick={_ => userStore.saveTalk(talk)}
-              startIcon={<BookmarkOutlinedIcon color="secondary" />}
-            >
-              Save
-            </Button>
-          )}
-        </Grid>
-        <Grid item>
-          <TalkShareButton talk={talk} />
-        </Grid>
-      </Grid>
-    </>
-  );
-});
 
 export default TalkInfo;

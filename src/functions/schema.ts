@@ -56,6 +56,7 @@ export type TalkBasic = {
   id: string;
   isCurated?: boolean;
   slug: string;
+  speaker: string;
   tags: string[];
   title: string;
   youtubeId: string;

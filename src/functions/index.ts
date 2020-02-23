@@ -9,7 +9,8 @@ import {
   getTalksTop,
   getTalksNew,
   getTalksByFilter
-} from "./content/talks";
+} from "./content/talk-getters";
+import { talksTop } from "./content/talk-http-functions";
 import { newsletterSubscribe } from "./util/newsletter";
 import { db } from "./admin";
 import util from "./util/util";
@@ -71,12 +72,12 @@ const ssrAccount = functions.https.onRequest(async (req, res) => {
 });
 
 /**
- * SSR /curated
+ * SSR /Top100
  */
-const ssrCurated = functions.https.onRequest(async (req, res) => {
+const ssrTop100 = functions.https.onRequest(async (req, res) => {
   const [request, response, approved] = util.middleware(req, res, true);
   if (!approved) return response.send();
-  const page = require("./next/serverless/pages/curated-conference-talks");
+  const page = require("./next/serverless/pages/charts");
   return page.render(request, response);
 });
 
@@ -87,6 +88,16 @@ const ssrCountry = functions.https.onRequest(async (req, res) => {
   const [request, response, approved] = util.middleware(req, res, true);
   if (!approved) return response.send();
   const page = require("./next/serverless/pages/country/[countryid]");
+  return page.render(request, response);
+});
+
+/**
+ * SSR /curated
+ */
+const ssrCurated = functions.https.onRequest(async (req, res) => {
+  const [request, response, approved] = util.middleware(req, res, true);
+  if (!approved) return response.send();
+  const page = require("./next/serverless/pages/curated-conference-talks");
   return page.render(request, response);
 });
 
@@ -462,27 +473,6 @@ const justAddedTalks = functions.https.onRequest(async (req, res) => {
 });
 
 /**
- * Get top Talks
- */
-const topTalks = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = util.middleware(req, res, true);
-  if (!approved) return response.send();
-  let query = db.collectionGroup("talks").where("type", "==", "2");
-  if (request.query.stackid > 0) {
-    query = query.where("categories", "array-contains", request.query.stackid);
-  }
-  const docSnap = await query
-    .orderBy("likes", "desc")
-    .limit(30)
-    .get();
-  let talks = [];
-  docSnap.forEach(doc => {
-    talks.push(doc.data());
-  });
-  response.json(talks);
-});
-
-/**
  * Get rising Talks
  */
 const risingTalks = functions.https.onRequest(async (req, res) => {
@@ -559,39 +549,6 @@ const curatedTalks = functions.https.onRequest(async (req, res) => {
   docSnap.forEach(doc => {
     talks.push(doc.data());
   });
-  response.json(talks);
-});
-
-/**
- * Get hot Talks
- */
-const hotTalks = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = util.middleware(req, res, true);
-  if (!approved) return response.send();
-  let query = db.collectionGroup("talks");
-  if (request.query.stackid > 0) {
-    query = query.where("categories", "array-contains", request.query.stackid);
-  }
-  const docSnap = await query
-    .where("hasLikes", "==", true)
-    .orderBy("dateAddedTimestamp", "desc")
-    .limit(50)
-    .get();
-  let talks = [];
-  docSnap.forEach(doc => {
-    talks.push(doc.data());
-  });
-  talks.forEach(talk => {
-    const score = talk.likes;
-    const order = Math.log10(score);
-    const seconds = Math.round(
-      talk.dateAddedTimestamp.toDate().getTime() / 1000
-    );
-    // talks 10 days older will need 10x the amount of upvotes:
-    talk.score = order + seconds / (10 * 24 * 60 * 60);
-  });
-  talks.sort((a, b) => b.score - a.score);
-  talks = talks.slice(0, 30);
   response.json(talks);
 });
 
@@ -762,6 +719,7 @@ const saveTalkInUserProfile = functions.https.onRequest(async (req, res) => {
     id: talk.id,
     isCurated: talk.isCurated || false,
     slug: talk.slug,
+    speaker: talk.speaker,
     tags: talk.tags,
     title: talk.title,
     youtubeId: talk.youtubeId
@@ -864,7 +822,6 @@ const heroes = {
   filterTalks,
   getUser,
   heroTalks,
-  hotTalks,
   hubContent,
   hub,
   indexTalk,
@@ -878,6 +835,7 @@ const heroes = {
   saveTalkInUserProfile,
   ssrIndex,
   ssrAccount,
+  ssrTop100,
   ssrCountry,
   ssrCurated,
   ssrEdition,
@@ -892,7 +850,7 @@ const heroes = {
   ssrYear,
   talk,
   talksByTopic,
-  topTalks,
+  talksTop,
   unsaveTalkInUserProfile,
   upcomingEditions
 };
