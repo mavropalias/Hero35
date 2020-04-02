@@ -58,6 +58,7 @@ const YearPage: NextPage<Props> = ({
         <HubEditions title="Recent conferences" editions={recentEditions} />
         <HubEditions
           title="Upcoming conferences"
+          subtitle="NOTICE: Due to the Covid-19 outbreak, most of the following conferences have been cancelled or postponed. We try to keep the list as up-to-date as possible."
           editions={upcomingEditions}
           showDate={true}
         />
