@@ -1,4 +1,5 @@
 import Database from "../../services/Database";
+import { Star as BenefitsIcon } from "@material-ui/icons";
 import {
   makeStyles,
   createStyles,
@@ -39,28 +40,47 @@ const AccountDetails = observer(() => {
         src={userStore.picture}
         className={classes.avatar}
       />
-      <Typography color="textSecondary" paragraph>
-        {userStore.name || userStore.email}
-      </Typography>
-      <Box marginBottom={8}>
-        <Typography variant="h6">Welcome!</Typography>
+      {userStore.name ? (
+        <>
+          <Typography>{userStore.name}</Typography>
+          <Typography color="textSecondary">{userStore.email}</Typography>
+        </>
+      ) : (
+        <>
+          <Typography>{userStore.email}</Typography>
+        </>
+      )}
+      <Box marginTop={4} marginBottom={8}>
         <Typography variant="subtitle1">
-          Since you registered during our Alpha, you're entitled to free
-          lifetime benefits on Hero35. We'll announce details during our Beta
-          phase.
-        </Typography>
-        <Typography variant="subtitle1" paragraph>
-          All members have unrestricted access to all site features, during the
-          Alpha.
-        </Typography>
-        <Typography variant="subtitle1" paragraph>
-          <LinkPrefetch
-            href={ROUTES.SAVED_TALKS}
-            as={ROUTES.SAVED_TALKS}
-            passHref
-          >
-            <Link>My saved talks</Link>
-          </LinkPrefetch>
+          <Box display="flex" alignItems="center">
+            <BenefitsIcon />
+            &nbsp; All members have unrestricted access to all site features,
+            during the Alpha.
+          </Box>
+          <Box display="flex" alignItems="center">
+            <BenefitsIcon />
+            &nbsp; Receive curated talks in your mailbox. Hand-picked, every
+            week.&nbsp;
+            <Link
+              variant="caption"
+              color="textSecondary"
+              href="https://hero35.us5.list-manage.com/unsubscribe?u=b0fbb89e314c48595973a85dc&id=ad944bf61c"
+              target="_blank"
+            >
+              Unsubscribe
+            </Link>
+          </Box>
+          <Box display="flex" alignItems="center">
+            <BenefitsIcon />
+            &nbsp;&nbsp;
+            <LinkPrefetch
+              href={ROUTES.SAVED_TALKS}
+              as={ROUTES.SAVED_TALKS}
+              passHref
+            >
+              <Link>My saved talks</Link>
+            </LinkPrefetch>
+          </Box>
         </Typography>
       </Box>
       <Button

@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Charts: NextPage<Props> = observer(({ talks }) => {
+const Top100: NextPage<Props> = observer(({ talks }) => {
   const { userStore } = useStores();
   const classes = useStyles({});
   return (
@@ -60,7 +60,7 @@ const Charts: NextPage<Props> = observer(({ talks }) => {
                   color="secondary"
                   onClick={_ => userStore.setShouldSignIn(true)}
                 >
-                  Sign in to view the complete TOP 100
+                  Sign in to view the full TOP 100
                 </Link>
               </Box>
             </Paper>
@@ -75,9 +75,9 @@ interface QueryProps {
   topicid: string;
   stack?: string;
 }
-Charts.getInitialProps = async (ctx: NextPageContext) => {
+Top100.getInitialProps = async (ctx: NextPageContext) => {
   const talks: TalkBasic[] = await Database.getTopTalks();
   return { talks };
 };
 
-export default Charts;
+export default Top100;

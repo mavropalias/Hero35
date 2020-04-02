@@ -77,7 +77,7 @@ const ssrAccount = functions.https.onRequest(async (req, res) => {
 const ssrTop100 = functions.https.onRequest(async (req, res) => {
   const [request, response, approved] = util.middleware(req, res, true);
   if (!approved) return response.send();
-  const page = require("./next/serverless/pages/charts");
+  const page = require("./next/serverless/pages/top100");
   return page.render(request, response);
 });
 
