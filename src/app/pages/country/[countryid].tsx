@@ -39,7 +39,7 @@ const CountryPage: NextPage<Props> = ({ country, editions }) => {
   const { state: stateStack } = useContext(StackContext);
   const classes = useStyles({});
   const [filteredEditions, setFilteredEditions] = useState(editions);
-  const [isLoading, setIsLoading] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setFilteredEditions(editions);

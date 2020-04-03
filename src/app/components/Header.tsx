@@ -110,7 +110,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Header = observer(() => {
   const { userStore } = useStores();
-  const [drawer, setDrawer] = useState();
+  const [drawer, setDrawer] = useState(false);
   const classes = useStyles({});
   const theme = useTheme();
   const xs = useMediaQuery(theme.breakpoints.only("xs"));

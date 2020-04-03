@@ -60,12 +60,12 @@ const TalkInfo = ({
   showHeader: boolean;
 }) => {
   const classes = useStyles({});
-  const [expandDescription, setExpandDescription] = useState();
+  const [expandDescription, setExpandDescription] = useState(false);
 
   // Carbon ads - DISABLED
   // ---------------------------------------------------------------------------
-  // const [renderAd, setRenderAd] = useState();
-  // const [adScripLoaded, setAdScriptLoaded] = useState();
+  // const [renderAd, setRenderAd] = useState(false);
+  // const [adScripLoaded, setAdScriptLoaded] = useState(false);
   // useEffect(() => {
   //   // Render ad only after client has been hydrated
   //   setRenderAd(true);

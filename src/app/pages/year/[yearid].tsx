@@ -28,7 +28,7 @@ const YearPage: NextPage<Props> = ({
 }) => {
   const { state: stateStack } = useContext(StackContext);
   const [filteredEditions, setFilteredEditions] = useState(editions);
-  const [isLoading, setIsLoading] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setFilteredEditions(editions);

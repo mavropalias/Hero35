@@ -94,8 +94,8 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const SearchInput: React.FC<React.HTMLAttributes<HTMLDivElement>> = props => {
-  const [searching, setSearching] = useState();
-  const [focused, setFocused] = useState();
+  const [searching, setSearching] = useState(false);
+  const [focused, setFocused] = useState(false);
 
   const onSearchStateChange = searchState => {
     setSearching(searchState.query ? true : false);
