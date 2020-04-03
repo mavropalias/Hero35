@@ -382,6 +382,7 @@ https://hero35.com/hero/Alex%20Matchneer
 https://hero35.com/hero/Alex%20Migutsky
 https://hero35.com/hero/Alex%20Moldovan
 https://hero35.com/hero/Alex%20Perry
+https://hero35.com/hero/Alex%20Sexton
 https://hero35.com/hero/Alex%20Thomas
 https://hero35.com/hero/Alex%20Ware
 https://hero35.com/hero/Alexandra%20Sunderland
@@ -500,6 +501,7 @@ https://hero35.com/hero/Bram%20Stein
 https://hero35.com/hero/Brandon%20Dail
 https://hero35.com/hero/Braulio%20D%C3%ADez
 https://hero35.com/hero/Brendan%20Eich
+https://hero35.com/hero/Brendan%20O'Leary
 https://hero35.com/hero/Brent%20Vatne
 https://hero35.com/hero/Brenton%20Simpson
 https://hero35.com/hero/Brian%20Douglas
@@ -594,6 +596,7 @@ https://hero35.com/hero/Dan%20Steigerwald
 https://hero35.com/hero/Dan%20Stein
 https://hero35.com/hero/Dan%20Tsui
 https://hero35.com/hero/Dan%20Vanderkam
+https://hero35.com/hero/Danae%20Valentina
 https://hero35.com/hero/Daniel%20Cousineau
 https://hero35.com/hero/Daniel%20Ehrenberg
 https://hero35.com/hero/Daniel%20Hejl
@@ -610,6 +613,7 @@ https://hero35.com/hero/Danielle%20Man
 https://hero35.com/hero/Daria%20Caraway
 https://hero35.com/hero/Darin%20Wilson
 https://hero35.com/hero/Darpan%20Kakadia
+https://hero35.com/hero/Dave%20Aronson
 https://hero35.com/hero/Dave%20Brotherstone
 https://hero35.com/hero/Dave%20Ceddia
 https://hero35.com/hero/Dave%20Nicholas
@@ -649,6 +653,7 @@ https://hero35.com/hero/Devlin%20Duldulao
 https://hero35.com/hero/Devon%20Lindsey
 https://hero35.com/hero/Devon%20Zuegel
 https://hero35.com/hero/Diego%20Gonz%C3%A1lez
+https://hero35.com/hero/Dinesh%20Pandiyan
 https://hero35.com/hero/Dino%20Scheidt
 https://hero35.com/hero/Dipti%20Gandhi
 https://hero35.com/hero/Disha%20Sule
@@ -707,6 +712,7 @@ https://hero35.com/hero/Eric%20Schaefer
 https://hero35.com/hero/Eric%20Vicenti
 https://hero35.com/hero/Eric%20Vlad%20Vicenti
 https://hero35.com/hero/Erica%20Cooksey
+https://hero35.com/hero/Erica%20Stanley
 https://hero35.com/hero/Erick%20Wendel
 https://hero35.com/hero/Erik%20Nguyen
 https://hero35.com/hero/Erik%20Rasmussen
@@ -903,6 +909,7 @@ https://hero35.com/hero/Jenn%20Creighto
 https://hero35.com/hero/Jenn%20Creighton
 https://hero35.com/hero/Jenn%20Robison
 https://hero35.com/hero/Jenn%20Schiffer
+https://hero35.com/hero/Jenna%20Zeigen
 https://hero35.com/hero/Jennifer%20Van
 https://hero35.com/hero/Jennifer%20Voss
 https://hero35.com/hero/Jennifer%20Wong
@@ -1064,6 +1071,7 @@ https://hero35.com/hero/Leta%20Keane
 https://hero35.com/hero/Liad%20Yosef
 https://hero35.com/hero/Lin%20Clark
 https://hero35.com/hero/Lin%20Oon%20Kean
+https://hero35.com/hero/Lindsey%20Dragun
 https://hero35.com/hero/Liran%20Tal
 https://hero35.com/hero/Liron%20Cohen
 https://hero35.com/hero/Lisa%20Gagarina
@@ -1094,6 +1102,7 @@ https://hero35.com/hero/Maaret%20Pyh%C3%A4j%C3%A4rvi
 https://hero35.com/hero/Maayan%20Glikser
 https://hero35.com/hero/Maja%20Wichrowska
 https://hero35.com/hero/Majid%20Hajian
+https://hero35.com/hero/Malte%20Ubl
 https://hero35.com/hero/Mandy%20Michael
 https://hero35.com/hero/Manfred%20Steyer
 https://hero35.com/hero/Manjula%20Dube
@@ -1156,6 +1165,7 @@ https://hero35.com/hero/Mauricio%20Palma
 https://hero35.com/hero/Max%20B%C3%B6ck
 https://hero35.com/hero/Max%20Bittker
 https://hero35.com/hero/Max%20Gallo
+https://hero35.com/hero/Max%20Goodhart
 https://hero35.com/hero/Max%20Kordek
 https://hero35.com/hero/Max%20Millington
 https://hero35.com/hero/Max%20Stoiber
@@ -1332,6 +1342,7 @@ https://hero35.com/hero/Princiya%20Sequeira
 https://hero35.com/hero/Pulkit%20Kakkar
 https://hero35.com/hero/Quinlan%20Jung
 https://hero35.com/hero/Ra%C3%BAl%20G%C3%B3mez
+https://hero35.com/hero/Rachel%20White
 https://hero35.com/hero/Radek%20Czemerys
 https://hero35.com/hero/Radek%20Pietruszewski
 https://hero35.com/hero/Rados%C5%82aw%20Pietruszewski
@@ -1537,6 +1548,7 @@ https://hero35.com/hero/Tanmai%20Gopal
 https://hero35.com/hero/Tanner%20Linsley
 https://hero35.com/hero/Tara%20Z.%20Manicsic
 https://hero35.com/hero/Taylor%20Fairbank
+https://hero35.com/hero/Taylor%20Ho
 https://hero35.com/hero/Taylor%20Krusen
 https://hero35.com/hero/Tejas%20Bhatt
 https://hero35.com/hero/Tejas%20Kumar
@@ -1901,6 +1913,30 @@ https://hero35.com/jsconf-hawaii/2019/the-immersive-web-in-2019
 https://hero35.com/jsconf-hawaii/2019/the-teenage-mutant-ninja-turtle-guide-to-color-theory
 https://hero35.com/jsconf-hawaii/2019/what-tamagotchis-can-teach-you-about-es6-generators
 https://hero35.com/jsconf-hawaii/2019/where-did-all-my-servers-go
+https://hero35.com/jsconf-hawaii/2020
+https://hero35.com/jsconf-hawaii/2020/a-crash-course-on-worker-threads
+https://hero35.com/jsconf-hawaii/2020/a-seat-at-the-table-building-inclusive-ecosystems
+https://hero35.com/jsconf-hawaii/2020/advanced-design-system-considerations
+https://hero35.com/jsconf-hawaii/2020/custom-hooks-in-react-the-ultimate-ui-abstraction-layer
+https://hero35.com/jsconf-hawaii/2020/designing-even-larger-javascript-applications
+https://hero35.com/jsconf-hawaii/2020/digital-witchcraft-magical-thinking-for-digital-design
+https://hero35.com/jsconf-hawaii/2020/how-to-wait
+https://hero35.com/jsconf-hawaii/2020/impactful-accessibility-the-changes-that-mean-the-most
+https://hero35.com/jsconf-hawaii/2020/kill-all-mutants-introduction-to-mutation-testing
+https://hero35.com/jsconf-hawaii/2020/look-what-you-midi-me-do
+https://hero35.com/jsconf-hawaii/2020/no-way-jose
+https://hero35.com/jsconf-hawaii/2020/parsing-parsers
+https://hero35.com/jsconf-hawaii/2020/progressive-rendering-improve-performance-on-slower-networks
+https://hero35.com/jsconf-hawaii/2020/react-vue-and-svelte-as-teen-movie-archetypes
+https://hero35.com/jsconf-hawaii/2020/strike-a-pose-gesture-recognition-in-js-with-machine-learning
+https://hero35.com/jsconf-hawaii/2020/tc39-panel
+https://hero35.com/jsconf-hawaii/2020/the-art-of-code-comments
+https://hero35.com/jsconf-hawaii/2020/the-asynchronous-enterprise
+https://hero35.com/jsconf-hawaii/2020/the-perfect-library-tooling
+https://hero35.com/jsconf-hawaii/2020/the-power-to-think-like-a-native-hawaiian-in-tech
+https://hero35.com/jsconf-hawaii/2020/using-machine-learning-to-improve-uiux
+https://hero35.com/jsconf-hawaii/2020/very-responsive-typography-with-variable-fonts
+https://hero35.com/jsconf-hawaii/2020/your-tests-lack-vision-adding-eyes-to-your-automation-framework
 https://hero35.com/jsconf-korea
 https://hero35.com/jsconf-korea/2019
 https://hero35.com/jsconf-korea/2019/a-webassembly-field-guide-easily-worth-like-70-bottle-caps
@@ -3726,6 +3762,7 @@ https://hero35.com/topic/blockchain
 https://hero35.com/topic/bluekit
 https://hero35.com/topic/bluetooth
 https://hero35.com/topic/braid
+https://hero35.com/topic/brain.js
 https://hero35.com/topic/brainjs
 https://hero35.com/topic/brave
 https://hero35.com/topic/brisk
@@ -3787,6 +3824,7 @@ https://hero35.com/topic/concurrent-mode
 https://hero35.com/topic/concurrent-rendering
 https://hero35.com/topic/conference
 https://hero35.com/topic/contenteditable
+https://hero35.com/topic/contentful
 https://hero35.com/topic/context-api
 https://hero35.com/topic/continuous-delivery
 https://hero35.com/topic/continuous-deployment
@@ -3800,6 +3838,7 @@ https://hero35.com/topic/create-react-app
 https://hero35.com/topic/create-react-native-app
 https://hero35.com/topic/cross-platform
 https://hero35.com/topic/crypto
+https://hero35.com/topic/cryptography
 https://hero35.com/topic/css
 https://hero35.com/topic/css-grid
 https://hero35.com/topic/css-in-js
@@ -4033,6 +4072,7 @@ https://hero35.com/topic/jest
 https://hero35.com/topic/jest-snapshots
 https://hero35.com/topic/jetpack-compose
 https://hero35.com/topic/jetty
+https://hero35.com/topic/jose
 https://hero35.com/topic/js-csp
 https://hero35.com/topic/jscodeshift
 https://hero35.com/topic/jsconfhi
@@ -4350,6 +4390,7 @@ https://hero35.com/topic/streambuilder
 https://hero35.com/topic/streaming
 https://hero35.com/topic/streams
 https://hero35.com/topic/stricter
+https://hero35.com/topic/stripe
 https://hero35.com/topic/strv
 https://hero35.com/topic/style-guide
 https://hero35.com/topic/styled-components
