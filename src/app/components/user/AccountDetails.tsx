@@ -54,21 +54,24 @@ const AccountDetails = observer(() => {
         <Typography variant="subtitle1">
           <Box display="flex" alignItems="center">
             <BenefitsIcon />
-            &nbsp; All members have unrestricted access to all site features,
-            during the Alpha.
-          </Box>
-          <Box display="flex" alignItems="center">
-            <BenefitsIcon />
-            &nbsp; Receive curated talks in your mailbox. Hand-picked, every
-            week.&nbsp;
+            &nbsp; All members have unrestricted access to all site features and
+            our curated newsletter (
             <Link
-              variant="caption"
+              color="textSecondary"
+              href="https://us5.campaign-archive.com/home/?u=b0fbb89e314c48595973a85dc&id=ad944bf61c"
+              target="_blank"
+            >
+              View past newsletters
+            </Link>
+            ,&nbsp;
+            <Link
               color="textSecondary"
               href="https://hero35.us5.list-manage.com/unsubscribe?u=b0fbb89e314c48595973a85dc&id=ad944bf61c"
               target="_blank"
             >
               Unsubscribe
             </Link>
+            ), during the Alpha.
           </Box>
           <Box display="flex" alignItems="center">
             <BenefitsIcon />
