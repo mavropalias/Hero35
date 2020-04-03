@@ -1,4 +1,4 @@
-import YouTube from "react-youtube";
+import YouTube, { Options } from "react-youtube";
 import { makeStyles, createStyles, Theme, Box } from "@material-ui/core";
 import {
   APP_BAR_HEIGHT,
@@ -34,10 +34,10 @@ type TalkVideo = {
 const TalkVideo = ({ videoid, start, end }: TalkVideo) => {
   const classes = useStyles({});
 
-  const opts = {
+  const opts: Options = {
     height: "100%",
     width: "100%",
-    playerVars: { end, modestbranding: true, playsinline: true, rel: 0, start }
+    playerVars: { end, modestbranding: 1, playsinline: 1, rel: 0, start }
   };
 
   const onPlayerReady = event => {
