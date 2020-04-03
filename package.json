@@ -3,7 +3,7 @@
   "description": "Official repo of https://hero35.com",
   "repository": "https://github.com/mavropalias/heroes.git",
   "engines": {
-    "node": "8"
+    "node": "10"
   },
   "dependencies": {
     "@material-ui/core": "^4.9.1",
