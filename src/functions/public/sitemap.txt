@@ -309,6 +309,23 @@ https://hero35.com/frontend-developer-love/2019/web-components-with-angular
 https://hero35.com/frontend-developer-love/2019/what-its-like-to-be-a-full-time-open-source-developer
 https://hero35.com/frontend-developer-love/2019/whats-next-for-gatsby
 https://hero35.com/frontend-developer-love/2019/you-dont-know-microfrontends
+https://hero35.com/frontend-developer-love/2020
+https://hero35.com/frontend-developer-love/2020/aftermovie
+https://hero35.com/frontend-developer-love/2020/audio-streaming-using-webrtc-for-building-your-own-voice-ais
+https://hero35.com/frontend-developer-love/2020/beats-rhymes-and-unit-tests
+https://hero35.com/frontend-developer-love/2020/blazor-with-webassembly
+https://hero35.com/frontend-developer-love/2020/dx-is-the-new-black-learnings-from-using-nuxt-and-storybook-at-scale
+https://hero35.com/frontend-developer-love/2020/graphql-without-a-database
+https://hero35.com/frontend-developer-love/2020/how-thinking-small-is-changing-software-development-big-time
+https://hero35.com/frontend-developer-love/2020/how-to-pack-your-webpack
+https://hero35.com/frontend-developer-love/2020/micro-interactions-with-react-spring
+https://hero35.com/frontend-developer-love/2020/modern-solutions-for-e2e-testing
+https://hero35.com/frontend-developer-love/2020/practical-a11y-for-web-apps
+https://hero35.com/frontend-developer-love/2020/refactor-your-life
+https://hero35.com/frontend-developer-love/2020/serverless-gives-you-wings
+https://hero35.com/frontend-developer-love/2020/svelte-the-last-framework-we-need
+https://hero35.com/frontend-developer-love/2020/the-future-of-real-time-offline-data
+https://hero35.com/frontend-developer-love/2020/the-state-of-webassembly
 https://hero35.com/full-stack-fest
 https://hero35.com/full-stack-fest/2019
 https://hero35.com/full-stack-fest/2019/a-programming-language-for-a-continuous-delivery-world
@@ -385,6 +402,7 @@ https://hero35.com/hero/Alex%20Perry
 https://hero35.com/hero/Alex%20Sexton
 https://hero35.com/hero/Alex%20Thomas
 https://hero35.com/hero/Alex%20Ware
+https://hero35.com/hero/Alexander%20Esselink
 https://hero35.com/hero/Alexandra%20Sunderland
 https://hero35.com/hero/Alexandre%20Magno%20Teles%20Zimerer
 https://hero35.com/hero/Alexandru%20Buliga
@@ -403,6 +421,7 @@ https://hero35.com/hero/Ana%20Cidre
 https://hero35.com/hero/Ananya%20Neogi
 https://hero35.com/hero/Anastasia%20Goryacheva
 https://hero35.com/hero/Anastasia%20Poupeney
+https://hero35.com/hero/Anastasiia%20Dragich
 https://hero35.com/hero/Anastasiia%20Miroshnichenko
 https://hero35.com/hero/Anders%20Hejlsberg
 https://hero35.com/hero/Andr%C3%A9%20Kovac
@@ -459,6 +478,7 @@ https://hero35.com/hero/Ashi%20Krishnan
 https://hero35.com/hero/Ashley%20Watkins
 https://hero35.com/hero/Ashley%20Williams
 https://hero35.com/hero/Asim%20Hussain
+https://hero35.com/hero/Aur%C3%A9lie%20Violette
 https://hero35.com/hero/Aur%C3%A9lien%20Levy
 https://hero35.com/hero/Automattic
 https://hero35.com/hero/Autumn%20Crossan
@@ -487,6 +507,7 @@ https://hero35.com/hero/Beth%20Pollock
 https://hero35.com/hero/Betty%20Pierce
 https://hero35.com/hero/Bhuvana%20Meenakshi%20Koteeswaran
 https://hero35.com/hero/Bhuwan%20Khattar
+https://hero35.com/hero/Bob%20Bijvoet
 https://hero35.com/hero/Bobby%20Johnson
 https://hero35.com/hero/Bogdan%20Zaharia
 https://hero35.com/hero/Bohdan%20Liashenko
@@ -523,6 +544,7 @@ https://hero35.com/hero/Bryan%20Hughes
 https://hero35.com/hero/Bryan%20Phelps
 https://hero35.com/hero/Bryan%20Pitt
 https://hero35.com/hero/Bryce%20Kalow
+https://hero35.com/hero/Bud%20Parr
 https://hero35.com/hero/C%20J%20Silverio
 https://hero35.com/hero/Caitlin%20Collins
 https://hero35.com/hero/Caleb%20Meredith
@@ -548,6 +570,7 @@ https://hero35.com/hero/Cheng%20Lou
 https://hero35.com/hero/Chiamaka%20Nwolisa
 https://hero35.com/hero/Chidinma%20Kalu
 https://hero35.com/hero/Chris%20Ball
+https://hero35.com/hero/Chris%20Coyier
 https://hero35.com/hero/Chris%20Fuentes
 https://hero35.com/hero/Chris%20Heilmann
 https://hero35.com/hero/Chris%20Pearce
@@ -659,6 +682,7 @@ https://hero35.com/hero/Dipti%20Gandhi
 https://hero35.com/hero/Disha%20Sule
 https://hero35.com/hero/Dominic%20Gannaway
 https://hero35.com/hero/Dominik%20Kundel
+https://hero35.com/hero/Don%20Wibier
 https://hero35.com/hero/Donavon%20West
 https://hero35.com/hero/Dora%20Militaru
 https://hero35.com/hero/Doron%20Zavelevsky
@@ -700,6 +724,7 @@ https://hero35.com/hero/Emil%20Sj%C3%B6lander
 https://hero35.com/hero/Emily%20Janzer
 https://hero35.com/hero/Emily%20Kearney
 https://hero35.com/hero/Emily%20Plummer
+https://hero35.com/hero/Emma%20Bostian
 https://hero35.com/hero/Emma%20Brillhart
 https://hero35.com/hero/Emma%20Wedekind
 https://hero35.com/hero/Eric%20A.%20Meyer
@@ -707,6 +732,7 @@ https://hero35.com/hero/Eric%20Baer
 https://hero35.com/hero/Eric%20Bishard
 https://hero35.com/hero/Eric%20Ferraiuolo
 https://hero35.com/hero/Eric%20Florenzano
+https://hero35.com/hero/Eric%20Gardner
 https://hero35.com/hero/Eric%20Sauter
 https://hero35.com/hero/Eric%20Schaefer
 https://hero35.com/hero/Eric%20Vicenti
@@ -1061,6 +1087,7 @@ https://hero35.com/hero/Lauren%20Tan
 https://hero35.com/hero/Laurence%20Penney
 https://hero35.com/hero/Laurie%20Voss
 https://hero35.com/hero/Leandro%20Ostera
+https://hero35.com/hero/Lee%20Boonstra
 https://hero35.com/hero/Lee%20Byron
 https://hero35.com/hero/Leland%20Richardson
 https://hero35.com/hero/Lenka%20Vondrackova
@@ -1264,6 +1291,7 @@ https://hero35.com/hero/Nikolay%20Bachiyski
 https://hero35.com/hero/Nitish%20Phanse
 https://hero35.com/hero/Noah%20Waldner
 https://hero35.com/hero/Noemi%20Rozpara
+https://hero35.com/hero/Noer%20Paanakker
 https://hero35.com/hero/Noorulameen
 https://hero35.com/hero/Norbert%20de%20Langen
 https://hero35.com/hero/Ofir%20Dagan
@@ -1325,6 +1353,7 @@ https://hero35.com/hero/Peter%20Piekarczyk
 https://hero35.com/hero/Petr%20Bambusek
 https://hero35.com/hero/Petr%20Bela
 https://hero35.com/hero/Petter%20Hesselberg
+https://hero35.com/hero/Phil%20Hawksworth
 https://hero35.com/hero/Phil%20Holden
 https://hero35.com/hero/Phil%20Pl%C3%BCckthun
 https://hero35.com/hero/Philip%20Wadler
@@ -1340,6 +1369,7 @@ https://hero35.com/hero/Preethi%20Kasireddy
 https://hero35.com/hero/Preeti%20Wadhwani
 https://hero35.com/hero/Princiya%20Sequeira
 https://hero35.com/hero/Pulkit%20Kakkar
+https://hero35.com/hero/Quincy%20Larson
 https://hero35.com/hero/Quinlan%20Jung
 https://hero35.com/hero/Ra%C3%BAl%20G%C3%B3mez
 https://hero35.com/hero/Rachel%20White
@@ -1437,6 +1467,7 @@ https://hero35.com/hero/Samantha%20Bretous
 https://hero35.com/hero/Samer%20Buna
 https://hero35.com/hero/Samuel%20Agnew
 https://hero35.com/hero/Samuli%20Hakoniemi
+https://hero35.com/hero/Sander%20Hoogendoorn
 https://hero35.com/hero/Sanket%20Sahu
 https://hero35.com/hero/Santosh%20Grampurohit
 https://hero35.com/hero/Sara%20Fecadu
@@ -1488,6 +1519,7 @@ https://hero35.com/hero/Sid
 https://hero35.com/hero/Siddharth%20Kshetrapal
 https://hero35.com/hero/Sidhartha%20Chatterjee
 https://hero35.com/hero/Sigurd%20Schneider
+https://hero35.com/hero/Sima%20Milli
 https://hero35.com/hero/Simeon%20Vincent
 https://hero35.com/hero/Simon%20Dudley
 https://hero35.com/hero/Simon%20MacDonald
@@ -1515,6 +1547,7 @@ https://hero35.com/hero/Stefano%20Masini
 https://hero35.com/hero/Steffen%20Reichelt
 https://hero35.com/hero/Stephanie%20Nemeth
 https://hero35.com/hero/Stephanie%20Siaw
+https://hero35.com/hero/Steve%20Gardner
 https://hero35.com/hero/Steve%20Klabnik
 https://hero35.com/hero/Steve%20McGuire
 https://hero35.com/hero/Subramanya%20Chakravarthy
@@ -1548,6 +1581,7 @@ https://hero35.com/hero/Tanmai%20Gopal
 https://hero35.com/hero/Tanner%20Linsley
 https://hero35.com/hero/Tara%20Z.%20Manicsic
 https://hero35.com/hero/Taylor%20Fairbank
+https://hero35.com/hero/Taylor%20Gilbert
 https://hero35.com/hero/Taylor%20Ho
 https://hero35.com/hero/Taylor%20Krusen
 https://hero35.com/hero/Tejas%20Bhatt
@@ -1566,6 +1600,7 @@ https://hero35.com/hero/Thomas%20Bruketta
 https://hero35.com/hero/Thomas%20Drach
 https://hero35.com/hero/Thomas%20Gorissen
 https://hero35.com/hero/Thomas%20Parslow
+https://hero35.com/hero/Thomas%20Reynolds
 https://hero35.com/hero/Thomas%20Roch
 https://hero35.com/hero/Thomas%20Sojka
 https://hero35.com/hero/Thomas%20Watson
@@ -1575,6 +1610,7 @@ https://hero35.com/hero/Tierney%20Cyren
 https://hero35.com/hero/Till%20Schneidereit
 https://hero35.com/hero/Tim%20Carry
 https://hero35.com/hero/Tim%20Doherty
+https://hero35.com/hero/Tim%20Fogarty
 https://hero35.com/hero/Tim%20Neutkens
 https://hero35.com/hero/Tim%20Pietrusky
 https://hero35.com/hero/Tim%20Roberts
@@ -1596,6 +1632,7 @@ https://hero35.com/hero/Tomasz%20Sochacki
 https://hero35.com/hero/Tomek%20Rudzki
 https://hero35.com/hero/Tomislav%20Tenodi
 https://hero35.com/hero/Toni%20Ristola
+https://hero35.com/hero/Tony%20Edwards
 https://hero35.com/hero/Toshi%20Gupta
 https://hero35.com/hero/Tracy%20Lee
 https://hero35.com/hero/Trent%20Willis
@@ -1687,6 +1724,7 @@ https://hero35.com/hero/Zalando
 https://hero35.com/hero/Zar%20Zakharov
 https://hero35.com/hero/Ziad%20Bizri
 https://hero35.com/hero/Ziran%20Sun
+https://hero35.com/hero/Zoltan%20Olah
 https://hero35.com/hero/Zubair%20Ahmed
 https://hero35.com/hero/chakravarthy
 https://hero35.com/hero/jan%20krutisch
@@ -1711,6 +1749,26 @@ https://hero35.com/international-javascript-conference/2019/the-state-of-reacts-
 https://hero35.com/international-javascript-conference/2019/web-components-its-about-time
 https://hero35.com/international-javascript-conference/2019/webar-the-augmented-reality-for-your-browser
 https://hero35.com/jamstack-conf
+https://hero35.com/jamstack-conf/2018-san-francisco
+https://hero35.com/jamstack-conf/2018-san-francisco/3-truths-that-you-can-bet-the-next-5-years-on
+https://hero35.com/jamstack-conf/2018-san-francisco/bet-you-didnt-think-your-browser-could-do-that
+https://hero35.com/jamstack-conf/2018-san-francisco/build-scalable-apis-using-graphql-and-serverless
+https://hero35.com/jamstack-conf/2018-san-francisco/building-books-from-static-sites
+https://hero35.com/jamstack-conf/2018-san-francisco/everyone-is-a-developer
+https://hero35.com/jamstack-conf/2018-san-francisco/finding-the-best-home-for-your-data
+https://hero35.com/jamstack-conf/2018-san-francisco/go-go-hugo
+https://hero35.com/jamstack-conf/2018-san-francisco/how-freecodecamp-serves-millions-of-learners-using-the-jamstack
+https://hero35.com/jamstack-conf/2018-san-francisco/how-to-setup-production
+https://hero35.com/jamstack-conf/2018-san-francisco/how-we-talk-about-the-jamstack
+https://hero35.com/jamstack-conf/2018-san-francisco/keynote
+https://hero35.com/jamstack-conf/2018-san-francisco/make-more-pointless-things
+https://hero35.com/jamstack-conf/2018-san-francisco/round-table-discussion
+https://hero35.com/jamstack-conf/2018-san-francisco/supercharged-pwas-with-preact-cli
+https://hero35.com/jamstack-conf/2018-san-francisco/syntax-fm-live
+https://hero35.com/jamstack-conf/2018-san-francisco/the-3-types-of-clients-youll-need-to-convince
+https://hero35.com/jamstack-conf/2018-san-francisco/the-all-powerful-front-end-developer
+https://hero35.com/jamstack-conf/2018-san-francisco/turning-design-into-code-the-painless-way
+https://hero35.com/jamstack-conf/2018-san-francisco/what-is-the-jamstack
 https://hero35.com/jamstack-conf/2019-london
 https://hero35.com/jamstack-conf/2019-london/big-bang-redesign-smashing-magazines-relaunch-a-case-study
 https://hero35.com/jamstack-conf/2019-london/build-modern-jamstack-websites-in-minutes
@@ -3758,6 +3816,7 @@ https://hero35.com/topic/bigtest
 https://hero35.com/topic/binary-search
 https://hero35.com/topic/bitcoin
 https://hero35.com/topic/bitrise
+https://hero35.com/topic/blazor
 https://hero35.com/topic/blockchain
 https://hero35.com/topic/bluekit
 https://hero35.com/topic/bluetooth
@@ -3969,6 +4028,7 @@ https://hero35.com/topic/framerx
 https://hero35.com/topic/framework
 https://hero35.com/topic/frameworkds
 https://hero35.com/topic/frameworks
+https://hero35.com/topic/freecodecamp
 https://hero35.com/topic/frontend-application-bundle
 https://hero35.com/topic/frontend-application-bundles
 https://hero35.com/topic/fsm
@@ -4034,6 +4094,7 @@ https://hero35.com/topic/html
 https://hero35.com/topic/html-sketchapp
 https://hero35.com/topic/html5
 https://hero35.com/topic/http
+https://hero35.com/topic/hugo
 https://hero35.com/topic/hydra.js
 https://hero35.com/topic/i18n
 https://hero35.com/topic/ide
@@ -4064,6 +4125,7 @@ https://hero35.com/topic/iterators
 https://hero35.com/topic/jaeger
 https://hero35.com/topic/jaguar
 https://hero35.com/topic/jamstack
+https://hero35.com/topic/jamstack-conf
 https://hero35.com/topic/java
 https://hero35.com/topic/javascript
 https://hero35.com/topic/javascript-proxy
@@ -4178,6 +4240,7 @@ https://hero35.com/topic/open-source
 https://hero35.com/topic/opencomponents
 https://hero35.com/topic/opengl
 https://hero35.com/topic/openid
+https://hero35.com/topic/operational-ui
 https://hero35.com/topic/optimisation
 https://hero35.com/topic/p2p
 https://hero35.com/topic/p5.js
@@ -4206,6 +4269,7 @@ https://hero35.com/topic/postgresql
 https://hero35.com/topic/postgress
 https://hero35.com/topic/pouchdb
 https://hero35.com/topic/preact
+https://hero35.com/topic/preact-cli
 https://hero35.com/topic/presentational-components
 https://hero35.com/topic/presto
 https://hero35.com/topic/prestoui
