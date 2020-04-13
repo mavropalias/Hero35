@@ -55,7 +55,7 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
             <EditionHeader edition={edition} />
           </Grid>
           <Grid item xs={12} md={6}>
-            {edition.talks && edition.talks.length > 0 ? (
+            {edition.talks?.length > 0 ? (
               <EditionTalks edition={edition} />
             ) : (
               <Typography variant="caption" color="textSecondary">
