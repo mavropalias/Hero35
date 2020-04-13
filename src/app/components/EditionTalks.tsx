@@ -25,7 +25,24 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+const getEditionDays = (edition: EventEdition) => {
+  const dates: string[] = [];
+  if (edition) {
+    const dateIterator = new Date(edition.startDate);
+    const endDate = new Date(edition.endDate);
+    while (dateIterator <= endDate) {
+      const dateString = dateIterator.toISOString().slice(0, 10);
+      if (edition.talks.find(talk => talk.date === dateString)) {
+        dates.push(dateString);
+      }
+      dateIterator.setDate(dateIterator.getDate() + 1);
+    }
+  }
+  return dates;
+};
+
 const EditionTalks = ({ edition }: { edition?: EventEdition }) => {
+  const [days, setDays] = useState([]);
   const [selectedDay, setSelectedDay] = useState(edition.startDate);
   const [track, setTrack] = useState(edition.tracks && edition.tracks[0]);
   const [moreContent, setMoreContent] = useState(false);
@@ -38,21 +55,15 @@ const EditionTalks = ({ edition }: { edition?: EventEdition }) => {
         return;
       }
     });
-  });
+  }, []);
 
-  const days = () => {
-    const dates: string[] = [];
-    if (edition) {
-      const dateIterator = new Date(edition.startDate);
-      const endDate = new Date(edition.endDate);
-      while (dateIterator <= endDate) {
-        const dateString = dateIterator.toISOString().slice(0, 10);
-        dates.push(dateString);
-        dateIterator.setDate(dateIterator.getDate() + 1);
-      }
-    }
-    return dates;
-  };
+  useEffect(() => {
+    setDays(getEditionDays(edition));
+  }, []);
+
+  useEffect(() => {
+    days.length > 0 && setSelectedDay(days[0]);
+  }, [days]);
 
   const filteredTalks = () => {
     return edition.talks.filter(talk => {
@@ -70,7 +81,7 @@ const EditionTalks = ({ edition }: { edition?: EventEdition }) => {
     });
   };
 
-  const handleChange = (_: React.ChangeEvent<{}>, newValue: string) => {
+  const onTabChange = (_: React.ChangeEvent<{}>, newValue: string) => {
     setSelectedDay(newValue);
   };
 
@@ -86,17 +97,21 @@ const EditionTalks = ({ edition }: { edition?: EventEdition }) => {
         textColor="primary"
         variant="scrollable"
         scrollButtons="auto"
-        onChange={handleChange}
+        onChange={onTabChange}
       >
-        {days().map((day, index) => (
-          <Tab key={index} label={`Day ${index + 1} talks`} value={day} />
+        {days.map((day, index) => (
+          <Tab
+            key={index}
+            label={days.length > 1 ? `Day ${index + 1} talks` : "Talks"}
+            value={day}
+          />
         ))}
         {moreContent && <Tab label="More content" value="99" />}
       </Tabs>
       {selectedDay !== "99" ? (
         <>
-          <Box marginLeft={2}>
-            {edition.tracks && edition.tracks.length > 0 && (
+          {edition.tracks?.length > 0 && (
+            <Box marginLeft={2}>
               <FormControl margin="normal" style={{ display: "flex" }}>
                 <RadioGroup
                   name="track"
@@ -118,26 +133,9 @@ const EditionTalks = ({ edition }: { edition?: EventEdition }) => {
                   choose one.
                 </FormHelperText>
               </FormControl>
-            )}
-          </Box>
-          {filteredTalks().length > 0 ? (
-            <TalkList talks={filteredTalks()} />
-          ) : (
-            <Box m={3}>
-              <Typography variant="body1" color="textSecondary" paragraph>
-                No talks are available for this day.
-              </Typography>
-              <Typography variant="body1" color="textSecondary" paragraph>
-                This probably means that there were only workshops and other
-                types of events this day.
-              </Typography>
-              <Typography variant="body1" color="textSecondary" paragraph>
-                All non-talk content is available in the{" "}
-                <strong>'more content'</strong> tab (if the event organisers
-                have made it available).
-              </Typography>
             </Box>
           )}
+          <TalkList talks={filteredTalks()} />
         </>
       ) : (
         <TalkAccordion
