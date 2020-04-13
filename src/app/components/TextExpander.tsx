@@ -12,11 +12,13 @@ import { useState } from "react";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     default: {
+      display: "block",
       maxWidth: theme.breakpoints.values.sm,
       maxHeight: "4.5em",
       overflow: "hidden"
     },
     expanded: {
+      display: "block",
       maxWidth: theme.breakpoints.values.sm,
       whiteSpace: "pre-line"
     },
@@ -34,9 +36,9 @@ const TextExpander = ({ text }: { text: string }) => {
 
   return (
     <>
-      <div className={expanded ? classes.expanded : classes.default}>
+      <span className={expanded ? classes.expanded : classes.default}>
         {text}
-      </div>
+      </span>
       {!expanded && (
         <Button
           variant="text"
