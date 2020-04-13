@@ -2,11 +2,8 @@ import Link from "next/link";
 import Router from "next/router";
 import { format, resolve, parse, UrlObject } from "url";
 
-export const prefetch = async (
-  href: UrlObject | string,
-  as: UrlObject | string
-) => {
-  // if  we're running server side do nothing
+const prefetch = async (href: UrlObject | string, as: UrlObject | string) => {
+  // if  we're running server-side do nothing
   if (typeof window === "undefined") return;
 
   const url: string = typeof href !== "string" ? format(href) : href;
@@ -29,7 +26,7 @@ export const prefetch = async (
 
   // if Component exists and has getInitialProps
   // fetch the component props (the component should save it in cache)
-  if (Component && Component.getInitialProps) {
+  if (Component?.getInitialProps) {
     const ctx = { pathname, query, isVirtualCall: true };
     await Component.getInitialProps(ctx);
   }
