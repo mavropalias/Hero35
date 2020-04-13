@@ -49,6 +49,7 @@ const StacksMenu = () => {
 
   const onMenuItemClick = (href, as) => {
     Router.push(href, as);
+    setAnchorEl(null);
   };
 
   return (
