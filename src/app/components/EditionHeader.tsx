@@ -21,6 +21,7 @@ import CATEGORIES from "../constants/categories";
 import { useContext, useState } from "react";
 import { StackContext } from "./context-providers/StackContextProvider";
 import LinkPrefetch from "./LinkPrefetch";
+import TextExpander from "./TextExpander";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,9 +32,6 @@ const useStyles = makeStyles((theme: Theme) =>
       "&:first-child": {
         marginLeft: theme.spacing(1)
       }
-    },
-    description: {
-      whiteSpace: "pre-line"
     },
     distinctiveContainer: {
       zIndex: 2,
@@ -145,8 +143,8 @@ const EditionHeader = ({ edition }: { edition: EventEdition }) => {
       <Box m={4}>
         <Divider variant="middle" />
       </Box>
-      <Typography variant="body1" className={classes.description}>
-        {edition.description}
+      <Typography variant="body1" color="textSecondary">
+        <TextExpander text={edition.description} />
       </Typography>
       <p>
         <Link

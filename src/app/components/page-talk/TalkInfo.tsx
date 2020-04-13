@@ -12,20 +12,12 @@ import { Talk } from "../../schema";
 import { useState } from "react";
 import STACKS from "../../constants/stacks";
 import TalkControls from "../TalkControls";
+import TextExpander from "../TextExpander";
 
 declare const _carbonads: any;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    description: {
-      maxWidth: theme.breakpoints.values.sm,
-      maxHeight: "4.5em",
-      overflow: "hidden"
-    },
-    descriptionExpanded: {
-      maxWidth: theme.breakpoints.values.sm,
-      whiteSpace: "pre-line"
-    },
     info: {
       display: "block",
       margin: theme.spacing(0, 2),
@@ -127,28 +119,13 @@ const TalkInfo = ({
         </LinkPrefetch>
       </Typography>
       {(talk.description || talk.curationDescription) && (
-        <>
-          <Typography
-            variant="body1"
-            color="textSecondary"
-            className={
-              expandDescription
-                ? classes.descriptionExpanded
-                : classes.description
+        <Typography variant="body1" color="textSecondary">
+          <TextExpander
+            text={
+              talk.description || (!talk.isCurated && talk.curationDescription)
             }
-          >
-            {talk.description || (!talk.isCurated && talk.curationDescription)}
-          </Typography>
-          {talk.description && !expandDescription && (
-            <Button
-              variant="text"
-              className={classes.showMoreDescription}
-              onClick={_ => setExpandDescription(true)}
-            >
-              Show more
-            </Button>
-          )}
-        </>
+          />
+        </Typography>
       )}
       <Box marginTop={2}>
         <TalkTags tags={talkPrimaryTopics} size="large" />
