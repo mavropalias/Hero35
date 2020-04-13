@@ -103,10 +103,17 @@ interface QueryProps {
 YearPage.getInitialProps = async (ctx: NextPageContext) => {
   const { yearid: year, stack } = (ctx.query as unknown) as QueryProps;
   const stackid = stack ? CATEGORIES.find(cat => cat.slug === stack).id : null;
-  const editions = await Database.getEditionsByYear(year, stackid);
-  const justAddedEditions = await Database.getJustAddedEditions(stackid);
-  const recentEditions = await Database.getRecentEditions(stackid);
-  const upcomingEditions = await Database.getUpcomingEditions(stackid);
+  const [
+    editions,
+    justAddedEditions,
+    recentEditions,
+    upcomingEditions
+  ] = await Promise.all([
+    Database.getEditionsByYear(year, stackid),
+    Database.getJustAddedEditions(stackid),
+    Database.getRecentEditions(stackid),
+    Database.getUpcomingEditions(stackid)
+  ]);
   return {
     year,
     editions,
