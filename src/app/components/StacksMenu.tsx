@@ -11,8 +11,8 @@ import {
 } from "@material-ui/core";
 import { ArrowDropDown as StacksButtonIcon } from "@material-ui/icons/";
 import { useState } from "react";
-import LinkPrefetch from "./LinkPrefetch";
 import STACKS from "../constants/stacks";
+import Router from "next/router";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,12 +39,16 @@ const StacksMenu = () => {
   const classes = useStyles({});
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const onMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const onMenuClose = () => {
     setAnchorEl(null);
+  };
+
+  const onMenuItemClick = (href, as) => {
+    Router.push(href, as);
   };
 
   return (
@@ -54,7 +58,7 @@ const StacksMenu = () => {
         aria-haspopup="true"
         variant="contained"
         color="default"
-        onClick={handleClick}
+        onClick={onMenuOpen}
         className={classes.stacksButton}
         endIcon={<StacksButtonIcon />}
       >
@@ -66,7 +70,7 @@ const StacksMenu = () => {
         keepMounted
         getContentAnchorEl={null}
         open={Boolean(anchorEl)}
-        onClose={handleClose}
+        onClose={onMenuClose}
         transitionDuration={{ enter: 200, exit: 0 }}
         anchorOrigin={{
           vertical: "bottom",
@@ -78,23 +82,21 @@ const StacksMenu = () => {
         }}
       >
         {STACKS.filter(stack => stack.featured === true).map(stack => (
-          <LinkPrefetch
-            href={`/topic/[topicid]`}
-            as={`/topic/${stack.slug}`}
-            passHref
+          <MenuItem
             key={stack.slug}
+            onClick={_ =>
+              onMenuItemClick(`/topic/[topicid]`, `/topic/${stack.slug}`)
+            }
           >
-            <MenuItem>
-              <ListItemIcon>
-                <img
-                  src={`/stacks/${stack.slug}.svg`}
-                  className={classes.stackIcon}
-                  alt=""
-                />
-              </ListItemIcon>
-              <ListItemText primary={stack.label} />
-            </MenuItem>
-          </LinkPrefetch>
+            <ListItemIcon>
+              <img
+                src={`/stacks/${stack.slug}.svg`}
+                className={classes.stackIcon}
+                alt=""
+              />
+            </ListItemIcon>
+            <ListItemText primary={stack.label} />
+          </MenuItem>
         ))}
       </Menu>
     </div>
