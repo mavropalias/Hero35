@@ -21,7 +21,7 @@ const PageSavedTalks = observer(() => {
   return (
     <Layout title="Saved talks">
       <Container className={classes.container}>
-        {!userStore.isSignedIn ? <SignIn /> : <SavedTalks />}
+        {userStore.isSignedIn && <SavedTalks />}
       </Container>
     </Layout>
   );
