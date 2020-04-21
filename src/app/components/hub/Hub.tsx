@@ -24,7 +24,7 @@ const Hub = observer(
     const { userStore } = useStores();
     return (
       <>
-        {content.coverTalks[0] && (
+        {content.coverTalks?.[0] && (
           <TalkCover
             talk={content.coverTalks[0]}
             logo={logo}
@@ -40,21 +40,21 @@ const Hub = observer(
               editions={content.editions}
             />
           )}
-          {content.talkGroups.slice(0, 1).map(group => (
+          {content.talkGroups?.slice(0, 1).map(group => (
             <HubSection key={group.title} content={group} />
           ))}
           {!userStore.isSignedIn && <Welcome />}
-          {content.talkGroups.slice(1, 2).map(group => (
+          {content.talkGroups?.slice(1, 2).map(group => (
             <HubSection key={group.title} content={group} />
           ))}
-          {content.coverTalks.length > 1 && (
+          {content.coverTalks?.length > 1 && (
             <Box marginBottom={8} component="section">
               <HubInterstitialTalk talk={content.coverTalks[1]} color={color} />
             </Box>
           )}
           <HubRepeat
-            talkGroups={content.talkGroups.slice(2)}
-            coverTalks={content.coverTalks.slice(2)}
+            talkGroups={content.talkGroups?.slice(2)}
+            coverTalks={content.coverTalks?.slice(2)}
             color={color}
           />
         </main>
@@ -67,7 +67,7 @@ const SavedTalks = observer(() => {
   const { userStore } = useStores();
   return (
     <>
-      {userStore.isSignedIn && userStore.savedTalks.length > 0 && (
+      {userStore.isSignedIn && userStore.savedTalks?.length > 0 && (
         <section>
           <Box marginBottom={8}>
             <HubTalkGroup
@@ -95,7 +95,7 @@ const HubRepeat = ({
   const renderContent = () => {
     let content = [];
     let coverTalkIndex = 0;
-    for (let i = 0; i < talkGroups.length; i = i + 3) {
+    for (let i = 0; i < talkGroups?.length; i = i + 3) {
       const coverTalkIndexCopy = coverTalkIndex;
       content.push(
         <TrackVisibility partialVisibility once offset={900} key={i}>
