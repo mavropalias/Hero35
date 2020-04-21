@@ -4,7 +4,6 @@ import {
   makeStyles,
   createStyles,
   Theme,
-  Typography,
   Container,
   Grid
 } from "@material-ui/core";
@@ -28,7 +27,6 @@ interface Props {
 
 const EditionDetails: NextPage<Props> = ({ edition }) => {
   const classes = useStyles({});
-
   const breadcrumbs = [
     {
       path: edition.eventId,
@@ -38,7 +36,7 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
       title: edition.title
     }
   ];
-
+  const hasTalks = edition.talks?.length > 0;
   return (
     <Layout
       title={`${edition.eventTitle} ${edition.title}`}
@@ -51,18 +49,14 @@ const EditionDetails: NextPage<Props> = ({ edition }) => {
       <Breadcrumbs items={breadcrumbs} />
       <Container className={classes.container}>
         <Grid container spacing={4}>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={hasTalks ? 6 : 12}>
             <EditionHeader edition={edition} />
           </Grid>
-          <Grid item xs={12} md={6}>
-            {edition.talks?.length > 0 ? (
+          {hasTalks && (
+            <Grid item xs={12} md={6}>
               <EditionTalks edition={edition} />
-            ) : (
-              <Typography variant="caption" color="textSecondary">
-                No talks have been added to this event, yet.
-              </Typography>
-            )}
-          </Grid>
+            </Grid>
+          )}
         </Grid>
       </Container>
     </Layout>

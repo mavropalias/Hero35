@@ -18,7 +18,7 @@ import {
   Payment as TicketIcon
 } from "@material-ui/icons";
 import CATEGORIES from "../constants/categories";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { StackContext } from "./context-providers/StackContextProvider";
 import LinkPrefetch from "./LinkPrefetch";
 import TextExpander from "./TextExpander";
@@ -49,6 +49,10 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: 25,
       height: 0,
       pointerEvents: "none"
+    },
+    highlightsContainerCompact: {
+      position: "relative",
+      height: theme.spacing(18)
     },
     logo: {
       maxWidth: "50%",
@@ -95,6 +99,9 @@ const EditionHeader = ({ edition }: { edition: EventEdition }) => {
     const editionDate = new Date(edition.startDate);
     if (editionDate.getTime() > currentDate.getTime()) return true;
     else return false;
+  };
+  const hasTalks = (): boolean => {
+    return edition.talks?.length > 0;
   };
   const shortDate = (date: string) => {
     const startDate = new Date(date);
@@ -155,19 +162,36 @@ const EditionHeader = ({ edition }: { edition: EventEdition }) => {
       <Box m={4}>
         <Divider variant="middle" />
       </Box>
-      <Typography variant="body1" color="textSecondary">
-        <TextExpander text={edition.description} />
-      </Typography>
-      <p>
-        <Link
-          href={`${edition.website}?ref=hero35`}
-          color="textSecondary"
-          target="_blank"
-          variant="body2"
-        >
-          Official website <LinkIcon className={classes.externalLinkIcon} />
-        </Link>
-      </p>
+      <Box display="flex" justifyContent="center">
+        <div>
+          <Typography variant="body1" color="textSecondary">
+            <TextExpander text={edition.description} />
+          </Typography>
+          <p>
+            <Link
+              href={`${edition.website}?ref=hero35`}
+              color="textSecondary"
+              target="_blank"
+              variant="body2"
+            >
+              Official website <LinkIcon className={classes.externalLinkIcon} />
+            </Link>
+          </p>
+        </div>
+      </Box>
+      {!hasTalks() && (
+        <>
+          <Box m={4}>
+            <Divider variant="middle" />
+          </Box>
+          <Box display="flex" justifyContent="center">
+            <Typography variant="body1" color="textSecondary">
+              Event talks will be added here, shortly after they become
+              available.
+            </Typography>
+          </Box>
+        </>
+      )}
     </header>
   );
 };
@@ -196,25 +220,27 @@ const EditionDistinctive = () => {
 const EditionHighlights = ({ edition }: { edition: EventEdition }) => {
   const classes = useStyles({});
   const [error, setError] = useState(false);
-  const highlightVideos = () => {
+  const [videos, setVideos] = useState([]);
+  useEffect(() => {
     // Find highlight videos (type '9'), starting with the shortest one
     // We need at least two items in the return array, so that YouTube can loop
     // through them.
-    if (!edition.talks) return [];
-    let highlightVideos = edition.talks
-      .filter(talk => talk.type === "9")
-      .sort((a, b) => (a.times.totalMins > b.times.totalMins ? 1 : -1))
-      .map(talk => talk.youtubeId);
-    if (highlightVideos.length === 0) {
-      highlightVideos = [
-        edition.talks[0].youtubeId,
-        edition.talks[1].youtubeId
-      ];
-    } else if (highlightVideos.length === 1) {
-      highlightVideos.push(highlightVideos[0]);
+    if (edition.talks) {
+      let highlightVideos = edition.talks
+        .filter(talk => talk.type === "9")
+        .sort((a, b) => (a.times.totalMins > b.times.totalMins ? 1 : -1))
+        .map(talk => talk.youtubeId);
+      if (highlightVideos.length === 0) {
+        highlightVideos = [
+          edition.talks[0].youtubeId,
+          edition.talks[1].youtubeId
+        ];
+      } else if (highlightVideos.length === 1) {
+        highlightVideos.push(highlightVideos[0]);
+      }
+      setVideos(highlightVideos);
     }
-    return highlightVideos;
-  };
+  }, [edition]);
   const youtubeOptions = {
     height: "100%",
     width: "100%",
@@ -227,22 +253,26 @@ const EditionHighlights = ({ edition }: { edition: EventEdition }) => {
       loop: 1,
       controls: 0,
       disablekb: 1,
-      playlist: highlightVideos()
-        .slice(1)
-        .join(",")
+      playlist: videos.slice(1).join(",")
     }
   };
   const onYoutubeError = event => {
     setError(true);
   };
   return (
-    <section className={classes.highlightsContainer}>
+    <section
+      className={
+        videos.length > 0
+          ? classes.highlightsContainer
+          : classes.highlightsContainerCompact
+      }
+    >
       <div className={classes.shadow}></div>
       {edition.isDistinctive && <EditionDistinctive />}
       {edition.talks && !error && (
         <YouTube
           className={classes.youtubePlayer}
-          videoId={highlightVideos()[0]}
+          videoId={videos[0]}
           opts={youtubeOptions}
           onError={onYoutubeError}
         />
