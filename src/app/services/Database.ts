@@ -174,16 +174,6 @@ class Database {
     return ((await res.json()) as unknown) as HubContent;
   };
 
-  getHubContent = async (
-    topic: string,
-    stack?: string
-  ): Promise<HubContent> => {
-    const res = await fetch(
-      `${API}hubContent?topic=${topic}&stack=${stack || ""}`
-    );
-    return ((await res.json()) as unknown) as HubContent;
-  };
-
   // User API ------------------------------------------------------------------
 
   getUser = async () => {

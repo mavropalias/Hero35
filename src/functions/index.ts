@@ -761,57 +761,6 @@ const unsaveTalkInUserProfile = functions.https.onRequest(async (req, res) => {
   response.json(user.data());
 });
 
-/**
- * Get hub content
- */
-const hubContent = functions.https.onRequest(async (req, res) => {
-  const [request, response, approved] = util.middleware(req, res, true);
-  if (!approved) return response.send();
-  const stack = request.query.stack;
-  const topic = request.query.topic;
-  const [
-    curatedTalks,
-    hotTalks,
-    risingTalks,
-    topTalks,
-    newTalks,
-    recentlyAddedTalks,
-    keynotes,
-    lightningTalks,
-    panels,
-    qaSessions,
-    workshops,
-    interviews
-  ] = await Promise.all([
-    getTalksCurated(topic, stack),
-    getTalksHot(topic, stack),
-    getTalksRising(topic, stack),
-    getTalksTop(topic, stack),
-    getTalksNew(topic, stack),
-    getTalksByFilter(topic, stack, TALK_TYPE.Talk),
-    getTalksByFilter(topic, stack, TALK_TYPE.Keynote),
-    getTalksByFilter(topic, stack, TALK_TYPE.LightningTalk),
-    getTalksByFilter(topic, stack, TALK_TYPE.Panel),
-    getTalksByFilter(topic, stack, TALK_TYPE.QA),
-    getTalksByFilter(topic, stack, TALK_TYPE.Workshop),
-    getTalksByFilter(topic, stack, TALK_TYPE.Interview)
-  ]);
-  response.json({
-    curatedTalks,
-    hotTalks,
-    risingTalks,
-    topTalks,
-    newTalks,
-    recentlyAddedTalks,
-    keynotes,
-    lightningTalks,
-    panels,
-    qaSessions,
-    workshops,
-    interviews
-  });
-});
-
 const heroes = {
   curatedTalks,
   dislikeTalk,
@@ -822,7 +771,6 @@ const heroes = {
   filterTalks,
   getUser,
   heroTalks,
-  hubContent,
   hub,
   indexTalk,
   justAddedEditions,
