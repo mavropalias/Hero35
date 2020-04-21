@@ -3,12 +3,15 @@ import {
   Typography,
   makeStyles,
   Theme,
-  createStyles
+  createStyles,
+  Link
 } from "@material-ui/core";
+import { ChevronRight as TitleLinkIcon } from "@material-ui/icons";
 import { TalkGroupContents, TalkBasic } from "../schema";
 import TalkCardBasic from "./TalkCardBasic";
 import STACKS from "../constants/stacks";
 import { useEffect, useState } from "react";
+import LinkPrefetch from "./LinkPrefetch";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -57,7 +60,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     groupTitle: {
       display: "flex",
-      alignItems: "center",
       margin: theme.spacing(0, 0, 2, 2),
       color: theme.palette.text.secondary,
       lineHeight: 1,
@@ -83,7 +85,6 @@ interface Props {
 const TalkGroup = ({ talkGroup }: Props) => {
   const [isWindows, setIsWindows] = useState(false);
   const classes = useStyles({});
-
   useEffect(() => {
     if (typeof window !== "undefined") {
       const platform = window.navigator.platform;
@@ -94,28 +95,9 @@ const TalkGroup = ({ talkGroup }: Props) => {
       }
     }
   }, [typeof window !== "undefined"]);
-
-  const groupIcon = (slug?: string) => {
-    const iconSlug = STACKS.find(stack => stack.slug === slug)?.slug;
-    if (iconSlug) {
-      return (
-        <img
-          src={`/stacks/${iconSlug}.svg`}
-          className={classes.groupIcon}
-          alt=""
-        />
-      );
-    } else {
-      return <></>;
-    }
-  };
-
   return (
     <>
-      <Typography className={classes.groupTitle} variant="h4">
-        {groupIcon(talkGroup.slug)}
-        {talkGroup.title}
-      </Typography>
+      <TalkGroupTitle title={talkGroup.title} slug={talkGroup.slug} />
       <Grid
         container
         spacing={1}
@@ -133,6 +115,45 @@ const TalkGroup = ({ talkGroup }: Props) => {
           </Grid>
         ))}
       </Grid>
+    </>
+  );
+};
+
+const TalkGroupTitle = ({ title, slug }: { title: string; slug: string }) => {
+  const classes = useStyles({});
+  const [topic, setTopic] = useState("");
+  useEffect(() => {
+    setTopic(STACKS.find(stack => stack.slug === slug)?.slug);
+  }, [slug]);
+  const groupIcon = () => {
+    if (topic) {
+      return (
+        <img
+          src={`/stacks/${topic}.svg`}
+          className={classes.groupIcon}
+          alt=""
+        />
+      );
+    } else {
+      return <></>;
+    }
+  };
+  return (
+    <>
+      {topic ? (
+        <LinkPrefetch href="/topic/[topicid]" as={`/topic/${topic}`} passHref>
+          <Link color="inherit" className={classes.groupTitle} variant="h4">
+            {groupIcon()}
+            {title}
+            <TitleLinkIcon fontSize="large" />
+          </Link>
+        </LinkPrefetch>
+      ) : (
+        <Typography className={classes.groupTitle} variant="h4">
+          {groupIcon()}
+          {title}
+        </Typography>
+      )}
     </>
   );
 };
