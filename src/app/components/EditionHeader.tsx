@@ -104,6 +104,20 @@ const EditionHeader = ({ edition }: { edition: EventEdition }) => {
     };
     return startDate.toLocaleDateString(undefined, options);
   };
+  const editionDates = () => {
+    if (edition.startDate !== edition.endDate) {
+      return `${shortDate(edition.startDate)} - ${shortDate(edition.endDate)}`;
+    } else {
+      return shortDate(edition.startDate);
+    }
+  };
+  const editionLocation = () => {
+    if (edition.state || edition.city) {
+      return `${edition.state || edition.city}, ${edition.country}`;
+    } else {
+      return edition.country;
+    }
+  };
   return (
     <header>
       <EditionHighlights edition={edition} />
@@ -112,9 +126,7 @@ const EditionHeader = ({ edition }: { edition: EventEdition }) => {
           {edition.eventTitle} {edition.title}
         </Typography>
         <Typography variant="subtitle1">
-          {shortDate(edition.startDate)}&nbsp;&ndash;&nbsp;
-          {shortDate(edition.endDate)} | {edition.state || edition.city},{" "}
-          {edition.country}
+          {editionDates()} | {editionLocation()}
         </Typography>
         <LinkPrefetch href="/[eventid]" as={`/${edition.eventId}`} passHref>
           <Link color="primary">View all {edition.eventTitle} events</Link>
