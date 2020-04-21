@@ -119,7 +119,6 @@ const TalkCoverText = observer(
             href={`/[eventid]/[editionid]/[talkslug]`}
             as={`/${talk.eventId}/${talk.editionId}/${talk.slug}`}
             passHref
-            prefetch
           >
             <Link
               variant="h2"

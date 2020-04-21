@@ -148,7 +148,7 @@ const Header = observer(() => {
         <Box flexGrow="1" paddingRight={2}>
           <SearchInput className={classes.search} />
         </Box>
-        <LinkPrefetch href={ROUTES.HOME} as={ROUTES.HOME} prefetch>
+        <LinkPrefetch href={ROUTES.HOME} as={ROUTES.HOME}>
           <a className={`${classes.headerLink}`}>
             <img src="/HERO35-logo.svg" className={classes.logo} />
           </a>
@@ -173,17 +173,13 @@ const Header = observer(() => {
     >
       <Hidden implementation="css" smDown>
         <Toolbar className={classes.toolbar} disableGutters={true}>
-          <LinkPrefetch href={ROUTES.HOME} as={ROUTES.HOME} prefetch>
+          <LinkPrefetch href={ROUTES.HOME} as={ROUTES.HOME}>
             <a className={`${classes.headerLink}`}>
               <img src="/HERO35-logo.svg" className={classes.logo} />
             </a>
           </LinkPrefetch>
           {userStore.isSignedIn ? (
-            <LinkPrefetch
-              href={ROUTES.SAVED_TALKS}
-              as={ROUTES.SAVED_TALKS}
-              prefetch
-            >
+            <LinkPrefetch href={ROUTES.SAVED_TALKS} as={ROUTES.SAVED_TALKS}>
               <a className={classes.headerLink}>Saved</a>
             </LinkPrefetch>
           ) : (
@@ -194,7 +190,7 @@ const Header = observer(() => {
               Sign up / in
             </Button>
           )}
-          <LinkPrefetch href="/top100" as="/top100" prefetch>
+          <LinkPrefetch href="/top100" as="/top100">
             <a
               className={`${classes.headerLink} ${false &&
                 classes.headerLinkActive}`}
@@ -202,7 +198,7 @@ const Header = observer(() => {
               Top 100
             </a>
           </LinkPrefetch>
-          <LinkPrefetch href="/year/[yearid]" as="/year/2020" prefetch>
+          <LinkPrefetch href="/year/[yearid]" as="/year/2020">
             <a
               className={`${classes.headerLink} ${false &&
                 classes.headerLinkActive}`}
@@ -217,7 +213,7 @@ const Header = observer(() => {
           <Divider orientation="vertical" className={classes.headerDivider} />
           <SearchInput className={classes.search} />
           {userStore.isSignedIn && (
-            <LinkPrefetch href={ROUTES.ACCOUNT} as={ROUTES.ACCOUNT} prefetch>
+            <LinkPrefetch href={ROUTES.ACCOUNT} as={ROUTES.ACCOUNT}>
               <a className={classes.userPicture}>
                 {userStore.picture ? (
                   <Avatar alt={userStore.name} src={userStore.picture} />
@@ -255,7 +251,6 @@ const FeaturedStacks = () => {
             href="/topic/[topicid]"
             as={`/topic/${stack.slug}`}
             key={stack.slug}
-            prefetch
           >
             <a
               title={stack.label}
