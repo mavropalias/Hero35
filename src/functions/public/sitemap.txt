@@ -44,6 +44,23 @@ https://hero35.com/byteconf-react/2018/insights-from-building-rich-animated-expe
 https://hero35.com/byteconf-react/2018/learning-backwards-learning-cs-through-the-lens-of-react
 https://hero35.com/byteconf-react/2018/reactive-programming-the-solution-to-javascript-fatigue
 https://hero35.com/byteconf-react/2018/testing-big-with-bigtest-in-react
+https://hero35.com/byteconf-react/2020
+https://hero35.com/byteconf-react/2020/a-gentle-introduction-to-building-serverless-apps
+https://hero35.com/byteconf-react/2020/adding-the-accessibility-in-your-react-apps
+https://hero35.com/byteconf-react/2020/beginner-pitfalls-my-personal-journey
+https://hero35.com/byteconf-react/2020/building-scalable-web-applications-with-react
+https://hero35.com/byteconf-react/2020/concurrent-react-from-scratch
+https://hero35.com/byteconf-react/2020/creating-a-component-library
+https://hero35.com/byteconf-react/2020/from-create-react-app-to-create-any-app
+https://hero35.com/byteconf-react/2020/lifting-state-up-is-killing-your-app
+https://hero35.com/byteconf-react/2020/performant-by-default-react-web-apps-in-2020
+https://hero35.com/byteconf-react/2020/power-up-gatsby-with-auth
+https://hero35.com/byteconf-react/2020/put-down-the-javascript-level-up-with-the-fundamentals-of-web-development
+https://hero35.com/byteconf-react/2020/react-bandersnatch-experiment-getting-close-to-a-real-framework
+https://hero35.com/byteconf-react/2020/simply-react
+https://hero35.com/byteconf-react/2020/speeding-up-your-gatsby-app-in-a-day
+https://hero35.com/byteconf-react/2020/static-sites-and-serverless-functions-a-dynamic-combination
+https://hero35.com/byteconf-react/2020/those-who-can-do-should-also-teach
 https://hero35.com/chain-react
 https://hero35.com/chain-react/2017
 https://hero35.com/chain-react/2017/breaking-down-bridging-in-react-native
@@ -377,6 +394,7 @@ https://hero35.com/hero/Adrianna%20Valdivia
 https://hero35.com/hero/Adrien%20Thiery
 https://hero35.com/hero/Aga%20Naplocha
 https://hero35.com/hero/Agnieszka%20Naplocha
+https://hero35.com/hero/Ahmad%20Awais
 https://hero35.com/hero/Ahmed%20El%20Gabri
 https://hero35.com/hero/Akshat%20Paul
 https://hero35.com/hero/Alan%20Mendelevich
@@ -410,6 +428,7 @@ https://hero35.com/hero/Alexandra%20Sunderland
 https://hero35.com/hero/Alexandre%20Magno%20Teles%20Zimerer
 https://hero35.com/hero/Alexandru%20Buliga
 https://hero35.com/hero/Alexey%20Kureev
+https://hero35.com/hero/Ali%20Spittel
 https://hero35.com/hero/Allison%20McMillan
 https://hero35.com/hero/Almero%20Steyn
 https://hero35.com/hero/Alon%20Valadji
@@ -443,6 +462,7 @@ https://hero35.com/hero/Andrew%20Imm
 https://hero35.com/hero/Andrew%20Kaiser
 https://hero35.com/hero/Andrew%20Rota
 https://hero35.com/hero/Andrew%20Sprouse
+https://hero35.com/hero/Andrey%20Goncharov
 https://hero35.com/hero/Andrey%20Melikho
 https://hero35.com/hero/Andrey%20Okonetchnikov
 https://hero35.com/hero/Andrey%20Sitnik
@@ -601,7 +621,9 @@ https://hero35.com/hero/Christoph%20Pojer
 https://hero35.com/hero/Christopher%20Chedeau
 https://hero35.com/hero/Christopher%20Dro
 https://hero35.com/hero/Christopher%20Laughlin
+https://hero35.com/hero/Claudia%20Bressi
 https://hero35.com/hero/Claudia%20Hern%C3%A1ndez
+https://hero35.com/hero/Colby%20Fayock
 https://hero35.com/hero/Cole%20Turner
 https://hero35.com/hero/Cole%20Voss
 https://hero35.com/hero/Colin%20Megill
@@ -732,6 +754,7 @@ https://hero35.com/hero/Ella%20van%20Durpe
 https://hero35.com/hero/Elle%20Haproff
 https://hero35.com/hero/Ellen%20Chisa
 https://hero35.com/hero/Eloy%20Dur%C3%A1n
+https://hero35.com/hero/Ema%20Suriano
 https://hero35.com/hero/Emanuele%20Rampichini
 https://hero35.com/hero/Emil%20Sj%C3%B6lander
 https://hero35.com/hero/Emily%20Janzer
@@ -841,6 +864,8 @@ https://hero35.com/hero/H%C3%A5kon%20Gullord%20Krogh
 https://hero35.com/hero/Hakim%20El%20Hattab
 https://hero35.com/hero/Hannes%20Obweger
 https://hero35.com/hero/Hans-Christian%20Otto
+https://hero35.com/hero/Haoui%20Hamza
+https://hero35.com/hero/Haris%20Mahmood
 https://hero35.com/hero/Harry%20Roberts
 https://hero35.com/hero/Harry%20Tormey
 https://hero35.com/hero/Harry%20Wolff
@@ -852,6 +877,7 @@ https://hero35.com/hero/Helena%20Milosevic
 https://hero35.com/hero/Henning%20Muszynski
 https://hero35.com/hero/Henri%20Helvetica
 https://hero35.com/hero/Henrique%20Alves
+https://hero35.com/hero/Henrique%20Cavalieri
 https://hero35.com/hero/Henrique%20M%C3%BCller
 https://hero35.com/hero/Henry%20Zhu
 https://hero35.com/hero/Hernan%20Magrini
@@ -909,6 +935,7 @@ https://hero35.com/hero/James%20K.%20Nelson
 https://hero35.com/hero/James%20Kyle
 https://hero35.com/hero/James%20Long
 https://hero35.com/hero/James%20McNamara
+https://hero35.com/hero/James%20Quick
 https://hero35.com/hero/Jameyel%20%22J.%20Dash%22%20Johnson
 https://hero35.com/hero/Jamie%20Barton
 https://hero35.com/hero/Jamie%20Maria%20Schouren
@@ -930,6 +957,7 @@ https://hero35.com/hero/Jarrod%20Overson
 https://hero35.com/hero/Jasdeep%20Lalli
 https://hero35.com/hero/Jason%20Bonta
 https://hero35.com/hero/Jason%20Clark
+https://hero35.com/hero/Jason%20Jean
 https://hero35.com/hero/Jason%20Lengstorf
 https://hero35.com/hero/Jason%20Pamental
 https://hero35.com/hero/Jason%20Straughan
@@ -984,6 +1012,7 @@ https://hero35.com/hero/Joel%20Denning
 https://hero35.com/hero/Johan%20Gorter
 https://hero35.com/hero/Johannes%20Bertens
 https://hero35.com/hero/Johannes%20Ewald
+https://hero35.com/hero/Johannes%20Goslar
 https://hero35.com/hero/Johannes%20Schickling
 https://hero35.com/hero/Johannes%20Stein
 https://hero35.com/hero/John%20K.%20Paul
@@ -1054,6 +1083,7 @@ https://hero35.com/hero/Katarzyna%20Jastrz%C4%99bska
 https://hero35.com/hero/Kate%20Beard
 https://hero35.com/hero/Kate%20Hudson
 https://hero35.com/hero/Kate%20Wardin
+https://hero35.com/hero/Kathryn%20Grayson%20Nanz
 https://hero35.com/hero/Katie%20Koschland
 https://hero35.com/hero/Katie%20Sylor
 https://hero35.com/hero/Kaylie%20Kwon
@@ -1061,6 +1091,7 @@ https://hero35.com/hero/Keerthana%20Krishnan
 https://hero35.com/hero/Keith%20Poplawski
 https://hero35.com/hero/Ken%20Wheeler
 https://hero35.com/hero/Kent%20C%20%20Dodds
+https://hero35.com/hero/Kent%20C.%20%20Dodds
 https://hero35.com/hero/Kent%20C.%20Dodds
 https://hero35.com/hero/Kenza%20Iraki
 https://hero35.com/hero/Kevin%20Aubry
@@ -1069,6 +1100,7 @@ https://hero35.com/hero/Kevin%20Lacker
 https://hero35.com/hero/Kevin%20Mees
 https://hero35.com/hero/Kevin%20Old
 https://hero35.com/hero/Kevin%20Robinson
+https://hero35.com/hero/Kiki%20Saintonge
 https://hero35.com/hero/Kiley%20Dorton
 https://hero35.com/hero/Kiran%20Abburi
 https://hero35.com/hero/Kitson%20Kelly
@@ -1149,6 +1181,7 @@ https://hero35.com/hero/Lydia%20Hallie
 https://hero35.com/hero/Ma%C3%ABl%20Nison
 https://hero35.com/hero/Maaret%20Pyh%C3%A4j%C3%A4rvi
 https://hero35.com/hero/Maayan%20Glikser
+https://hero35.com/hero/Mahmoud%20Abdelwahab
 https://hero35.com/hero/Maja%20Wichrowska
 https://hero35.com/hero/Majid%20Hajian
 https://hero35.com/hero/Malte%20Ubl
@@ -1201,6 +1234,7 @@ https://hero35.com/hero/Matt%20Busche
 https://hero35.com/hero/Matt%20Crowder
 https://hero35.com/hero/Matt%20Hamil
 https://hero35.com/hero/Matt%20Hargett
+https://hero35.com/hero/Matt%20McClure
 https://hero35.com/hero/Matt%20Perry
 https://hero35.com/hero/Matteo%20Collina
 https://hero35.com/hero/Matthew%20Gerstman
@@ -1259,6 +1293,7 @@ https://hero35.com/hero/Mike%20Armstrong
 https://hero35.com/hero/Mike%20Eastes
 https://hero35.com/hero/Mike%20Glukhovsky
 https://hero35.com/hero/Mike%20Grabowski
+https://hero35.com/hero/Mike%20Hartington
 https://hero35.com/hero/Mike%20Lazer-Walker
 https://hero35.com/hero/Mikhail%20Davydov
 https://hero35.com/hero/Mikhail%20Novikov
@@ -1479,6 +1514,7 @@ https://hero35.com/hero/S%C3%A9bastien%20Picq
 https://hero35.com/hero/SVG%20Filters
 https://hero35.com/hero/Sacha%20Greif
 https://hero35.com/hero/Sachin%20Chopra
+https://hero35.com/hero/Saeed%20Ahmad
 https://hero35.com/hero/Sahebjot%20singh
 https://hero35.com/hero/Sai%20Kishore%20Komanduri
 https://hero35.com/hero/Saif%20Hakim
@@ -1489,12 +1525,14 @@ https://hero35.com/hero/Sam%20Abbassi
 https://hero35.com/hero/Sam%20Bellen
 https://hero35.com/hero/Sam%20Galson
 https://hero35.com/hero/Sam%20Gwilym
+https://hero35.com/hero/Sam%20Julien
 https://hero35.com/hero/Sam%20Wray
 https://hero35.com/hero/Samantha%20Bretous
 https://hero35.com/hero/Samer%20Buna
 https://hero35.com/hero/Samuel%20Agnew
 https://hero35.com/hero/Samuli%20Hakoniemi
 https://hero35.com/hero/Sander%20Hoogendoorn
+https://hero35.com/hero/Sangeetha%20KP
 https://hero35.com/hero/Sanket%20Sahu
 https://hero35.com/hero/Santosh%20Grampurohit
 https://hero35.com/hero/Sara%20Fecadu
@@ -1611,6 +1649,7 @@ https://hero35.com/hero/Tania%20Papazafeiropoulou
 https://hero35.com/hero/Tanmai%20Gopal
 https://hero35.com/hero/Tanner%20Linsley
 https://hero35.com/hero/Tara%20Z.%20Manicsic
+https://hero35.com/hero/Tathagat%20Thapliyal
 https://hero35.com/hero/Taylor%20Fairbank
 https://hero35.com/hero/Taylor%20Gilbert
 https://hero35.com/hero/Taylor%20Ho
@@ -2416,6 +2455,26 @@ https://hero35.com/react-amsterdam/2019/speeding-up-react-ssr
 https://hero35.com/react-amsterdam/2019/strangling-legacy-with-react-native
 https://hero35.com/react-amsterdam/2019/tech-regrets-at-spectrum
 https://hero35.com/react-amsterdam/2019/the-graphql-developer-experience
+https://hero35.com/react-amsterdam/2020-online
+https://hero35.com/react-amsterdam/2020-online/aha-programming
+https://hero35.com/react-amsterdam/2020-online/bringing-ionic-and-web-components-to-react
+https://hero35.com/react-amsterdam/2020-online/build-virtual-reality-with-react
+https://hero35.com/react-amsterdam/2020-online/building-apps-for-both-windows-and-mac
+https://hero35.com/react-amsterdam/2020-online/button-vs-div-whats-the-big-deal-anyway
+https://hero35.com/react-amsterdam/2020-online/controlling-apps-with-your-mind-and-ai
+https://hero35.com/react-amsterdam/2020-online/designing-boardgames-and-how-tech-and-react-can-help
+https://hero35.com/react-amsterdam/2020-online/designing-with-code-in-mind
+https://hero35.com/react-amsterdam/2020-online/end-your-development-nightmares-with-envinfo-and-solidarity
+https://hero35.com/react-amsterdam/2020-online/exploring-react-my-own-way
+https://hero35.com/react-amsterdam/2020-online/go-from-being-skeptical-about-relay-to-falling-in-love-with-it
+https://hero35.com/react-amsterdam/2020-online/going-live-from-your-browser-without-webrtc
+https://hero35.com/react-amsterdam/2020-online/graphql-mesh-query-anything-run-anywhere
+https://hero35.com/react-amsterdam/2020-online/machine-learning-on-the-edge
+https://hero35.com/react-amsterdam/2020-online/nextjs-and-serverless-future
+https://hero35.com/react-amsterdam/2020-online/react-query-its-time-to-break-up-with-your-global-state
+https://hero35.com/react-amsterdam/2020-online/scalable-react-development-for-large-projects
+https://hero35.com/react-amsterdam/2020-online/styles-and-theming-with-restyle-in-react-native
+https://hero35.com/react-amsterdam/2020-online/the-10-is-a-lie-the-complexities-of-releasing-react-native
 https://hero35.com/react-boston
 https://hero35.com/react-boston/2017
 https://hero35.com/react-boston/2017/afternoon-sessions-part-1
@@ -3875,6 +3934,7 @@ https://hero35.com/topic/augimented-reality
 https://hero35.com/topic/augmented-reality
 https://hero35.com/topic/auth0
 https://hero35.com/topic/authentication
+https://hero35.com/topic/auto0
 https://hero35.com/topic/automated-build
 https://hero35.com/topic/automation
 https://hero35.com/topic/aws
@@ -4152,6 +4212,7 @@ https://hero35.com/topic/grahql
 https://hero35.com/topic/graphcool
 https://hero35.com/topic/graphene
 https://hero35.com/topic/graphql
+https://hero35.com/topic/graphql-mesh
 https://hero35.com/topic/graphql-server
 https://hero35.com/topic/graphql-subscriptions
 https://hero35.com/topic/green-field
@@ -4281,6 +4342,7 @@ https://hero35.com/topic/midi
 https://hero35.com/topic/migration
 https://hero35.com/topic/minecraft
 https://hero35.com/topic/ml5
+https://hero35.com/topic/mlkit
 https://hero35.com/topic/mobile
 https://hero35.com/topic/mobile-center
 https://hero35.com/topic/mobservable
@@ -4289,6 +4351,7 @@ https://hero35.com/topic/mobx-state-tree
 https://hero35.com/topic/mocha
 https://hero35.com/topic/modular-synthesis
 https://hero35.com/topic/modules
+https://hero35.com/topic/mongodb
 https://hero35.com/topic/monorepo
 https://hero35.com/topic/music
 https://hero35.com/topic/nativescript
@@ -4316,6 +4379,7 @@ https://hero35.com/topic/npm
 https://hero35.com/topic/nuclide
 https://hero35.com/topic/nuxt
 https://hero35.com/topic/nuxtjs
+https://hero35.com/topic/nx
 https://hero35.com/topic/oauth
 https://hero35.com/topic/observability
 https://hero35.com/topic/observables
@@ -4425,6 +4489,7 @@ https://hero35.com/topic/react-native-web
 https://hero35.com/topic/react-navigation
 https://hero35.com/topic/react-primitives
 https://hero35.com/topic/react-profiler
+https://hero35.com/topic/react-query
 https://hero35.com/topic/react-reconciler
 https://hero35.com/topic/react-redux
 https://hero35.com/topic/react-router
@@ -4480,6 +4545,7 @@ https://hero35.com/topic/reprocessing
 https://hero35.com/topic/responsive-design
 https://hero35.com/topic/rest
 https://hero35.com/topic/restful-react
+https://hero35.com/topic/restyle
 https://hero35.com/topic/rethinkdb
 https://hero35.com/topic/revery
 https://hero35.com/topic/rfid
@@ -4495,6 +4561,7 @@ https://hero35.com/topic/rx
 https://hero35.com/topic/rxjs
 https://hero35.com/topic/sagas
 https://hero35.com/topic/sass
+https://hero35.com/topic/scalability
 https://hero35.com/topic/scale
 https://hero35.com/topic/scaling
 https://hero35.com/topic/scheduling
@@ -4588,6 +4655,7 @@ https://hero35.com/topic/transitions
 https://hero35.com/topic/translation
 https://hero35.com/topic/travis
 https://hero35.com/topic/tree-shaking
+https://hero35.com/topic/trello
 https://hero35.com/topic/tutorial
 https://hero35.com/topic/tv
 https://hero35.com/topic/twitter
@@ -4642,6 +4710,7 @@ https://hero35.com/topic/web-animation-api
 https://hero35.com/topic/web-assembly
 https://hero35.com/topic/web-audio
 https://hero35.com/topic/web-audio-api
+https://hero35.com/topic/web-components
 https://hero35.com/topic/web-fonts
 https://hero35.com/topic/web-midi
 https://hero35.com/topic/web-midi-api
