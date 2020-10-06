@@ -1,5 +1,4 @@
 import Database from "../../services/Database";
-import { Star as BenefitsIcon } from "@material-ui/icons";
 import {
   makeStyles,
   createStyles,
@@ -7,10 +6,22 @@ import {
   Container,
   Button,
   Avatar,
-  Typography,
   Link,
-  Box
+  Box,
+  List,
+  ListSubheader,
+  ListItemIcon,
+  ListItem,
+  ListItemText
 } from "@material-ui/core";
+import {
+  Bookmarks as BookmarksIcon,
+  Email as NewsletterIcon,
+  Event as EventIcon,
+  FormatListNumbered as ChartIcon,
+  Inbox as PastEditionsIcon,
+  Unsubscribe as UnsubscribeIcon
+} from "@material-ui/icons";
 import LinkPrefetch from "../LinkPrefetch";
 import ROUTES from "../../constants/routes";
 import { observer } from "mobx-react-lite";
@@ -25,6 +36,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     container: {
       marginTop: theme.spacing(6)
+    },
+    nested: {
+      paddingLeft: theme.spacing(4)
     }
   })
 );
@@ -36,55 +50,74 @@ const AccountDetails = observer(() => {
   return (
     <Container className={classes.container}>
       <Avatar
-        alt={userStore.name}
+        title={`${userStore.name || ""} ${userStore.email}`}
         src={userStore.picture}
         className={classes.avatar}
       />
-      {userStore.name ? (
-        <>
-          <Typography>{userStore.name}</Typography>
-          <Typography color="textSecondary">{userStore.email}</Typography>
-        </>
-      ) : (
-        <>
-          <Typography>{userStore.email}</Typography>
-        </>
-      )}
       <Box marginTop={4} marginBottom={8}>
-        <Typography variant="subtitle1">
-          <Box display="flex" alignItems="center">
-            <BenefitsIcon />
-            &nbsp; All members have unrestricted access to all site features and
-            our curated newsletter (
+        <List
+          aria-labelledby="account-list-subheader"
+          subheader={
+            <ListSubheader id="account-list-subheader">
+              {userStore.name ? <>{userStore.name}</> : <>{userStore.email}</>}
+            </ListSubheader>
+          }
+        >
+          <LinkPrefetch href={ROUTES.SAVED_TALKS} as={ROUTES.SAVED_TALKS}>
+            <ListItem button component="a">
+              <ListItemIcon>
+                <BookmarksIcon />
+              </ListItemIcon>
+              <ListItemText primary="My saved talks" />
+            </ListItem>
+          </LinkPrefetch>
+          <LinkPrefetch href="/top100" as="/top100">
+            <ListItem button component="a">
+              <ListItemIcon>
+                <ChartIcon />
+              </ListItemIcon>
+              <ListItemText primary="Top 100 talks" />
+            </ListItem>
+          </LinkPrefetch>
+          <LinkPrefetch href="/year/[yearid]" as="/year/2020">
+            <ListItem button component="a">
+              <ListItemIcon>
+                <EventIcon />
+              </ListItemIcon>
+              <ListItemText primary="Conferences" />
+            </ListItem>
+          </LinkPrefetch>
+          <ListItem>
+            <ListItemIcon>
+              <NewsletterIcon />
+            </ListItemIcon>
+            <ListItemText primary="Newsletter" />
+          </ListItem>
+          <List component="div" disablePadding>
             <Link
-              color="textSecondary"
               href="https://us5.campaign-archive.com/home/?u=b0fbb89e314c48595973a85dc&id=ad944bf61c"
               target="_blank"
             >
-              View past newsletters
+              <ListItem button className={classes.nested}>
+                <ListItemIcon>
+                  <PastEditionsIcon />
+                </ListItemIcon>
+                <ListItemText primary="Past editions" />
+              </ListItem>
             </Link>
-            ,&nbsp;
             <Link
-              color="textSecondary"
               href="https://hero35.us5.list-manage.com/unsubscribe?u=b0fbb89e314c48595973a85dc&id=ad944bf61c"
               target="_blank"
             >
-              Unsubscribe
+              <ListItem button className={classes.nested}>
+                <ListItemIcon>
+                  <UnsubscribeIcon />
+                </ListItemIcon>
+                <ListItemText primary="Unsubscribe" />
+              </ListItem>
             </Link>
-            ), during the Alpha.
-          </Box>
-          <Box display="flex" alignItems="center">
-            <BenefitsIcon />
-            &nbsp;&nbsp;
-            <LinkPrefetch
-              href={ROUTES.SAVED_TALKS}
-              as={ROUTES.SAVED_TALKS}
-              passHref
-            >
-              <Link>My saved talks</Link>
-            </LinkPrefetch>
-          </Box>
-        </Typography>
+          </List>
+        </List>
       </Box>
       <Button
         variant="outlined"
