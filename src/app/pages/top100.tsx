@@ -44,7 +44,7 @@ const Top100: NextPage<Props> = observer(({ talks }) => {
           Top 100 talks
         </Typography>
         <Typography variant="subtitle1" color="textSecondary" paragraph>
-          From React/JavaScript/CSS conferences, over the past 365 days. Sorted
+          From React/JavaScript/CSS conferences, over the past 24 months. Sorted
           by number of likes.
         </Typography>
         {userStore.isSignedIn ? (

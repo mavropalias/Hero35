@@ -91,12 +91,16 @@ export const getTalksTop = async (
 };
 
 export const getTalksTopYear = async (): Promise<TalkBasic[]> => {
-  let oneYearAgo: Date = new Date();
-  oneYearAgo.setFullYear(new Date().getFullYear() - 1);
+  let twoYearsAgo: Date = new Date();
+  twoYearsAgo.setFullYear(new Date().getFullYear() - 2);
   let query = db.collectionGroup("talks");
   const docSnap = await query
     .where("hasLikes", "==", true)
-    .where("dateTimestamp", ">", admin.firestore.Timestamp.fromDate(oneYearAgo))
+    .where(
+      "dateTimestamp",
+      ">",
+      admin.firestore.Timestamp.fromDate(twoYearsAgo)
+    )
     .get();
   const talks: Talk[] = util
     .querySnapshotToTalkArray(docSnap)
