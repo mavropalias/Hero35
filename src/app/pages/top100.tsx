@@ -1,21 +1,20 @@
+import {
+  Box,
+  Container,
+  createStyles,
+  Link,
+  makeStyles,
+  Paper,
+  Theme,
+  Typography
+} from "@material-ui/core";
+import { observer } from "mobx-react-lite";
+import { NextPage, NextPageContext } from "next";
 import Layout from "../components/Layout";
+import TalkChart from "../components/TalkChart";
 import { TalkBasic } from "../schema";
 import Database from "../services/Database";
-import { NextPage, NextPageContext } from "next";
-import TalkChart from "../components/TalkChart";
-import {
-  makeStyles,
-  Theme,
-  createStyles,
-  Container,
-  Typography,
-  Paper,
-  Box,
-  Button,
-  Link
-} from "@material-ui/core";
 import { useStores } from "../stores/useStores";
-import { observer } from "mobx-react-lite";
 
 interface Props {
   talks: TalkBasic[];
@@ -44,7 +43,7 @@ const Top100: NextPage<Props> = observer(({ talks }) => {
           Top 100 talks
         </Typography>
         <Typography variant="subtitle1" color="textSecondary" paragraph>
-          From React/JavaScript/CSS conferences, over the past 24 months. Sorted
+          From React/JavaScript/CSS conferences, over the past 4 years. Sorted
           by number of likes.
         </Typography>
         {userStore.isSignedIn ? (

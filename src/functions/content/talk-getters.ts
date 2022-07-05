@@ -1,5 +1,5 @@
 import { db } from "../admin";
-import { TalkBasic, Talk, TALK_TYPE } from "../schema";
+import { Talk, TalkBasic, TALK_TYPE } from "../schema";
 import util from "../util/util";
 import admin = require("firebase-admin");
 
@@ -92,7 +92,7 @@ export const getTalksTop = async (
 
 export const getTalksTopYear = async (): Promise<TalkBasic[]> => {
   let twoYearsAgo: Date = new Date();
-  twoYearsAgo.setFullYear(new Date().getFullYear() - 2);
+  twoYearsAgo.setFullYear(new Date().getFullYear() - 4);
   let query = db.collectionGroup("talks");
   const docSnap = await query
     .where("hasLikes", "==", true)
